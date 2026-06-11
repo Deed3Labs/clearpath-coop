@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>/* set theme before paint (no flash). 3 modes; default by time of day */(function(){try{var T=['dark','dusk','light'],t=localStorage.getItem('cp-theme');if(!t||T.indexOf(t)<0){var h=new Date().getHours();t=(h>=9&&h<17)?'light':((h>=6&&h<9)||(h>=17&&h<20))?'dusk':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>/* set theme before paint (no flash). 3 modes; default by time of day */(function(){try{var T=['light','dusk','dark'],t=localStorage.getItem('cp-theme');if(!t||T.indexOf(t)<0){var h=new Date().getHours();t=(h>=9&&h<17)?'light':((h>=6&&h<9)||(h>=17&&h<20))?'dusk':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <title>ClearPath — Own Where You Live</title>
 <meta name="description" content="ClearPath is a member-owned housing cooperative that turns the rent you already pay into a path to debt-free homeownership — no mortgage, no bank, no landlord keeping the gains. Now enrolling in South Redlands, CA.">
 <meta name="theme-color" content="#0A0A0A">
@@ -67,15 +67,15 @@
   --lt-bg:#15161A;--lt-ink:#F4F4F2;--lt-ink-2:rgba(244,244,242,.6);--lt-ink-3:rgba(244,244,242,.34);--lt-border:rgba(244,244,242,.12);--lt-border-hi:rgba(244,244,242,.2);
 }
 [data-theme="dusk"]{
-  /* golden hour — warm twilight between dark and light */
-  --bg:#171009;--bg-2:#1c140c;--bg-card:#221910;--bg-raise:#2b2014;
-  --border:rgba(248,231,206,.10);--border-hi:rgba(248,231,206,.19);
-  --ink:#F8ECDB;--ink-2:rgba(248,236,219,.62);--ink-3:rgba(248,236,219,.36);--ink-4:rgba(248,236,219,.13);
-  --accent:#E9A867;--on-accent:#1a1108;
-  --ghost:rgba(248,231,206,.04);
-  --nav-bg:rgba(23,16,9,.82);
-  --logo-ink:#d8c09a;--logo-border:rgba(248,231,206,.32);
-  --lt-bg:#F1E6D4;--lt-ink:#1a1108;--lt-ink-2:rgba(26,17,8,.6);--lt-ink-3:rgba(26,17,8,.34);--lt-border:rgba(26,17,8,.12);--lt-border-hi:rgba(26,17,8,.2);
+  /* golden hour — a warm cream daylight, sits between light and dark */
+  --bg:#ECE0C8;--bg-2:#E5D7BC;--bg-card:#F4ECDA;--bg-raise:#FBF4E7;
+  --border:rgba(58,38,14,.13);--border-hi:rgba(58,38,14,.24);
+  --ink:#2B1E0E;--ink-2:rgba(43,30,14,.62);--ink-3:rgba(43,30,14,.36);--ink-4:rgba(43,30,14,.12);
+  --accent:#B5612A;--on-accent:#FBF4E7;
+  --ghost:rgba(58,38,14,.04);
+  --nav-bg:rgba(236,224,200,.86);
+  --logo-ink:#2B1E0E;--logo-border:#2B1E0E;
+  --lt-bg:#241810;--lt-ink:#F4E8D6;--lt-ink-2:rgba(244,232,214,.6);--lt-ink-3:rgba(244,232,214,.34);--lt-border:rgba(244,232,214,.12);--lt-border-hi:rgba(244,232,214,.2);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden;scroll-behavior:smooth}
@@ -665,7 +665,7 @@ setTimeout(()=>{
 
 /* theme cycle — dark · dusk · light. Initial theme is set by the inline
    <head> script (time-of-day default) to avoid a flash; this just cycles. */
-const THEMES=['dark','dusk','light'];
+const THEMES=['light','dusk','dark'];
 document.getElementById('tbtn').addEventListener('click',()=>{
   const n=THEMES[(THEMES.indexOf(H.getAttribute('data-theme'))+1)%THEMES.length];
   H.setAttribute('data-theme',n);localStorage.setItem('cp-theme',n);
@@ -717,7 +717,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){nlinks
   const hr=document.getElementById('hero');
   hr.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mo.x=e.clientX-r.left;mo.y=e.clientY-r.top},{passive:true});
   hr.addEventListener('mouseleave',()=>{mo.x=-9e9;mo.y=-9e9});
-  function col(){var t=H.getAttribute('data-theme');return t==='light'?'10,10,10':t==='dusk'?'233,168,103':'244,244,242'}
+  function col(){var t=H.getAttribute('data-theme');return t==='light'?'10,10,10':t==='dusk'?'140,92,46':'244,244,242'}
   (function fr(){
     ctx.clearRect(0,0,W,H2);const rgb=col();
     ctx.strokeStyle=`rgba(${rgb},.04)`;ctx.lineWidth=.5;
