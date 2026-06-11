@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clear Capital — The Institutional Engine of ClearPath</title>
+<meta name="description" content="Clear Capital is the institutional acquisition arm of the ClearPath cooperative. Contribute property in a tax-deferred 721-style exchange and receive liquid, yield-bearing equity — without selling or triggering capital gains.">
+<meta name="theme-color" content="#0A0A0A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Clear Capital — Your deed becomes someone's first home.">
+<meta property="og:description" content="The institutional acquisition arm of ClearPath. Contribute property, earn yield, fuel the path to debt-free homeownership.">
+<meta property="og:site_name" content="ClearPath Co-op">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Clear Capital — Your deed becomes someone's first home.">
+<meta name="twitter:description" content="Contribute property in a tax-deferred exchange and receive liquid, yield-bearing cooperative equity.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+/* ═══════ BRAND FONTS (self-hosted) ═══════ */
+/* Coolvetica kept in assets/fonts/ if needed later — display currently uses Bebas Neue */
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-Medium.otf') format('opentype');font-weight:500;font-display:swap}
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-Semibold.otf') format('opentype');font-weight:600;font-display:swap}
+@font-face{font-family:'General Sans';src:url('assets/fonts/GeneralSans-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+
+/* ═══════ TOKENS (grayscale) ═══════ */
+:root{
+  --disp:'Bebas Neue','Arial Narrow',sans-serif;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'General Sans',system-ui,sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0A0A0A;--bg-2:#0d0d0d;--bg-card:#131313;--bg-raise:#1a1a1a;
+  --border:rgba(244,244,242,.08);--border-hi:rgba(244,244,242,.16);
+  --ink:#F4F4F2;--ink-2:rgba(244,244,242,.60);--ink-3:rgba(244,244,242,.34);--ink-4:rgba(244,244,242,.13);
+  --accent:#F4F4F2;            /* monochrome "accent" = pure white */
+  --on-accent:#0A0A0A;
+  --ghost:rgba(244,244,242,.03);
+  --nav-bg:rgba(10,10,10,.82);
+  --logo-ink:#c4c4c0;--logo-border:rgba(244,244,242,.34);
+  --lt-bg:#EFEEEA;--lt-ink:#0A0A0A;--lt-ink-2:rgba(10,10,10,.58);--lt-ink-3:rgba(10,10,10,.32);--lt-border:rgba(10,10,10,.12);--lt-border-hi:rgba(10,10,10,.2);
+}
+[data-theme="light"]{
+  --bg:#EFEEEA;--bg-2:#E9E8E3;--bg-card:#F7F7F4;--bg-raise:#FFFFFF;
+  --border:rgba(10,10,10,.1);--border-hi:rgba(10,10,10,.2);
+  --ink:#0A0A0A;--ink-2:rgba(10,10,10,.6);--ink-3:rgba(10,10,10,.34);--ink-4:rgba(10,10,10,.12);
+  --accent:#0A0A0A;--on-accent:#F4F4F2;
+  --ghost:rgba(10,10,10,.03);
+  --nav-bg:rgba(239,238,234,.85);
+  --logo-ink:#0A0A0A;--logo-border:#0A0A0A;
+  --lt-bg:#15161A;--lt-ink:#F4F4F2;--lt-ink-2:rgba(244,244,242,.6);--lt-ink-3:rgba(244,244,242,.34);--lt-border:rgba(244,244,242,.12);--lt-border-hi:rgba(244,244,242,.2);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;overflow-x:hidden;cursor:none;padding-bottom:36px;transition:background .4s,color .4s;-webkit-font-smoothing:antialiased}
+@media(hover:none){body{cursor:auto}#cur,#cur-ring{display:none!important}}
+::selection{background:var(--ink);color:var(--bg)}
+img{max-width:100%}
+.disp{font-family:var(--disp);font-weight:400;letter-spacing:.012em}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400}
+
+/* ═══════ CURSOR ═══════ */
+#cur{position:fixed;width:7px;height:7px;background:var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .22s,height .22s}
+#cur-ring{position:fixed;width:34px;height:34px;border:1px solid var(--ink-3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
+body.hov #cur{width:0;height:0}
+body.hov #cur-ring{width:58px;height:58px;border-color:var(--ink)}
+
+/* ═══════ BOTTOM TICKER ═══════ */
+#ticker{position:fixed;bottom:0;left:0;right:0;z-index:600;height:36px;background:var(--ink);overflow:hidden;display:flex;align-items:center}
+.tk{display:flex;white-space:nowrap;animation:slide 42s linear infinite;will-change:transform}
+.tk span{font-family:var(--sans);font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bg);padding:0 1.25rem}
+.tk .sep{opacity:.4;padding:0!important}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════ NAV ═══════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.25rem clamp(1.1rem,4vw,3rem);transition:background .35s,box-shadow .35s,padding .35s}
+nav.solid{background:var(--nav-bg);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 1px 0 var(--border);padding-top:.85rem;padding-bottom:.85rem}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink);flex-shrink:0}
+.logo img{width:40px;height:40px;display:block;border-radius:11px;border:1.5px solid var(--logo-border);object-fit:cover;transition:border-color .35s}
+.logo .wm{font-family:var(--disp);font-size:1.6rem;letter-spacing:.05em;line-height:1;padding-top:4px}
+.logo .wm b{font-weight:400;opacity:.55}
+.nav-links{display:flex;align-items:center;gap:2.2rem;margin-left:auto}
+.nl{position:relative;font-size:.74rem;font-weight:500;letter-spacing:.02em;color:var(--ink-2);text-decoration:none;transition:color .2s;padding:.3rem 0}
+.nl::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--ink);transition:width .3s}
+.nl:hover{color:var(--ink)}.nl:hover::after,.nl.active::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:.9rem;flex-shrink:0}
+#tbtn{width:38px;height:38px;border:1px solid var(--border-hi);border-radius:50%;background:transparent;display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .2s,background .2s}
+#tbtn:hover{border-color:var(--ink)}
+#tbtn svg{width:15px;height:15px;stroke:var(--ink)}
+.i-moon{display:block}.i-sun{display:none}
+[data-theme="light"] .i-moon{display:none}[data-theme="light"] .i-sun{display:block}
+.njoin{background:var(--accent);color:var(--on-accent);padding:.72rem 1.35rem;font-weight:600;font-size:.74rem;letter-spacing:.01em;text-decoration:none;border-radius:8px;transition:transform .2s,box-shadow .2s,opacity .2s;white-space:nowrap}
+.njoin:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
+.menu-btn{display:none;width:40px;height:40px;border:1px solid var(--border-hi);border-radius:9px;background:transparent;cursor:none;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.menu-btn span{width:17px;height:1.6px;background:var(--ink);transition:transform .3s,opacity .3s;display:block}
+body.menu-open .menu-btn span:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
+body.menu-open .menu-btn span:nth-child(2){opacity:0}
+body.menu-open .menu-btn span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
+
+/* mobile menu overlay */
+.mobile-menu{position:fixed;inset:0;z-index:480;background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:2rem clamp(1.5rem,8vw,4rem);gap:.4rem;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .4s,transform .4s,visibility .4s}
+body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
+.mobile-menu a{font-family:var(--disp);font-size:clamp(2.2rem,11vw,3.4rem);color:var(--ink);text-decoration:none;padding:.45rem 0;border-bottom:1px solid var(--border);transition:padding-left .25s,color .2s;display:flex;align-items:center;justify-content:space-between}
+.mobile-menu a:hover{padding-left:.6rem}
+.mobile-menu a span{font-family:var(--sans);font-size:.7rem;color:var(--ink-3);letter-spacing:.1em}
+.mobile-menu .mm-cta{margin-top:1.9rem;background:var(--accent);color:var(--on-accent);font-family:var(--sans);font-size:.95rem;font-weight:600;letter-spacing:0;border:none;border-radius:11px;padding:1.1rem 1.5rem;justify-content:center}
+.mobile-menu .mm-cta:hover{padding-left:1.5rem}
+
+/* ═══════ PROGRESS ═══════ */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ink);z-index:700}
+
+/* ═══════ BUTTONS (chunky) ═══════ */
+.btn{position:relative;display:inline-flex;align-items:center;gap:.65rem;padding:1.05rem 2rem;font-family:var(--sans);font-weight:600;font-size:.82rem;letter-spacing:.01em;text-decoration:none;border-radius:10px;cursor:none;white-space:nowrap;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s,color .25s,border-color .25s,box-shadow .25s}
+.btn svg{transition:transform .3s}
+.btn:hover svg{transform:translateX(4px)}
+.btn-fill{background:var(--accent);color:var(--on-accent)}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(0,0,0,.6)}
+.btn-line{border:1.5px solid var(--border-hi);color:var(--ink);background:transparent}
+.btn-line:hover{border-color:var(--ink);background:var(--ink);color:var(--bg);transform:translateY(-2px)}
+/* buttons placed on light sections */
+.inv .btn-fill{background:var(--lt-ink);color:var(--lt-bg)}
+.inv .btn-line{border-color:var(--lt-border-hi);color:var(--lt-ink)}
+.inv .btn-line:hover{background:var(--lt-ink);color:var(--lt-bg);border-color:var(--lt-ink)}
+
+/* ═══════ SHARED ═══════ */
+.wrap{max-width:1320px;margin:0 auto}
+.sect{padding:clamp(4.5rem,9vw,8.5rem) clamp(1.1rem,4vw,3rem)}
+.eye{font-family:var(--sans);font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.5rem}
+.eye::before{content:'';width:26px;height:1.5px;background:var(--ink-3)}
+.h2{font-family:var(--disp);font-size:clamp(2.9rem,6.4vw,6rem);line-height:.9;letter-spacing:.014em;color:var(--ink);text-wrap:balance}
+.h2 .serif{font-size:.94em;letter-spacing:0;color:var(--ink-3);text-transform:none}
+.lead{font-size:1rem;color:var(--ink-2);line-height:1.8;font-weight:400;max-width:480px}
+
+/* ═══════ HERO ═══════ */
+#hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden}
+#hcanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-top{position:relative;z-index:2;padding:5.5rem clamp(1.1rem,4vw,3rem) 0}
+.eyebrow{font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);display:inline-flex;align-items:center;gap:.6rem;overflow:hidden}
+.eyebrow span{display:inline-block}
+.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--ink)}
+.hero-mid{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;padding:1.4rem max(4vw,min(22vw,300px)) 1.4rem clamp(1.1rem,4vw,3rem)}
+.hero-h1{font-family:var(--disp);font-size:clamp(3.4rem,10.2vw,9.8rem);line-height:.85;letter-spacing:.018em;color:var(--ink);display:flex;flex-direction:column}
+.hl-line{display:block;overflow:hidden}
+.hl-line>span{display:block}
+.hl-mid{font-family:var(--serif);font-style:italic;font-size:clamp(2.4rem,6.4vw,6.7rem);color:var(--ink-3);line-height:1.04;letter-spacing:0;text-align:center;width:100%;padding:.03em 0}
+.hl-line-mid{margin:-.08em 0 .12em}
+.hl-bot>span{color:var(--ink)}
+.hero-meta{position:absolute;right:clamp(1.1rem,4vw,3rem);top:34%;z-index:2;text-align:right;max-width:200px}
+.hm-lbl{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.45rem;line-height:1.5}
+.hm-n{font-family:var(--disp);font-size:clamp(1.6rem,3vw,3rem);color:var(--ink-4);line-height:1}
+.hm-n .live{color:var(--ink)}
+.hm-sub{font-size:.56rem;color:var(--ink-4);margin-top:.35rem;line-height:1.5}
+.hero-bot{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem;padding:2rem clamp(1.1rem,4vw,3rem) 1.5rem;border-top:1px solid var(--border)}
+.hero-sub{font-size:.98rem;color:var(--ink-2);line-height:1.75;max-width:420px}
+.hero-btns{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+/* centered scroll cue */
+.scroll-cue{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:0 0 1.4rem;color:var(--ink-3)}
+.sc-txt{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase}
+.sc-bar{width:1px;height:40px;background:var(--border-hi);position:relative;overflow:hidden}
+.sc-bar::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:46%;background:var(--ink);animation:drip 2.1s 1.4s infinite ease-in-out}
+
+/* ═══════ MARQUEE BAND ═══════ */
+.mband{background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.95rem 0;overflow:hidden}
+.minr{display:flex;white-space:nowrap;animation:slide 30s linear infinite}
+.minr span{font-family:var(--disp);font-size:1.1rem;letter-spacing:.02em;color:var(--ink-3);padding:0 1.3rem}
+.minr .dot{color:var(--ink-4)}
+
+/* ═══════ PROBLEM ═══════ */
+#problem{background:var(--bg)}
+.prob-head{display:grid;grid-template-columns:2.3fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:end}
+.prob-head .h2{max-width:14em}
+.prob-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.4rem,3vw,2.5rem);margin-top:clamp(3rem,6vw,5rem);padding:clamp(2.4rem,4vw,3.4rem) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.pstat-n{font-family:var(--disp);font-size:clamp(3rem,5.2vw,5rem);line-height:.82;color:var(--ink)}
+.pstat-n .u{font-family:var(--serif);font-style:italic;font-size:.42em;color:var(--ink-3);letter-spacing:0}
+.pstat-l{font-size:.82rem;color:var(--ink-2);line-height:1.55;margin-top:.85rem;max-width:210px}
+.pull{font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,3.4vw,2.9rem);color:var(--ink-3);line-height:1.35;max-width:880px;margin-top:clamp(3rem,6vw,5rem)}
+.pull em{color:var(--ink);font-style:italic}
+
+/* ═══════ HOW (steps) ═══════ */
+/* HOW — full-bleed sharp steps + faded vertical watermark */
+#how{background:var(--bg-2);position:relative;overflow:hidden;padding:clamp(4.5rem,9vw,8.5rem) 0}
+.how-watermark{position:absolute;left:0;top:50%;transform:translate(-24%,-50%) rotate(180deg);writing-mode:vertical-rl;font-family:var(--disp);font-size:clamp(9rem,24vw,23rem);line-height:.78;letter-spacing:.04em;color:var(--ink-4);opacity:.4;pointer-events:none;user-select:none;z-index:0}
+.how-head{max-width:1320px;margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem);position:relative;z-index:1}
+.how-intro{max-width:680px}
+.how-intro .lead{max-width:600px;margin-top:1.5rem}
+.steps-list{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);margin-top:clamp(3rem,6vw,5rem);position:relative;z-index:1}
+.step{padding:2.4rem 1.7rem 2.6rem;border-right:1px solid var(--border);position:relative;overflow:hidden;min-height:252px;display:flex;flex-direction:column;transition:background .3s}
+.step:last-child{border-right:none}
+.step:hover{background:var(--ghost)}
+.step-index{font-family:var(--disp);font-size:4.6rem;line-height:1;letter-spacing:.02em;color:var(--ink-4);transition:color .3s}
+.step:hover .step-index{color:var(--ink-3)}
+.step-title{font-family:var(--serif);font-style:normal;font-size:1.22rem;color:var(--ink);margin:.7rem 0 .65rem;line-height:1.3}
+.step-body{font-size:.83rem;color:var(--ink-2);line-height:1.7;flex:1}
+.step-bar{height:2px;background:var(--border);position:absolute;bottom:0;left:0;width:0;transition:width .6s cubic-bezier(.16,1,.3,1)}
+.step.on .step-bar,.step:hover .step-bar{width:100%;background:var(--ink)}
+
+/* ═══════ ECOSYSTEM (cards, softened) ═══════ */
+/* ECOSYSTEM — full-bleed drag-scroll, transparent cards */
+#products{background:var(--bg);overflow:hidden;padding:clamp(4.5rem,9vw,8.5rem) 0}
+.prod-head{max-width:1320px;margin:0 auto;padding:0 clamp(1.1rem,4vw,3rem)}
+.prod-foot{max-width:1320px;margin:0 auto;padding:1.8rem clamp(1.1rem,4vw,3rem) 0}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.ph .lead{max-width:300px;padding-bottom:.3rem}
+.products-scroll{display:flex;gap:1.5px;overflow-x:auto;scrollbar-width:none;cursor:grab;padding:0 16vw 0 clamp(1.1rem,4vw,3rem);margin-top:clamp(2.5rem,5vw,3.5rem);scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.products-scroll::-webkit-scrollbar{display:none}
+.products-scroll:active{cursor:grabbing}
+.product-item{flex-shrink:0;width:clamp(300px,33vw,418px);scroll-snap-align:start;padding:2.4rem 2.2rem;position:relative;overflow:hidden;background:transparent;border:1px solid var(--border);min-height:340px;display:flex;flex-direction:column;text-decoration:none;transition:border-color .3s,background .3s}
+.product-item:hover{border-color:var(--border-hi);background:var(--bg-card)}
+.product-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+.product-item:hover::before{transform:scaleX(1)}
+.product-num{font-family:var(--disp);font-size:5rem;line-height:1;letter-spacing:.02em;color:var(--ink-4);margin-bottom:.3rem;transition:color .3s}
+.product-item:hover .product-num{color:var(--ink-3)}
+.product-tag{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--border-hi);padding:.28rem .7rem;border-radius:100px;display:inline-block;align-self:flex-start;margin-bottom:1rem;transition:background .3s,color .3s,border-color .3s}
+.product-item:hover .product-tag{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.product-name{font-family:var(--disp);font-size:2.2rem;letter-spacing:.045em;color:var(--ink);margin:auto 0 .6rem;line-height:1}
+.product-desc{font-size:.83rem;color:var(--ink-2);line-height:1.7}
+.product-cta{display:inline-flex;align-items:center;gap:.45rem;margin-top:1.1rem;font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.product-cta svg{transition:transform .3s}
+.product-item:hover .product-cta svg{transform:translateX(4px)}
+.product-featured{background:var(--ink);border-color:var(--ink)}
+.product-featured .product-name{color:var(--bg)}
+.product-featured .product-num{color:var(--bg);opacity:.14}
+.product-featured .product-desc{color:var(--bg);opacity:.62}
+.product-featured .product-tag{color:var(--bg);border-color:var(--bg);opacity:.7;background:transparent}
+.product-featured:hover{background:var(--ink);border-color:var(--ink)}
+.product-featured::before{background:var(--bg)}
+.product-featured:hover .product-tag{background:transparent;color:var(--bg);border-color:var(--bg)}
+.scroll-hint-strip{display:flex;align-items:center;gap:1.1rem}
+.scroll-hint-line{flex:1;height:1px;background:var(--border)}
+.scroll-hint-text{font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+
+/* ═══════ MEMBERSHIP ═══════ */
+#tracks{background:var(--bg-2)}
+.trk-hdr{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.trk-hdr .lead{max-width:280px;padding-bottom:.3rem}
+/* MEMBERSHIP — modular comparison grid */
+.comp{border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.comp-hdr,.crow,.ccta{display:grid;grid-template-columns:210px 1fr 1fr}
+.comp-hdr{border-bottom:1px solid var(--border)}
+.chblank{border-right:1px solid var(--border)}
+.cplan{padding:2rem 1.9rem;border-right:1px solid var(--border)}
+.cplan:last-child{border-right:none}
+.cplan.ac,.cv.ac,.cctac.ac{background:var(--bg-raise)}
+.cplan-lbl{font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.7rem;display:flex;align-items:center;gap:.55rem}
+.cbadge{font-size:.5rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:var(--bg);padding:.2rem .5rem;border-radius:100px}
+.cplan-p{font-family:var(--disp);font-size:clamp(2.6rem,4.6vw,4rem);line-height:.88;letter-spacing:.01em;color:var(--ink)}
+.cplan-per{font-size:.78rem;color:var(--ink-2);margin-top:.35rem}
+.crow,.ccta{border-top:1px solid var(--border)}
+.crk{padding:1.15rem 1.9rem;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border-right:1px solid var(--border);line-height:1.4}
+.cv{padding:1.15rem 1.9rem;font-size:.92rem;color:var(--ink-2);border-right:1px solid var(--border);line-height:1.45}
+.cv:last-child{border-right:none}
+.cv.ac{color:var(--ink)}
+.cv .hi{color:var(--ink);font-weight:600}
+.cv small{opacity:.55;margin-left:.35rem;font-size:.86em}
+.cctab{border-right:1px solid var(--border)}
+.cctac{padding:1.5rem 1.9rem;border-right:1px solid var(--border)}
+.cctac:last-child{border-right:none}
+.cctac .btn{width:100%;justify-content:center}
+
+/* ═══════ CLEAR CAPITAL (light section) ═══════ */
+#capital{background:var(--lt-bg);color:var(--lt-ink)}
+.cap-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center}
+.cap-eye{font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-ink-2);display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.5rem}
+.cap-eye::before{content:'';width:26px;height:1.5px;background:var(--lt-ink-3)}
+.cap-h2{font-family:var(--disp);font-size:clamp(2.9rem,6vw,6rem);line-height:.9;letter-spacing:.014em;color:var(--lt-ink);margin-bottom:1.5rem;text-wrap:balance}
+.cap-h2 .serif{font-family:var(--serif);font-style:italic;color:var(--lt-ink-3);font-size:.94em;letter-spacing:0}
+.cap-body{font-size:1rem;color:var(--lt-ink-2);line-height:1.8;max-width:480px;margin-bottom:2rem}
+.cap-stats{display:flex;flex-direction:column}
+.cap-stat{padding:1.7rem 0;border-bottom:1px solid var(--lt-border)}
+.cap-stat:first-child{border-top:1px solid var(--lt-border)}
+.cap-stat-n{font-family:var(--disp);font-size:clamp(2rem,3.6vw,3.2rem);line-height:.9;color:var(--lt-ink)}
+.cap-stat-n .u{font-family:var(--serif);font-style:italic;font-size:.5em;color:var(--lt-ink-2)}
+.cap-stat-l{font-size:.84rem;color:var(--lt-ink-2);line-height:1.5;margin-top:.45rem}
+
+/* ═══════ CTA ═══════ */
+#cta{background:var(--bg);position:relative;overflow:hidden}
+.cta-ghost{position:absolute;font-family:var(--disp);font-size:clamp(10rem,26vw,28rem);line-height:.82;color:var(--ink-4);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;text-align:center;z-index:0;opacity:.5}
+.ctai{position:relative;z-index:2;max-width:880px}
+.cta-h2{font-family:var(--disp);font-size:clamp(3.2rem,9vw,9.2rem);line-height:.88;letter-spacing:.014em;color:var(--ink);margin:1.4rem 0 2.4rem;text-wrap:balance}
+.cta-h2 .dim{color:var(--ink-3)}
+.cta-h2 .serif{font-size:.94em;letter-spacing:0;color:var(--ink-3);text-transform:none;position:relative;top:-.09em}
+.cta-form{display:flex;max-width:520px;border:1.5px solid var(--border-hi);border-radius:12px;overflow:hidden;margin-bottom:1rem}
+.cta-inp{flex:1;background:transparent;border:none;padding:1.05rem 1.2rem;color:var(--ink);font-size:.92rem;font-family:var(--sans);outline:none}
+.cta-inp::placeholder{color:var(--ink-3)}.cta-inp:focus{background:var(--ghost)}
+.cta-sub{background:var(--accent);color:var(--on-accent);border:none;padding:1.05rem 1.7rem;font-weight:600;font-size:.8rem;letter-spacing:.01em;cursor:none;transition:opacity .2s;white-space:nowrap;flex-shrink:0;font-family:var(--sans)}
+.cta-sub:hover{opacity:.85}
+.cta-fine{font-size:.74rem;color:var(--ink-3);line-height:1.65;max-width:460px}
+
+/* ═══════ FOOTER ═══════ */
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3rem,6vw,4.5rem) clamp(1.1rem,4vw,3rem) 3rem}
+.foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+.foot-brand .logo{margin-bottom:1.1rem}
+.foot-tag{font-size:.84rem;color:var(--ink-2);line-height:1.7;max-width:290px}
+.foot-col h4{font-size:.62rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:1.2rem}
+.foot-col a,.foot-col span{display:block;font-size:.86rem;color:var(--ink-2);text-decoration:none;margin-bottom:.7rem;transition:color .2s;line-height:1.4}
+.foot-col a:hover{color:var(--ink)}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;padding-top:1.8rem;flex-wrap:wrap;gap:1rem}
+.foot-copy{font-size:.72rem;color:var(--ink-3);line-height:1.6;max-width:620px}
+.foot-phase{font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+
+/* ═══════ REVEAL ═══════ */
+.rev{opacity:0;transform:translateY(26px)}
+
+/* ═══════ KEYFRAMES ═══════ */
+@keyframes drip{0%{top:-100%}80%{opacity:1}100%{top:200%;opacity:0}}
+
+/* ═══════ RESPONSIVE ═══════ */
+@media(max-width:900px){
+  .nav-links{display:none}
+  .menu-btn{display:flex}
+  .prob-head{grid-template-columns:1fr;align-items:start;gap:1.6rem}
+  .prob-stats{grid-template-columns:1fr 1fr;gap:2rem 1.5rem}
+  .steps-list{grid-template-columns:1fr 1fr}
+  .step:nth-child(2n){border-right:none}
+  .step:nth-child(1),.step:nth-child(2){border-bottom:1px solid var(--border)}
+  .cap-grid{grid-template-columns:1fr;gap:2.5rem}
+  .comp-hdr,.crow,.ccta{grid-template-columns:148px 1fr 1fr}
+  .cplan,.cv,.cctac{padding-left:1.3rem;padding-right:1.3rem}
+  .crk{padding-left:1.3rem;padding-right:1rem;font-size:.58rem}
+  .foot-top{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:640px){
+  body{padding-bottom:32px}
+  #ticker{height:32px}
+  .njoin{display:none}
+  .hero-meta{display:none}
+  .hero-h1{font-size:clamp(3.6rem,15.5vw,6.4rem)}
+  .hl-mid{font-size:clamp(2.3rem,9.6vw,4rem)}
+  .hero-mid{padding-right:clamp(1.1rem,4vw,3rem)}
+  .hero-bot{grid-template-columns:1fr;gap:1.5rem}
+  .hero-btns{justify-content:flex-start}
+  .hero-btns .btn{flex:1;justify-content:center}
+  .steps-list{grid-template-columns:1fr}
+  .step{border-right:none;border-bottom:1px solid var(--border)}
+  .step:last-child{border-bottom:none}
+  .how-watermark{display:none}
+  .foot-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .comp-hdr,.crow,.ccta{grid-template-columns:74px 1fr 1fr}
+  .cplan{padding:1.3rem .85rem}
+  .cplan-p{font-size:2.1rem}
+  .cplan-lbl{font-size:.54rem;flex-wrap:wrap;gap:.35rem}
+  .cbadge{display:none}
+  .crk{padding:.85rem .7rem;font-size:.5rem;letter-spacing:.05em}
+  .cv{padding:.85rem .8rem;font-size:.78rem}
+  .cv small{display:block;margin-left:0}
+  .cctac{padding:1rem .5rem}
+  .cctac .btn{padding:.8rem .4rem;font-size:.64rem;letter-spacing:0}
+}
+@media(max-width:430px){
+  .foot-top{grid-template-columns:1fr}
+  .prob-stats{grid-template-columns:1fr 1fr}
+}
+/* ═══════ CLEAR CAPITAL specifics ═══════ */
+.wm-cap{font-family:var(--sans);font-size:.58rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--border-hi);padding:.2rem .5rem;border-radius:6px;margin-left:.15rem;align-self:center}
+.str-hdr{margin-bottom:clamp(2.4rem,5vw,3.4rem)}
+.str-hdr .lead{margin-top:1.3rem;max-width:620px}
+.who-hdr{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.who-hdr .lead{max-width:280px;padding-bottom:.3rem}
+/* card grids (sharp, soft outer radius) */
+.cap-grid-3,.cap-grid-2{border:1px solid var(--border);border-radius:14px;overflow:hidden;display:grid}
+.cap-grid-3{grid-template-columns:repeat(3,1fr)}
+.cap-grid-2{grid-template-columns:1fr 1fr}
+.cap-card{padding:2.4rem 2rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:288px;transition:background .3s}
+.cap-card:hover{background:var(--ghost)}
+.cap-grid-3 .cap-card:nth-child(3n){border-right:none}
+.cap-grid-2 .cap-card:nth-child(2n){border-right:none}
+.cap-grid-3 .cap-card:nth-last-child(-n+1){border-bottom:none}
+.cap-grid-2 .cap-card:nth-last-child(-n+2){border-bottom:none}
+.cap-card-n{font-family:var(--disp);font-size:3.4rem;line-height:1;letter-spacing:.03em;color:var(--ink-4);margin-bottom:.4rem;transition:color .3s}
+.cap-card:hover .cap-card-n{color:var(--ink-3)}
+.cap-card-icon{font-size:1.8rem;line-height:1;margin-bottom:1.1rem}
+.cap-card-tag{font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--border-hi);padding:.28rem .7rem;border-radius:100px;align-self:flex-start;margin-bottom:1rem}
+.cap-card-h3{font-family:var(--serif);font-size:1.18rem;color:var(--ink);margin-bottom:.6rem;line-height:1.3}
+.cap-card-title{font-family:var(--disp);font-size:1.7rem;letter-spacing:.035em;color:var(--ink);margin-bottom:.65rem;line-height:1}
+.cap-card-p{font-size:.83rem;color:var(--ink-2);line-height:1.7}
+.cap-card-list{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+.cap-card-list li{font-size:.79rem;color:var(--ink-2);line-height:1.5;display:flex;gap:.6rem;align-items:flex-start}
+.cap-card-list li::before{content:'→';color:var(--ink-3);flex-shrink:0}
+.cap-card-bar{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--ink);transition:width .5s cubic-bezier(.16,1,.3,1)}
+.cap-card:hover .cap-card-bar{width:100%}
+/* smart trust modular grid */
+.trust{margin-top:1.1rem;border:1px solid var(--border);border-radius:14px;overflow:hidden;display:grid;grid-template-columns:1.1fr 2fr}
+.trust-l{padding:clamp(2rem,3vw,2.8rem) 2rem;border-right:1px solid var(--border)}
+.trust-h3{font-family:var(--disp);font-size:clamp(1.9rem,3.2vw,2.9rem);line-height:.95;letter-spacing:.01em;color:var(--ink);margin:.7rem 0 .7rem}
+.trust-p{font-size:.82rem;color:var(--ink-2);line-height:1.7}
+.trust-r{display:grid;grid-template-columns:1fr 1fr}
+.trust-cell{padding:1.9rem 1.7rem;border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
+.trust-cell:nth-child(2n){border-right:none}
+.trust-cell:nth-child(3),.trust-cell:nth-child(4){border-bottom:none}
+.trust-k{font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.9rem}
+.trust-ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.trust-ul li{font-size:.8rem;color:var(--ink-2);display:flex;gap:.6rem;line-height:1.45}
+.trust-ul li::before{content:'→';color:var(--ink-3);flex-shrink:0}
+/* join steps */
+.join-steps{border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:clamp(2rem,4vw,3rem)}
+.js{display:grid;grid-template-columns:72px 1fr auto;align-items:start;gap:1.8rem;padding:1.9rem 2rem;border-bottom:1px solid var(--border);transition:background .25s}
+.js:last-child{border-bottom:none}
+.js:hover{background:var(--ghost)}
+.js-n{font-family:var(--disp);font-size:2.7rem;line-height:.85;letter-spacing:.02em;color:var(--ink-4);transition:color .3s}
+.js:hover .js-n{color:var(--ink-3)}
+.js-h3{font-family:var(--serif);font-size:1.1rem;color:var(--ink);margin-bottom:.45rem;line-height:1.3}
+.js-p{font-size:.83rem;color:var(--ink-2);line-height:1.7}
+.js-badge{font-size:.56rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:100px;align-self:flex-start;white-space:nowrap;flex-shrink:0;border:1px solid var(--border-hi);color:var(--ink-2)}
+.js-badge.key{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){
+  .cap-grid-3{grid-template-columns:1fr 1fr}
+  .cap-grid-3 .cap-card:nth-child(3n){border-right:1px solid var(--border)}
+  .cap-grid-3 .cap-card:nth-child(2n){border-right:none}
+  .cap-grid-3 .cap-card:nth-last-child(-n+1){border-bottom:1px solid var(--border)}
+  .trust{grid-template-columns:1fr}
+  .trust-l{border-right:none;border-bottom:1px solid var(--border)}
+}
+@media(max-width:640px){
+  .cap-grid-3,.cap-grid-2{grid-template-columns:1fr}
+  .cap-card{border-right:none!important}
+  .cap-card{border-bottom:1px solid var(--border)!important}
+  .cap-grid-3 .cap-card:last-child,.cap-grid-2 .cap-card:last-child{border-bottom:none!important}
+  .trust-r{grid-template-columns:1fr}
+  .trust-cell{border-right:none}
+  .trust-cell:nth-child(3){border-bottom:1px solid var(--border)}
+  .js{grid-template-columns:52px 1fr;gap:1.2rem}
+  .js-badge{display:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.rev{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<div id="progress"></div>
+<div id="ticker" aria-hidden="true"><div class="tk" id="tk"></div></div>
+
+<nav id="nav">
+  <a href="index.html" class="logo" aria-label="ClearPath home">
+    <img src="assets/logo.png" alt="ClearPath logo" width="40" height="40">
+    <span class="wm">Clear<b>Path</b></span><span class="wm-cap">Capital</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how" class="nl">How it works</a>
+    <a href="#structures" class="nl">Structures</a>
+    <a href="#who" class="nl">Who it's for</a>
+    <a href="index.html" class="nl">ClearPath ↗</a>
+  </div>
+  <div class="nav-actions">
+    <button id="tbtn" aria-label="Toggle light and dark mode">
+      <svg class="i-moon" viewBox="0 0 20 20" fill="none" stroke-width="1.5"><path d="M17.5 12.5A7.5 7.5 0 1 1 7.5 2.5a5.5 5.5 0 0 0 10 10z" stroke-linejoin="round"/></svg>
+      <svg class="i-sun" viewBox="0 0 20 20" fill="none" stroke-width="1.5"><circle cx="10" cy="10" r="3.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42" stroke-linecap="round"/></svg>
+    </button>
+    <a href="#cta" class="njoin">Get in touch</a>
+    <button id="menuBtn" class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how">How it works <span>01</span></a>
+  <a href="#structures">Structures <span>02</span></a>
+  <a href="#who">Who it's for <span>03</span></a>
+  <a href="index.html">ClearPath <span>↗</span></a>
+  <a href="#cta" class="mm-cta">Get in touch</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hcanvas" aria-hidden="true"></canvas>
+  <div class="hero-meta">
+    <div class="hm-lbl">U.S. commercial real estate<br>transaction volume this year</div>
+    <div class="hm-n"><span class="live">$</span><span id="ctr" class="live">0</span></div>
+    <div class="hm-sub">~$550B U.S. annual · resets Jan 1</div>
+  </div>
+  <div class="hero-top"><span class="eyebrow"><span>Clear Capital · For asset partners</span></span></div>
+  <div class="hero-mid">
+    <h1 class="hero-h1">
+      <span class="hl-line hl-top"><span>YOUR DEED</span></span>
+      <span class="hl-line hl-line-mid"><span class="hl-mid">becomes someone's</span></span>
+      <span class="hl-line hl-bot"><span>FIRST HOME.</span></span>
+    </h1>
+  </div>
+  <div class="hero-bot">
+    <p class="hero-sub">Clear Capital is the institutional acquisition arm of the ClearPath cooperative. Contribute property in a tax-deferred exchange and receive liquid, yield-bearing equity — fueling the housing pipeline that puts renters on the path to ownership.</p>
+    <div class="hero-btns">
+      <a href="#cta" class="btn btn-fill mag">Explore a contribution <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M6.5 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#how" class="btn btn-line mag">How it works</a>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span class="sc-txt">Scroll</span><div class="sc-bar"></div></div>
+</section>
+
+<div class="mband" aria-hidden="true"><div class="minr" id="marq"></div></div>
+
+<!-- WHAT IS CLEAR CAPITAL -->
+<section id="what" class="sect">
+  <div class="wrap">
+    <div class="prob-head">
+      <div class="rev">
+        <div class="eye">What is Clear Capital</div>
+        <h2 class="h2">The cooperative's <span class="serif">institutional</span> powerhouse.</h2>
+      </div>
+      <p class="lead rev">A tokenized REIT alternative embedded inside ClearPath. Owners contribute physical assets in a tax-deferred exchange and receive liquid, yield-bearing equity — the co-op assumes existing mortgages and absorbs the property with near-zero cash.</p>
+    </div>
+    <div class="prob-stats">
+      <div class="rev"><div class="pstat-n">721<span class="u">-style</span></div><div class="pstat-l">Tax-deferred exchange — no immediate capital gains on contribution</div></div>
+      <div class="rev"><div class="pstat-n">~0<span class="u"> cash</span></div><div class="pstat-l">The co-op assumes existing mortgages — near-zero upfront spend</div></div>
+      <div class="rev"><div class="pstat-n">~5<span class="u">%</span></div><div class="pstat-l">Passive yield as cooperative NAV and rental revenue grow</div></div>
+      <div class="rev"><div class="pstat-n">$CLR</div><div class="pstat-l">A wrapped equity token representing your long-term contribution</div></div>
+    </div>
+    <blockquote class="pull rev">Instead of selling at a taxable gain, owners <em>contribute and compound</em> — earning yield while enabling affordable homeownership.</blockquote>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="how-watermark" aria-hidden="true">CAPITAL</div>
+  <div class="how-head">
+    <div class="how-intro">
+      <div class="eye rev">How a contribution works</div>
+      <h2 class="h2 rev">Contribute your asset. <span class="serif">earn</span> yield.</h2>
+      <p class="lead rev">Clear Capital makes institutional real-estate strategy accessible to individual landlords and portfolio holders — with the added impact of directly expanding the cooperative's affordable housing pipeline.</p>
+    </div>
+  </div>
+  <div class="steps-list">
+      <div class="step rev"><div class="step-index">01</div><h3 class="step-title">Identify your asset</h3><p class="step-body">Residential (single or multi-family), commercial, industrial, or undeveloped land. Clear Capital also accepts machinery and fabrication equipment from industrial operators.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">02</div><h3 class="step-title">Complete a 721-style exchange</h3><p class="step-body">Our legal team structures a tax-deferred contribution agreement. You transfer the deed or title to the cooperative trust — no sale, no capital gains event, no immediate tax.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">03</div><h3 class="step-title">Receive $CLR equity tokens</h3><p class="step-body">You receive non-transferable cooperative equity tokens proportional to your contribution's appraised value, automatically claiming liquid yield from rental income.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">04</div><h3 class="step-title">Earn passive yield + social ROI</h3><p class="step-body">Your stake earns as the co-op grows. Every property you contribute becomes part of the pipeline that turns renters into debt-free owners — real, trackable impact.</p><div class="step-bar"></div></div>
+  </div>
+</section>
+
+<!-- STRUCTURES -->
+<section id="structures" class="sect">
+  <div class="wrap">
+    <div class="str-hdr">
+      <div class="eye rev">Contribution structures</div>
+      <h2 class="h2 rev">Three ways <span class="serif">to</span> participate.</h2>
+      <p class="lead rev">Each structure fits a different asset type and contributor profile. All share the same tax-deferred framework and yield-bearing outcome.</p>
+    </div>
+    <div class="cap-grid-3 rev">
+      <div class="cap-card"><div class="cap-card-n">A</div><span class="cap-card-tag">Residential</span><h3 class="cap-card-h3">Single &amp; multi-family contribution</h3><p class="cap-card-p">Landlords contribute SFR or multi-family units to the trust. The co-op assumes any existing low-interest mortgage, keeps the property tenanted, and directs rental income into the yield pool that pays your $CLR dividends.</p><div class="cap-card-bar"></div></div>
+      <div class="cap-card"><div class="cap-card-n">B</div><span class="cap-card-tag">Land &amp; development</span><h3 class="cap-card-h3">Raw land &amp; master-planned sites</h3><p class="cap-card-p">Land bankers contribute undeveloped parcels for equity. Clear Capital deploys Clear Partner industrial contracts to begin site-prep, modular fabrication, and community development — maximizing NAV for every equity holder.</p><div class="cap-card-bar"></div></div>
+      <div class="cap-card"><div class="cap-card-n">C</div><span class="cap-card-tag">Industrial</span><h3 class="cap-card-h3">Equipment &amp; machinery contribution</h3><p class="cap-card-p">Operators contribute heavy fabrication equipment, modular assembly machinery, or logistics infrastructure. The co-op uses these assets to drive down production costs — and you earn yield from that cost efficiency.</p><div class="cap-card-bar"></div></div>
+    </div>
+    <div class="trust rev">
+      <div class="trust-l">
+        <div class="eye">Under the hood</div>
+        <h3 class="trust-h3">The Smart Trust (T-Deed)</h3>
+        <p class="trust-p">All contributed assets are held inside a blockchain-codified trust structure — a T-Deed smart contract that holds, automates, protects, and governs without manual administration.</p>
+      </div>
+      <div class="trust-r">
+        <div class="trust-cell"><div class="trust-k">Holds</div><ul class="trust-ul"><li>Deeds &amp; titles</li><li>Assumed low-interest mortgages</li><li>Industrial equipment titles</li><li>Land parcels</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Automates</div><ul class="trust-ul"><li>Yield distribution to $CLR holders</li><li>NAV write-down on downturns</li><li>Clear Deed title transfers</li><li>Rental income routing</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Protects</div><ul class="trust-ul"><li>Asset protection via trust wrapper</li><li>Securities exemption (Forman 1975)</li><li>Solvency via NAV-linked caps</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Governs</div><ul class="trust-ul"><li>One member, one vote</li><li>Non-speculative $CLR peg</li><li>Immutable distribution rules</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section id="who" class="sect">
+  <div class="wrap">
+    <div class="who-hdr">
+      <div class="rev"><div class="eye">Who it's for</div><h2 class="h2">Built for every<br>property holder.</h2></div>
+      <p class="lead rev">Anyone looking to convert a static asset into a liquid, yield-bearing position — without selling.</p>
+    </div>
+    <div class="cap-grid-2 rev">
+      <div class="cap-card">
+        <div class="cap-card-icon">🏠</div>
+        <h3 class="cap-card-title">Local landlords</h3>
+        <p class="cap-card-p">You own 1–10 rental units and are tired of active management, vacancies, and maintenance — but you don't want to sell and trigger capital gains.</p>
+        <ul class="cap-card-list"><li>Contribute your units to the co-op trust</li><li>Co-op assumes management and any existing mortgage</li><li>You receive $CLR tokens and passive yield</li></ul>
+        <div class="cap-card-bar"></div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-card-icon">🏢</div>
+        <h3 class="cap-card-title">Portfolio investors</h3>
+        <p class="cap-card-p">You hold a diversified residential or mixed-use portfolio and need a tax-efficient exit or a way to re-allocate underperforming assets.</p>
+        <ul class="cap-card-list"><li>721-style exchange preserves your tax basis</li><li>Diversify into co-op equity across the portfolio</li><li>Phase contributions over time — no bulk-sale pressure</li></ul>
+        <div class="cap-card-bar"></div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-card-icon">🌱</div>
+        <h3 class="cap-card-title">Land bankers</h3>
+        <p class="cap-card-p">You hold undeveloped parcels in high-growth corridors and want to monetize them without running a development project yourself.</p>
+        <ul class="cap-card-list"><li>Contribute the parcel to the trust</li><li>Clear Capital deploys industrial partners to develop it</li><li>Your stake appreciates as NAV rises with development</li></ul>
+        <div class="cap-card-bar"></div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-card-icon">⚙️</div>
+        <h3 class="cap-card-title">Industrial operators</h3>
+        <p class="cap-card-p">You own modular manufacturing lines, fabrication machinery, or logistics equipment that could power the cooperative's construction pipeline.</p>
+        <ul class="cap-card-list"><li>Contribute equipment to the industrial trust</li><li>Co-op uses it for wholesale fabrication contracts</li><li>Path to becoming a full Clear Partner vendor</li></ul>
+        <div class="cap-card-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GETTING STARTED -->
+<section id="join" class="sect">
+  <div class="wrap" style="max-width:940px">
+    <div class="eye rev">Getting started</div>
+    <h2 class="h2 rev">From first call <span class="serif">to</span> first yield.</h2>
+    <div class="join-steps rev">
+      <div class="js">
+        <div class="js-n" aria-hidden="true">01</div>
+        <div><h3 class="js-h3">Intro call with the Clear Capital team</h3><p class="js-p">We walk through your assets, goals, and timeline. No commitment. This call determines which contribution structure fits best and what a realistic yield projection looks like for your situation.</p></div>
+        <span class="js-badge">Free · 30 min</span>
+      </div>
+      <div class="js">
+        <div class="js-n" aria-hidden="true">02</div>
+        <div><h3 class="js-h3">Asset appraisal &amp; contribution agreement</h3><p class="js-p">Our legal and valuation partners appraise the asset and draft the agreement. We handle title research, mortgage assumption paperwork, and trust onboarding documentation.</p></div>
+        <span class="js-badge key">Key step</span>
+      </div>
+      <div class="js">
+        <div class="js-n" aria-hidden="true">03</div>
+        <div><h3 class="js-h3">Execute the 721-style exchange</h3><p class="js-p">The deed or title transfers to the cooperative Smart Trust via an identity-verified internal swap. This is not a sale — no capital gains event is triggered at this step.</p></div>
+        <span class="js-badge key">Key step</span>
+      </div>
+      <div class="js">
+        <div class="js-n" aria-hidden="true">04</div>
+        <div><h3 class="js-h3">Receive $CLR tokens &amp; begin earning</h3><p class="js-p">Your wallet is activated and $CLR tokens are minted proportional to the appraised value. Yield distributions begin with the next co-op payout cycle — typically monthly.</p></div>
+        <span class="js-badge">Ongoing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="sect">
+  <div class="cta-ghost" aria-hidden="true">DEAL FLOW</div>
+  <div class="ctai wrap">
+    <div class="eye rev" style="margin-bottom:0">Clear Capital · Asset partners welcome</div>
+    <h2 class="cta-h2 rev">Your property, <span class="serif">their</span> first front door.</h2>
+    <form class="cta-form rev" id="waitForm" novalidate>
+      <input type="email" class="cta-inp" id="waitEmail" placeholder="your@email.com" aria-label="Email address" required>
+      <button class="cta-sub" type="submit">Schedule a call</button>
+    </form>
+    <p class="cta-fine rev" id="waitMsg">No commitment required. We'll reach out within 48 hours to discuss your assets and which contribution structure fits best.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.png" alt="ClearPath logo" width="40" height="40">
+        <span class="wm">Clear<b>Path</b></span><span class="wm-cap">Capital</span>
+      </a>
+      <p class="foot-tag">Clear Capital is the institutional acquisition division of ClearPath — a member-owned housing cooperative.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Clear Capital</h4>
+      <a href="#how">How it works</a>
+      <a href="#structures">Structures</a>
+      <a href="#who">Who it's for</a>
+      <a href="#join">Get started</a>
+    </div>
+    <div class="foot-col">
+      <h4>Cooperative</h4>
+      <a href="index.html">ClearPath main site ↗</a>
+      <a href="index.html#tracks">Membership</a>
+      <span>1 member · 1 vote</span>
+      <span>South Redlands, CA</span>
+    </div>
+    <div class="foot-col">
+      <h4>Structures</h4>
+      <span>Residential · 721-style</span>
+      <span>Land &amp; development</span>
+      <span>Industrial equipment</span>
+      <a href="#cta">Schedule a call</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <p class="foot-copy">Clear Capital is the institutional acquisition division of ClearPath, a member-owned consumer and housing cooperative. Contributions are not securities under the Forman doctrine (U.S. Supreme Court, 1975). This site is informational only and is not an offer of securities or financial advice.</p>
+    <span class="foot-phase">© 2026 ClearPath Co-op · Clear Capital · Phase 01 / 03</span>
+  </div>
+</footer>
+
+<script>
+const H=document.documentElement;
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* SAFETY NET: force-reveal if GSAP never initialises */
+let gsapReady=false;
+setTimeout(()=>{
+  if(!gsapReady){
+    document.querySelectorAll('.hl-line>span').forEach(s=>{s.style.transform='none';s.style.opacity='1'});
+    document.querySelectorAll('.rev').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
+    document.querySelectorAll('.eyebrow span').forEach(s=>s.style.transform='none');
+  }
+},1500);
+
+/* theme */
+const stored=localStorage.getItem('cp-theme');
+if(stored)H.setAttribute('data-theme',stored);
+document.getElementById('tbtn').addEventListener('click',()=>{
+  const n=H.getAttribute('data-theme')==='dark'?'light':'dark';
+  H.setAttribute('data-theme',n);localStorage.setItem('cp-theme',n);
+});
+
+/* mobile menu */
+const menuBtn=document.getElementById('menuBtn');
+function closeMenu(){document.body.classList.remove('menu-open');menuBtn.setAttribute('aria-expanded','false')}
+menuBtn.addEventListener('click',()=>{
+  const open=document.body.classList.toggle('menu-open');
+  menuBtn.setAttribute('aria-expanded',open?'true':'false');
+});
+document.querySelectorAll('#mobileMenu a').forEach(a=>a.addEventListener('click',closeMenu));
+
+/* cursor + magnetic */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'},{passive:true});
+(function l(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(l)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+if(!reduce)document.querySelectorAll('.mag').forEach(b=>{
+  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;b.style.transform=`translate(${x*.22}px,${y*.3}px)`});
+  b.addEventListener('mouseleave',()=>{b.style.transform='';b.style.transition='transform .4s cubic-bezier(.16,1,.3,1)';setTimeout(()=>b.style.transition='',400)});
+});
+
+/* nav + progress */
+const nav=document.getElementById('nav'),prog=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('solid',scrollY>40);
+  const h=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(scrollY/h*100)+'%';
+},{passive:true});
+
+/* active nav */
+const nlinks=document.querySelectorAll('.nl[href^="#"]');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){nlinks.forEach(l=>l.classList.remove('active'));const m=document.querySelector(`.nl[href="#${e.target.id}"]`);if(m)m.classList.add('active')}}),{threshold:.4});
+['how','structures','who'].forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el)});
+
+/* hero canvas particles (monochrome) */
+(function(){
+  const c=document.getElementById('hcanvas'),ctx=c.getContext('2d');
+  let W,H2,pts=[],mo={x:-9e9,y:-9e9};
+  const N=innerWidth<700?40:90;
+  function rsz(){W=c.width=c.offsetWidth;H2=c.height=c.offsetHeight}rsz();addEventListener('resize',rsz,{passive:true});
+  for(let i=0;i<N;i++)pts.push({x:Math.random()*1400,y:Math.random()*900,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.7+.5,a:Math.random()*.5+.24});
+  const hr=document.getElementById('hero');
+  hr.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mo.x=e.clientX-r.left;mo.y=e.clientY-r.top},{passive:true});
+  hr.addEventListener('mouseleave',()=>{mo.x=-9e9;mo.y=-9e9});
+  function col(){return H.getAttribute('data-theme')==='light'?'10,10,10':'244,244,242'}
+  (function fr(){
+    ctx.clearRect(0,0,W,H2);const rgb=col();
+    ctx.strokeStyle=`rgba(${rgb},.04)`;ctx.lineWidth=.5;
+    for(let x=0;x<W;x+=72){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H2);ctx.stroke()}
+    for(let y=0;y<H2;y+=72){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+    pts.forEach(p=>{const dx=p.x-mo.x,dy=p.y-mo.y,d=Math.hypot(dx,dy);
+      if(d<130&&d>0){const f=(130-d)/130;p.vx+=dx/d*f*.4;p.vy+=dy/d*f*.4}
+      p.vx*=.97;p.vy*=.97;p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H2;if(p.y>H2)p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fillStyle=`rgba(${rgb},${p.a})`;ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const a=pts[i],b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<86){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(${rgb},${.08*(1-d/86)})`;ctx.lineWidth=.5;ctx.stroke()}}
+    requestAnimationFrame(fr);
+  })();
+})();
+
+/* live counter */
+(function(){
+  const perMs=550e9/(365.25*24*3600*1e3),now=new Date();
+  let base=(now-new Date(now.getFullYear(),0,1))*perMs;const el=document.getElementById('ctr');let last=performance.now();
+  const fmt=n=>n>=1e12?(n/1e12).toFixed(2)+'T':n>=1e9?(n/1e9).toFixed(2)+'B':Math.round(n).toLocaleString();
+  (function tick(ts){base+=(ts-last)*perMs;last=ts;el.textContent=fmt(base);requestAnimationFrame(tick)})(last);
+})();
+
+/* ticker + marquee */
+(function(){
+  const its=['721-STYLE EXCHANGE','TAX-DEFERRED','$CLR EQUITY TOKENS','NO CAPITAL GAINS EVENT','ASSUME EXISTING MORTGAGES','PASSIVE YIELD','ZERO CASH ACQUISITION','SMART TRUST','MEMBER-OWNED REIT ALTERNATIVE','INLAND EMPIRE','POWER THE PIPELINE','PHASE 1 OPEN'];
+  let h='';for(let r=0;r<4;r++)its.forEach(t=>h+=`<span>${t}</span><span class="sep">/</span>`);document.getElementById('tk').innerHTML=h;
+  const m=['CONTRIBUTE YOUR DEED','EARN PASSIVE YIELD','721-STYLE EXCHANGE','ZERO CASH ACQUISITION','SMART TRUST','$CLR TOKEN','CLEAR CAPITAL','POWER THE PIPELINE'];
+  let h2='';for(let r=0;r<6;r++)m.forEach(t=>h2+=`<span>${t} <span class="dot">·</span> </span>`);document.getElementById('marq').innerHTML=h2;
+})();
+
+/* GSAP */
+if(window.gsap){
+  gsap.registerPlugin(ScrollTrigger);
+  gsapReady=true;
+  if(!reduce){
+    gsap.set('.hl-line>span',{yPercent:115,opacity:1});
+    const tl=gsap.timeline({delay:.15});
+    tl.to('.eyebrow span',{yPercent:0,duration:.7,ease:'power3.out'},0)
+      .from('.eyebrow',{opacity:0,duration:.5},0)
+      .to('.hl-line>span',{yPercent:0,duration:1,ease:'power4.out',stagger:.09},.15)
+      .from('.hero-bot',{opacity:0,y:24,duration:.8,ease:'power3.out'},.5)
+      .from('.hero-meta',{opacity:0,duration:.8},.7)
+      .from('.scroll-cue',{opacity:0,duration:.6},.9);
+    gsap.utils.toArray('.rev').forEach(el=>{
+      gsap.to(el,{opacity:1,y:0,duration:.85,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+    });
+    gsap.utils.toArray('.step').forEach(el=>{
+      ScrollTrigger.create({trigger:el,start:'top 82%',once:true,onEnter:()=>el.classList.add('on')});
+    });
+  } else {
+    gsap.set('.hl-line>span',{yPercent:0});
+    gsap.set('.rev',{opacity:1,y:0});
+    document.querySelectorAll('.step').forEach(el=>el.classList.add('on'));
+  }
+} else {
+  document.querySelectorAll('.hl-line>span').forEach(s=>{s.style.transform='none';s.style.opacity='1'});
+  document.querySelectorAll('.rev').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
+  document.querySelectorAll('.eyebrow span').forEach(s=>s.style.transform='none');
+  document.querySelectorAll('.step').forEach(el=>el.classList.add('on'));
+}
+
+/* products — drag to scroll */
+(function(){
+  const el=document.getElementById('products-scroll');if(!el)return;
+  let down=false,moved=false,startX,sl;
+  el.addEventListener('mousedown',e=>{down=true;moved=false;startX=e.pageX-el.offsetLeft;sl=el.scrollLeft;});
+  el.addEventListener('mouseleave',()=>down=false);
+  el.addEventListener('mouseup',()=>down=false);
+  el.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();const x=e.pageX-el.offsetLeft;if(Math.abs(x-startX)>4)moved=true;el.scrollLeft=sl-(x-startX)*1.4;});
+  /* prevent a drag from triggering the Clear Capital link click */
+  el.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{if(moved)e.preventDefault();}));
+})();
+
+/* waitlist */
+(function(){
+  const form=document.getElementById('waitForm');if(!form)return;
+  const email=document.getElementById('waitEmail'),msg=document.getElementById('waitMsg');
+  const valid=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=email.value.trim();
+    if(!valid(v)){msg.textContent='Enter a valid email so we can reach you when your cohort opens.';msg.style.color='var(--ink)';email.focus();return;}
+    try{const k='cp-waitlist';const list=JSON.parse(localStorage.getItem(k)||'[]');if(!list.includes(v))list.push(v);localStorage.setItem(k,JSON.stringify(list));}catch(_){}
+    form.innerHTML='<div style="padding:1.05rem 1.2rem;font-size:.92rem;color:var(--ink)">✓ You\'re on the list — welcome to the co-op.</div>';
+    msg.textContent="We'll email "+v+" when South Redlands · Cohort 1 opens. No card, no commitment.";
+    msg.style.color='var(--ink-2)';
+  });
+})();
+</script>
+</body>
+</html>

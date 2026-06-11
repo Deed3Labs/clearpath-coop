@@ -1,0 +1,11 @@
+# Internal — do not publish
+assets/strategy.md
+
+# Local tooling / preview config
+.claude/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
