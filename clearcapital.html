@@ -66,19 +66,21 @@
   --lt-bg:#15161A;--lt-ink:#F4F4F2;--lt-ink-2:rgba(244,244,242,.6);--lt-ink-3:rgba(244,244,242,.34);--lt-border:rgba(244,244,242,.12);--lt-border-hi:rgba(244,244,242,.2);
 }
 [data-theme="dusk"]{
-  /* golden hour — a warm cream daylight, sits between light and dark */
-  --bg:#ECE0C8;--bg-2:#E5D7BC;--bg-card:#F4ECDA;--bg-raise:#FBF4E7;
-  --border:rgba(58,38,14,.13);--border-hi:rgba(58,38,14,.24);
-  --ink:#2B1E0E;--ink-2:rgba(43,30,14,.62);--ink-3:rgba(43,30,14,.36);--ink-4:rgba(43,30,14,.12);
-  --accent:#B5612A;--on-accent:#FBF4E7;
-  --ghost:rgba(58,38,14,.04);
-  --nav-bg:rgba(236,224,200,.86);
-  --logo-ink:#2B1E0E;--logo-border:#2B1E0E;
-  --lt-bg:#241810;--lt-ink:#F4E8D6;--lt-ink-2:rgba(244,232,214,.6);--lt-ink-3:rgba(244,232,214,.34);--lt-border:rgba(244,232,214,.12);--lt-border-hi:rgba(244,232,214,.2);
+  /* golden hour — warm peach-cream sunset, sits between light and dark */
+  --bg:#F1E2CE;--bg-2:#EAD9C0;--bg-card:#F7EEDC;--bg-raise:#FCF5EA;
+  --border:rgba(62,36,16,.13);--border-hi:rgba(62,36,16,.24);
+  --ink:#2E2012;--ink-2:rgba(46,32,18,.62);--ink-3:rgba(46,32,18,.36);--ink-4:rgba(46,32,18,.12);
+  --accent:#C76A45;--on-accent:#FCF5EA;
+  --ghost:rgba(62,36,16,.04);
+  --nav-bg:rgba(241,226,206,.86);
+  --logo-ink:#2E2012;--logo-border:#2E2012;
+  --lt-bg:#27180F;--lt-ink:#F6E9D7;--lt-ink-2:rgba(246,233,215,.6);--lt-ink-3:rgba(246,233,215,.34);--lt-border:rgba(246,233,215,.12);--lt-border-hi:rgba(246,233,215,.2);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden;scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;overflow-x:hidden;cursor:none;padding-bottom:36px;transition:background .4s,color .4s;-webkit-font-smoothing:antialiased}
+/* smooth crossfade only while switching themes (not on hover/etc.) */
+html.theming,html.theming *,html.theming *::before,html.theming *::after{transition:background-color .55s ease,background-image .55s ease,color .55s ease,border-color .55s ease,fill .55s ease,stroke .55s ease,box-shadow .55s ease,opacity .55s ease!important}
 @media(hover:none){body{cursor:auto}#cur,#cur-ring{display:none!important}}
 ::selection{background:var(--ink);color:var(--bg)}
 img{max-width:100%}
@@ -162,6 +164,9 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 
 /* ═══════ HERO ═══════ */
 #hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden}
+/* dusk sunset sky — fades in/out smoothly on theme change */
+#hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .6s ease;background:linear-gradient(180deg,#E7CFC6 0%,#F1D6BB 42%,#F5E1C2 78%,#F1E2CE 100%)}
+[data-theme="dusk"] #hero::before{opacity:1}
 #hcanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .hero-top{position:relative;z-index:2;padding:5.5rem clamp(1.1rem,4vw,3rem) 0}
 .eyebrow{font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);display:inline-flex;align-items:center;gap:.6rem;overflow:hidden}
@@ -530,13 +535,13 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
         <div class="eye">What is Clear Capital</div>
         <h2 class="h2">The cooperative's <span class="serif">institutional</span> powerhouse.</h2>
       </div>
-      <p class="lead rev">A tokenized REIT alternative embedded inside ClearPath. Owners contribute physical assets in a tax-deferred exchange and receive liquid, yield-bearing equity — the co-op assumes existing mortgages and absorbs the property with near-zero cash.</p>
+      <p class="lead rev">A member-owned REIT alternative embedded inside ClearPath. Owners contribute physical assets in a tax-deferred exchange and receive liquid, yield-bearing equity — the co-op assumes existing mortgages and absorbs the property with near-zero cash.</p>
     </div>
     <div class="prob-stats">
       <div class="rev"><div class="pstat-n">721<span class="u">-style</span></div><div class="pstat-l">Tax-deferred exchange — no immediate capital gains on contribution</div></div>
       <div class="rev"><div class="pstat-n">~0<span class="u"> cash</span></div><div class="pstat-l">The co-op assumes existing mortgages — near-zero upfront spend</div></div>
       <div class="rev"><div class="pstat-n">~5<span class="u">%</span></div><div class="pstat-l">Passive yield as cooperative NAV and rental revenue grow</div></div>
-      <div class="rev"><div class="pstat-n">$CLR</div><div class="pstat-l">A wrapped equity token representing your long-term contribution</div></div>
+      <div class="rev"><div class="pstat-n">Equity</div><div class="pstat-l">A liquid, yield-bearing stake — proportional to what you contribute</div></div>
     </div>
     <blockquote class="pull rev">Instead of selling at a taxable gain, owners <em>contribute and compound</em> — earning yield while enabling affordable homeownership.</blockquote>
   </div>
@@ -555,7 +560,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
   <div class="steps-list">
       <div class="step rev"><div class="step-index">01</div><h3 class="step-title">Identify your asset</h3><p class="step-body">Residential (single or multi-family), commercial, industrial, or undeveloped land. Clear Capital also accepts machinery and fabrication equipment from industrial operators.</p><div class="step-bar"></div></div>
       <div class="step rev"><div class="step-index">02</div><h3 class="step-title">Complete a 721-style exchange</h3><p class="step-body">Our legal team structures a tax-deferred contribution agreement. You transfer the deed or title to the cooperative trust — no sale, no capital gains event, no immediate tax.</p><div class="step-bar"></div></div>
-      <div class="step rev"><div class="step-index">03</div><h3 class="step-title">Receive $CLR equity tokens</h3><p class="step-body">You receive non-transferable cooperative equity tokens proportional to your contribution's appraised value, automatically claiming liquid yield from rental income.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">03</div><h3 class="step-title">Receive cooperative equity</h3><p class="step-body">You receive a non-transferable cooperative equity stake proportional to your contribution's appraised value, automatically earning liquid yield from rental income.</p><div class="step-bar"></div></div>
       <div class="step rev"><div class="step-index">04</div><h3 class="step-title">Earn passive yield + social ROI</h3><p class="step-body">Your stake earns as the co-op grows. Every property you contribute becomes part of the pipeline that turns renters into debt-free owners — real, trackable impact.</p><div class="step-bar"></div></div>
   </div>
 </section>
@@ -569,21 +574,21 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
       <p class="lead rev">Each structure fits a different asset type and contributor profile. All share the same tax-deferred framework and yield-bearing outcome.</p>
     </div>
     <div class="cap-grid-3 rev">
-      <div class="cap-card"><div class="cap-card-n">A</div><span class="cap-card-tag">Residential</span><h3 class="cap-card-h3">Single &amp; multi-family contribution</h3><p class="cap-card-p">Landlords contribute SFR or multi-family units to the trust. The co-op assumes any existing low-interest mortgage, keeps the property tenanted, and directs rental income into the yield pool that pays your $CLR dividends.</p><div class="cap-card-bar"></div></div>
+      <div class="cap-card"><div class="cap-card-n">A</div><span class="cap-card-tag">Residential</span><h3 class="cap-card-h3">Single &amp; multi-family contribution</h3><p class="cap-card-p">Landlords contribute SFR or multi-family units to the trust. The co-op assumes any existing low-interest mortgage, keeps the property tenanted, and directs rental income into the yield pool that pays your equity dividends.</p><div class="cap-card-bar"></div></div>
       <div class="cap-card"><div class="cap-card-n">B</div><span class="cap-card-tag">Land &amp; development</span><h3 class="cap-card-h3">Raw land &amp; master-planned sites</h3><p class="cap-card-p">Land bankers contribute undeveloped parcels for equity. Clear Capital deploys Clear Partner industrial contracts to begin site-prep, modular fabrication, and community development — maximizing NAV for every equity holder.</p><div class="cap-card-bar"></div></div>
       <div class="cap-card"><div class="cap-card-n">C</div><span class="cap-card-tag">Industrial</span><h3 class="cap-card-h3">Equipment &amp; machinery contribution</h3><p class="cap-card-p">Operators contribute heavy fabrication equipment, modular assembly machinery, or logistics infrastructure. The co-op uses these assets to drive down production costs — and you earn yield from that cost efficiency.</p><div class="cap-card-bar"></div></div>
     </div>
     <div class="trust rev">
       <div class="trust-l">
         <div class="eye">Under the hood</div>
-        <h3 class="trust-h3">The Smart Trust (T-Deed)</h3>
-        <p class="trust-p">All contributed assets are held inside a blockchain-codified trust structure — a T-Deed smart contract that holds, automates, protects, and governs without manual administration.</p>
+        <h3 class="trust-h3">The Cooperative Trust</h3>
+        <p class="trust-p">All contributed assets are held inside a single, legally-codified cooperative trust — one structure that holds, automates, protects, and governs every contribution without manual administration.</p>
       </div>
       <div class="trust-r">
         <div class="trust-cell"><div class="trust-k">Holds</div><ul class="trust-ul"><li>Deeds &amp; titles</li><li>Assumed low-interest mortgages</li><li>Industrial equipment titles</li><li>Land parcels</li></ul></div>
-        <div class="trust-cell"><div class="trust-k">Automates</div><ul class="trust-ul"><li>Yield distribution to $CLR holders</li><li>NAV write-down on downturns</li><li>Clear Deed title transfers</li><li>Rental income routing</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Automates</div><ul class="trust-ul"><li>Yield distribution to equity holders</li><li>NAV write-down on downturns</li><li>Clear Deed title transfers</li><li>Rental income routing</li></ul></div>
         <div class="trust-cell"><div class="trust-k">Protects</div><ul class="trust-ul"><li>Asset protection via trust wrapper</li><li>Securities exemption (Forman 1975)</li><li>Solvency via NAV-linked caps</li></ul></div>
-        <div class="trust-cell"><div class="trust-k">Governs</div><ul class="trust-ul"><li>One member, one vote</li><li>Non-speculative $CLR peg</li><li>Immutable distribution rules</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Governs</div><ul class="trust-ul"><li>One member, one vote</li><li>Stable, non-speculative equity value</li><li>Fixed, transparent distribution rules</li></ul></div>
       </div>
     </div>
   </div>
@@ -601,7 +606,7 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
         <div class="cap-card-icon">🏠</div>
         <h3 class="cap-card-title">Local landlords</h3>
         <p class="cap-card-p">You own 1–10 rental units and are tired of active management, vacancies, and maintenance — but you don't want to sell and trigger capital gains.</p>
-        <ul class="cap-card-list"><li>Contribute your units to the co-op trust</li><li>Co-op assumes management and any existing mortgage</li><li>You receive $CLR tokens and passive yield</li></ul>
+        <ul class="cap-card-list"><li>Contribute your units to the co-op trust</li><li>Co-op assumes management and any existing mortgage</li><li>You receive cooperative equity and passive yield</li></ul>
         <div class="cap-card-bar"></div>
       </div>
       <div class="cap-card">
@@ -647,12 +652,12 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
       </div>
       <div class="js">
         <div class="js-n" aria-hidden="true">03</div>
-        <div><h3 class="js-h3">Execute the 721-style exchange</h3><p class="js-p">The deed or title transfers to the cooperative Smart Trust via an identity-verified internal swap. This is not a sale — no capital gains event is triggered at this step.</p></div>
+        <div><h3 class="js-h3">Execute the 721-style exchange</h3><p class="js-p">The deed or title transfers to the cooperative trust via a verified internal transfer. This is not a sale — no capital gains event is triggered at this step.</p></div>
         <span class="js-badge key">Key step</span>
       </div>
       <div class="js">
         <div class="js-n" aria-hidden="true">04</div>
-        <div><h3 class="js-h3">Receive $CLR tokens &amp; begin earning</h3><p class="js-p">Your wallet is activated and $CLR tokens are minted proportional to the appraised value. Yield distributions begin with the next co-op payout cycle — typically monthly.</p></div>
+        <div><h3 class="js-h3">Receive your equity &amp; begin earning</h3><p class="js-p">Your cooperative equity stake is issued proportional to the appraised value. Yield distributions begin with the next co-op payout cycle — typically monthly.</p></div>
         <span class="js-badge">Ongoing</span>
       </div>
     </div>
@@ -727,8 +732,10 @@ setTimeout(()=>{
 /* theme cycle — dark · dusk · light. Initial theme is set by the inline
    <head> script (time-of-day default) to avoid a flash; this just cycles. */
 const THEMES=['light','dusk','dark'];
+let themeT;
 document.getElementById('tbtn').addEventListener('click',()=>{
   const n=THEMES[(THEMES.indexOf(H.getAttribute('data-theme'))+1)%THEMES.length];
+  H.classList.add('theming');clearTimeout(themeT);themeT=setTimeout(()=>H.classList.remove('theming'),650);
   H.setAttribute('data-theme',n);localStorage.setItem('cp-theme',n);
 });
 
@@ -778,9 +785,10 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){nlinks
   const hr=document.getElementById('hero');
   hr.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();mo.x=e.clientX-r.left;mo.y=e.clientY-r.top},{passive:true});
   hr.addEventListener('mouseleave',()=>{mo.x=-9e9;mo.y=-9e9});
-  function col(){var t=H.getAttribute('data-theme');return t==='light'?'10,10,10':t==='dusk'?'140,92,46':'244,244,242'}
+  function tcol(){var t=H.getAttribute('data-theme');return t==='light'?[10,10,10]:t==='dusk'?[140,92,46]:[244,244,242]}
+  var cc=tcol().slice();
   (function fr(){
-    ctx.clearRect(0,0,W,H2);const rgb=col();
+    ctx.clearRect(0,0,W,H2);var tc=tcol();cc[0]+=(tc[0]-cc[0])*.07;cc[1]+=(tc[1]-cc[1])*.07;cc[2]+=(tc[2]-cc[2])*.07;const rgb=(cc[0]|0)+','+(cc[1]|0)+','+(cc[2]|0);
     ctx.strokeStyle=`rgba(${rgb},.04)`;ctx.lineWidth=.5;
     for(let x=0;x<W;x+=72){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H2);ctx.stroke()}
     for(let y=0;y<H2;y+=72){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
@@ -806,9 +814,9 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){nlinks
 
 /* ticker + marquee */
 (function(){
-  const its=['721-STYLE EXCHANGE','TAX-DEFERRED','$CLR EQUITY TOKENS','NO CAPITAL GAINS EVENT','ASSUME EXISTING MORTGAGES','PASSIVE YIELD','ZERO CASH ACQUISITION','SMART TRUST','MEMBER-OWNED REIT ALTERNATIVE','INLAND EMPIRE','POWER THE PIPELINE','PHASE 1 OPEN'];
+  const its=['721-STYLE EXCHANGE','TAX-DEFERRED','LIQUID EQUITY','NO CAPITAL GAINS EVENT','ASSUME EXISTING MORTGAGES','PASSIVE YIELD','ZERO CASH ACQUISITION','COOPERATIVE TRUST','MEMBER-OWNED REIT ALTERNATIVE','INLAND EMPIRE','POWER THE PIPELINE','PHASE 1 OPEN'];
   let h='';for(let r=0;r<4;r++)its.forEach(t=>h+=`<span>${t}</span><span class="sep">/</span>`);document.getElementById('tk').innerHTML=h;
-  const m=['CONTRIBUTE YOUR DEED','EARN PASSIVE YIELD','721-STYLE EXCHANGE','ZERO CASH ACQUISITION','SMART TRUST','$CLR TOKEN','CLEAR CAPITAL','POWER THE PIPELINE'];
+  const m=['CONTRIBUTE YOUR DEED','EARN PASSIVE YIELD','721-STYLE EXCHANGE','ZERO CASH ACQUISITION','COOPERATIVE TRUST','LIQUID EQUITY','CLEAR CAPITAL','POWER THE PIPELINE'];
   let h2='';for(let r=0;r<6;r++)m.forEach(t=>h2+=`<span>${t} <span class="dot">·</span> </span>`);document.getElementById('marq').innerHTML=h2;
 })();
 
