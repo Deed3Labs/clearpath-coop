@@ -9,7 +9,7 @@ rent you already pay into a path to debt-free homeownership.
 | File | Purpose |
 |------|---------|
 | `index.html` | Main landing page — problem, how it works, the flywheel, product ecosystem, membership tracks, waitlist CTA |
-| `clearcapital.html` | Clear Capital sub-site for asset partners (landlords / investors) |
+| `capital.html` | Clear Capital sub-site for asset partners — served at `/capital` |
 | `assets/strategy.md` | Internal master strategy reference (not linked publicly) |
 
 ## Tech
