@@ -404,7 +404,8 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
 .cap-grid-2 .cap-card:nth-last-child(-n+2){border-bottom:none}
 .cap-card-n{font-family:var(--disp);font-size:3.4rem;line-height:1;letter-spacing:.03em;color:var(--ink-4);margin-bottom:.4rem;transition:color .3s}
 .cap-card:hover .cap-card-n{color:var(--ink-3)}
-.cap-card-icon{font-size:1.8rem;line-height:1;margin-bottom:1.1rem}
+.cap-card-icon{margin-bottom:1.2rem;color:var(--ink)}
+.cap-card-icon svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .cap-card-tag{font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--border-hi);padding:.28rem .7rem;border-radius:100px;align-self:flex-start;margin-bottom:1rem}
 .cap-card-h3{font-family:var(--serif);font-size:1.18rem;color:var(--ink);margin-bottom:.6rem;line-height:1.3}
 .cap-card-title{font-family:var(--disp);font-size:1.7rem;letter-spacing:.035em;color:var(--ink);margin-bottom:.65rem;line-height:1}
@@ -539,8 +540,8 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
     </div>
     <div class="prob-stats">
       <div class="rev"><div class="pstat-n">721<span class="u">-style</span></div><div class="pstat-l">Tax-deferred exchange — no immediate capital gains on contribution</div></div>
-      <div class="rev"><div class="pstat-n">~0<span class="u"> cash</span></div><div class="pstat-l">The co-op assumes existing mortgages — near-zero upfront spend</div></div>
-      <div class="rev"><div class="pstat-n">~5<span class="u">%</span></div><div class="pstat-l">Passive yield as cooperative NAV and rental revenue grow</div></div>
+      <div class="rev"><div class="pstat-n">$0</div><div class="pstat-l">Capital gains tax you owe by contributing — instead of selling</div></div>
+      <div class="rev"><div class="pstat-n">12.5<span class="u">%</span></div><div class="pstat-l">Targeted annual yield as NAV and rental revenue grow</div></div>
       <div class="rev"><div class="pstat-n">$CLR</div><div class="pstat-l">Liquid, yield-bearing shares in Clear Capital — proportional to what you contribute</div></div>
     </div>
     <blockquote class="pull rev">Instead of selling at a taxable gain, owners <em>contribute and compound</em> — earning yield while enabling affordable homeownership.</blockquote>
@@ -603,28 +604,28 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
     </div>
     <div class="cap-grid-2 rev">
       <div class="cap-card">
-        <div class="cap-card-icon">🏠</div>
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></div>
         <h3 class="cap-card-title">Local landlords</h3>
         <p class="cap-card-p">You own 1–10 rental units and are tired of active management, vacancies, and maintenance — but you don't want to sell and trigger capital gains.</p>
         <ul class="cap-card-list"><li>Contribute your units to the co-op trust</li><li>Co-op assumes management and any existing mortgage</li><li>You receive $CLR shares and passive yield</li></ul>
         <div class="cap-card-bar"></div>
       </div>
       <div class="cap-card">
-        <div class="cap-card-icon">🏢</div>
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><path d="M6.5 21v-4"/><path d="M11 21v-8"/><path d="M15.5 21v-6"/><path d="M20 21V9"/></svg></div>
         <h3 class="cap-card-title">Portfolio investors</h3>
         <p class="cap-card-p">You hold a diversified residential or mixed-use portfolio and need a tax-efficient exit or a way to re-allocate underperforming assets.</p>
         <ul class="cap-card-list"><li>721-style exchange preserves your tax basis</li><li>Diversify into co-op equity across the portfolio</li><li>Phase contributions over time — no bulk-sale pressure</li></ul>
         <div class="cap-card-bar"></div>
       </div>
       <div class="cap-card">
-        <div class="cap-card-icon">🌱</div>
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 14C12 10 9 8 5 8c0 4 3 6 7 6z"/><path d="M12 12c0-3.2 2.6-5.5 6.5-5.5 0 3.2-2.6 5.5-6.5 5.5z"/></svg></div>
         <h3 class="cap-card-title">Land bankers</h3>
         <p class="cap-card-p">You hold undeveloped parcels in high-growth corridors and want to monetize them without running a development project yourself.</p>
         <ul class="cap-card-list"><li>Contribute the parcel to the trust</li><li>Clear Capital deploys industrial partners to develop it</li><li>Your stake appreciates as NAV rises with development</li></ul>
         <div class="cap-card-bar"></div>
       </div>
       <div class="cap-card">
-        <div class="cap-card-icon">⚙️</div>
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V11l5 3V11l5 3V7h6v14"/><path d="M3 21h18"/><path d="M16.5 11h0M19 11h0M16.5 15h0M19 15h0"/></svg></div>
         <h3 class="cap-card-title">Industrial operators</h3>
         <p class="cap-card-p">You own modular manufacturing lines, fabrication machinery, or logistics equipment that could power the cooperative's construction pipeline.</p>
         <ul class="cap-card-list"><li>Contribute equipment to the industrial trust</li><li>Co-op uses it for wholesale fabrication contracts</li><li>Path to becoming a full Clear Partner vendor</li></ul>
