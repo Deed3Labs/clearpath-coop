@@ -4,6 +4,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/clearcapital", "destination": "/capital", "permanent": true },
-    { "source": "/clearcapital.html", "destination": "/capital", "permanent": true }
+    { "source": "/clearcapital.html", "destination": "/capital", "permanent": true },
+    { "source": "/pay", "destination": "/clearpay", "permanent": true },
+    { "source": "/app", "destination": "/clearpay", "permanent": true }
   ]
 }

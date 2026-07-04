@@ -4,27 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>/* set theme before paint (no flash). 3 modes; default by time of day */(function(){try{var T=['light','dusk','dark'],t=localStorage.getItem('cp-theme');if(!t||T.indexOf(t)<0){var h=new Date().getHours();t=(h>=9&&h<17)?'light':((h>=6&&h<9)||(h>=17&&h<20))?'dusk':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
-<title>ClearPath — Own Where You Live</title>
-<meta name="description" content="ClearPath is a member-owned housing cooperative that turns the rent you already pay into a path to debt-free homeownership — no mortgage, no bank, no landlord keeping the gains. Now enrolling in South Redlands, CA.">
+<title>Clear Pay — The Money App That Turns Rent Into Ownership</title>
+<meta name="description" content="Clear Pay is the money app for the ClearPath cooperative. Route your rent, build credit with every on-time payment, grow redeemable savings, and earn your way to a debt-free home — no mortgage, no bank, no landlord keeping the gains.">
 <meta name="theme-color" content="#0A0A0A">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://useclear.org/">
+<link rel="canonical" href="https://useclear.org/clearpay">
 <!-- Open Graph / social -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://useclear.org/">
-<meta property="og:title" content="ClearPath — Your rent is making someone else rich.">
-<meta property="og:description" content="A member-owned housing cooperative turning renters into debt-free homeowners, one on-time payment at a time.">
+<meta property="og:url" content="https://useclear.org/clearpay">
+<meta property="og:title" content="Clear Pay — Stop renting. Start owning, from your phone.">
+<meta property="og:description" content="The money app for the ClearPath cooperative. Pay rent, build credit, grow savings, and turn on-time payments into a debt-free home.">
 <meta property="og:site_name" content="ClearPath Co-op">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://useclear.org/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ClearPath — Your rent is making someone else rich.">
-<meta name="twitter:description" content="Turn the rent you already pay into debt-free homeownership. Member-owned. No mortgage, no bank.">
+<meta name="twitter:title" content="Clear Pay — Stop renting. Start owning, from your phone.">
+<meta name="twitter:description" content="Route rent, build credit, grow redeemable savings, and earn your way to a debt-free home — all from one account.">
 <meta name="twitter:image" content="https://useclear.org/assets/logo.png">
-<!-- Structured data (local + global SEO) -->
+<!-- Structured data -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"ClearPath","alternateName":"ClearPath Co-op","url":"https://useclear.org/","logo":"https://useclear.org/assets/logo.png","description":"ClearPath is a member-owned housing cooperative that turns the rent you already pay into a path to debt-free homeownership.","areaServed":[{"@type":"City","name":"Redlands","containedInPlace":{"@type":"AdministrativeArea","name":"Inland Empire, California"}}],"address":{"@type":"PostalAddress","addressLocality":"Redlands","addressRegion":"CA","addressCountry":"US"},"knowsAbout":["housing cooperative","debt-free homeownership","rent-to-own alternative","credit building","Clear Capital"]}
-</script>
+{"@context":"https://schema.org","@type":"MobileApplication","name":"Clear Pay","applicationCategory":"FinanceApplication","operatingSystem":"iOS, Android, Web","url":"https://useclear.org/clearpay","description":"Clear Pay is the money app for the ClearPath cooperative. Members route rent, build credit reported to all three bureaus, grow redeemable savings, and earn equity credits toward a debt-free home.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"ClearPath","url":"https://useclear.org/","logo":"https://useclear.org/assets/logo.png"}}</script>
 <link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,6 +159,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 .eye::before{content:'';width:26px;height:1.5px;background:var(--ink-3)}
 .h2{font-family:var(--disp);font-size:clamp(2.9rem,6.4vw,6rem);line-height:.9;letter-spacing:.014em;color:var(--ink);text-wrap:balance}
 .h2 .serif{font-size:.94em;letter-spacing:0;color:var(--ink-3);text-transform:none}
+#what .h2 .serif{display:block;text-align:center;line-height:.82;margin:-.18em 0 .08em}
 .lead{font-size:1rem;color:var(--ink-2);line-height:1.8;font-weight:400;max-width:480px}
 
 /* ═══════ HERO ═══════ */
@@ -257,7 +257,6 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 .product-featured .product-desc{color:var(--bg);opacity:.62}
 .product-featured .product-tag{color:var(--bg);border-color:var(--bg);opacity:.7;background:transparent}
 .product-featured:hover{background:var(--ink);border-color:var(--ink)}
-.product-featured:hover .product-num{color:var(--bg);opacity:.2}
 .product-featured::before{background:var(--bg)}
 .product-featured:hover .product-tag{background:transparent;color:var(--bg);border-color:var(--bg)}
 .scroll-hint-strip{display:flex;align-items:center;gap:1.1rem}
@@ -349,8 +348,6 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
   .step:nth-child(2n){border-right:none}
   .step:nth-child(1),.step:nth-child(2){border-bottom:1px solid var(--border)}
   .cap-grid{grid-template-columns:1fr;gap:2.5rem}
-  .ph,.trk-hdr{flex-direction:column;align-items:stretch;gap:1.4rem}
-  .ph .lead,.trk-hdr .lead{max-width:none;width:100%;padding-bottom:0}
   .comp-hdr,.crow,.ccta{grid-template-columns:148px 1fr 1fr}
   .cplan,.cv,.cctac{padding-left:1.3rem;padding-right:1.3rem}
   .crk{padding-left:1.3rem;padding-right:1rem;font-size:.58rem}
@@ -371,28 +368,98 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
   .step{border-right:none;border-bottom:1px solid var(--border)}
   .step:last-child{border-bottom:none}
   .how-watermark{display:none}
-  .product-item{width:91vw;padding:2.2rem 1.6rem}
-  #tracks .h2{font-size:2.3rem}
-  .ph .lead,.trk-hdr .lead{max-width:none;width:100%;padding-bottom:0}
   .foot-top{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){
-  /* reflow: label on its own row, the two plans side by side */
-  .comp-hdr,.crow,.ccta{grid-template-columns:1fr 1fr}
-  .chblank,.cctab{display:none}
-  .cplan{padding:1.5rem 1.1rem}
-  .cplan-p{font-size:2.4rem}
-  .cplan-lbl{font-size:.58rem;flex-wrap:wrap;gap:.35rem}
+  .comp-hdr,.crow,.ccta{grid-template-columns:74px 1fr 1fr}
+  .cplan{padding:1.3rem .85rem}
+  .cplan-p{font-size:2.1rem}
+  .cplan-lbl{font-size:.54rem;flex-wrap:wrap;gap:.35rem}
   .cbadge{display:none}
-  .crk{grid-column:1 / -1;border-right:none;border-bottom:1px solid var(--border);padding:.95rem 1.1rem .55rem;font-size:.58rem;color:var(--ink-3)}
-  .cv{padding:.95rem 1.1rem;font-size:.86rem}
-  .cv small{display:block;margin-left:0;margin-top:.15rem}
-  .cctac{padding:1.2rem .9rem}
-  .cctac .btn{padding:.95rem .6rem;font-size:.74rem;letter-spacing:0;width:100%}
+  .crk{padding:.85rem .7rem;font-size:.5rem;letter-spacing:.05em}
+  .cv{padding:.85rem .8rem;font-size:.78rem}
+  .cv small{display:block;margin-left:0}
+  .cctac{padding:1rem .5rem}
+  .cctac .btn{padding:.8rem .4rem;font-size:.64rem;letter-spacing:0}
 }
 @media(max-width:430px){
   .foot-top{grid-template-columns:1fr}
   .prob-stats{grid-template-columns:1fr 1fr}
+}
+/* ═══════ CLEAR CAPITAL specifics ═══════ */
+.wm-cap{font-family:var(--sans);font-size:.58rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--border-hi);padding:.2rem .5rem;border-radius:6px;margin-left:.15rem;align-self:center}
+.str-hdr{margin-bottom:clamp(2.4rem,5vw,3.4rem)}
+.str-hdr .lead{margin-top:1.3rem;max-width:620px}
+.who-hdr{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.who-hdr .lead{max-width:280px;padding-bottom:.3rem}
+/* card grids (sharp, soft outer radius) */
+.cap-grid-3,.cap-grid-2{border:1px solid var(--border);border-radius:14px;overflow:hidden;display:grid}
+.cap-grid-3{grid-template-columns:repeat(3,1fr)}
+.cap-grid-2{grid-template-columns:1fr 1fr}
+.cap-card{padding:2.4rem 2rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:288px;transition:background .3s}
+.cap-card:hover{background:var(--ghost)}
+.cap-grid-3 .cap-card:nth-child(3n){border-right:none}
+.cap-grid-2 .cap-card:nth-child(2n){border-right:none}
+.cap-grid-3 .cap-card:nth-last-child(-n+1){border-bottom:none}
+.cap-grid-2 .cap-card:nth-last-child(-n+2){border-bottom:none}
+.cap-card-n{font-family:var(--disp);font-size:3.4rem;line-height:1;letter-spacing:.03em;color:var(--ink-4);margin-bottom:.4rem;transition:color .3s}
+.cap-card:hover .cap-card-n{color:var(--ink-3)}
+.cap-card-icon{margin-bottom:1.2rem;color:var(--ink)}
+.cap-card-icon svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cap-card-tag{font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--border-hi);padding:.28rem .7rem;border-radius:100px;align-self:flex-start;margin-bottom:1rem}
+.cap-card-h3{font-family:var(--serif);font-size:1.18rem;color:var(--ink);margin-bottom:.6rem;line-height:1.3}
+.cap-card-title{font-family:var(--disp);font-size:1.7rem;letter-spacing:.035em;color:var(--ink);margin-bottom:.65rem;line-height:1}
+.cap-card-p{font-size:.83rem;color:var(--ink-2);line-height:1.7}
+.cap-card-list{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:.5rem}
+.cap-card-list li{font-size:.79rem;color:var(--ink-2);line-height:1.5;display:flex;gap:.6rem;align-items:flex-start}
+.cap-card-list li::before{content:'→';color:var(--ink-3);flex-shrink:0}
+.cap-card-bar{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--ink);transition:width .5s cubic-bezier(.16,1,.3,1)}
+.cap-card:hover .cap-card-bar{width:100%}
+/* smart trust modular grid */
+.trust{margin-top:1.1rem;border:1px solid var(--border);border-radius:14px;overflow:hidden;display:grid;grid-template-columns:1.1fr 2fr}
+.trust-l{padding:clamp(2rem,3vw,2.8rem) 2rem;border-right:1px solid var(--border)}
+.trust-h3{font-family:var(--disp);font-size:clamp(1.9rem,3.2vw,2.9rem);line-height:.95;letter-spacing:.01em;color:var(--ink);margin:.7rem 0 .7rem}
+.trust-p{font-size:.82rem;color:var(--ink-2);line-height:1.7}
+.trust-r{display:grid;grid-template-columns:1fr 1fr}
+.trust-cell{padding:1.9rem 1.7rem;border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
+.trust-cell:nth-child(2n){border-right:none}
+.trust-cell:nth-child(3),.trust-cell:nth-child(4){border-bottom:none}
+.trust-k{font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.9rem}
+.trust-ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.trust-ul li{font-size:.8rem;color:var(--ink-2);display:flex;gap:.6rem;line-height:1.45}
+.trust-ul li::before{content:'→';color:var(--ink-3);flex-shrink:0}
+/* join steps */
+.join-steps{border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:clamp(2rem,4vw,3rem)}
+.js{display:grid;grid-template-columns:72px 1fr auto;align-items:start;gap:1.8rem;padding:1.9rem 2rem;border-bottom:1px solid var(--border);transition:background .25s}
+.js:last-child{border-bottom:none}
+.js:hover{background:var(--ghost)}
+.js-n{font-family:var(--disp);font-size:2.7rem;line-height:.85;letter-spacing:.02em;color:var(--ink-4);transition:color .3s}
+.js:hover .js-n{color:var(--ink-3)}
+.js-h3{font-family:var(--serif);font-size:1.1rem;color:var(--ink);margin-bottom:.45rem;line-height:1.3}
+.js-p{font-size:.83rem;color:var(--ink-2);line-height:1.7}
+.js-badge{font-size:.56rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:100px;align-self:flex-start;white-space:nowrap;flex-shrink:0;border:1px solid var(--border-hi);color:var(--ink-2)}
+.js-badge.key{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){
+  .cap-grid-3{grid-template-columns:1fr 1fr}
+  .cap-grid-3 .cap-card:nth-child(3n){border-right:1px solid var(--border)}
+  .cap-grid-3 .cap-card:nth-child(2n){border-right:none}
+  .cap-grid-3 .cap-card:nth-last-child(-n+1){border-bottom:1px solid var(--border)}
+  .trust{grid-template-columns:1fr}
+  .trust-l{border-right:none;border-bottom:1px solid var(--border)}
+  .who-hdr{flex-direction:column;align-items:stretch;gap:1.4rem}
+  .who-hdr .lead{max-width:none;width:100%;padding-bottom:0}
+}
+@media(max-width:640px){
+  .cap-grid-3,.cap-grid-2{grid-template-columns:1fr}
+  .cap-card{border-right:none!important}
+  .cap-card{border-bottom:1px solid var(--border)!important}
+  .cap-grid-3 .cap-card:last-child,.cap-grid-2 .cap-card:last-child{border-bottom:none!important}
+  .trust-r{grid-template-columns:1fr}
+  .trust-cell{border-right:none}
+  .trust-cell:nth-child(3){border-bottom:1px solid var(--border)}
+  .js{grid-template-columns:52px 1fr;gap:1.2rem}
+  .js-badge{display:none}
+  .who-hdr .lead,.str-hdr .lead,.ph .lead{max-width:none;width:100%;padding-bottom:0}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.rev{opacity:1;transform:none}}
 </style>
@@ -406,13 +473,13 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
 <nav id="nav">
   <a href="index.html" class="logo" aria-label="ClearPath home">
     <img src="assets/logo.png" alt="ClearPath logo" width="40" height="40">
-    <span class="wm">Clear<b>Path</b></span>
+    <span class="wm">Clear<b>Path</b></span><span class="wm-cap">Pay</span>
   </a>
   <div class="nav-links">
     <a href="#how" class="nl">How it works</a>
-    <a href="#products" class="nl">Ecosystem</a>
-    <a href="#tracks" class="nl">Membership</a>
-    <a href="capital.html" class="nl">Clear Capital ↗</a>
+    <a href="#structures" class="nl">Inside the app</a>
+    <a href="#who" class="nl">Who it's for</a>
+    <a href="index.html" class="nl">ClearPath ↗</a>
   </div>
   <div class="nav-actions">
     <button id="tbtn" aria-label="Switch theme: dark, golden hour, light">
@@ -420,39 +487,39 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
       <svg class="i-dusk" viewBox="0 0 20 20" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 14.5h15"/><path d="M6 14.5a4 4 0 0 1 8 0"/><path d="M10 4v2.2M4.6 6.6l1.4 1.5M15.4 6.6l-1.4 1.5M2.6 10.8h1.6M15.8 10.8h1.6"/></svg>
       <svg class="i-sun" viewBox="0 0 20 20" fill="none" stroke-width="1.5"><circle cx="10" cy="10" r="3.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42" stroke-linecap="round"/></svg>
     </button>
-    <a href="#cta" class="njoin">Join now</a>
+    <a href="#cta" class="njoin">Get the app</a>
     <button id="menuBtn" class="menu-btn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#how">How it works <span>01</span></a>
-  <a href="#products">Ecosystem <span>02</span></a>
-  <a href="#tracks">Membership <span>03</span></a>
-  <a href="capital.html">Clear Capital <span>↗</span></a>
-  <a href="#cta" class="mm-cta">Join now</a>
+  <a href="#structures">Inside the app <span>02</span></a>
+  <a href="#who">Who it's for <span>03</span></a>
+  <a href="index.html">ClearPath <span>↗</span></a>
+  <a href="#cta" class="mm-cta">Get the app</a>
 </div>
 
 <!-- HERO -->
 <section id="hero">
   <canvas id="hcanvas" aria-hidden="true"></canvas>
   <div class="hero-meta">
-    <div class="hm-lbl">Rent paid this year<br>building zero equity</div>
+    <div class="hm-lbl">Rent U.S. households will pay<br>this year — building nothing</div>
     <div class="hm-n"><span class="live">$</span><span id="ctr" class="live">0</span></div>
-    <div class="hm-sub">~$600B U.S. annual · resets Jan 1</div>
+    <div class="hm-sub">~$600B U.S. annual · none of it earning equity — until now</div>
   </div>
-  <div class="hero-top"><span class="eyebrow"><span>Now enrolling — South Redlands, CA</span></span></div>
+  <div class="hero-top"><span class="eyebrow"><span>Clear Pay · The money app</span></span></div>
   <div class="hero-mid">
     <h1 class="hero-h1">
-      <span class="hl-line hl-top"><span>YOUR RENT</span></span>
-      <span class="hl-line hl-line-mid"><span class="hl-mid">is making someone</span></span>
-      <span class="hl-line hl-bot"><span>ELSE RICH.</span></span>
+      <span class="hl-line hl-top"><span>STOP RENTING.</span></span>
+      <span class="hl-line hl-line-mid"><span class="hl-mid">start owning —</span></span>
+      <span class="hl-line hl-bot"><span>FROM YOUR PHONE.</span></span>
     </h1>
   </div>
   <div class="hero-bot">
-    <p class="hero-sub">ClearPath is a member-owned housing cooperative that turns your monthly rent into a path to debt-free homeownership — no mortgage, no bank, no landlord keeping the gains.</p>
+    <p class="hero-sub">Clear Pay is the money app for the ClearPath cooperative. Route your rent, build credit with every on-time payment, grow savings that stay 100% yours, and turn months of consistency into a debt-free home — no mortgage, no bank, no landlord keeping the gains.</p>
     <div class="hero-btns">
-      <a href="#cta" class="btn btn-fill mag">Claim your spot <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M6.5 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#cta" class="btn btn-fill mag">Get early access <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M6.5 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="#how" class="btn btn-line mag">How it works</a>
     </div>
   </div>
@@ -461,142 +528,138 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
 
 <div class="mband" aria-hidden="true"><div class="minr" id="marq"></div></div>
 
-<!-- PROBLEM -->
-<section id="problem" class="sect">
+<!-- WHAT IS CLEAR PAY -->
+<section id="what" class="sect">
   <div class="wrap">
     <div class="prob-head">
       <div class="rev">
-        <div class="eye">The broken system</div>
-        <h2 class="h2">Renting is the longest transaction with <span class="serif">nothing</span> to show for it.</h2>
+        <div class="eye">What is Clear Pay</div>
+        <h2 class="h2">One account for the <span class="serif">whole</span> path to owning.</h2>
       </div>
-      <p class="lead rev">Traditional renting is purely extractive. You write massive monthly checks, build 0% equity, and face eviction the moment income stops. ClearPath closes the loop — turning the rent you already pay into compounding ownership.</p>
+      <p class="lead rev">Clear Pay is the member-facing app of the ClearPath cooperative — a full money account where the rent you already pay starts working for you. Spend, save, send, and pay bills like any modern wallet, while every on-time payment quietly builds your credit and your equity toward a debt-free home.</p>
     </div>
     <div class="prob-stats">
-      <div class="rev"><div class="pstat-n">1<span class="u">:1</span></div><div class="pstat-l">Every dollar you save, matched in equity credits</div></div>
-      <div class="rev"><div class="pstat-n">44<span class="u">M+</span></div><div class="pstat-l">U.S. renter households with no path to ownership</div></div>
-      <div class="rev"><div class="pstat-n">100<span class="u">%</span></div><div class="pstat-l">Of your savings stays liquid and yours — withdraw any time, never locked up</div></div>
-      <div class="rev"><div class="pstat-n">60<span class="u"> days</span></div><div class="pstat-l">Rent covered — zero payback — if your income stops</div></div>
+      <div class="rev"><div class="pstat-n">3</div><div class="pstat-l">Credit bureaus your on-time rent is reported to — automatically, for free</div></div>
+      <div class="rev"><div class="pstat-n">1:1</div><div class="pstat-l">Equity-credit match on savings up to $1,500 / month toward your Clear Deed</div></div>
+      <div class="rev"><div class="pstat-n">100<span class="u">%</span></div><div class="pstat-l">Of your savings stays liquid and yours — redeemable to cash anytime</div></div>
+      <div class="rev"><div class="pstat-n">$0</div><div class="pstat-l">Hidden fees, minimums, or interest — never a predatory scoring model</div></div>
     </div>
-    <blockquote class="pull rev">You're paying your landlord's <em>mortgage</em> — you just don't get the <em>deed.</em></blockquote>
+    <blockquote class="pull rev">Same lease, same landlord. The difference is that now <em>your payments build something</em> — credit, savings, and a title with your name on it.</blockquote>
   </div>
 </section>
 
 <!-- HOW -->
 <section id="how">
-  <div class="how-watermark" aria-hidden="true">EQUITY</div>
+  <div class="how-watermark" aria-hidden="true">PAY</div>
   <div class="how-head">
     <div class="how-intro">
-      <div class="eye rev">How it works</div>
-      <h2 class="h2 rev">Pay rent. <span class="serif">own</span> your home.</h2>
-      <p class="lead rev">Every dollar you route through ClearPath does three jobs at once — pays your landlord, builds your ownership stake, and strengthens the safety net for every member.</p>
+      <div class="eye rev">How Clear Pay works</div>
+      <h2 class="h2 rev">Pay like normal. <span class="serif">build</span> like never before.</h2>
+      <p class="lead rev">You don't change your lease or your life — you change where the money flows. Four steps turn everyday payments into credit, savings, and a real path to ownership.</p>
     </div>
   </div>
   <div class="steps-list">
-      <div class="step rev"><div class="step-index">01</div><h3 class="step-title">Route your rent through Clear Pay</h3><p class="step-body">Same lease, same landlord. ClearPath handles the transfer and reports on-time payments to all three credit bureaus — automatically, for free.</p><div class="step-bar"></div></div>
-      <div class="step rev"><div class="step-index">02</div><h3 class="step-title">Earn equity credits every month</h3><p class="step-body">Every on-time payment earns credits regardless of rent size. A perfect 6-month streak unlocks a milestone bonus automatically.</p><div class="step-bar"></div></div>
-      <div class="step rev"><div class="step-index">03</div><h3 class="step-title">Build savings in Clear Equity</h3><p class="step-body">Deposit savings and the co-op matches them 1:1 in credits — up to $1,500/month. Your cash stays liquid and 100% yours, always.</p><div class="step-bar"></div></div>
-      <div class="step rev"><div class="step-index">04</div><h3 class="step-title">Cross the threshold. Own your home.</h3><p class="step-body">When credits and savings hit the milestone, Clear Deed unlocks. A physical property title — no mortgage, no bank, no debt.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">01</div><h3 class="step-title">Route your rent through Clear Pay</h3><p class="step-body">Same landlord, same due date. ClearPay handles the transfer and reports every on-time payment to all three credit bureaus — automatically, at no cost to you.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">02</div><h3 class="step-title">Grow savings that stay yours</h3><p class="step-body">Move money into Clear Savings and it's held as CLRUSD — 100% liquid and redeemable to cash anytime. There's no APY gimmick; instead, deposits earn a 1:1 match in equity credits toward your future home.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">03</div><h3 class="step-title">Build credit &amp; unlock a Clear Credit line</h3><p class="step-body">Consistency becomes leverage. Your on-time history and savings unlock fair, transparent credit lines — backed by your behavior, not a lender's model built to keep you borrowing.</p><div class="step-bar"></div></div>
+      <div class="step rev"><div class="step-index">04</div><h3 class="step-title">Reach your Clear Deed</h3><p class="step-body">Equity credits and savings compound toward a milestone. Hit it and Clear Deed unlocks — a debt-free home title earned through behavioral consistency, not a 30-year mortgage.</p><div class="step-bar"></div></div>
   </div>
 </section>
 
-<!-- ECOSYSTEM -->
-<section id="products">
-  <div class="prod-head">
-    <div class="ph">
-      <div class="rev">
-        <div class="eye">The ecosystem</div>
-        <h2 class="h2">Seven products.<br>One cooperative.</h2>
-      </div>
-      <p class="lead rev">Each is a standalone module — but engineered to compound. The more members, the cheaper housing gets, the faster everyone owns.</p>
-    </div>
-  </div>
-  <div class="products-scroll" id="products-scroll" role="list" aria-label="ClearPath products — drag or scroll horizontally">
-      <a href="clearpay.html" class="product-item" role="listitem"><div class="product-num" aria-hidden="true">01</div><span class="product-tag">Transaction</span><div class="product-name">Clear Pay</div><p class="product-desc">Your rent becomes a credit-building, equity-earning event every single month. Reporting goes to all three bureaus automatically.</p><span class="product-cta">Explore <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-      <div class="product-item product-featured" role="listitem"><div class="product-num" aria-hidden="true">02</div><span class="product-tag">Ownership</span><div class="product-name">Clear Deed</div><p class="product-desc">The finish line. A debt-free home title, earned through behavioral consistency — not a bank loan or 30-year mortgage.</p></div>
-      <div class="product-item" role="listitem"><div class="product-num" aria-hidden="true">03</div><span class="product-tag">Protection</span><div class="product-name">Clear Assurance</div><p class="product-desc">Up to 60 days of rent paid by the co-op if crisis strikes. True forgiveness — zero payback, zero premium taken from you.</p></div>
-      <div class="product-item" role="listitem"><div class="product-num" aria-hidden="true">04</div><span class="product-tag">Savings</span><div class="product-name">Clear Equity</div><p class="product-desc">A personal capital vault with a 1:1 credit match on deposits up to $1,500/month. Liquid. Yours. Always withdrawable.</p></div>
-      <div class="product-item" role="listitem"><div class="product-num" aria-hidden="true">05</div><span class="product-tag">Liquidity</span><div class="product-name">Clear Credit</div><p class="product-desc">Earned credit lines backed by your behavior and savings — not a predatory lender's scoring model built to keep you borrowing.</p></div>
-      <div class="product-item" role="listitem"><div class="product-num" aria-hidden="true">06</div><span class="product-tag">Commerce</span><div class="product-name">Clear Partner</div><p class="product-desc">Spend your ledger credits at local merchants who've joined the network. Near-zero fees for everyone involved.</p></div>
-      <a href="capital.html" class="product-item" role="listitem"><div class="product-num" aria-hidden="true">07</div><span class="product-tag">Acquisition</span><div class="product-name">Clear Capital</div><p class="product-desc">The institutional engine. Owners swap deeds for tax-deferred yield shares — scaling housing stock without spending cash.</p><span class="product-cta">Explore <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-    </div>
-  <div class="prod-foot">
-    <div class="scroll-hint-strip" aria-hidden="true">
-      <div class="scroll-hint-line"></div>
-      <span class="scroll-hint-text">Drag to explore</span>
-      <div class="scroll-hint-line"></div>
-    </div>
-  </div>
-</section>
-
-<!-- MEMBERSHIP -->
-<section id="tracks" class="sect">
+<!-- STRUCTURES -->
+<section id="structures" class="sect">
   <div class="wrap">
-    <div class="trk-hdr">
-      <div class="rev"><div class="eye">Membership tracks</div><h2 class="h2">Start free.<br>Accelerate when ready.</h2></div>
-      <p class="lead rev">Both tracks earn real equity and real protection. The Accelerated Track simply moves faster and covers you from day one.</p>
+    <div class="str-hdr">
+      <div class="eye rev">Inside the app</div>
+      <h2 class="h2 rev">Everything your money <span class="serif">does</span>, in one place.</h2>
+      <p class="lead rev">Clear Pay feels like the wallet you already know — clean, fast, and mobile-first — with the cooperative's flywheel built quietly underneath every screen.</p>
     </div>
-    <div class="comp rev">
-      <div class="comp-hdr">
-        <div class="chblank"></div>
-        <div class="cplan">
-          <div class="cplan-lbl">Standard track</div>
-          <div class="cplan-p">$0</div>
-          <div class="cplan-per">No upfront cost, ever</div>
-        </div>
-        <div class="cplan ac">
-          <div class="cplan-lbl">Accelerated track <span class="cbadge">Most popular</span></div>
-          <div class="cplan-p">$250</div>
-          <div class="cplan-per">per year · ~$21/month</div>
-        </div>
+    <div class="cap-grid-3 rev">
+      <div class="cap-card"><div class="cap-card-n">A</div><span class="cap-card-tag">Accounts</span><h3 class="cap-card-h3">Cash, Savings &amp; linked banks</h3><p class="cap-card-p">One balance for spending, one for savings (held as redeemable CLRUSD), and your outside banks connected alongside. See your total, switch between accounts, and watch your equity credits grow — all from the home screen.</p><div class="cap-card-bar"></div></div>
+      <div class="cap-card"><div class="cap-card-n">B</div><span class="cap-card-tag">Pay &amp; Send</span><h3 class="cap-card-h3">Rent, bills &amp; people</h3><p class="cap-card-p">Pay rent to route it through the credit flywheel, cover utilities and bills, and send or request money instantly. Every payment is one tap — and the on-time ones do double duty building your file.</p><div class="cap-card-bar"></div></div>
+      <div class="cap-card"><div class="cap-card-n">C</div><span class="cap-card-tag">Card &amp; Credit</span><h3 class="cap-card-h3">Clear Card + earned credit lines</h3><p class="cap-card-p">Spend anywhere with the Clear Card (physical + virtual), freeze it in a tap, and unlock Clear Credit lines backed by your savings and behavior — fair terms, transparent limits, no debt trap.</p><div class="cap-card-bar"></div></div>
+    </div>
+    <div class="trust rev">
+      <div class="trust-l">
+        <div class="eye">Under the hood</div>
+        <h3 class="trust-h3">The Clear ledger</h3>
+        <p class="trust-p">Behind the familiar interface, every dollar is tracked on a transparent cooperative ledger — one system that holds your money, matches your progress, protects what's yours, and keeps the rules the same for everyone.</p>
       </div>
-      <div class="crow">
-        <div class="crk">Clearing fee</div>
-        <div class="cv"><span class="hi">1% uncapped</span></div>
-        <div class="cv ac"><span class="hi">0.5%, capped at $15/mo</span></div>
-      </div>
-      <div class="crow">
-        <div class="crk">Monthly credits</div>
-        <div class="cv"><span class="hi">200</span> / month</div>
-        <div class="cv ac"><span class="hi">300</span> / month <small>1.5× boost</small></div>
-      </div>
-      <div class="crow">
-        <div class="crk">Streak bonus</div>
-        <div class="cv"><span class="hi">+500</span> / 6 months</div>
-        <div class="cv ac"><span class="hi">+750</span> / 6 months</div>
-      </div>
-      <div class="crow">
-        <div class="crk">Rent protection</div>
-        <div class="cv">After a 90-day cliff</div>
-        <div class="cv ac"><span class="hi">Active from day 1</span></div>
-      </div>
-      <div class="crow">
-        <div class="crk">Protection pool</div>
-        <div class="cv">Funded by savings yield</div>
-        <div class="cv ac"><span class="hi">100% of the $250 fee</span> goes in</div>
-      </div>
-      <div class="ccta">
-        <div class="cctab"></div>
-        <div class="cctac"><a href="#cta" class="btn btn-line mag">Claim your spot</a></div>
-        <div class="cctac ac"><a href="#cta" class="btn btn-fill mag">Accelerate now</a></div>
+      <div class="trust-r">
+        <div class="trust-cell"><div class="trust-k">Holds</div><ul class="trust-ul"><li>Cash balance (USDC)</li><li>Savings as redeemable CLRUSD</li><li>Linked outside bank accounts</li><li>Your Clear Card &amp; credit line</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Matches</div><ul class="trust-ul"><li>On-time rent → 3-bureau reporting</li><li>Savings → 1:1 equity credits</li><li>Up to $1,500 / month matched</li><li>Progress toward Clear Deed</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Protects</div><ul class="trust-ul"><li>Savings always redeemable to cash</li><li>Clear Assurance covers rent in a crisis</li><li>No hidden fees or interest</li></ul></div>
+        <div class="trust-cell"><div class="trust-k">Governs</div><ul class="trust-ul"><li>One member, one vote</li><li>Equity credits earmarked for your Deed</li><li>Fixed, transparent, member-owned rules</li></ul></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CLEAR CAPITAL -->
-<section id="capital" class="sect inv">
+<!-- WHO IT'S FOR -->
+<section id="who" class="sect">
   <div class="wrap">
-    <div class="cap-grid">
-      <div>
-        <div class="cap-eye rev">Clear Capital · For asset partners</div>
-        <h2 class="cap-h2 rev">Turn your deed <span class="serif">into</span> yield.</h2>
-        <p class="cap-body rev">Clear Capital is the institutional acquisition arm of the cooperative. Landlords and investors contribute physical property in a tax-deferred 721-style exchange — receiving liquid, yield-bearing equity instead of a taxable sale. Your asset becomes someone's first home, and you earn as the co-op grows.</p>
-        <div class="rev"><a href="capital.html" class="btn btn-fill mag">Explore Clear Capital <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M6.5 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    <div class="who-hdr">
+      <div class="rev"><div class="eye">Who it's for</div><h2 class="h2">Built for renters<br>ready to own.</h2></div>
+      <p class="lead rev">If you pay rent every month, Clear Pay is already working in your favor — no perfect credit score or big down payment required to start.</p>
+    </div>
+    <div class="cap-grid-2 rev">
+      <div class="cap-card">
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg></div>
+        <h3 class="cap-card-title">Lifelong renters</h3>
+        <p class="cap-card-p">You've paid years of rent with nothing to show for it. Route the same payment through Clear Pay and it finally starts compounding into credit and equity.</p>
+        <ul class="cap-card-list"><li>On-time rent reported to all three bureaus</li><li>Equity credits earned every single month</li><li>A real, trackable path to a debt-free title</li></ul>
+        <div class="cap-card-bar"></div>
       </div>
-      <div class="cap-stats rev">
-        <div class="cap-stat"><div class="cap-stat-n">721<span class="u">-style</span></div><div class="cap-stat-l">Tax-deferred exchange — no immediate capital gains</div></div>
-        <div class="cap-stat"><div class="cap-stat-n">$0</div><div class="cap-stat-l">Capital gains tax you owe by contributing — instead of selling</div></div>
-        <div class="cap-stat"><div class="cap-stat-n">12.5<span class="u">% yield</span></div><div class="cap-stat-l">Targeted annual yield as NAV and rents grow</div></div>
+      <div class="cap-card">
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><path d="M6.5 21v-4"/><path d="M11 21v-8"/><path d="M15.5 21v-6"/><path d="M20 21V9"/></svg></div>
+        <h3 class="cap-card-title">Credit rebuilders</h3>
+        <p class="cap-card-p">Thin file or a few bruises? Clear Pay rewards consistency instead of punishing your past — the payments you already make do the work.</p>
+        <ul class="cap-card-list"><li>Your on-time history does the reporting</li><li>Earned credit lines with fair, clear terms</li><li>No predatory interest or hidden penalties</li></ul>
+        <div class="cap-card-bar"></div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 14C12 10 9 8 5 8c0 4 3 6 7 6z"/><path d="M12 12c0-3.2 2.6-5.5 6.5-5.5 0 3.2-2.6 5.5-6.5 5.5z"/></svg></div>
+        <h3 class="cap-card-title">Determined savers</h3>
+        <p class="cap-card-p">You put a little aside when you can. In Clear Pay every dollar saved is matched 1:1 in equity credits — and it never stops being yours.</p>
+        <ul class="cap-card-list"><li>Savings held as redeemable CLRUSD</li><li>1:1 equity-credit match up to $1,500 / mo</li><li>100% liquid — withdraw to cash anytime</li></ul>
+        <div class="cap-card-bar"></div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V11l5 3V11l5 3V7h6v14"/><path d="M3 21h18"/><path d="M16.5 11h0M19 11h0M16.5 15h0M19 15h0"/></svg></div>
+        <h3 class="cap-card-title">Gig &amp; hourly workers</h3>
+        <p class="cap-card-p">Irregular income and tired of nickel-and-dime fees? Clear Pay is a full account with no minimums — and a safety net when life happens.</p>
+        <ul class="cap-card-list"><li>No minimums, no hidden fees</li><li>Get paid, pay bills, send &amp; request money</li><li>Clear Assurance covers rent in a crisis</li></ul>
+        <div class="cap-card-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GETTING STARTED -->
+<section id="join" class="sect">
+  <div class="wrap" style="max-width:940px">
+    <div class="eye rev">Getting started</div>
+    <h2 class="h2 rev">From download <span class="serif">to</span> debt-free.</h2>
+    <div class="join-steps rev">
+      <div class="js">
+        <div class="js-n" aria-hidden="true">01</div>
+        <div><h3 class="js-h3">Create your Clear Pay account</h3><p class="js-p">Download the app and open your account in minutes. A quick identity check keeps every member of the cooperative safe — then your Cash, Savings, and Card are ready to go.</p></div>
+        <span class="js-badge">Free · 5 min</span>
+      </div>
+      <div class="js">
+        <div class="js-n" aria-hidden="true">02</div>
+        <div><h3 class="js-h3">Route your rent</h3><p class="js-p">Connect your lease and let Clear Pay handle the monthly transfer to your landlord. From your very first on-time payment, we report to all three credit bureaus — automatically.</p></div>
+        <span class="js-badge key">Key step</span>
+      </div>
+      <div class="js">
+        <div class="js-n" aria-hidden="true">03</div>
+        <div><h3 class="js-h3">Save &amp; get matched</h3><p class="js-p">Move money into Clear Savings — held as redeemable CLRUSD — and start earning a 1:1 match in equity credits, up to $1,500 a month. Your balance stays 100% liquid the whole time.</p></div>
+        <span class="js-badge key">Key step</span>
+      </div>
+      <div class="js">
+        <div class="js-n" aria-hidden="true">04</div>
+        <div><h3 class="js-h3">Earn your Clear Deed</h3><p class="js-p">Equity credits and savings compound toward your ownership milestone. Reach it and your Clear Deed unlocks — a debt-free home title, earned through consistency instead of a 30-year loan.</p></div>
+        <span class="js-badge">The finish line</span>
       </div>
     </div>
   </div>
@@ -604,15 +667,15 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
 
 <!-- CTA -->
 <section id="cta" class="sect">
-  <div class="cta-ghost" aria-hidden="true">OWN IT</div>
+  <div class="cta-ghost" aria-hidden="true">ON&nbsp;TIME</div>
   <div class="ctai wrap">
-    <div class="eye rev" style="margin-bottom:0">South Redlands · Cohort 1 · Now open</div>
-    <h2 class="cta-h2 rev">Your landlord <span class="serif">doesn't need</span> to know yet.</h2>
+    <div class="eye rev" style="margin-bottom:0">Clear Pay · Now enrolling members</div>
+    <h2 class="cta-h2 rev">Your rent, <span class="serif">finally</span> building your future.</h2>
     <form class="cta-form rev" id="waitForm" novalidate>
       <input type="email" class="cta-inp" id="waitEmail" placeholder="your@email.com" aria-label="Email address" required>
-      <button class="cta-sub" type="submit">Reserve my spot</button>
+      <button class="cta-sub" type="submit">Get early access</button>
     </form>
-    <p class="cta-fine rev" id="waitMsg">No commitment. No card required. We'll reach out when your cohort opens. First 20 members enrolling now.</p>
+    <p class="cta-fine rev" id="waitMsg">Join the early-access list and we'll let you know the moment Clear Pay opens in your area. No spam, no commitment — just the app that turns rent into ownership.</p>
   </div>
 </section>
 
@@ -621,36 +684,35 @@ footer{background:var(--bg-2);border-top:1px solid var(--border);padding:clamp(3
     <div class="foot-brand">
       <a href="index.html" class="logo">
         <img src="assets/logo.png" alt="ClearPath logo" width="40" height="40">
-        <span class="wm">Clear<b>Path</b></span>
+        <span class="wm">Clear<b>Path</b></span><span class="wm-cap">Pay</span>
       </a>
-      <p class="foot-tag">A member-owned housing cooperative turning renters into debt-free homeowners — one on-time payment at a time.</p>
+      <p class="foot-tag">Clear Pay is the money app of ClearPath — a member-owned housing cooperative turning renters into debt-free owners.</p>
     </div>
     <div class="foot-col">
-      <h4>Products</h4>
-      <a href="clearpay.html">Clear Pay</a>
-      <a href="#products">Clear Equity</a>
-      <a href="#products">Clear Assurance</a>
-      <a href="#products">Clear Deed</a>
-      <a href="capital.html">Clear Capital ↗</a>
+      <h4>Clear Pay</h4>
+      <a href="#how">How it works</a>
+      <a href="#structures">Inside the app</a>
+      <a href="#who">Who it's for</a>
+      <a href="#join">Get started</a>
     </div>
     <div class="foot-col">
       <h4>Cooperative</h4>
-      <a href="#how">How it works</a>
-      <a href="#tracks">Membership tracks</a>
+      <a href="index.html">ClearPath main site ↗</a>
+      <a href="index.html#tracks">Membership</a>
       <span>1 member · 1 vote</span>
       <span>South Redlands, CA</span>
     </div>
     <div class="foot-col">
-      <h4>Roadmap</h4>
-      <span>Phase 1 · Pilot (1–500)</span>
-      <span>Phase 2 · Inland Empire</span>
-      <span>Phase 3 · Master-planned</span>
-      <a href="#cta">Join the waitlist</a>
+      <h4>The app</h4>
+      <span>Accounts · Pay · Cards</span>
+      <span>Savings &amp; Clear Credit</span>
+      <span>Clear Assurance</span>
+      <a href="#cta">Get early access</a>
     </div>
   </div>
   <div class="foot-bot">
-    <p class="foot-copy">ClearPath is a consumer and housing cooperative. Membership interests are not securities under the Forman doctrine (U.S. Supreme Court, 1975). This site is informational only and is not an offer of securities or financial advice.</p>
-    <span class="foot-phase">© 2026 ClearPath Co-op · Phase 01 / 03</span>
+    <p class="foot-copy">Clear Pay is the member application of ClearPath, a member-owned consumer and housing cooperative. Savings are held as redeemable CLRUSD; equity credits are cooperative membership benefits applied toward a Clear Deed and are not cash, securities, or a deposit product. Clear Pay does not pay interest or APY. This site is informational only and is not an offer of securities or financial advice.</p>
+    <span class="foot-phase">© 2026 ClearPath Co-op · Clear Pay · Phase 01 / 03</span>
   </div>
 </footer>
 
@@ -711,7 +773,7 @@ addEventListener('scroll',()=>{
 /* active nav */
 const nlinks=document.querySelectorAll('.nl[href^="#"]');
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){nlinks.forEach(l=>l.classList.remove('active'));const m=document.querySelector(`.nl[href="#${e.target.id}"]`);if(m)m.classList.add('active')}}),{threshold:.4});
-['how','products','tracks'].forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el)});
+['how','structures','who'].forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el)});
 
 /* hero canvas particles (monochrome) */
 (function(){
@@ -751,9 +813,9 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){nlinks
 
 /* ticker + marquee */
 (function(){
-  const its=['1% CLEARING FEE','44 MILLION RENTERS','$0 EQUITY EARNED','YOUR RENT','THEIR WEALTH','60 DAYS FREE PROTECTION','NO MORTGAGE','NO BANK','MEMBER-OWNED','DEBT-FREE TITLE','SOUTH REDLANDS','CLEAR CAPITAL'];
+  const its=['PAY RENT, BUILD CREDIT','REPORTED TO ALL 3 BUREAUS','SAVINGS THAT STAY YOURS','1:1 EQUITY MATCH','NO APY GIMMICKS','ZERO HIDDEN FEES','THE CLEAR CARD','EARNED CREDIT LINES','CLEAR ASSURANCE','REDEEMABLE CLRUSD','STOP RENTING · START OWNING','NOW ENROLLING'];
   let h='';for(let r=0;r<4;r++)its.forEach(t=>h+=`<span>${t}</span><span class="sep">/</span>`);document.getElementById('tk').innerHTML=h;
-  const m=['CLEAR PAY','CLEAR DEED','CLEAR ASSURANCE','OWN WHERE YOU LIVE','CLEAR EQUITY','CLEAR CREDIT','CLEAR PARTNER','CLEAR CAPITAL'];
+  const m=['PAY RENT','BUILD CREDIT','GROW EQUITY','SAVE &amp; GET MATCHED','THE CLEAR CARD','CLEAR CREDIT','OWN WHERE YOU LIVE','CLEAR PAY'];
   let h2='';for(let r=0;r<6;r++)m.forEach(t=>h2+=`<span>${t} <span class="dot">·</span> </span>`);document.getElementById('marq').innerHTML=h2;
 })();
 
