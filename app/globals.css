@@ -266,12 +266,14 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* Section heading rhythm. */
 .section-head { max-width: 22ch; }
 
-/* One heading on the site runs to 67 characters, and at d2's 32px floor that
-   is four lines on a 360px screen against §4's limit of three. Moving the
-   token would resize every heading on the site to fix one string, so the
-   instance takes the step down instead. */
+/* Two strings on the site are long enough to break §4's three-line limit at
+   360px even at their scale's floor — a 67-character section heading and a
+   65-character page title. Moving either token would resize every heading on
+   the site to fix one string, so those instances take the step down instead.
+   Marked in the JSX rather than detected, so it stays visible to whoever
+   edits the copy next. */
 @media (max-width: 460px) {
-  .section-head.is-long { font-size: 27px; letter-spacing: -0.026em; }
+  .is-long { font-size: 27px; letter-spacing: -0.026em; }
 }
 .section-lede { margin-top: var(--spacing-2); color: var(--color-ink-70); }
 .prose p + p { margin-top: var(--spacing-2); }
