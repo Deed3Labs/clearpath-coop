@@ -1,9 +1,3 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/clearcapital", "destination": "/capital", "permanent": true },
-    { "source": "/clearcapital.html", "destination": "/capital", "permanent": true }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json"
 }
