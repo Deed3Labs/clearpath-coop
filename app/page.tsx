@@ -1,13 +1,39 @@
-import { DeedHero } from '@/components/signature/DeedHero';
-import { CounterSequence } from '@/components/signature/CounterSequence';
+import Link from 'next/link';
 import { Section, Cols, Col, Ledger, Steps, Panel, Note, TextLink } from '@/components/primitives';
-import { GAP, PHASES, WAYS_IN, STATUS, UNDERNEATH } from '@/content/home';
+import { HERO, GAP, PHASES, WAYS_IN, STATUS, UNDERNEATH } from '@/content/home';
 
 export default function Home() {
   return (
     <>
-      {/* S1 — the deed issues itself. §6.1 */}
-      <DeedHero />
+      {/* S1 — Hero. §5: the visual direction is open and is not mine to
+          decide, so nothing has been designed here. The copy, the two buttons
+          and the meta strip are settled, and they are what is built. Whatever
+          direction is agreed drops into the right-hand columns without this
+          section changing shape. */}
+      <section className="wrap section hero">
+        <div className="grid12 hero-grid">
+          <div className="hero-copy">
+            <h1 className="d1 hero-headline">{HERO.headline}</h1>
+            <p className="t-lede hero-lede">{HERO.lede}</p>
+            <div className="hero-actions">
+              <Link href={HERO.primary.href} className="btn" data-variant="primary">
+                {HERO.primary.label}
+              </Link>
+              <Link href={HERO.ghost.href} className="btn" data-variant="ghost">
+                {HERO.ghost.label}
+              </Link>
+            </div>
+          </div>
+
+          <div className="hero-meta">
+            {HERO.meta.map((m) => (
+              <p className="t-note" key={m}>
+                {m}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* S2 — the gap. Prose 3-9, ledger 10-12 of the twelve-column grid,
           which is columns 1-7 and 8-10 of the ten content tracks. */}
@@ -43,7 +69,7 @@ export default function Home() {
         </Cols>
       </Section>
 
-      {/* S4 — two ways in. §6.2 */}
+      {/* S4 — Two ways in. Two columns, 3-7 and 8-12. */}
       <Section rail={WAYS_IN.rail}>
         <Cols>
           <Col span={5}>
@@ -67,9 +93,6 @@ export default function Home() {
                 <TextLink href={WAYS_IN.member.link.href}>{WAYS_IN.member.link.label}</TextLink>
               </p>
             </div>
-          </Col>
-          <Col span={10}>
-            <CounterSequence />
           </Col>
         </Cols>
       </Section>

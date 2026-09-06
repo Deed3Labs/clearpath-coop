@@ -3,9 +3,9 @@
 import type { LedgerItem, StepItem } from '@/components/primitives';
 
 export const HERO = {
-  headline: 'The land stays ours. The house becomes yours.',
+  headline: 'Rent builds equity. Just not yours.',
   lede:
-    'Clear is a member-owned cooperative. You save, you borrow against your own savings instead of a payday lender, and what you pay in becomes equity in a home you eventually hold the deed to.',
+    'Clear is a cooperative. You take title to the house. The land is held in common by every member, which is what stops it being sold out from under you. What you pay in becomes equity you keep.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
   meta: [
@@ -15,26 +15,14 @@ export const HERO = {
   ],
 } as const;
 
-/* The deed itself — the artifact a member is working toward, not an
-   illustration of a house. Set as real typography, not a picture of one. */
-export const DEED = {
-  title: 'Clear Deed',
-  number: 'No. 000001',
-  holder: 'Holder',
-  fields: [
-    { label: 'Structure', value: '2 bd / 2 ba · 940 sq ft' },
-    /* The whole thesis, and the only line with --land on its label. It is set
-       one step larger than its neighbours so it is the second thing the eye
-       lands on after the title. */
-    { label: 'Land', value: 'held in common · not conveyed', land: true },
-    { label: 'Instrument', value: 'Equity-Lease Participation Agreement' },
-  ],
-  creditsLabel: 'Credits',
-  credits: 15000,
-  creditsOf: '15,000',
-  token: '0x7f3a…c41b',
-  status: 'ISSUED',
-} as const;
+/* §6.1 lists three approved alternates, already weighed. Kept here so the
+   decision is visible in the code rather than lost in a document, and so
+   nobody writes a fourth.
+     · 'You are already buying a house. Someone else is keeping it.'
+     · 'You already pay for a house every month. It just isn\'t yours.'
+     · 'Your rent is making someone else rich.' — strongest hook, riskiest:
+       it names a beneficiary, and /contribute and /capital on this same site
+       ask landlords to bring their property in. */
 
 export const GAP = {
   rail: '01 / The gap',
@@ -71,8 +59,8 @@ export const PHASES = {
       body: 'Your deposit is your membership share — there is no buy-in and nothing to purchase. Money in your equity savings account earns matched credits and raises a credit line you can draw on at no cost, because you are spending your own money. At 15,000 credits the home path unlocks.',
     },
     {
-      title: 'You take the structure, the co-op keeps the land.',
-      body: 'You sign an Equity-Lease Participation Agreement and a Clear Deed. Your monthly payment splits into an equity contribution and a community fee that covers property taxes and shared costs. Land appreciation stays with the co-op, so members and investors never end up reaching for the same dollar.',
+      title: 'You take title to the house, and hold the land with everyone else.',
+      body: 'You sign an Equity-Lease Participation Agreement and a Clear Deed. Your monthly payment splits into an equity contribution and a community fee that covers property taxes and shared costs. The land underneath is held in common and cannot be sold, so nobody can sell the ground out from under a neighbourhood — and land appreciation stays where every member shares it, rather than becoming something members and investors reach for from opposite sides.',
     },
     {
       title: 'You redeem the title, and the equity stays portable.',

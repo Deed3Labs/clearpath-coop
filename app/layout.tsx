@@ -29,11 +29,11 @@ const mono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://useclear.org'),
   title: {
-    default: 'Clear — the land stays ours, the house becomes yours',
+    default: 'Clear — a member-owned cooperative',
     template: '%s · Clear',
   },
   description:
-    'Clear is a member-owned cooperative. Point-of-sale financing at local shops, savings-backed credit, and housing where the co-op holds the land permanently.',
+    'Clear is a member-owned cooperative. Point-of-sale financing at local shops, savings-backed credit, and housing where the land is held in common by members.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
