@@ -18,6 +18,14 @@
      4.84:1.  Same role, two jobs — not a second olive. */
   --color-land-ink: #55654A;
 
+  /* The same three roles, lightened for a full-bleed ink band. §3 allows one
+     dark band per page; on it, cobalt at its paper value measures 1.81:1 and
+     is unusable, so each accent has an on-ink counterpart that clears 4.5:1.
+     Same meaning, different ground — not a second palette. */
+  --color-live-on-ink:    #7C8CC5;  /* 5.05:1 on ink */
+  --color-land-on-ink:    #7A8C6C;  /* 4.57:1 */
+  --color-settled-on-ink: #4F937E;  /* 4.57:1 */
+
   /* Ink at reduced strength.  Nominal 50% measures 3.04:1 on paper and
      fails; §8.7 says darken the token rather than special-case it, so
      --ink-50 carries 66% alpha and measures 4.72:1.  The name is the role,

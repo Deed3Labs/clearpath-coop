@@ -1,6 +1,10 @@
 /* Home. §7.1 — copy is final and lives here, never inline in JSX. */
 
-import type { LedgerItem, StepItem } from '@/components/primitives';
+import type { LedgerItem } from '@/components/primitives';
+
+/* The three phases are a rail with stations on it, not numbered steps, so they
+   carry the gate that ends each phase rather than an index. */
+export type Phase = { title: string; gate: string; body: string };
 
 export const HERO = {
   /* Two sentences, set as two lines. The break is the sentence break at every
@@ -26,12 +30,19 @@ export const HERO = {
        it names a beneficiary, and /contribute and /capital on this same site
        ask landlords to bring their property in. */
 
+/* §5 — one sentence at display size, full bleed on ink. The strongest line on
+   the site, and the one the whole argument rests on. */
+export const STATEMENT = 'You pay for a house every month either way. Only one of them ends up yours.';
+
 export const GAP = {
   rail: '01 / The gap',
   heading: 'Five years of rent buys you a stack of receipts.',
+  /* The skimmable layer: headline → sub-headline → visual → figure. The
+     paragraph is the fourth thing a reader meets, not the first. */
+  sub: 'You pay about the same either way. Only one of you ends the five years holding something.',
   prose: [
-    'A two-bedroom in Redlands runs about $2,520 a month. Pay it for five years and you have handed someone $151,200 and kept nothing — no equity, no title, no claim on the thing you lived in.',
-    'Inside Clear the same money has somewhere to land. That is the whole idea. Not a discount on rent. A different destination for it.',
+    'A two-bedroom in Redlands runs about $2,520 a month. Five years of that is $151,200 handed to someone else.',
+    'Inside Clear the same money has somewhere to land. Not a discount on rent — a different destination for it.',
   ],
   ledger: [
     {
@@ -53,39 +64,43 @@ export const GAP = {
 export const PHASES = {
   rail: '02 / Three phases',
   heading: 'Renter, owner, earner.',
-  standfirst:
-    'Three phases of one membership, not three ways of describing the same payment. Each has a gate you can see from the first day.',
+  sub: 'Three phases of one membership, each with a gate you can see from the first day.',
+  standfirst: 'Not three ways of describing the same payment.',
   steps: [
     {
       title: 'You rent, and you save at the same time.',
-      body: 'Your deposit is your membership share — there is no buy-in and nothing to purchase. Money in your equity savings account earns matched credits and raises a credit line you can draw on at no cost, because you are spending your own money. At 15,000 credits the home path unlocks.',
+      gate: '15,000 credits',
+      body: 'Your deposit is your membership share. There is no buy-in and nothing to purchase. Saving earns matched credits and raises a credit line you can draw on at no cost, because you are spending your own money.',
     },
     {
       title: 'You take title to the house, and hold the land with everyone else.',
-      body: 'You sign an Equity-Lease Participation Agreement and a Clear Deed. Your monthly payment splits into an equity contribution and a community fee that covers property taxes and shared costs. The land underneath is held in common and cannot be sold, so nobody can sell the ground out from under a neighbourhood — and land appreciation stays where every member shares it, rather than becoming something members and investors reach for from opposite sides.',
+      gate: 'ELPA and Clear Deed',
+      body: 'Your monthly payment splits into an equity contribution and a community fee that covers property taxes and shared costs. The land underneath is held in common and cannot be sold, so nobody can sell the ground out from under a neighbourhood.',
     },
     {
       title: 'You redeem the title, and the equity stays portable.',
-      body: 'Once your contributions cover the structure you hold it outright. From there you can recontribute the home through Clear Capital and earn on it, or carry your equity into a different Clear home when your life changes size.',
+      gate: 'Redemption',
+      body: 'Once your contributions cover the structure you hold it outright. From there you can carry your equity into a different Clear home when your life changes size.',
     },
-  ] satisfies StepItem[],
+  ] satisfies Phase[],
 } as const;
 
 export const WAYS_IN = {
   rail: '03 / Two ways in',
+  heading: 'Two front doors.',
+  sub: 'A shop raises the charge. The customer approves it on their own phone, in their own time.',
   shop: {
     heading: 'You run the shop',
     prose: [
-      'You write up jobs every week that walk out the door because the customer cannot pay that day. Clear finances them at 2.5% of the ticket and pays you on net-30. Klarna and Affirm sit near six per cent for the same job.',
-      'Five founding partners get 2% for life and no fee on their first twenty charges. After that, standard terms.',
+      'You write up jobs every week that walk out because the customer cannot pay that day. Clear finances them at 2.5% of the ticket and pays you on net-30. Klarna and Affirm sit near six per cent for the same job.',
     ],
     link: { href: '/shops', label: 'The merchant terms in full' },
   },
   member: {
     heading: 'You are standing at a counter',
     prose: [
-      'Your car needs $940 of work you cannot cover today. The shop shows you a code, you scan it, and three minutes later you have a plan you chose yourself — in full, or split two, four or twelve ways — and a membership that keeps working at every other shop in the network.',
-      'No credit-score pull to approve your first plan. We read the income landing in your bank account and what already goes out of it, with your permission.',
+      'Your car needs $940 of work you cannot cover today. The shop shows you a code and three minutes later you have a plan you chose yourself — and a membership that keeps working at every other shop in the network.',
+      'No credit-score pull to approve your first plan.',
     ],
     link: { href: '/how', label: 'How the member side works' },
   },
@@ -94,8 +109,8 @@ export const WAYS_IN = {
 export const STATUS = {
   rail: '04 / Status',
   heading: 'What exists today, plainly.',
-  standfirst:
-    'A co-op that asks people to save with it should be straight about what it has actually built. This list is maintained, not marketing.',
+  sub: 'A co-op that asks people to save with it should be straight about what it has actually built.',
+  standfirst: 'This list is maintained, not marketing.',
   ledger: [
     {
       label: 'Member app — savings, credit, term plans, card',
@@ -137,8 +152,9 @@ export const STATUS = {
 export const UNDERNEATH = {
   rail: '05 / Underneath',
   heading: 'The ledger is public, and the co-op does not own it.',
+  sub: 'A member-owned institution should not be the only party able to check its own arithmetic.',
   prose:
-    'Balances, credit lines, deeds and titles run on an open-source protocol held by an ownerless Wyoming foundation. The co-op is a user of that protocol, not its owner, and anyone can read the code or fork it. That is deliberate: a member-owned institution should not be the only party able to check its own arithmetic.',
+    'Balances, credit lines, deeds and titles run on an open-source protocol held by an ownerless Wyoming foundation. The co-op is a user of that protocol, not its owner. Anyone can read the code or fork it.',
   link: { href: '/coop', label: 'How the co-op is put together' },
   panel: {
     source: 'github.com/Deed3Labs/Protocol-Contracts · AGPL-3.0',

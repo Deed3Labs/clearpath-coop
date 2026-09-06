@@ -11,13 +11,17 @@ export function Section({
   rail,
   children,
   id,
+  rhythm,
 }: {
   rail: string;
   children: React.ReactNode;
   id?: string;
+  /* Identical padding on every band reads as a wireframe. A section can say
+     how much air it wants. (visual brief §3) */
+  rhythm?: 'tight' | 'open';
 }) {
   return (
-    <section className="wrap section" id={id}>
+    <section className={`wrap ${rhythm ? `section-${rhythm}` : 'section'}`} id={id}>
       <div className="grid12">
         <p className="rail rail-note">{rail}</p>
         <div className="content">{children}</div>
@@ -156,5 +160,89 @@ export function TextLink({ href, children }: { href: string; children: React.Rea
     <Link href={href} className="tlink">
       {children}
     </Link>
+  );
+}
+
+/* ── Set-pieces (visual brief §5) ─────────────────────────────────────────
+   The visual carries the claim and the prose fills in what the visual loses,
+   so these are section-leading elements, not decoration. */
+
+/* A band that owns the full width of the viewport. `ink` is the one dark
+   band a page is allowed; it inverts the palette's roles rather than
+   introducing a second one. */
+export function Band({
+  children,
+  tone = 'paper',
+  rhythm,
+  id,
+}: {
+  children: React.ReactNode;
+  tone?: 'paper' | 'ink';
+  rhythm?: 'tight' | 'open';
+  id?: string;
+}) {
+  const cls = [
+    'bleed',
+    tone === 'ink' ? 'band-ink' : '',
+    rhythm ? `section-${rhythm}` : 'section',
+  ]
+    .filter(Boolean)
+    .join(' ');
+  return (
+    <section className={cls} id={id}>
+      <div className="wrap">{children}</div>
+    </section>
+  );
+}
+
+/* One sentence at display size, full bleed, nothing else in the band.
+ *
+ * Raised paper by default, not ink: §3 allows ONE full-bleed ink band per
+ * page, and on the home page the gap chart spends it. A statement is loud
+ * because of its size and the emptiness around it, not because of its
+ * ground — `tone="ink"` is there for pages that have not spent theirs. */
+export function Statement({
+  children,
+  tone = 'raised',
+}: {
+  children: React.ReactNode;
+  tone?: 'raised' | 'ink';
+}) {
+  return (
+    <section className={`bleed statement ${tone === 'ink' ? 'band-ink' : 'band-raised'}`}>
+      <div className="wrap">
+        <div className="grid12">
+          <p className="content">{children}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* One number at 140–220px with a short caption. One per page, two at most. */
+export function FigureXL({
+  figure,
+  caption,
+  live,
+}: {
+  figure: string;
+  caption: React.ReactNode;
+  live?: boolean;
+}) {
+  return (
+    <div className="figure-xl-block">
+      <span className={`figure-xl${live ? ' is-live' : ''}`}>{figure}</span>
+      <p className="t-sm figure-xl-cap">{caption}</p>
+    </div>
+  );
+}
+
+/* A number lifted out of a paragraph and set in the margin rail. */
+export function Pull({ figure, caption }: { figure: string; caption: string }) {
+  return (
+    <div className="pull">
+      <span className="pull-fig">{figure}</span>
+      <span className="t-note pull-cap">{caption}</span>
+    </div>
   );
 }

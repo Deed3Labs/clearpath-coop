@@ -175,6 +175,110 @@ button, input, select, textarea { font: inherit; color: inherit; }
   animation-delay: calc(var(--i) * 160ms);
 }
 
+/* ─── Surface and rhythm (visual brief §3) ────────────────────────────────
+   Three surfaces, used with discipline. The single biggest reason the site
+   read as unfinished was that all eight pages were one colour.
+
+   The ink band inverts the roles rather than introducing a second palette:
+   ink becomes the ground, paper becomes the text, and each accent swaps to
+   its on-ink counterpart. Everything downstream — ledgers, rules, notes —
+   keeps working without knowing it is on a dark ground. ONE per page. */
+
+.band-ink {
+  --color-paper: #16211D;
+  --color-paper-2: #1E2B26;
+  --color-ink: #DFE3DE;
+  --color-ink-70: rgb(223 227 222 / .70);
+  --color-ink-50: rgb(223 227 222 / .62);
+  --color-ink-28: rgb(223 227 222 / .34);
+  --color-ink-13: rgb(223 227 222 / .18);
+  --color-live: var(--color-live-on-ink);
+  --color-land: var(--color-land-on-ink);
+  --color-settled: var(--color-settled-on-ink);
+
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Full bleed out of the container, without a horizontal scrollbar. */
+.bleed {
+  width: 100vw;
+  max-width: 100%;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* Rhythm. Identical padding on every band reads as a wireframe, so sections
+   can declare how much air they take. */
+.section-tight { padding-block: clamp(48px, 6vw, 88px); }
+.section-open  { padding-block: clamp(96px, 13vw, 190px); }
+
+/* ─── Typographic set-pieces (visual brief §5) ───────────────────────────── */
+
+/* The sub-headline. The scale had display sizes and body and almost nothing
+   between, so a skimmer had to enter a paragraph to learn anything. This
+   carries a section's argument on its own. */
+.d-sub {
+  font-size: clamp(20px, 1.7vw, 24px);
+  line-height: 1.35;
+  letter-spacing: -0.011em;
+  font-weight: 400;
+  max-width: 34ch;
+  color: var(--color-ink-70);
+}
+
+/* The oversized figure. One number, mono, with a caption beneath. */
+.figure-xl {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  font-size: clamp(64px, 13vw, 200px);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  display: block;
+}
+.figure-xl-cap {
+  margin-top: var(--spacing-2);
+  max-width: 34ch;
+  color: var(--color-ink-70);
+}
+.figure-xl-block { display: grid; }
+
+/* The statement band. One sentence at display size, full bleed, nothing else
+   in the band. */
+.band-raised { background: var(--color-paper-2); }
+.statement { padding-block: clamp(80px, 11vw, 160px); }
+.statement p::after {
+  /* A short rule under the sentence, the width of the type's own descender
+     line. It stops the band reading as an empty panel with a heading in it. */
+  content: '';
+  display: block;
+  width: 88px;
+  height: 2px;
+  margin-top: clamp(28px, 3vw, 44px);
+  background: var(--color-live);
+}
+.statement p {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(38px, 5.6vw, 84px);
+  line-height: 1.0;
+  letter-spacing: -0.038em;
+  max-width: 17ch;
+  text-wrap: balance;
+}
+
+/* A figure pulled out of a paragraph and set in the margin rail, so a skimmer
+   catches it without entering the prose. */
+.pull { display: grid; gap: 6px; }
+.pull-fig {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.pull-cap { color: var(--color-ink-50); }
+
 /* ─── Blocks (§4) — three, and no more. ───────────────────────────────── */
 
 /* Content subdivides the PARENT grid rather than nesting a second one with a
@@ -652,5 +756,171 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ─── The gap chart (visual brief §4, Home) ──────────────────────────────── */
+
+.gap { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: var(--spacing-5); align-items: end; }
+.gap-plot { min-width: 0; }
+
+/* The plot's height is set here rather than by the viewBox aspect, because a
+   fixed aspect made this 136px tall at 390px — where four lines that nearly
+   coincide cannot be told apart. The SVG stretches into it; strokes are
+   non-scaling and the dots are HTML, so nothing distorts. */
+.gap-frame {
+  position: relative;
+  height: clamp(230px, 46vw, 320px);
+}
+.gap-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.gap-head { position: absolute; inset: 0 auto 0 var(--x); width: 1px; background: var(--color-ink-28); }
+.gap-dot {
+  position: absolute;
+  left: 50%;
+  bottom: var(--y);
+  width: 9px;
+  height: 9px;
+  margin: 0 0 -4.5px -4.5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+}
+.gap-dot.is-live { background: var(--color-live); }
+
+.gap-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-ink-50);
+}
+
+.gap-key {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px var(--spacing-3);
+  margin-top: var(--spacing-3);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-ink-70);
+}
+.gap-key li { display: flex; align-items: center; gap: 9px; }
+.gap-key i { width: 22px; height: 0; border-top-width: 2px; border-top-style: solid; flex: none; }
+.gap-key .k-paid { border-top-color: var(--color-ink-50); border-top-width: 1.5px; }
+.gap-key .k-dash { border-top-style: dashed; }
+.gap-key .k-kept-rent { border-top-color: var(--color-ink); }
+.gap-key .k-kept-clear { border-top-color: var(--color-live); border-top-width: 2.5px; }
+
+.gap-read { display: grid; gap: var(--spacing-4); min-width: 0; }
+.gap-read-row { display: grid; gap: var(--spacing-3); }
+.gap-fig {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-top: 4px;
+}
+.gap-fig.is-live { color: var(--color-live); }
+.gap-sub { margin-top: 6px; }
+
+.gap-control { display: grid; gap: var(--spacing-1); }
+.gap-control input[type='range'] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 44px; background: transparent; cursor: pointer;
+}
+.gap-control input[type='range']::-webkit-slider-runnable-track { height: 1px; background: var(--color-ink-28); }
+.gap-control input[type='range']::-moz-range-track { height: 1px; background: var(--color-ink-28); }
+.gap-control input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; margin-top: -9px;
+  border-radius: var(--radius-pill); background: var(--color-live); border: 0;
+}
+.gap-control input[type='range']::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: var(--radius-pill);
+  background: var(--color-live); border: 0;
+}
+
+/* §6 — the chart stays horizontal on a phone and drops one line. The dashed
+   Clear-paid line is the one to lose: it sits almost on top of the rent line,
+   which is the least legible thing at 340px and the easiest to state as a
+   figure. The rent line stays, because it is what sets the y-scale — without
+   it the empty top of the frame means nothing. */
+@media (max-width: 860px) {
+  .gap { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); }
+  .gap-key { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .gap-l-dash { display: none; }
+  .gap-key li:nth-child(2) { display: none; }
+  .gap-read-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-2); }
+}
+
+/* ─── The milestone rail (visual brief §4, Home) ─────────────────────────── */
+
+.rail-mile { position: relative; display: grid; list-style: none; margin: 0; padding: 0; }
+
+/* Mobile first (§2 — "the mobile version is the design"). One rule down the
+   left, stations hanging off it. */
+.rail-mile { gap: var(--spacing-4); padding-left: var(--spacing-4); }
+.rail-mile::before {
+  content: '';
+  position: absolute;
+  left: 4px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--color-ink-28);
+}
+.rail-mile li { position: relative; }
+.rail-mile-station {
+  position: absolute;
+  left: calc(var(--spacing-4) * -1);
+  top: 5px;
+  width: 9px; height: 9px;
+  background: var(--color-ink);
+  border-radius: var(--radius-pill);
+}
+.rail-mile li:last-child .rail-mile-station { background: var(--color-live); }
+/* Ink, not cobalt. Three cobalt gate labels plus a cobalt station is four
+   accents in one viewport; the accent is spent on the terminus dot instead. */
+.rail-mile-gate { font-size: 11.5px; color: var(--color-ink); letter-spacing: 0.02em; }
+.rail-mile-title { margin-top: 6px; max-width: 24ch; }
+.rail-mile-body { margin-top: var(--spacing-1); color: var(--color-ink-70); max-width: 40ch; }
+
+/* Above 860px the rail turns horizontal and the columns are sized by how long
+   each phase lasts, so the distance between gates is visible in the layout
+   rather than asserted in the copy. */
+@media (min-width: 861px) {
+  .rail-mile {
+    /* Literal fr values: `fr` is not permitted inside calc(), so the phase
+       spans cannot be driven by a custom property and live here instead. They
+       match SPAN in components/visuals/MilestoneRail.tsx. */
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.5fr) minmax(200px, 0.28fr);
+    gap: var(--spacing-4);
+    padding-left: 0;
+    padding-top: var(--spacing-5);
+    column-gap: var(--spacing-4);
+  }
+  .rail-mile::before {
+    left: 0; right: 0; top: 4px; bottom: auto;
+    width: auto; height: 1px;
+  }
+  .rail-mile li { padding-top: var(--spacing-3); }
+  .rail-mile-station { left: 0; top: calc(var(--spacing-5) * -1); }
+  .rail-mile li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: calc(var(--spacing-5) * -1 + 9px);
+    height: calc(var(--spacing-5) - 9px);
+    width: 1px;
+    background: var(--color-ink-28);
   }
 }
