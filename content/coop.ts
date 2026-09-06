@@ -95,7 +95,7 @@ export const WHO = {
   heading: 'Small, local, and honest about it.',
   prose: [
     'Clear is being built out of Redlands by a very small team, starting with a handful of shops in one corridor rather than a launch. Ten merchants a mile apart compound. Ten across the county do not.',
-    'The design work behind it — the credit waterfall, the entity structure, the deed protocol — has been in progress since 2017. What is new is that the first product is small enough to actually ship.',
+    'The design work behind it — the credit waterfall, the entity structure, the Clear protocol — has been in progress since 2017. What is new is that the first product is small enough to actually ship.',
   ],
   panel: {
     title: 'Working on this?',

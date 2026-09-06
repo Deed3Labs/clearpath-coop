@@ -222,3 +222,107 @@ export function StructureList() {
     </div>
   );
 }
+
+/* ── The same drawing, laid out portrait ──────────────────────────────────
+ * §6.7 says the diagram becomes a nested list below 860px, and the reason is
+ * sound: scaling the landscape layout to a 342px column puts its 13px labels
+ * at 4px. But that is an argument against shrinking THAT layout, not against
+ * having a drawing at all. This is the same tree reflowed as a vertical spine
+ * — the shape a file tree takes — so it renders about 1:1 on a phone and the
+ * labels stay at their real size.
+ *
+ * Same data, same rules: one dashed box and one dotted contract line. The
+ * nested list stays in the DOM at every width as the text alternative. */
+
+const M_W = 340;
+const M_ROOT_H = 58;
+const M_BOX_H = 54;
+const M_GC_H = 50;
+const M_GAP = 12;
+const M_IND1 = 28;
+const M_IND2 = 56;
+const M_SPINE1 = 14;
+const M_SPINE2 = 42;
+/* Room for the contract label to sit between ClearLabs and the foundation. */
+const M_CONTRACT_GAP = 46;
+
+export function StructureDiagramStacked() {
+  const { root, children, holdingsChildren, foundation, contractLabel } = STRUCTURE;
+
+  /* Lay the tree out depth-first, so the grandchildren sit directly beneath
+     the parent they belong to and the spine reads the way a file tree does. */
+  type Row = { kind: 'child' | 'gc'; name: string; note: string; y: number; h: number };
+  const rows: Row[] = [];
+  let y = M_ROOT_H + 16;
+
+  children.forEach((c, i) => {
+    rows.push({ kind: 'child', name: c.name, note: c.note, y, h: M_BOX_H });
+    y += M_BOX_H + M_GAP;
+    if (i === HOLDINGS_I) {
+      holdingsChildren.forEach((g) => {
+        rows.push({ kind: 'gc', name: g.name, note: g.note, y, h: M_GC_H });
+        y += M_GC_H + M_GAP;
+      });
+    }
+  });
+
+  const childRows = rows.filter((r) => r.kind === 'child');
+  const gcRows = rows.filter((r) => r.kind === 'gc');
+  const lastChild = childRows[childRows.length - 1];
+  const lastGc = gcRows[gcRows.length - 1];
+  const holdingsRow = childRows[HOLDINGS_I];
+
+  const foundationY = y + M_CONTRACT_GAP;
+  const height = foundationY + M_BOX_H + 4;
+  const mid = (r: { y: number; h: number }) => r.y + r.h / 2;
+
+  return (
+    <svg viewBox={`0 0 ${M_W} ${height}`} className="dia-stack" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="var(--color-ink)" strokeWidth="1">
+        {/* One spine from the root down past every child. It runs behind the
+            grandchildren rather than through them, which is why they indent. */}
+        <path d={`M ${M_SPINE1} ${M_ROOT_H} V ${mid(lastChild)}`} />
+        {childRows.map((r) => (
+          <path key={r.name} d={`M ${M_SPINE1} ${mid(r)} H ${M_IND1}`} />
+        ))}
+
+        <path d={`M ${M_SPINE2} ${holdingsRow.y + holdingsRow.h} V ${mid(lastGc)}`} />
+        {gcRows.map((r) => (
+          <path key={r.name} d={`M ${M_SPINE2} ${mid(r)} H ${M_IND2}`} />
+        ))}
+      </g>
+
+      {/* Contract — dotted, and labelled, because it is not ownership. */}
+      <g fill="none" stroke="var(--color-ink-50)" strokeWidth="1" strokeDasharray="2 4">
+        <path d={`M ${M_SPINE2} ${lastChild.y + lastChild.h} V ${foundationY}`} />
+      </g>
+      <text x={M_IND2} y={lastChild.y + lastChild.h + 28} className="dia-note dia-stack-contract">
+        {contractLabel}
+      </text>
+
+      <Box x={0} y={0} w={M_W} h={M_ROOT_H} name={root.name} note={root.note} />
+
+      {rows.map((r) => (
+        <Box
+          key={r.name}
+          x={r.kind === 'gc' ? M_IND2 : M_IND1}
+          y={r.y}
+          w={M_W - (r.kind === 'gc' ? M_IND2 : M_IND1)}
+          h={r.h}
+          name={r.name}
+          note={r.note}
+        />
+      ))}
+
+      <Box
+        x={M_IND1}
+        y={foundationY}
+        w={M_W - M_IND1}
+        h={M_BOX_H}
+        name={foundation.name}
+        note={foundation.note}
+        dashed
+      />
+    </svg>
+  );
+}

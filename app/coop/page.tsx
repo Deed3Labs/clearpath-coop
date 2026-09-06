@@ -1,5 +1,9 @@
 import { Section, Cols, Col, Ledger, Panel, Note, TextLink } from '@/components/primitives';
-import { StructureDiagram, StructureList } from '@/components/marks/StructureDiagram';
+import {
+  StructureDiagram,
+  StructureDiagramStacked,
+  StructureList,
+} from '@/components/marks/StructureDiagram';
 import { OPENING, STRUCTURE, GOVERNANCE, WHO } from '@/content/coop';
 
 export const metadata = {
@@ -41,6 +45,7 @@ export default function Coop() {
           <Col span={10}>
             <figure className="dia-figure">
               <StructureDiagram />
+              <StructureDiagramStacked />
               <StructureList />
             </figure>
 
