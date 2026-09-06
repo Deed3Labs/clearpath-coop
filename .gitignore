@@ -1,5 +1,5 @@
 # Internal — do not publish
-public/assets/strategy.md
+reference/strategy.md
 
 # Next
 /.next/
@@ -16,3 +16,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+
+# Build artifacts
+tsconfig.tsbuildinfo

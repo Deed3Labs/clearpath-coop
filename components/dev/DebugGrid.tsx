@@ -20,7 +20,7 @@ export function DebugGrid() {
 
   return (
     <div className="debug-grid" aria-hidden="true">
-      <div className="container">
+      <div className="wrap">
         <div className="grid12">
           {Array.from({ length: 12 }, (_, i) => (
             <i key={i} {...(i < 2 ? { 'data-rail': '' } : {})} />

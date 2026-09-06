@@ -2,7 +2,7 @@
    rail note so ?debug=grid has something real to check alignment against. */
 export function Placeholder({ rail, title }: { rail: string; title: string }) {
   return (
-    <section className="container section">
+    <section className="wrap section">
       <div className="grid12">
         <p className="rail rail-note">{rail}</p>
         <div className="content">
