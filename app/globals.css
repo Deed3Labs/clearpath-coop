@@ -403,6 +403,64 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .dia-stack { display: block; }
 }
 
+/* The join form (§6.8). */
+.join { display: grid; gap: var(--spacing-4); }
+.join-tabs { display: flex; flex-wrap: wrap; gap: var(--spacing-1); }
+/* Four tabs with real labels do not fit one row at 360px. The split chooser's
+   options divide their row evenly because there are always four short ones;
+   these size to content and wrap instead. */
+.join-tabs .chooser-option { flex: 0 1 auto; }
+
+.join-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: var(--spacing-5);
+  align-items: start;
+}
+@media (max-width: 860px) { .join-body { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); } }
+
+.join-form fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: var(--spacing-3); }
+.join-field { display: grid; gap: 6px; }
+.join-field label { font-size: 15px; color: var(--color-ink-70); }
+.join-field input,
+.join-field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-ink-28);
+  border-radius: var(--radius-none);
+  font-size: 17px;
+  font-family: inherit;
+  color: var(--color-ink);
+  transition: border-color var(--hover) var(--ease);
+}
+.join-field textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+.join-field input:focus, .join-field textarea:focus { border-color: var(--color-ink); }
+
+/* A disabled form should read as switched off, not as broken or as loading. */
+.join-form fieldset:disabled .join-field input,
+.join-form fieldset:disabled .join-field textarea { background: transparent; color: var(--color-ink-50); }
+.join-form fieldset:disabled .btn { opacity: 0.4; pointer-events: none; }
+
+.join-aside { display: grid; gap: var(--spacing-3); }
+.join-fallback { min-height: 420px; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* A link that is the whole of its paragraph is a destination, not a word in a
+   sentence, so it takes a real 44px target. WCAG exempts a target inline in a
+   block of text, and padding one of those would break the line it sits in —
+   which is why this is scoped by :only-child rather than applied to .tlink. */
+p > .tlink:only-child { display: inline-block; padding-block: 11px; }
+
 /* Two panels stacked in one column. */
 .panel-stack { display: grid; gap: var(--spacing-3); }
 .panel-list { display: grid; gap: var(--spacing-1); }
@@ -439,6 +497,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
   align-items: center;
   gap: var(--spacing-3);
 }
+/* The nav only appears above 860px, but a tablet in landscape is a touch
+   device at that width, so these get a real 44px target. Padding rather than
+   height, so the hit area grows and the type does not move. */
+.header-nav ul a { display: inline-flex; align-items: center; min-height: 44px; }
 .header-mobile { display: none; }
 
 @media (max-width: 860px) {
