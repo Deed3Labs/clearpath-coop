@@ -359,6 +359,118 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (max-width: 860px) { .calc-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .calc-stats { grid-template-columns: minmax(0, 1fr); } }
 
+/* The structure diagram (§6.7 S2). Above 860px the drawing; below it the same
+   content as a nested list, because a diagram that scrolls sideways on a phone
+   is worse than a list. The list is always in the DOM as the text alternative
+   and is hidden visually rather than removed. */
+.dia-figure { margin: 0; }
+.dia { width: 100%; height: auto; display: block; }
+.dia-name {
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: 500;
+  fill: var(--color-ink);
+  text-anchor: middle;
+}
+.dia-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.01em;
+  fill: var(--color-ink-50);
+  text-anchor: middle;
+}
+.dia-contract { font-size: 10.5px; }
+
+.dia-list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.dia-footnotes { display: grid; gap: var(--spacing-1); margin-top: var(--spacing-3); max-width: 72ch; }
+
+@media (max-width: 860px) {
+  .dia { display: none; }
+  .dia-list {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    display: grid;
+    gap: var(--spacing-2);
+    border-top: 1px solid var(--color-ink);
+    padding-top: var(--spacing-2);
+  }
+  .dia-list ul { display: grid; gap: var(--spacing-2); margin-top: var(--spacing-2); }
+  .dia-list > ul { border-left: 1px solid var(--color-ink-13); padding-left: var(--spacing-2); }
+  .dia-list ul ul {
+    margin-top: var(--spacing-1);
+    margin-left: var(--spacing-2);
+    padding-left: var(--spacing-2);
+    border-left: 1px solid var(--color-ink-13);
+  }
+  .dia-list .t-note { display: block; }
+  .dia-list-outside {
+    border-top: 1px dashed var(--color-ink-28);
+    padding-top: var(--spacing-2);
+  }
+}
+
+/* The join form (§6.8). */
+.join { display: grid; gap: var(--spacing-4); }
+.join-tabs { display: flex; flex-wrap: wrap; gap: var(--spacing-1); }
+/* Four labelled tabs do not fit one row on a 360px screen. The split
+   chooser's options divide their row evenly because there are always four
+   short ones; these have real labels, so they size to content and wrap
+   instead of being squeezed to 70px and overflowing their own text. */
+.join-tabs .chooser-option { flex: 0 1 auto; }
+.join-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: var(--spacing-5);
+  align-items: start;
+}
+@media (max-width: 860px) { .join-body { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); } }
+
+.join-form fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: var(--spacing-3); }
+.join-field { display: grid; gap: 6px; }
+.join-field label { font-size: 15px; color: var(--color-ink-70); }
+.join-field input,
+.join-field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-ink-28);
+  border-radius: var(--radius-none);
+  font-size: 17px;
+  color: var(--color-ink);
+  transition: border-color var(--hover) var(--ease);
+}
+.join-field textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+.join-field input:focus, .join-field textarea:focus { border-color: var(--color-ink); }
+
+/* A disabled form should read as switched off, not as broken or as loading. */
+.join-form fieldset:disabled .join-field input,
+.join-form fieldset:disabled .join-field textarea { background: transparent; color: var(--color-ink-50); }
+.join-form fieldset:disabled .btn { opacity: 0.4; pointer-events: none; }
+
+.join-aside { display: grid; gap: var(--spacing-3); }
+.join-fallback { min-height: 420px; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Two panels stacked in one column. */
 .panel-stack { display: grid; gap: var(--spacing-3); }
 .panel-list { display: grid; gap: var(--spacing-1); }
