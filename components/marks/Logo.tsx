@@ -25,7 +25,7 @@
  * whole pixel, not a round number picked by eye.
  */
 
-const OUTLINE_FLOOR = 96;
+export const OUTLINE_FLOOR = 96;
 
 type Variant = 'outline' | 'solid';
 

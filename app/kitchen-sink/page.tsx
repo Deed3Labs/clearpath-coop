@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { LogoMark, Logo } from '@/components/marks/Logo';
+import { LogoMark, Logo, OUTLINE_FLOOR } from '@/components/marks/Logo';
 
 /* Dev only (§3). Absent from the sitemap, disallowed in robots.txt, never
    linked, and 404 in production — Next has no way to drop a route from the
@@ -29,7 +29,7 @@ export default function KitchenSink() {
             Mark — auto variant
           </h2>
           <p className="t-note" style={{ marginTop: 'var(--spacing-1)' }}>
-            solid below 40px, outline at and above it
+            solid below {OUTLINE_FLOOR}px, outline at and above it
           </p>
           <div style={row}>
             {SIZES.map((s) => (
