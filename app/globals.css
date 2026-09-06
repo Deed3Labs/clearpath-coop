@@ -111,14 +111,23 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .section { padding-block: var(--section-pad); }
 
-/* ─── Hero (§6.1) ─────────────────────────────────────────────────────────
-   Copy only. §5: the hero visual is open and is not mine to decide — options
-   go to review before anything is built. What is settled is the headline, the
-   lede, the two buttons and the meta strip, so that is what is here. */
+/* ─── Hero (§6.1) — type-led ──────────────────────────────────────────────
+   Agreed direction: the headline owns the hero and nothing sits beside it.
+   The sting is the headline, so anything competing with it dilutes it.
 
-.hero { padding-block: var(--spacing-5) var(--section-pad); }
+   d1 runs at its full clamp across the whole content width rather than being
+   squeezed into five columns, which is what the token was scaled for. The two
+   sentences are separate block lines so the break is the sentence break at
+   every width — that also caps the headline at three lines on a phone without
+   relying on a measure that happens to work out.
+
+   The load sequence is CSS only. No JavaScript on this page at all, so the
+   no-JS and reduced-motion states are not something that has to be arranged —
+   the content is simply there. */
+
+.hero { padding-block: var(--spacing-6) var(--section-pad); }
 .hero-grid { row-gap: var(--spacing-5); align-items: start; }
-.hero-copy { grid-column: 3 / 11; }
+.hero-copy { grid-column: 3 / 13; }
 .hero-meta {
   grid-column: 3 / 13;
   border-top: 1px solid var(--color-ink-13);
@@ -128,15 +137,27 @@ button, input, select, textarea { font: inherit; color: inherit; }
   gap: var(--spacing-4);
 }
 
-.hero-headline { max-width: 15ch; }
-.hero-lede { margin-top: var(--spacing-3); color: var(--color-ink-70); }
+.hero-headline { max-width: 20ch; }
+.hero-headline span { display: block; }
+.hero-lede { margin-top: var(--spacing-4); color: var(--color-ink-70); }
 .hero-actions { margin-top: var(--spacing-4); display: flex; flex-wrap: wrap; gap: var(--spacing-2); }
 
 @media (max-width: 1080px) {
   .hero-copy, .hero-meta { grid-column: 1 / 13; }
 }
 @media (max-width: 860px) {
+  .hero { padding-block: var(--spacing-5) var(--section-pad); }
   .hero-meta { gap: var(--spacing-2); flex-direction: column; }
+}
+
+/* One orchestrated arrival, ~1.5s, on first paint. (§4) */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero [data-rise] {
+  animation: hero-rise 700ms var(--ease) backwards;
+  animation-delay: calc(var(--i) * 160ms);
 }
 
 /* ─── Blocks (§4) — three, and no more. ───────────────────────────────── */
@@ -403,6 +424,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;

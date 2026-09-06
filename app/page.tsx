@@ -5,17 +5,22 @@ import { HERO, GAP, PHASES, WAYS_IN, STATUS, UNDERNEATH } from '@/content/home';
 export default function Home() {
   return (
     <>
-      {/* S1 — Hero. §5: the visual direction is open and is not mine to
-          decide, so nothing has been designed here. The copy, the two buttons
-          and the meta strip are settled, and they are what is built. Whatever
-          direction is agreed drops into the right-hand columns without this
-          section changing shape. */}
+      {/* S1 — Hero. Type-led: the headline owns it and nothing sits beside
+          it. Agreed at review per §5. */}
       <section className="wrap section hero">
         <div className="grid12 hero-grid">
           <div className="hero-copy">
-            <h1 className="d1 hero-headline">{HERO.headline}</h1>
-            <p className="t-lede hero-lede">{HERO.lede}</p>
-            <div className="hero-actions">
+            <h1 className="d1 hero-headline">
+              {HERO.headline.map((line, i) => (
+                <span key={line} data-rise style={{ ['--i' as string]: i }}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p className="t-lede hero-lede" data-rise style={{ ['--i' as string]: 2 }}>
+              {HERO.lede}
+            </p>
+            <div className="hero-actions" data-rise style={{ ['--i' as string]: 3 }}>
               <Link href={HERO.primary.href} className="btn" data-variant="primary">
                 {HERO.primary.label}
               </Link>
@@ -25,7 +30,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero-meta">
+          <div className="hero-meta" data-rise style={{ ['--i' as string]: 4 }}>
             {HERO.meta.map((m) => (
               <p className="t-note" key={m}>
                 {m}

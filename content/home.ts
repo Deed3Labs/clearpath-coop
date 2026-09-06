@@ -3,7 +3,9 @@
 import type { LedgerItem, StepItem } from '@/components/primitives';
 
 export const HERO = {
-  headline: 'Rent builds equity. Just not yours.',
+  /* Two sentences, set as two lines. The break is the sentence break at every
+     width rather than wherever the measure happens to fall. */
+  headline: ['Rent builds equity.', 'Just not yours.'],
   lede:
     'Clear is a cooperative. You take title to the house. The land is held in common by every member, which is what stops it being sold out from under you. What you pay in becomes equity you keep.',
   primary: { href: '/join', label: 'Join as a member' },
