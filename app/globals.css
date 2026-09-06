@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '../lib/tokens.css';
+@import '../components/app/app.css';
 
 /* ─── Base ──────────────────────────────────────────────────────────────── */
 
@@ -81,6 +82,13 @@ button, input, select, textarea { font: inherit; color: inherit; }
   column-gap: var(--gutter);
   row-gap: var(--row-gap);
 }
+
+/* Grid items default to min-width:auto, which is min-content — so one fixed
+   or unbreakable child (a 900px tablet mockup, a long mono string, a table)
+   widens its cell past the track and takes the page's horizontal scrollbar
+   with it, silently. minmax(0,1fr) fixes the TRACK; this fixes the ITEM.
+   Both are needed. */
+.grid12 > * { min-width: 0; }
 
 /* Columns 1–2 are a margin rail carrying the section reference note.
    Content runs 3–12.  Below 1080px the rail collapses and its note
