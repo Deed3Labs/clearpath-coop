@@ -95,11 +95,11 @@ export function ApproveScreen({
       >
         <div style={{ paddingRight: 14 }}>
           <p className="cap" style={{ margin: '0 0 3px' }}>Limit</p>
-          <p style={{ fontSize: 11.5 }}>{LIMITS.cycle}</p>
+          <p className="fig" style={{ fontSize: 11.5 }}>{LIMITS.cycle}</p>
         </div>
         <div style={{ paddingLeft: 14, borderLeft: '0.5px solid var(--border)' }}>
           <p className="cap" style={{ margin: '0 0 3px' }}>Clears from</p>
-          <p style={{ fontSize: 11.5 }}>{LIMITS.clearsFrom}</p>
+          <p className="fig" style={{ fontSize: 11.5 }}>{LIMITS.clearsFrom}</p>
         </div>
       </div>
 

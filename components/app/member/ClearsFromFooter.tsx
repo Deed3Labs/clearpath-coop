@@ -19,7 +19,7 @@ export function ClearsFromFooter() {
       </div>
       <div>
         <p>
-          <span className="muted">Clears from</span> {LIMITS.clearsFrom}
+          <span className="muted">Clears from</span> <span className="fig">{LIMITS.clearsFrom}</span>
         </p>
         <span className="muted" style={{ flexShrink: 0, display: 'flex' }}>
           <Chevron />

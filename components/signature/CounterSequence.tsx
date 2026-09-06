@@ -136,6 +136,12 @@ export function CounterSequence() {
       <p className="t-sm counter-read">
         <strong>{current.tablet}</strong> {current.phone}
       </p>
+
+      {/* §5 — "Say so once, quietly, beside the first artifact." It buys the
+          licence for the token translation, and it helps with the "in build"
+          honesty problem: a composed illustration claims less than a
+          photorealistic screenshot does. */}
+      <p className="t-note">Screens shown are illustrative.</p>
     </div>
   );
 }

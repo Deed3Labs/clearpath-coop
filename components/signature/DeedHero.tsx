@@ -134,12 +134,23 @@ export function DeedHero() {
                   <p className="deed-field-value deed-holder-rule" aria-hidden="true" />
                 </div>
 
-                {FIELDS.map((f) => (
-                  <div className={`deed-field${'land' in f && f.land ? ' is-land' : ''}`} key={f.label}>
-                    <p className="deed-field-label">{f.label}</p>
-                    <p className="deed-field-value">{f.value}</p>
-                  </div>
-                ))}
+                {FIELDS.map((f) => {
+                  /* Split on the separator so a wrap puts "· not conveyed"
+                     together on the second line, rather than leaving the dot
+                     dangling at the end of the first. */
+                  const [head, ...rest] = f.value.split(' · ');
+                  return (
+                    <div className={`deed-field${'land' in f && f.land ? ' is-land' : ''}`} key={f.label}>
+                      <p className="deed-field-label">{f.label}</p>
+                      <p className="deed-field-value">
+                        {head}
+                        {rest.map((part) => (
+                          <span key={part}> {'\u00B7\u00A0'}{part}</span>
+                        ))}
+                      </p>
+                    </div>
+                  );
+                })}
 
                 <div className="deed-field">
                   <p className="deed-field-label">{DEED.creditsLabel}</p>

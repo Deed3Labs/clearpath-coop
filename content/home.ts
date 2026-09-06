@@ -26,7 +26,7 @@ export const DEED = {
     /* The whole thesis, and the only line with --land on its label. It is set
        one step larger than its neighbours so it is the second thing the eye
        lands on after the title. */
-    { label: 'Land', value: 'held by the co-op · not conveyed', land: true },
+    { label: 'Land', value: 'held in common · not conveyed', land: true },
     { label: 'Instrument', value: 'Equity-Lease Participation Agreement' },
   ],
   creditsLabel: 'Credits',

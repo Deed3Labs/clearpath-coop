@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { LogoMark, Logo, OUTLINE_FLOOR } from '@/components/marks/Logo';
-import { PhoneFrame, TabletFrame, Crop, Mock } from '@/components/app/frames';
+import { PhoneFrame, TabletFrame, Crop, Mock, Specimen } from '@/components/app/frames';
 import { CycleCard } from '@/components/app/member/CycleCard';
 import { TermPlansCard, DAY_ONE_ROWS } from '@/components/app/member/TermPlansCard';
 import { ClearsFromFooter } from '@/components/app/member/ClearsFromFooter';
@@ -95,6 +95,25 @@ export default function KitchenSink() {
                 <Crop label="Cycle card, all clear"><CycleCard state="clear" /></Crop>
               </Cell>
             </Row>
+          </Section>
+
+          <Section
+            title="Annotated specimen"
+            note="§5's signature treatment — leader lines out to mono annotations in the margin"
+          >
+            <Specimen
+              width={400}
+              caption="Term plans · the fixed-term shelf"
+              notes={[
+                { at: 0.06, text: 'Header is the sum of the rows, so it checks at a glance' },
+                { at: 0.3, text: 'Progress rides in the detail line as a tinted percent — never a per-row bar' },
+                { at: 0.52, text: 'Every row states its carry rate, locked or active' },
+                { at: 0.72, text: 'The ELPA sits below a rule, outside the header total' },
+                { at: 0.93, text: 'One split row: the limit, and where it clears from' },
+              ]}
+            >
+              <TermPlansCard used={CHARGE.amount} rows={DAY_ONE_ROWS} />
+            </Specimen>
           </Section>
 
           <Section title="Member — term plans and the clears-from footer">

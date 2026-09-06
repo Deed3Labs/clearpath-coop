@@ -7,21 +7,15 @@ import { CHARGE, PAYOUTS } from '../data';
    the reference's "you are paid on the 14th" is stated as the terms rather
    than as a date that could be read as a fortnight. */
 
-function TopBar({ on }: { on: 'Home' | 'Charges' | 'Payouts' }) {
+/* §5 — "What does NOT need to survive: app nav bars, status bars, tab bars,
+   scroll positions." On a marketing page they are noise, and they are the
+   thing that makes an artifact look like a screenshot somebody pasted in. The
+   shop's name stays, because whose counter this is carries meaning. */
+function ScreenLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="topbar">
-      <span className="wm">
-        Clear <span>for {CHARGE.merchant}</span>
-      </span>
-      <nav>
-        {(['Home', 'Charges', 'Payouts', 'Staff', 'Overview'] as const).map((t) => (
-          <span key={t} className={t === on ? 'on' : undefined}>
-            {t}
-          </span>
-        ))}
-      </nav>
-      <span className="avatar">JR</span>
-    </div>
+    <p className="cap" style={{ marginBottom: 16 }}>
+      {children}
+    </p>
   );
 }
 
@@ -39,7 +33,7 @@ export function CounterHome({ state }: { state: CounterState }) {
 
   return (
     <>
-      <TopBar on="Home" />
+      <ScreenLabel>Counter · {CHARGE.merchant}</ScreenLabel>
       <div className="g2" style={{ alignItems: 'stretch' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <p className="cap" style={{ margin: '0 0 3px' }}>Today</p>
@@ -103,7 +97,7 @@ export function CounterHome({ state }: { state: CounterState }) {
                   <button type="button" className="btn-a" style={{ fontSize: 12, padding: '4px 11px' }} tabIndex={-1}>Print</button>
                 </div>
                 <div className="trow">
-                  <div><div className="muted">Bank account added</div><div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>Chase ····9012</div></div>
+                  <div><div className="muted">Bank account added</div><div className="fig" style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>Chase ····9012</div></div>
                   <span style={{ fontSize: 11.5, color: 'var(--text-success)' }}>Done</span>
                 </div>
               </div>

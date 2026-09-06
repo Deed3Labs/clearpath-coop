@@ -148,24 +148,32 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 /* The document. Roughly 5:6 portrait, paper-2 ground, 1px ink rule, zero
-   radius — it is a document, so it has no rounded corners. */
+   radius — it is an instrument, so it has no rounded corners.
+
+   It fills its five columns rather than sitting capped at 420px: at that size
+   it read as a small pale card with a lot of empty middle, which is the
+   opposite of what a deed should feel like. A second hairline inset from the
+   edge is certificate language and gives the interior something to sit
+   against. */
 .deed {
   position: relative;
   aspect-ratio: 5 / 6;
-  max-width: 420px;
-  margin-left: auto;
   background: var(--color-paper-2);
   border-radius: var(--radius-none);
-  padding: clamp(18px, 2.2vw, 26px);
+  padding: clamp(20px, 2.2vw, 30px);
   display: flex;
   flex-direction: column;
   /* The only gradient on the site: the hero's contact shadow. (§4) */
-  box-shadow: 0 18px 40px -28px rgb(22 33 29 / .45);
+  box-shadow: 0 20px 44px -30px rgb(22 33 29 / .5);
 }
-@media (max-width: 1080px) { .deed { margin-left: 0; } }
-@media (max-width: 560px) {
-  .deed-body { grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr); }
+.deed::after {
+  content: '';
+  position: absolute;
+  inset: clamp(9px, 0.9vw, 13px);
+  border: 1px solid var(--color-ink-13);
+  pointer-events: none;
 }
+@media (max-width: 1080px) { .deed { max-width: 460px; } }
 
 .deed-rule { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
@@ -175,61 +183,67 @@ button, input, select, textarea { font: inherit; color: inherit; }
   align-items: baseline;
   gap: var(--spacing-2);
   padding-bottom: var(--spacing-2);
-  border-bottom: 1px solid var(--color-ink-13);
+  border-bottom: 1px solid var(--color-ink);
 }
 .deed-title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(15px, 1.5vw, 18px);
-  letter-spacing: 0.14em;
+  font-size: clamp(17px, 1.75vw, 23px);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  line-height: 1;
 }
 .deed-no { font-size: 11px; color: var(--color-ink-50); }
 
-/* The inset carries the argument, so it takes a real share of the document
-   rather than sitting in a thumbnail column. Proportional, so it holds at
-   every deed width. */
+/* The inset takes the ~200px the drawing was designed at, not a thumbnail
+   column. */
 .deed-body {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: var(--spacing-3);
+  grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+  gap: var(--spacing-4);
   padding-top: var(--spacing-3);
   align-content: start;
 }
+@media (max-width: 1300px) { .deed-body { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); gap: var(--spacing-3); } }
 
-.parcel { width: 100%; height: auto; align-self: start; overflow: visible; }
+/* Centred in its column: the drawing is roughly square and the column is
+   the height of the whole field stack, so anchoring it to the top marooned
+   it above a large empty area. */
+.parcel { width: 100%; height: auto; align-self: center; overflow: visible; }
 .parcel-dim-label {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 8.5px;
   letter-spacing: 0.02em;
 }
 .parcel-dim-structure { fill: var(--color-live); }
 .parcel-dim-land { fill: var(--color-land-ink); }
 
-.deed-fields { display: grid; gap: var(--spacing-2); align-content: start; }
+/* Fields are ruled like a form rather than floated in space — that density is
+   most of what separates a document from a card. */
+.deed-fields { display: grid; align-content: start; }
+.deed-field { padding-block: var(--spacing-2); border-bottom: 1px solid var(--color-ink-13); }
+.deed-field:first-child { padding-top: 0; }
+.deed-field:last-child { border-bottom: 0; }
 .deed-field-label {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.02em;
   color: var(--color-ink-50);
 }
-.deed-field-value { font-size: 14px; line-height: 1.35; margin-top: 2px; }
+.deed-field-value { font-size: 15px; line-height: 1.35; margin-top: 3px; }
 .deed-holder-rule {
   border-bottom: 1px solid var(--color-ink-28);
-  height: 1.35em;
-  max-width: 20ch;
+  height: 1.4em;
+  max-width: 22ch;
 }
 
 /* The Land line is set one step larger than its neighbours and is the only
    line with --land on its label. It is the whole thesis; it should be the
    second thing the eye lands on after the title. (§6.1) */
 .deed-field.is-land .deed-field-label { color: var(--color-land-ink); }
-.deed-field.is-land .deed-field-value { font-size: 16px; }
+.deed-field.is-land .deed-field-value { font-size: 19px; line-height: 1.28; text-wrap: pretty; }
 
-/* 15,000 / 15,000 stays on one line at every width. §6.1 fixes the figure at
-   22px mono, so the suffix carries the compression rather than the figure,
-   and the inset column gives up a little width on phones to make room. */
 .deed-credits { font-size: 12px; white-space: nowrap; }
 .deed-credits-figure { font-size: 22px; }
 
@@ -239,10 +253,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
   align-items: baseline;
   gap: var(--spacing-2);
   padding-top: var(--spacing-2);
-  border-top: 1px solid var(--color-ink-13);
+  border-top: 1px solid var(--color-ink);
 }
 .deed-token { font-size: 11px; color: var(--color-ink-50); }
-.deed-stamp { font-size: 11px; letter-spacing: 0.12em; color: var(--color-live); }
+.deed-stamp { font-size: 11px; letter-spacing: 0.14em; color: var(--color-live); }
 
 /* ─── Counter sequence (§6.2) ─────────────────────────────────────────── */
 
@@ -278,24 +292,28 @@ button, input, select, textarea { font: inherit; color: inherit; }
   justify-content: center;
   background: var(--color-ink);
   margin: -16px;
-  border-radius: calc(var(--radius-device) - 1px);
 }
 .phone-asleep .t-note { color: var(--color-paper); opacity: .45; }
 
 .phone-approved { text-align: center; padding-block: var(--spacing-4); }
 .approved-tick {
   width: 44px; height: 44px; border-radius: 50%;
-  background: #E3F3ED; color: #0F6E56;
+  background: color-mix(in srgb, var(--color-settled) 11%, var(--color-paper-2));
+  color: var(--color-settled);
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto var(--spacing-2);
 }
-.approved-amount { font-size: 24px; font-weight: 500; color: #2C2C2A; }
-.approved-meta { font-size: 12px; color: #888780; margin-top: 4px; }
+.approved-amount {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 24px;
+  color: var(--color-ink);
+}
+.approved-meta { font-size: 12px; color: var(--color-ink-50); margin-top: 4px; }
 
 .counter-steps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
   border-top: 1px solid var(--color-ink);
 }
 .counter-step {

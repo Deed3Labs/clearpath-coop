@@ -18,6 +18,7 @@ export function ChargesList() {
 
   return (
     <>
+      <p className="cap" style={{ marginBottom: 14 }}>Charges</p>
       <div className="rowline" style={{ marginBottom: 14, alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: 7 }}>
           <button type="button" className="btn-a on" style={{ fontSize: 12 }} tabIndex={-1}>Waiting · 1</button>
@@ -118,11 +119,11 @@ export function PayoutsPanel() {
         <p className="cap">Paid out</p>
         <div className="card" style={{ padding: '0 16px' }}>
           <div className="trow">
-            <div><div>Nov 14</div><div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>28 charges · Chase ····9012</div></div>
+            <div><div>Nov 14</div><div className="fig" style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>28 charges · Chase ····9012</div></div>
             <span>$16,180.00</span>
           </div>
           <div className="trow">
-            <div><div>Oct 14</div><div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>24 charges · Chase ····9012</div></div>
+            <div><div>Oct 14</div><div className="fig" style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>24 charges · Chase ····9012</div></div>
             <span>$13,940.00</span>
           </div>
         </div>

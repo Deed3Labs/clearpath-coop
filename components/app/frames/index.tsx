@@ -77,3 +77,51 @@ export function Mock({
     </figure>
   );
 }
+
+/* ── The annotated specimen ───────────────────────────────────────────────
+   §5 names this the signature treatment for this site: one component at
+   generous size on the paper, with thin 1px leader lines running out to short
+   mono annotations set in the margin. It is how a drawing is annotated and how
+   a design portfolio presents work, it belongs to the survey language the rest
+   of the site is built in, and it turns a screenshot into an argument.
+
+   The annotations are a real list, so with no CSS and on a screen reader the
+   component still reads as "here is a thing, and here is what to notice about
+   it". The leader lines are drawn, decorative, and hidden from assistive tech. */
+
+export type Annotation = {
+  /* Vertical position along the specimen, 0 at its top edge and 1 at its
+     bottom, so an annotation stays attached to the row it describes as the
+     component reflows. */
+  at: number;
+  text: string;
+};
+
+export function Specimen({
+  children,
+  caption,
+  notes,
+  width = 420,
+}: {
+  children: React.ReactNode;
+  caption: string;
+  notes: Annotation[];
+  width?: number;
+}) {
+  return (
+    <figure className="specimen" style={{ ['--specimen-w' as string]: `${width}px` }}>
+      <div className="specimen-piece app">{children}</div>
+
+      <ul className="specimen-notes">
+        {notes.map((n) => (
+          <li key={n.text} style={{ ['--at' as string]: n.at }}>
+            <span className="specimen-leader" aria-hidden="true" />
+            <span className="specimen-note">{n.text}</span>
+          </li>
+        ))}
+      </ul>
+
+      <figcaption className="screen-caption specimen-caption">{caption}</figcaption>
+    </figure>
+  );
+}
