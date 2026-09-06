@@ -255,6 +255,53 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .prose { color: var(--color-ink-70); }
 .prose strong { color: var(--color-ink); font-weight: 500; }
 
+/* ─── Interactive: the split chooser (§6.2 S4) ────────────────────────── */
+
+.chooser { display: grid; gap: var(--spacing-2); }
+.chooser-control {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  margin-bottom: var(--spacing-1);
+}
+.chooser-option {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  padding-inline: var(--spacing-2);
+  background: none;
+  border: 1px solid var(--color-ink-28);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink-70);
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--hover) var(--ease), border-color var(--hover) var(--ease),
+    background-color var(--hover) var(--ease);
+}
+.chooser-option:hover { border-color: var(--color-ink); color: var(--color-ink); }
+.chooser-option[aria-pressed='true'] {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-paper);
+}
+.chooser-caption { margin-top: var(--spacing-1); }
+.chooser-close { color: var(--color-ink-70); margin-top: var(--spacing-1); }
+
+/* Two panels stacked in one column. */
+.panel-stack { display: grid; gap: var(--spacing-3); }
+.panel-list { display: grid; gap: var(--spacing-1); }
+.panel-list li { padding-left: 1.1em; position: relative; }
+.panel-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 1px;
+  background: var(--color-ink-28);
+}
+
 /* ─── Shell — header, mobile sheet, footer. ────────────────────────────── */
 
 .site-header {
