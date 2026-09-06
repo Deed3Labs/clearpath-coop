@@ -97,6 +97,7 @@
   transform-origin: top left;
 }
 
+@media (min-width:  390px) { .app-tablet-scaler { --s: 0.38; } }
 @media (min-width:  430px) { .app-tablet-scaler { --s: 0.42; } }
 @media (min-width:  520px) { .app-tablet-scaler { --s: 0.52; } }
 @media (min-width:  620px) { .app-tablet-scaler { --s: 0.63; } }
