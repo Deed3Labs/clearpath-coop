@@ -924,3 +924,134 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
     background: var(--color-ink-28);
   }
 }
+
+/* ─── The waterfall (visual brief §4, How it works) ──────────────────────── */
+
+.fall { display: grid; gap: var(--spacing-3); }
+.fall-figure { display: grid; }
+
+/* One bar, one purchase. The segments are what backs it, in draw order. */
+.fall-bar {
+  display: flex;
+  height: 64px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper-2);
+  overflow: hidden;
+}
+.fall-seg { transition: width 180ms ease-out; }
+.fall-seg + .fall-seg { border-left: 1px solid var(--color-ink); }
+
+/* Hatch density carries cost, so the accent stays free for the one thing that
+   matters — the part of the purchase that is already the member's. Solid is
+   free, and it gets denser the more the tier costs. */
+.fall-savings { background: var(--color-live); }
+/* Bonds were a flat paper-2 fill, which on the ink band is #1E2B26 against
+   #16211D and reads as an empty segment. Every paid tier is hatched; only the
+   spacing changes, tightening as the tier gets dearer. */
+.fall-bonds {
+  background: repeating-linear-gradient(
+    45deg, var(--color-ink-50) 0 1.5px, transparent 1.5px 13px
+  );
+}
+.fall-income {
+  background: repeating-linear-gradient(
+    45deg, var(--color-ink-50) 0 1.5px, transparent 1.5px 7px
+  );
+}
+.fall-boost {
+  background: repeating-linear-gradient(
+    45deg, var(--color-ink) 0 2px, transparent 2px 5px
+  );
+}
+
+.fall-key { display: grid; gap: var(--spacing-1); list-style: none; margin: 0; padding: 0; }
+/* The legend and the explanation are one list. Swatch and label on the first
+   line with the amount ranged right, the cost under the label, the body across
+   the measure. */
+.fall-key li {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  border-top: 1px solid var(--color-ink-13);
+}
+.fall-key li.is-off { color: var(--color-ink-50); }
+.fall-swatch {
+  width: 12px; height: 12px;
+  border: 1px solid var(--color-ink);
+  align-self: center;
+}
+/* The bar's hatch spacing is set for a 300-600px segment; inside a 12px
+   swatch a 13px pitch draws nothing at all. The swatches keep the same
+   ordering with the pitch scaled to their size. */
+.fall-swatch.fall-bonds {
+  background: repeating-linear-gradient(45deg, var(--color-ink) 0 1px, transparent 1px 5px);
+}
+.fall-swatch.fall-income {
+  background: repeating-linear-gradient(45deg, var(--color-ink) 0 1px, transparent 1px 3px);
+}
+.fall-swatch.fall-boost {
+  background: repeating-linear-gradient(45deg, var(--color-ink) 0 1px, transparent 1px 2px);
+}
+
+.fall-key-amt { text-align: right; font-size: 15px; }
+.fall-key-cost { grid-column: 2 / -1; color: var(--color-ink-50); margin-top: 2px; }
+.fall-key-body {
+  grid-column: 2 / -1;
+  margin-top: 6px;
+  color: var(--color-ink-70);
+  max-width: 52ch;
+}
+.fall-key li.is-off .fall-key-body { color: var(--color-ink-50); }
+
+.fall-control { display: grid; gap: var(--spacing-1); margin-top: var(--spacing-1); }
+.fall-control input[type='range'] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 44px; background: transparent; cursor: pointer;
+}
+.fall-control input[type='range']::-webkit-slider-runnable-track { height: 1px; background: var(--color-ink-28); }
+.fall-control input[type='range']::-moz-range-track { height: 1px; background: var(--color-ink-28); }
+.fall-control input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; margin-top: -9px;
+  border-radius: var(--radius-pill); background: var(--color-live); border: 0;
+}
+.fall-control input[type='range']::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: var(--radius-pill);
+  background: var(--color-live); border: 0;
+}
+
+/* Above 860px the figure sits beside the bar rather than over it — the number
+   and the thing it counts should be in one glance. */
+@media (min-width: 861px) {
+  .fall {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    column-gap: var(--spacing-5);
+    align-items: start;
+  }
+  .fall-figure { grid-row: 1 / span 3; align-self: center; }
+  .fall-bar, .fall-key, .fall-control { grid-column: 2; }
+}
+
+/* ─── Split-cost bars (visual brief §4, How it works) ────────────────────── */
+
+.splitbars { display: grid; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.splitbars li {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 68px;
+  align-items: center;
+  column-gap: var(--spacing-2);
+  color: var(--color-ink-50);
+}
+.splitbars li.is-on { color: var(--color-ink); }
+.splitbar-track { height: 10px; background: var(--color-ink-13); }
+.splitbar-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-ink-28);
+  transition: width 180ms ease-out;
+}
+.splitbars li.is-on .splitbar-fill { background: var(--color-live); }
+.splitbar-amt { font-size: 13px; text-align: right; }
+.splitbar-cap { margin-top: 6px; color: var(--color-ink-50); }
