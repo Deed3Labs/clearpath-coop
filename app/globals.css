@@ -104,6 +104,142 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .section { padding-block: var(--section-pad); }
 
+/* ─── Shell — header, mobile sheet, footer. ────────────────────────────── */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding-block: var(--spacing-3);
+}
+
+/* Logo left on column 1, nav ending on column 12 — the header answers to the
+   same edges as the grid without pretending to be a grid row. */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+.header-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+.header-mobile { display: none; }
+
+@media (max-width: 860px) {
+  .header-nav   { display: none; }
+  .header-mobile { display: block; }
+}
+
+/* The sheet. <dialog> gives focus trapping and Escape; everything below is
+   only appearance. */
+.sheet {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+.sheet::backdrop { background: var(--color-ink); opacity: .28; }
+.sheet-inner {
+  width: var(--container);
+  margin-inline: auto;
+  padding-block: var(--spacing-3);
+}
+.sheet-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--spacing-4);
+}
+.sheet nav ul { display: grid; gap: var(--spacing-3); }
+
+.site-footer { padding-block: var(--spacing-5) var(--spacing-4); }
+.site-footer .grid12 { row-gap: var(--spacing-4); }
+.footer-brand { grid-column: 1 / 4; }
+.footer-col   { grid-column: span 3; }
+.footer-col ul { display: grid; gap: var(--spacing-1); margin-top: var(--spacing-2); }
+
+.footer-legal {
+  margin-top: var(--spacing-5);
+  padding-top: var(--spacing-3);
+  border-top: 1px solid var(--color-ink-13);
+  display: grid;
+  gap: var(--spacing-2);
+  max-width: 92ch;
+}
+.footer-legal p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-ink-70);
+}
+
+@media (max-width: 1080px) {
+  .footer-brand { grid-column: 1 / 13; }
+  .footer-col   { grid-column: span 4; }
+}
+@media (max-width: 640px) {
+  .footer-col { grid-column: 1 / 13; }
+}
+
+/* ─── Controls (§4) — two states, both 200ms. Nothing else moves. ─────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: var(--spacing-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--hover) var(--ease),
+    color var(--hover) var(--ease),
+    border-color var(--hover) var(--ease);
+}
+
+.btn[data-variant='primary'] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.btn[data-variant='primary']:hover {
+  background: var(--color-live);
+}
+
+.btn[data-variant='ghost'] {
+  border-color: var(--color-ink-28);
+  color: var(--color-ink);
+}
+.btn[data-variant='ghost']:hover {
+  border-color: var(--color-ink);
+}
+
+/* Text links carry their underline from the start — an underline that only
+   appears on hover is not a link until the mouse finds it. */
+.tlink {
+  text-decoration: underline;
+  text-decoration-color: var(--color-ink-28);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color var(--hover) var(--ease), color var(--hover) var(--ease);
+}
+.tlink:hover { text-decoration-color: var(--color-ink); }
+
+/* Nav links get the underline on hover instead: in a row of six, six
+   permanent underlines read as a paragraph rather than a menu. */
+.navlink { transition: color var(--hover) var(--ease); }
+.navlink:hover { color: var(--color-ink-70); }
+
 /* ─── ?debug=grid (§4) — built in Phase 1, left in, used on every page. ── */
 
 .debug-grid {
