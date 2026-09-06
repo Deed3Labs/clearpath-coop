@@ -15,7 +15,7 @@ export default function How() {
       <Section rail={OPENING.rail}>
         <Cols>
           <Col span={8}>
-            <h1 className="d1 section-head">{OPENING.heading}</h1>
+            <h1 className="page-title">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
