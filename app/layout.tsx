@@ -34,6 +34,15 @@ export const metadata: Metadata = {
   },
   description:
     'Clear is a member-owned cooperative. Point-of-sale financing at local shops, savings-backed credit, and housing where the land is held in common by members.',
+  /* opengraph-image.tsx and the icon files under app/ are picked up by
+     convention; only the parts Next cannot infer are declared here. */
+  openGraph: {
+    type: 'website',
+    siteName: 'Clear',
+    locale: 'en_US',
+    url: '/',
+  },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
