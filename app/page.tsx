@@ -103,7 +103,7 @@ export default function Home() {
       </Section>
 
       {/* S5 — status. */}
-      <Section rail={STATUS.rail}>
+      <Section rail={STATUS.rail} rhythm="tight">
         <Cols>
           <Col span={7}>
             <h2 className="d2 section-head">{STATUS.heading}</h2>

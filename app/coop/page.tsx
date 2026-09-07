@@ -18,14 +18,14 @@ export default function Coop() {
       {/* S1 — Opening. */}
       <Section rail={OPENING.rail}>
         <Cols>
-          <Col span={7}>
+          <Col span={10}>
             <h1 className="page-title is-long">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
           </Col>
-          <Col span={3}>
-            <Panel title={OPENING.panel.title}>
+          <Col span={6}>
+            <Panel variant="plain" title={OPENING.panel.title}>
               <p>{OPENING.panel.body}</p>
             </Panel>
           </Col>
@@ -67,13 +67,13 @@ export default function Coop() {
       {/* S3 — Governance. Two columns. */}
       <Section rail={GOVERNANCE.rail}>
         <Cols>
-          <Col span={5}>
+          <Col span={6}>
             <h2 className="d2 section-head">{GOVERNANCE.heading}</h2>
             <div style={{ marginTop: 'var(--spacing-3)' }}>
               <Ledger items={[...GOVERNANCE.ledger]} />
             </div>
           </Col>
-          <Col span={5}>
+          <Col span={4}>
             <h2 className="d2 section-head">{GOVERNANCE.protocol.heading}</h2>
             <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
               {GOVERNANCE.protocol.prose.map((p) => (
@@ -86,7 +86,7 @@ export default function Coop() {
       </Section>
 
       {/* S4 — Who. */}
-      <Section rail={WHO.rail}>
+      <Section rail={WHO.rail} rhythm="tight">
         <Cols>
           <Col span={7}>
             <h2 className="d2 section-head">{WHO.heading}</h2>

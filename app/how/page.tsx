@@ -14,14 +14,14 @@ export default function How() {
       {/* S1 — Opening. Cols 3-10, Panel 11-12. */}
       <Section rail={OPENING.rail}>
         <Cols>
-          <Col span={8}>
+          <Col span={10}>
             <h1 className="page-title">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
           </Col>
-          <Col span={2}>
-            <Panel title={OPENING.panel.title}>
+          <Col span={6}>
+            <Panel variant="plain" title={OPENING.panel.title}>
               <p>{OPENING.panel.body}</p>
             </Panel>
           </Col>
@@ -67,30 +67,32 @@ export default function How() {
       {/* S4 — The split. */}
       <Section rail={SPLIT.rail}>
         <Cols>
-          <Col span={5}>
+          <Col span={10}>
             <h2 className="d2 section-head">{SPLIT.heading}</h2>
-            <p className="t-body prose" style={{ marginTop: 'var(--spacing-3)' }}>
-              {SPLIT.standfirst}
-            </p>
           </Col>
-          <Col span={5}>
+          <Col span={3}>
+            <p className="t-body prose">{SPLIT.standfirst}</p>
+          </Col>
+          <Col span={7}>
             <SplitChooser />
           </Col>
         </Cols>
       </Section>
 
       {/* S5 — Savings. Prose 3-9, two Panels 10-12. */}
-      <Section rail={SAVINGS.rail}>
+      <Section rail={SAVINGS.rail} rhythm="open">
         <Cols>
-          <Col span={7}>
+          <Col span={10}>
             <h2 className="d2 section-head">{SAVINGS.heading}</h2>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+          </Col>
+          <Col span={4}>
+            <div className="prose t-body">
               {SAVINGS.prose.map((p) => (
                 <p key={p.slice(0, 20)}>{p}</p>
               ))}
             </div>
           </Col>
-          <Col span={3}>
+          <Col span={6}>
             <div className="panel-stack">
               {SAVINGS.panels.map((p) => (
                 <Panel title={p.title} key={p.title}>
@@ -111,15 +113,15 @@ export default function How() {
       </Section>
 
       {/* S6 — The cycle. Prose 3-7, Ledger 8-12. */}
-      <Section rail={CYCLE.rail}>
+      <Section rail={CYCLE.rail} rhythm="tight">
         <Cols>
-          <Col span={5}>
+          <Col span={10}>
             <h2 className="d2 section-head">{CYCLE.heading}</h2>
-            <p className="t-body prose" style={{ marginTop: 'var(--spacing-3)' }}>
-              {CYCLE.prose}
-            </p>
           </Col>
-          <Col span={5}>
+          <Col span={3}>
+            <p className="t-body prose">{CYCLE.prose}</p>
+          </Col>
+          <Col span={7}>
             <Ledger items={[...CYCLE.ledger]} />
             <Note>{CYCLE.close}</Note>
           </Col>
@@ -127,7 +129,7 @@ export default function How() {
       </Section>
 
       {/* S7 — Comparison. Two ledgers, 3-7 and 8-12. */}
-      <Section rail={COMPARISON.rail}>
+      <Section rail={COMPARISON.rail} rhythm="tight">
         <Cols>
           <Col span={10}>
             <h2 className="d2 section-head">{COMPARISON.heading}</h2>

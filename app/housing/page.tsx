@@ -13,15 +13,15 @@ export default function Housing() {
       {/* S1 — Opening. */}
       <Section rail={OPENING.rail}>
         <Cols>
-          <Col span={7}>
+          <Col span={10}>
             <h1 className="page-title">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
             <Note>{OPENING.note}</Note>
           </Col>
-          <Col span={3}>
-            <Panel title={OPENING.panel.title}>
+          <Col span={6}>
+            <Panel variant="plain" title={OPENING.panel.title}>
               <p>{OPENING.panel.body}</p>
             </Panel>
           </Col>
@@ -104,7 +104,7 @@ export default function Housing() {
       </Section>
 
       {/* S5 — The gate. */}
-      <Section rail={GATE.rail}>
+      <Section rail={GATE.rail} rhythm="tight">
         <Cols>
           <Col span={7}>
             <h2 className="d2 section-head">{GATE.heading}</h2>

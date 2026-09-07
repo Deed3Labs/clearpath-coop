@@ -3,6 +3,7 @@ import { NAV, JOIN } from '@/content/nav';
 import { Logo } from '@/components/marks/Logo';
 import { Button } from '@/components/primitives/Button';
 import { MobileNav } from './MobileNav';
+import { NavLink } from './NavLink';
 
 /* Not sticky. The homepage spends its motion budget on two scroll-linked
    moments (§6); a header that also moves competes with them. */
@@ -18,7 +19,7 @@ export function Header() {
         <ul>
           {NAV.map((r) => (
             <li key={r.href}>
-              <Link href={r.href} className="navlink">{r.label}</Link>
+              <NavLink href={r.href}>{r.label}</NavLink>
             </li>
           ))}
         </ul>

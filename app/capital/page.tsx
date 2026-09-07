@@ -21,14 +21,14 @@ export default function Capital() {
       {/* S1 — Opening. */}
       <Section rail={OPENING.rail}>
         <Cols>
-          <Col span={7}>
+          <Col span={10}>
             <h1 className="page-title is-long">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
           </Col>
-          <Col span={3}>
-            <Panel variant="mark" title={OPENING.panel.title}>
+          <Col span={6}>
+            <Panel variant="plain" title={OPENING.panel.title}>
               <p>{OPENING.panel.body}</p>
             </Panel>
           </Col>
@@ -56,16 +56,18 @@ export default function Capital() {
       {/* S3 — Contributing at scale. */}
       <Section rail={SCALE.rail}>
         <Cols>
-          <Col span={5}>
+          <Col span={10}>
             <h2 className="d2 section-head">{SCALE.heading}</h2>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+          </Col>
+          <Col span={4}>
+            <div className="prose t-body">
               <p>{SCALE.prose}</p>
               <p>
                 <TextLink href={SCALE.link.href}>{SCALE.link.label}</TextLink>
               </p>
             </div>
           </Col>
-          <Col span={5}>
+          <Col span={6}>
             <Ledger items={[...SCALE.ledger]} />
           </Col>
         </Cols>
@@ -90,9 +92,9 @@ export default function Capital() {
           content/contribute so "verbatim" is enforced by the module system
           rather than by remembering, and it is not softened for an
           institutional reader. */}
-      <Section rail={DOWNSIDES_SECTION.rail}>
+      <Section rail={DOWNSIDES_SECTION.rail} rhythm="tight">
         <Cols>
-          <Col span={4}>
+          <Col span={6}>
             <Panel title={DOWNSIDES.title}>
               <ul className="panel-list">
                 {DOWNSIDES.list.map((item) => (
@@ -101,14 +103,14 @@ export default function Capital() {
               </ul>
             </Panel>
           </Col>
-          <Col span={6}>
+          <Col span={4}>
             <p className="t-body prose">{DOWNSIDES_SECTION.extra}</p>
           </Col>
         </Cols>
       </Section>
 
       {/* S6 — What happens next, and what does not. */}
-      <Section rail={NEXT.rail}>
+      <Section rail={NEXT.rail} rhythm="tight">
         <Cols>
           <Col span={7}>
             <h2 className="d2 section-head">{NEXT.heading}</h2>

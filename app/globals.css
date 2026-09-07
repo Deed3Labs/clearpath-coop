@@ -125,6 +125,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 }
 
 .section { padding-block: var(--section-pad); }
+/* Identical padding on every band reads as a wireframe. Two more values, so a
+   dense ledger can sit tight and a set-piece can breathe. */
+.section-tight { padding-block: clamp(48px, 6vw, 88px); }
+.section-open  { padding-block: clamp(96px, 13vw, 190px); }
 
 /* ─── Hero (§6.1) — type-led ──────────────────────────────────────────────
    Agreed direction: the headline owns the hero and nothing sits beside it.
@@ -152,17 +156,34 @@ button, input, select, textarea { font: inherit; color: inherit; }
   gap: var(--spacing-4);
 }
 
-.hero-headline { max-width: 20ch; }
-.hero-headline span { display: block; }
-.hero-lede { margin-top: var(--spacing-4); color: var(--color-ink-70); }
-.hero-actions { margin-top: var(--spacing-4); display: flex; flex-wrap: wrap; gap: var(--spacing-2); }
-
-@media (max-width: 1080px) {
-  .hero-copy, .hero-meta { grid-column: 1 / 13; }
-}
-@media (max-width: 860px) {
-  .hero { padding-block: var(--spacing-5) var(--section-pad); }
-  .hero-meta { gap: var(--spacing-2); flex-direction: column; }
+/* From 1280 up the headline was 96px with half the width empty beside it.
+   First attempt put the headline in seven columns and the facts beside it —
+   which forced "Rent builds equity." to break mid-sentence, the one thing the
+   note above says the hero must never do. So: the headline keeps the full
+   measure and a larger ceiling, and the three facts sit beside the LEDE and
+   the actions instead, where there was nothing. .hero-copy becomes a pass-
+   through so its children can be placed on the grid directly; no animation
+   lives on it, only on the children, so nothing is disturbed. */
+@media (min-width: 1280px) {
+  .hero-copy { display: contents; }
+  /* "Rent builds equity." measures 7.47em in Bricolage 800 — measured, not
+     estimated; an estimate of 0.56em a glyph had it at 10.6em and capped the
+     headline at 102px for nothing. The ten-column measure is 1020px at 1280
+     and 1093px at 1440, so the sentence stays on one line up to 136px and
+     146px respectively. 130px leaves margin at the narrow end. */
+  .hero-headline { grid-column: 3 / 13; grid-row: 1; font-size: clamp(96px, 9.2vw, 130px); max-width: none; }
+  .hero-lede    { grid-column: 3 / 10; grid-row: 2; margin-top: 0; }
+  .hero-actions { grid-column: 3 / 10; grid-row: 3; margin-top: 0; }
+  .hero-meta {
+    grid-column: 10 / 13;
+    grid-row: 2 / 4;
+    align-self: start;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    border-top: 1px solid var(--color-ink);
+    padding-top: var(--spacing-2);
+  }
+  .hero-grid { row-gap: var(--spacing-4); }
 }
 
 /* One orchestrated arrival, ~1.5s, on first paint. (§4) */
@@ -198,6 +219,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border: 1px solid var(--color-ink-13);
   border-radius: var(--radius-none);
   padding: var(--spacing-3);
+}
+/* The unboxed panel: a caveat under a page title. Same content, no border and
+   no fill — a top rule carries it, in the language of the ledgers. */
+.panel-plain {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--color-ink);
+  padding: var(--spacing-3) 0 0;
+  max-width: 52ch;
 }
 .panel-mark { border-color: var(--color-ink); }
 .panel-title { margin-bottom: var(--spacing-2); }
@@ -621,6 +651,16 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    permanent underlines read as a paragraph rather than a menu. */
 .navlink { transition: color var(--hover) var(--ease); }
 .navlink:hover { color: var(--color-ink-70); }
+/* The page you are on. Keyed off aria-current so style and semantics cannot
+   drift apart; an underline offset to sit under the descenders, not through
+   them. */
+.navlink[aria-current='page'] {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--color-ink);
+}
 
 /* ─── ?debug=grid (§4) — built in Phase 1, left in, used on every page. ── */
 

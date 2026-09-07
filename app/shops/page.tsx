@@ -14,7 +14,7 @@ export default function Shops() {
       {/* S1 — Opening. Cols 3-10, Ledger 11-12. */}
       <Section rail={OPENING.rail}>
         <Cols>
-          <Col span={7}>
+          <Col span={6}>
             <h1 className="page-title">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
@@ -23,7 +23,7 @@ export default function Shops() {
               <Button href={OPENING.cta.href}>{OPENING.cta.label}</Button>
             </div>
           </Col>
-          <Col span={3}>
+          <Col span={4}>
             <Ledger items={[...OPENING.ledger]} />
           </Col>
         </Cols>
@@ -90,21 +90,21 @@ export default function Shops() {
         <Cols>
           <Col span={6}>
             <h2 className="d2 section-head">{FOUNDING.heading}</h2>
-            <p className="t-body prose" style={{ marginTop: 'var(--spacing-3)' }}>
-              {FOUNDING.standfirst}
-            </p>
           </Col>
           <Col span={4}>
-            <Ledger items={[...FOUNDING.ledger]} />
+            <p className="t-body prose">{FOUNDING.standfirst}</p>
           </Col>
           <Col span={6}>
-            <p className="t-body prose">{FOUNDING.terms}</p>
-            <Note>{FOUNDING.note}</Note>
+            <Ledger items={[...FOUNDING.ledger]} />
           </Col>
           <Col span={4}>
             <Panel title={FOUNDING.panel.title}>
               <p>{FOUNDING.panel.body}</p>
             </Panel>
+          </Col>
+          <Col span={7}>
+            <p className="t-body prose">{FOUNDING.terms}</p>
+            <Note>{FOUNDING.note}</Note>
           </Col>
         </Cols>
       </Section>
@@ -112,27 +112,27 @@ export default function Shops() {
       {/* S6 — Getting paid, and refunds. */}
       <Section rail={MONEY.rail}>
         <Cols>
-          <Col span={5}>
+          <Col span={6}>
             <h2 className="d3 section-head">{MONEY.payouts.heading}</h2>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
-              <p>{MONEY.payouts.body}</p>
-            </div>
+          </Col>
+          <Col span={4}>
+            <p className="t-body prose">{MONEY.payouts.body}</p>
             <Note>{MONEY.payouts.note}</Note>
           </Col>
-          <Col span={5}>
+          <Col span={6}>
             <h2 className="d3 section-head">{MONEY.refunds.heading}</h2>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
-              <p>{MONEY.refunds.body}</p>
-            </div>
-            <div style={{ marginTop: 'var(--spacing-3)' }}>
-              <Ledger items={[...MONEY.refunds.ledger]} />
-            </div>
+          </Col>
+          <Col span={4}>
+            <p className="t-body prose">{MONEY.refunds.body}</p>
+          </Col>
+          <Col span={10}>
+            <Ledger items={[...MONEY.refunds.ledger]} />
           </Col>
         </Cols>
       </Section>
 
       {/* S7 — Membership. */}
-      <Section rail={MEMBERSHIP.rail}>
+      <Section rail={MEMBERSHIP.rail} rhythm="tight">
         <Cols>
           <Col span={7}>
             <h2 className="d2 section-head">{MEMBERSHIP.heading}</h2>

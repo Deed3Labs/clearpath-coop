@@ -11,13 +11,17 @@ export function Section({
   rail,
   children,
   id,
+  rhythm,
 }: {
   rail: string;
   children: React.ReactNode;
   id?: string;
+  /* Identical padding on every band reads as a wireframe. A section can say
+     how much air it wants. */
+  rhythm?: 'tight' | 'open';
 }) {
   return (
-    <section className="wrap section" id={id}>
+    <section className={`wrap ${rhythm ? `section-${rhythm}` : 'section'}`} id={id}>
       <div className="grid12">
         <p className="rail rail-note">{rail}</p>
         <div className="content">{children}</div>
@@ -58,10 +62,13 @@ export function Panel({
 }: {
   title?: string;
   children: React.ReactNode;
-  variant?: 'mark';
+  /* `plain` drops the box: a top rule and the text, for a caveat that sits
+     under a page title. The boxed form in a narrow hero column wrapped at two
+     words a line and read as a widget bolted onto the page. */
+  variant?: 'mark' | 'plain';
 }) {
   return (
-    <div className={`panel${variant === 'mark' ? ' panel-mark' : ''}`}>
+    <div className={`panel${variant ? ` panel-${variant}` : ''}`}>
       {title && <p className="d4 panel-title">{title}</p>}
       <div className="t-sm">{children}</div>
     </div>

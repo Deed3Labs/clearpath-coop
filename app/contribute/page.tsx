@@ -13,14 +13,14 @@ export default function Contribute() {
       {/* S1 — Opening. */}
       <Section rail={OPENING.rail}>
         <Cols>
-          <Col span={7}>
+          <Col span={10}>
             <h1 className="page-title">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
           </Col>
-          <Col span={3}>
-            <Panel variant="mark" title={OPENING.panel.title}>
+          <Col span={6}>
+            <Panel variant="plain" title={OPENING.panel.title}>
               <p>{OPENING.panel.body}</p>
             </Panel>
           </Col>
