@@ -128,29 +128,48 @@ export const PHASES = {
 } as const;
 
 /* ── 03 · Two ways in ─────────────────────────────────────────────────────
-   A split, and the only place on the page where two columns are the right
-   answer: there are literally two doors. */
+   Three columns, not two: the shop's price, the mechanism that connects the
+   two sides, and the member's price. Two columns of ~660px left the section
+   both horizontally empty and vertically tall; three fill the measure and cut
+   the height without adding anything that was not already true.
+
+   The middle column is not new copy — it is the handoff already described on
+   /shops (the tablet shows a code, and the customer approves on their own
+   phone rather than on the shop's device). It was the one part of this
+   section that had nowhere to live. */
 export const WAYS_IN = {
   rail: '03 / Two ways in',
-  kicker: 'Two doors',
+  kicker: 'Two doors, one transaction',
   heading: 'Whichever side of the counter you are on.',
-  shop: {
-    heading: 'You run the shop',
-    figure: '2.5%',
-    figureNote: 'of the ticket, and you are paid on net-30',
-    body: 'Jobs walk out every week because the customer cannot pay that day. Klarna and Affirm sit near six per cent for the same job.',
-    link: { href: '/shops', label: 'The merchant terms in full' },
-  },
-  member: {
-    heading: 'You are standing at a counter',
-    figure: '3 min',
-    figureNote: 'from scanning a code to a plan you chose',
-    body: 'Your car needs $940 of work today. You pick how to clear it — in full, or split two, four or twelve ways.',
-    /* §7 Legal: this is a credit-advertising claim. Do not paraphrase it into
-       anything stronger than it already is. */
-    note: 'No credit-score pull to approve your first plan.',
-    link: { href: '/how', label: 'How the member side works' },
-  },
+  columns: [
+    {
+      key: 'shop',
+      heading: 'You run the shop',
+      figure: '2.5%',
+      figureNote: 'of the ticket, and you are paid on net-30',
+      body: 'Jobs walk out every week because the customer cannot pay that day. Klarna and Affirm sit near six per cent for the same job.',
+      link: { href: '/shops', label: 'The merchant terms in full' },
+    },
+    {
+      key: 'between',
+      heading: 'Between you',
+      figure: '3 min',
+      figureNote: 'from the code on screen to an approved plan',
+      body: 'The shop enters the amount and turns the screen. You scan the code and approve it on your own phone — the split is never chosen on their device.',
+      link: null,
+    },
+    {
+      key: 'member',
+      heading: 'You are standing at a counter',
+      figure: '2%',
+      figureNote: 'a cycle on what you still owe, so clearing early costs less',
+      body: 'Your car needs $940 of work today. You pick how to clear it — in full, or split two, four or twelve ways.',
+      /* §7 Legal: a credit-advertising claim. Do not paraphrase it into
+         anything stronger than it already is. */
+      note: 'No credit-score pull to approve your first plan.',
+      link: { href: '/how', label: 'How the member side works' },
+    },
+  ],
 } as const;
 
 /* ── 04 · Status ──────────────────────────────────────────────────────────

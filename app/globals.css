@@ -917,8 +917,11 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   .cell[data-size] { grid-column: 1 / -1; }
 }
 
-/* ── SPLIT. Two doors — the one section where equal columns are honest. ─── */
-.hx-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--hx-gap); }
+/* ── SPLIT. Three columns: the shop's price, the mechanism between them, the
+      member's price. Two columns of ~660px left the row horizontally empty
+      and vertically tall; three fill the measure and shorten it. ────────── */
+.hx-split { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--hx-gap); }
+.door-head { font-size: clamp(19px, 1.7vw, 25px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.14; margin: 0; }
 /* Flex, not grid: the link is pinned to the bottom so both doors' links land
    on one line. As a grid with align-content:start the rows pack to the top
    and no track has free space, so margin-top:auto had nothing to consume and
@@ -930,12 +933,21 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .door-link { margin-top: auto; padding-top: var(--spacing-3); }
 .door-fig {
   font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: clamp(40px, 6vw, 88px); line-height: 1; letter-spacing: -0.04em;
-  margin-top: var(--spacing-2);
+  /* Three columns, so the ceiling comes down: at 6vw a figure would be 86px
+     in a ~430px column. */
+  font-size: clamp(36px, 4.4vw, 64px); line-height: 1; letter-spacing: -0.04em;
+  margin-top: var(--spacing-1);
 }
 .door-note { color: var(--color-ink-50); }
-.door-body { color: var(--color-ink-70); margin-top: var(--spacing-2); max-width: 34ch; }
-@media (max-width: 860px) { .hx-split { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); } }
+/* Tighter than the flex gap: the note belongs to the figure above it, and the
+   body is the next thought. The old spacing-2 on top of a spacing-2 gap put
+   32px between every part of a column and made the section tall. */
+.door-body { color: var(--color-ink-70); margin-top: var(--spacing-1); }
+/* Three columns straight down to one. A two-column step in between put the
+   third door alone on its own row with an empty half beside it — three items
+   never divide into two. At 900px three columns are still 270px each, which
+   holds a 40px figure and a two-line heading. */
+@media (max-width: 900px) { .hx-split { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); } }
 
 /* ── STAGE. One sentence at display size, and the page ends on it. ─────── */
 .hx-stage-line {

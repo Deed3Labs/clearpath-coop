@@ -115,7 +115,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── S4 · Two ways in. ──────────────────────────────────────────── */}
+      {/* ── S4 · Two ways in. Three columns: the shop's price, the
+             mechanism between them, the member's price. ─────────────────── */}
       <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
           <b>03</b> {WAYS_IN.kicker}
@@ -124,26 +125,20 @@ export default function Home() {
           <h2 className="hx-h2 c-two-thirds">{WAYS_IN.heading}</h2>
 
           <div className="c-full hx-split">
-            <div className="door">
-              <h3 className="d3">{WAYS_IN.shop.heading}</h3>
-              <p className="door-fig fig">{WAYS_IN.shop.figure}</p>
-              <p className="t-sm door-note">{WAYS_IN.shop.figureNote}</p>
-              <p className="t-sm door-body">{WAYS_IN.shop.body}</p>
-              <p className="door-link">
-                <TextLink href={WAYS_IN.shop.link.href}>{WAYS_IN.shop.link.label}</TextLink>
-              </p>
-            </div>
-
-            <div className="door">
-              <h3 className="d3">{WAYS_IN.member.heading}</h3>
-              <p className="door-fig fig">{WAYS_IN.member.figure}</p>
-              <p className="t-sm door-note">{WAYS_IN.member.figureNote}</p>
-              <p className="t-sm door-body">{WAYS_IN.member.body}</p>
-              <Note>{WAYS_IN.member.note}</Note>
-              <p className="door-link">
-                <TextLink href={WAYS_IN.member.link.href}>{WAYS_IN.member.link.label}</TextLink>
-              </p>
-            </div>
+            {WAYS_IN.columns.map((col) => (
+              <div className="door" key={col.key}>
+                <h3 className="door-head">{col.heading}</h3>
+                <p className="door-fig fig">{col.figure}</p>
+                <p className="t-sm door-note">{col.figureNote}</p>
+                <p className="t-sm door-body">{col.body}</p>
+                {'note' in col && col.note ? <Note>{col.note}</Note> : null}
+                {col.link ? (
+                  <p className="door-link">
+                    <TextLink href={col.link.href}>{col.link.label}</TextLink>
+                  </p>
+                ) : null}
+              </div>
+            ))}
           </div>
         </div>
       </section>
