@@ -871,9 +871,15 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 
 /* ── BENTO. Edge to edge, cells of deliberately unequal size. Equal cards
       would say the three phases are equivalent; they are not. ───────────── */
+/* Twenty-four tracks, not twelve. At twelve the only moves available were
+   whole columns — 5/4/3 made the third cell too narrow against the second,
+   and the next step, 5/3/4, would have made the SECOND cell narrowest while
+   it carries the most body copy of the three. A finer grid allows 10/7/7:
+   the first cell stays dominant, and the other two settle either side of
+   where the old 4 and 3 were. */
 .hx-bento {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(24, minmax(0, 1fr));
   gap: 1px;
   background: var(--color-ink-13);
   border-block: 1px solid var(--color-ink-13);
@@ -893,9 +899,9 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 /* 5/4/3, not 6/4/2. The old ratio left the narrowest cell a 172px measure,
    where a 30px heading wrapped to four lines against two in its neighbours —
    unequal is the point, illegible is not. */
-.cell[data-size='lg'] { grid-column: span 5; }
-.cell[data-size='md'] { grid-column: span 4; }
-.cell[data-size='sm'] { grid-column: span 3; }
+.cell[data-size='lg'] { grid-column: span 10; }
+.cell[data-size='md'] { grid-column: span 7; }
+.cell[data-size='sm'] { grid-column: span 7; }
 .cell-n { font-family: var(--font-mono); font-size: 11.5px; color: var(--color-live); letter-spacing: 0.08em; }
 /* Sized so the narrowest cell holds the longest title in two lines. */
 .cell-title { font-size: clamp(19px, 1.7vw, 26px); line-height: 1.14; letter-spacing: -0.02em; max-width: 17ch; }
