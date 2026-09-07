@@ -1277,3 +1277,134 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   .plan-svg { grid-row: 1 / span 2; max-width: 480px; }
   .plan-cap { grid-column: 1; }
 }
+
+/* ─── The fork (/contribute S2) ──────────────────────────────────────────── */
+
+.fork { display: grid; gap: 0; column-gap: var(--spacing-2); min-width: 0; }
+.fork-root { text-align: center; }
+
+/* Two lines and a drop. An SVG for this would be more machinery than drawing. */
+.fork-stem {
+  position: relative;
+  height: var(--spacing-4);
+  margin-inline: 25%;
+  margin-top: 10px;
+  border-left: 1px solid var(--color-ink-28);
+  border-right: 1px solid var(--color-ink-28);
+  border-top: 1px solid var(--color-ink-28);
+}
+/* The tick from the root down to the crossbar. Without it the three borders
+   read as an open box rather than as a fork. */
+.fork-stem::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  height: 10px;
+  border-left: 1px solid var(--color-ink-28);
+}
+.fork-heads {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-2);
+  padding-top: 10px;
+}
+.fork-head { text-align: center; }
+.fork-head.is-live { color: var(--color-live); }
+
+.fork-rows { margin: var(--spacing-3) 0 0; }
+.fork-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--spacing-2);
+  row-gap: 0;
+  padding-block: var(--spacing-2);
+  border-top: 1px solid var(--color-ink-13);
+}
+.fork-q {
+  grid-column: 1 / -1;
+  color: var(--color-ink-50);
+  margin: 0 0 4px;
+}
+.fork-a, .fork-b { margin: 0; min-width: 0; }
+.fork-a { color: var(--color-ink-70); }
+
+/* Above 700px the question moves into its own column, so the two answers sit
+   beside the question they answer rather than under it.
+   
+   .fork and .fork-row share one track list and one gap, and the fork's head
+   and stem span the two answer columns — so the drawing lines up with the
+   table under it without either knowing the other's measurements. */
+@media (min-width: 701px) {
+  .fork { grid-template-columns: 30% minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--spacing-2); }
+  .fork-root, .fork-stem, .fork-heads { grid-column: 2 / -1; }
+  .fork-rows { grid-column: 1 / -1; }
+  .fork-row { grid-template-columns: 30% minmax(0, 1fr) minmax(0, 1fr); align-items: baseline; }
+  .fork-q { grid-column: 1; margin: 0; }
+}
+
+/* ─── Two balance sheets, and the payout stacks (/capital) ───────────────── */
+
+/* The gap between the columns IS the claim, so it is the largest measurement
+   in the drawing rather than the ordinary gutter. */
+.sheets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(28px, 7vw, 88px);
+  row-gap: var(--spacing-4);
+}
+.sheets-col { position: relative; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.sheets-holds { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.sheets-holds > li { padding-block: 7px; border-top: 1px solid var(--color-ink-13); }
+.sheets-backs { color: var(--color-ink); border-top: 1px solid var(--color-ink); padding-top: 9px; }
+.sheets-never { color: var(--color-ink-50); }
+
+.sheets-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(100% + clamp(14px, 3.5vw, 44px));
+  width: 0;
+  border-left: 1px dashed var(--color-ink-28);
+}
+.sheets-divider-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  white-space: nowrap;
+  padding-inline: 8px;
+  background: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-ink-50);
+}
+
+.stacks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-4);
+  align-items: stretch;
+}
+.stacks-col { display: grid; grid-template-rows: auto 1fr; gap: 10px; min-width: 0; }
+.stacks-label { color: var(--color-ink-50); }
+.stacks-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; align-content: start; }
+.stacks-list > li {
+  padding: 11px var(--spacing-2);
+  border: 1px solid var(--color-ink-28);
+  background: var(--color-paper-2);
+  color: var(--color-ink-70);
+}
+/* One layer, and everybody is in it. It takes the full height the four
+   opposite it add up to, so the comparison is a shape rather than a count of
+   boxes. The height comes from stretching to the taller column, not from a
+   guess at what four rows measure — the guess was 92px short. */
+.stacks-list.is-ours { display: flex; }
+.stacks-list.is-ours > li {
+  flex: 1;
+  border-color: var(--color-live);
+  background: transparent;
+  color: var(--color-ink);
+  display: flex;
+  align-items: center;
+}

@@ -13,8 +13,9 @@ export { DOWNSIDES } from './contribute';
 export const OPENING = {
   rail: 'Capital / 01',
   heading: 'Outside money sits here, and it does not sit on the members’ side.',
+  sub: 'A separate company with its own board, so that what protects a member and what attracts an investor are not the same promises pulled in two directions.',
   lede:
-    'Clear Capital Holdings is the company through which investors and property contributors participate in the cooperative’s assets. It is deliberately a separate company with its own board, so that what protects a member and what attracts an investor are not the same set of promises being pulled in two directions.',
+    'Clear Capital Holdings is the company through which investors and property contributors participate in the cooperative’s assets.',
   panel: {
     title: 'Nothing on this page is an offer.',
     body: 'No terms, no rate, no subscription. This page describes how the structure is built. Anything further happens in a private conversation and under the applicable exemption.',
@@ -24,9 +25,31 @@ export const OPENING = {
 export const SPLIT = {
   rail: 'Capital / 02 — the split',
   heading: 'The land is the reason this works for both sides.',
+  sub: 'Two balance sheets. Land backstops construction borrowing and never credit losses.',
+  /* Feeds the two-sheets drawing. "They do not touch" is a claim about
+     structure, and a structural claim shown as two columns with a gap down
+     the middle is checked in a glance rather than taken on trust. */
+  sheets: {
+    columns: [
+      {
+        key: 'housing',
+        title: 'Housing',
+        holds: ['Land, held permanently', 'Contributed property'],
+        backs: 'Backs construction borrowing',
+        never: 'Never credit losses',
+      },
+      {
+        key: 'money',
+        title: 'Money',
+        holds: ['Member deposits', 'Credit lines and term plans'],
+        backs: 'Backs a member’s own credit',
+        never: 'Never another member’s',
+      },
+    ],
+    divider: 'These never touch',
+  },
   prose: [
     'The co-op holds land permanently and never sells it. Members buy, pay down and take title to the structure. So member equity accrues in the structure, and appreciation accrues to the land the co-op holds — which is what backs construction borrowing as the portfolio grows.',
-    'Land backstops construction borrowing and never credit losses. A member’s savings never fund another member’s credit. Two balance sheets, and they do not touch.',
   ],
   ledger: [
     {
@@ -52,8 +75,9 @@ export const SPLIT = {
 export const SCALE = {
   rail: 'Capital / 03 — contributions',
   heading: 'A contribution is not a sale, and it is not a fund raise.',
+  sub: 'The mechanics are identical whether it is one duplex or a portfolio. What changes at scale is the diligence.',
   prose:
-    'Property comes in under section 721 in exchange for units issued by value. Nothing is trued up with cash, so there is no boot and no balancing mechanism. The mechanics are identical whether it is one duplex or a portfolio — what changes at scale is the diligence, not the structure.',
+    'Property comes in under section 721 in exchange for units issued by value. Nothing is trued up with cash, so there is no boot and no balancing mechanism.',
   link: { href: '/contribute', label: 'How a single-property contribution works' },
   ledger: [
     {
@@ -85,8 +109,25 @@ export const SCALE = {
 export const PROTECTIONS = {
   rail: 'Capital / 04 — protections',
   heading: 'The protections are structural, not promises.',
-  standfirst:
-    'A promise is a policy, and a board reverses a policy in an afternoon. These are written where a future board cannot.',
+  sub: 'A promise is a policy, and a board reverses a policy in an afternoon. These are written where a future board cannot.',
+  /* The first protection is the one an institutional reader checks first, and
+     it is a shape: the usual stack pays somebody before you, and this one has
+     nobody in front. Drawn as two stacks it is a two-second read. Feeds
+     components/visuals/PayoutStacks.tsx. */
+  stacks: {
+    heading: 'Where the money goes first.',
+    theirs: {
+      label: 'The usual stack',
+      layers: ['Sponsor promote', 'Preferred return', 'Limited partners', 'Everyone else'],
+    },
+    ours: {
+      label: 'Here',
+      layers: ['Everyone, pro rata'],
+    },
+    /* A caption says what you are looking at. It said what protection 01
+       already says, in almost the same words, one screen apart. */
+    note: 'The left-hand column is the shape of nearly every real-estate fund.',
+  },
   steps: [
     {
       title: 'No preferred return anywhere in the stack',
@@ -116,8 +157,9 @@ export const DOWNSIDES_SECTION = {
 export const NEXT = {
   rail: 'Capital / 06',
   heading: 'What happens next, and what does not.',
+  sub: 'We do not publish terms, rates or projected returns, and you should be sceptical of a housing cooperative that does.',
   prose: [
-    'We do not publish terms, rates or projected returns, and you should be sceptical of a housing cooperative that does. What we will do is walk through the structure with you and your advisers, send the documents, and answer whatever your CPA and counsel ask.',
+    'What we will do is walk through the structure with you and your advisers, send the documents, and answer whatever your CPA and counsel ask.',
     'We are not your tax or legal advisers, and nothing here is advice about your situation.',
   ],
   cta: { href: '/join?as=land', label: 'Start a conversation' },
