@@ -14,10 +14,14 @@ export const OPENING = {
   },
 } as const;
 
-/* The tier copy lives in WATERFALL.tiers, because the waterfall's key and the
-   explanation of what each tier is were the same four labels printed twice —
-   one list that legends the bar and explains it. */
+/* The tier copy lives in WATERFALL.tiers and is rendered twice on purpose: as
+   a one-line legend inside the band, and as an explanation on paper below it.
+   Merging them put a four-paragraph ledger inside the ink band. A chart legend
+   and the prose explaining the chart are allowed to name the same four things;
+   what is not allowed is a band of reading matter on a dark ground. */
 export const DRAW_ORDER = {
+  tiersRail: 'Members / 02b — the four tiers',
+  tiersHeading: 'What each of those four is.',
   rail: 'Members / 02 — draw order',
   heading: 'One balance, drawn cheapest first.',
   sub: 'You do not choose a product. You spend, and the line takes the cheapest thing backing you first.',
@@ -28,7 +32,7 @@ export const DRAW_ORDER = {
 } as const;
 
 export const TERM_PLANS = {
-  rail: 'Members / 03 — term plans',
+  rail: 'Members / 04 — term plans',
   heading: 'A tire repair and a house sit on the same shelf.',
   sub: 'One limit across every shop you use, so five plans at five stores cannot happen.',
   prose: [
@@ -60,7 +64,7 @@ export const TERM_PLANS = {
 } as const;
 
 export const SPLIT = {
-  rail: 'Members / 04 — you pick the split',
+  rail: 'Members / 05 — you pick the split',
   heading: 'You choose how to clear it, and you can change your mind.',
   sub: 'Spreading it further costs more, and the screen says so in dollars rather than hiding it in a rate.',
   standfirst:
@@ -92,7 +96,7 @@ export const SPLIT = {
 } as const;
 
 export const SAVINGS = {
-  rail: 'Members / 05 — savings',
+  rail: 'Members / 03 — savings',
   heading: 'Saving is the thing that changes your terms.',
   sub: 'Every dollar saved is matched one-for-one in equity credits, and raises your credit limit by a dollar.',
   figure: { value: '1:1', caption: 'matched for the first 36 months, on the first $1,500 a month' },
@@ -154,25 +158,19 @@ export const CYCLE = {
     'The third state is not the same as being clear, and the site should not imply it is. Nothing is owed, but progress is paused. The verb is top off, because you are spending your own money, not servicing a debt.',
 } as const;
 
+/* The page ends here, so it ends on its strongest line rather than on a
+   table. This was two four-row ledgers side by side — the same "two columns
+   of prose" shape that made the home page's two front doors read as filler.
+   The claim is a pairing, so it is set as one. */
 export const COMPARISON = {
   rail: 'Members / 07',
   heading: 'The honest version of the comparison.',
   sub: 'Including the part where they beat us.',
-  ours: [
-    {
-      label: 'Klarna’s best outcome for you',
-      value: 'you owe nothing',
-      description:
-        'Then you are back where you started, and their app is trying to sell you something else.',
-    },
-    {
-      label: 'Ours',
-      value: 'you own something',
-      description:
-        'The waterfall is designed to move you from borrowing to spending your own money.',
-    },
-  ] satisfies LedgerItem[],
-  theirs: [
+  pair: {
+    theirs: { label: 'Klarna’s best outcome for you', value: 'You owe nothing.' },
+    ours: { label: 'Ours', value: 'You own something.' },
+  },
+  after: [
     {
       label: 'Their advantage we cannot match',
       value: 'one tap',
@@ -186,14 +184,8 @@ export const COMPARISON = {
         'You sign up once, not once per shop. Every later purchase anywhere in the network is just your existing line.',
     },
   ] satisfies LedgerItem[],
+  note: 'Owing nothing is where their best case ends. The waterfall is built to move you from borrowing to spending your own money, which is a different destination.',
 } as const;
-
-/* Feeds components/visuals/Waterfall.tsx. An illustration, not a quote — the
- * capacities are a plausible member, and the note under the visual says so.
- *
- * The draw is $940 because that is the figure §6.2 already uses at Mike's
- * Tire, so the same purchase runs through the waterfall, the split chooser and
- * the shops page rather than three unrelated numbers. */
 export const WATERFALL = {
   rail: 'Members / 02 — draw order',
   heading: 'One balance, drawn cheapest first.',

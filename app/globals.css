@@ -806,15 +806,14 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 
 .fall-key { display: grid; gap: var(--spacing-1); list-style: none; margin: 0; padding: 0; }
-/* The legend and the explanation are one list. Swatch and label on the first
-   line with the amount ranged right, the cost under the label, the body across
-   the measure. */
+/* A legend: swatch, label, and the amount that tier is carrying. One line
+   each. The explanations are on paper below the band. */
 .fall-key li {
   display: grid;
   grid-template-columns: 14px minmax(0, 1fr) auto;
   align-items: baseline;
   column-gap: var(--spacing-2);
-  padding-block: var(--spacing-2);
+  padding-block: 9px;
   border-top: 1px solid var(--color-ink-13);
 }
 .fall-key li.is-off { color: var(--color-ink-50); }
@@ -837,14 +836,7 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 
 .fall-key-amt { text-align: right; font-size: 15px; }
-.fall-key-cost { grid-column: 2 / -1; color: var(--color-ink-50); margin-top: 2px; }
-.fall-key-body {
-  grid-column: 2 / -1;
-  margin-top: 6px;
-  color: var(--color-ink-70);
-  max-width: 52ch;
-}
-.fall-key li.is-off .fall-key-body { color: var(--color-ink-50); }
+
 
 .fall-control { display: grid; gap: var(--spacing-1); margin-top: var(--spacing-1); }
 .fall-control input[type='range'] {
@@ -1396,3 +1388,41 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .close-head { max-width: 16ch; }
 .close-actions { display: flex; flex-wrap: wrap; gap: var(--spacing-2); }
 .close-note { color: var(--color-ink-50); }
+
+/* ─── The versus pairing (/how S7) ───────────────────────────────────────── */
+
+/* The page's last word. Two claims at display size against each other, which
+   is what the copy actually is — it was set as two four-row ledgers, the same
+   "two columns of prose" shape that made the home page's two front doors read
+   as filler. */
+.versus {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gutter);
+  margin: 0 0 var(--spacing-3);
+}
+.versus > div {
+  display: grid;
+  gap: var(--spacing-2);
+  align-content: start;
+  padding-top: var(--spacing-3);
+  border-top: 1px solid var(--color-ink-28);
+  min-width: 0;
+}
+.versus > div.is-ours { border-top-color: var(--color-live); }
+.versus dt { color: var(--color-ink-50); }
+.versus dd { margin: 0; }
+.versus-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.versus > div.is-ours .versus-line { color: var(--color-live); }
+
+@media (max-width: 700px) {
+  .versus { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); }
+}
