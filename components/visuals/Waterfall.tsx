@@ -18,12 +18,8 @@ import { WATERFALL as W } from '@/content/how';
  * Hatch density reads as cost without needing a key, and it keeps the accent
  * free for the one thing that matters — the part that is already yours.
  *
- * The list under the bar is a LEGEND — a swatch, a label and the amount that
- * tier is carrying right now. It briefly also carried each tier's two-sentence
- * explanation, which put a four-paragraph ledger inside the ink band and made
- * the band 1,463px of reading on a dark ground. The explanations live on paper
- * below the band, where reading belongs; a chart legend and the prose that
- * explains the chart are allowed to name the same four things. */
+ * The list under the bar is the legend AND the explanation. They were two
+ * lists for a while, and it printed the same four labels twice in a row. */
 
 const money = (n: number) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
@@ -75,6 +71,8 @@ export function Waterfall() {
             <span className={`fall-swatch fall-${t.key}`} aria-hidden="true" />
             <span className="fall-key-label">{t.label}</span>
             <span className="fall-key-amt fig">{t.used === 0 ? '—' : money(t.used)}</span>
+            <span className="fall-key-cost t-note">{t.cost}</span>
+            <p className="fall-key-body t-sm">{t.body}</p>
           </li>
         ))}
       </ol>

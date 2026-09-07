@@ -155,37 +155,29 @@ export default function Shops() {
         </Cols>
       </Section>
 
-      {/* S6 — Getting paid, and refunds. Two topics, two rows. They were two
-          span-5 columns side by side: payouts is four lines, refunds carries a
-          swimlane, a paragraph and a ledger, so the payouts column stopped
-          776px above the bottom of its own row. */}
+      {/* S6 — Getting paid, and refunds. */}
       <Section rail={MONEY.rail}>
         <Cols>
-          <Col span={6}>
+          <Col span={5}>
             <h2 className="d3 section-head">{MONEY.payouts.heading}</h2>
             <p className="d-sub" style={{ marginTop: 'var(--spacing-2)' }}>{MONEY.payouts.sub}</p>
-          </Col>
-          <Col span={4}>
-            <p className="t-body">{MONEY.payouts.body}</p>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+              <p>{MONEY.payouts.body}</p>
+            </div>
             <Note>{MONEY.payouts.note}</Note>
           </Col>
-
-          <Col span={6}>
+          <Col span={5}>
             <h2 className="d3 section-head">{MONEY.refunds.heading}</h2>
-          </Col>
-          <Col span={4}>
-            <p className="d-sub">{MONEY.refunds.sub}</p>
-          </Col>
-
-          <Col span={3}>
-            <p className="t-body prose">{MONEY.refunds.body}</p>
-          </Col>
-          <Col span={7}>
-            <RefundLanes />
-          </Col>
-
-          <Col span={10}>
-            <Ledger items={[...MONEY.refunds.ledger]} />
+            <p className="d-sub" style={{ marginTop: 'var(--spacing-2)' }}>{MONEY.refunds.sub}</p>
+            <div style={{ marginTop: 'var(--spacing-3)' }}>
+              <RefundLanes />
+            </div>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+              <p>{MONEY.refunds.body}</p>
+            </div>
+            <div style={{ marginTop: 'var(--spacing-3)' }}>
+              <Ledger items={[...MONEY.refunds.ledger]} />
+            </div>
           </Col>
         </Cols>
       </Section>

@@ -766,6 +766,172 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   }
 }
 
+/* ─── The gap chart (visual brief §4, Home) ──────────────────────────────── */
+
+.gap { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: var(--spacing-5); align-items: end; }
+.gap-plot { min-width: 0; }
+
+/* The plot's height is set here rather than by the viewBox aspect, because a
+   fixed aspect made this 136px tall at 390px — where four lines that nearly
+   coincide cannot be told apart. The SVG stretches into it; strokes are
+   non-scaling and the dots are HTML, so nothing distorts. */
+.gap-frame {
+  position: relative;
+  height: clamp(230px, 46vw, 320px);
+}
+.gap-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.gap-head { position: absolute; inset: 0 auto 0 var(--x); width: 1px; background: var(--color-ink-28); }
+.gap-dot {
+  position: absolute;
+  left: 50%;
+  bottom: var(--y);
+  width: 9px;
+  height: 9px;
+  margin: 0 0 -4.5px -4.5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+}
+.gap-dot.is-live { background: var(--color-live); }
+
+.gap-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-ink-50);
+}
+
+.gap-key {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px var(--spacing-3);
+  margin-top: var(--spacing-3);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--color-ink-70);
+}
+.gap-key li { display: flex; align-items: center; gap: 9px; }
+.gap-key i { width: 22px; height: 0; border-top-width: 2px; border-top-style: solid; flex: none; }
+.gap-key .k-paid { border-top-color: var(--color-ink-50); border-top-width: 1.5px; }
+.gap-key .k-dash { border-top-style: dashed; }
+.gap-key .k-kept-rent { border-top-color: var(--color-ink); }
+.gap-key .k-kept-clear { border-top-color: var(--color-live); border-top-width: 2.5px; }
+
+.gap-read { display: grid; gap: var(--spacing-4); min-width: 0; }
+.gap-read-row { display: grid; gap: var(--spacing-3); }
+.gap-fig {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-top: 4px;
+}
+.gap-fig.is-live { color: var(--color-live); }
+.gap-sub { margin-top: 6px; }
+
+.gap-control { display: grid; gap: var(--spacing-1); }
+.gap-control input[type='range'] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 44px; background: transparent; cursor: pointer;
+}
+.gap-control input[type='range']::-webkit-slider-runnable-track { height: 1px; background: var(--color-ink-28); }
+.gap-control input[type='range']::-moz-range-track { height: 1px; background: var(--color-ink-28); }
+.gap-control input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; margin-top: -9px;
+  border-radius: var(--radius-pill); background: var(--color-live); border: 0;
+}
+.gap-control input[type='range']::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: var(--radius-pill);
+  background: var(--color-live); border: 0;
+}
+
+/* §6 — the chart stays horizontal on a phone and drops one line. The dashed
+   Clear-paid line is the one to lose: it sits almost on top of the rent line,
+   which is the least legible thing at 340px and the easiest to state as a
+   figure. The rent line stays, because it is what sets the y-scale — without
+   it the empty top of the frame means nothing. */
+@media (max-width: 860px) {
+  .gap { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); }
+  .gap-key { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .gap-l-dash { display: none; }
+  .gap-key li:nth-child(2) { display: none; }
+  .gap-read-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-2); }
+}
+
+/* ─── The milestone rail (visual brief §4, Home) ─────────────────────────── */
+
+.rail-mile { position: relative; display: grid; list-style: none; margin: 0; padding: 0; }
+
+/* Mobile first (§2 — "the mobile version is the design"). One rule down the
+   left, stations hanging off it. */
+.rail-mile { gap: var(--spacing-4); padding-left: var(--spacing-4); }
+.rail-mile::before {
+  content: '';
+  position: absolute;
+  left: 4px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--color-ink-28);
+}
+.rail-mile li { position: relative; }
+.rail-mile-station {
+  position: absolute;
+  left: calc(var(--spacing-4) * -1);
+  top: 5px;
+  width: 9px; height: 9px;
+  background: var(--color-ink);
+  border-radius: var(--radius-pill);
+}
+.rail-mile li:last-child .rail-mile-station { background: var(--color-live); }
+/* Ink, not cobalt. Three cobalt gate labels plus a cobalt station is four
+   accents in one viewport; the accent is spent on the terminus dot instead. */
+.rail-mile-gate { font-size: 11.5px; color: var(--color-ink); letter-spacing: 0.02em; }
+.rail-mile-title { margin-top: 6px; max-width: 24ch; }
+.rail-mile-body { margin-top: var(--spacing-1); color: var(--color-ink-70); max-width: 40ch; }
+
+/* Above 860px the rail turns horizontal and the columns are sized by how long
+   each phase lasts, so the distance between gates is visible in the layout
+   rather than asserted in the copy. */
+@media (min-width: 861px) {
+  .rail-mile {
+    /* Literal fr values: `fr` is not permitted inside calc(), so the phase
+       spans cannot be driven by a custom property and live here instead. They
+       match SPAN in components/visuals/MilestoneRail.tsx. */
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.5fr) minmax(200px, 0.28fr);
+    gap: var(--spacing-4);
+    padding-left: 0;
+    padding-top: var(--spacing-5);
+    column-gap: var(--spacing-4);
+  }
+  .rail-mile::before {
+    left: 0; right: 0; top: 4px; bottom: auto;
+    width: auto; height: 1px;
+  }
+  .rail-mile li { padding-top: var(--spacing-3); }
+  .rail-mile-station { left: 0; top: calc(var(--spacing-5) * -1); }
+  .rail-mile li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: calc(var(--spacing-5) * -1 + 9px);
+    height: calc(var(--spacing-5) - 9px);
+    width: 1px;
+    background: var(--color-ink-28);
+  }
+}
+
 /* ─── The waterfall (visual brief §4, How it works) ──────────────────────── */
 
 .fall { display: grid; gap: var(--spacing-3); }
@@ -806,14 +972,15 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 
 .fall-key { display: grid; gap: var(--spacing-1); list-style: none; margin: 0; padding: 0; }
-/* A legend: swatch, label, and the amount that tier is carrying. One line
-   each. The explanations are on paper below the band. */
+/* The legend and the explanation are one list. Swatch and label on the first
+   line with the amount ranged right, the cost under the label, the body across
+   the measure. */
 .fall-key li {
   display: grid;
   grid-template-columns: 14px minmax(0, 1fr) auto;
   align-items: baseline;
   column-gap: var(--spacing-2);
-  padding-block: 9px;
+  padding-block: var(--spacing-2);
   border-top: 1px solid var(--color-ink-13);
 }
 .fall-key li.is-off { color: var(--color-ink-50); }
@@ -836,7 +1003,14 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 
 .fall-key-amt { text-align: right; font-size: 15px; }
-
+.fall-key-cost { grid-column: 2 / -1; color: var(--color-ink-50); margin-top: 2px; }
+.fall-key-body {
+  grid-column: 2 / -1;
+  margin-top: 6px;
+  color: var(--color-ink-70);
+  max-width: 52ch;
+}
+.fall-key li.is-off .fall-key-body { color: var(--color-ink-50); }
 
 .fall-control { display: grid; gap: var(--spacing-1); margin-top: var(--spacing-1); }
 .fall-control input[type='range'] {
@@ -1292,137 +1466,3 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .terms-list > li { padding-block: 8px; border-top: 1px solid var(--color-ink-13); }
 @media (max-width: 480px) { .terms-list { grid-template-columns: minmax(0, 1fr); } }
 .terms-list.is-single { grid-template-columns: minmax(0, 1fr); }
-
-/* ═══ Home ════════════════════════════════════════════════════════════════
-   Four beats. The page is an arrival, not a summary of the other seven.   */
-
-/* Beat two — the proof.
-   One figure at full size on an otherwise empty band (visual brief §5), then
-   a quieter row underneath carrying the turn and the arithmetic. The air
-   above and below the figure is the design; filling it is what made every
-   earlier version of this page read as padding. */
-.proof { display: grid; }
-.proof-figure {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  /* 8 glyphs of tabular mono. At 390px the content measure is 327px, which
-     caps this at about 68px before it touches the gutters — the floor is set
-     below that and verified, not guessed. */
-  font-size: clamp(58px, 15vw, 232px);
-  line-height: 0.9;
-  letter-spacing: -0.045em;
-}
-.proof-caption { color: var(--color-ink-70); margin-top: var(--spacing-3); }
-
-.proof-turn {
-  margin-top: clamp(56px, 8vw, 120px);
-  padding-top: var(--spacing-4);
-  border-top: 1px solid var(--color-ink-28);
-}
-.proof-heading { max-width: 18ch; }
-.proof-turn .d-sub { margin-top: var(--spacing-3); }
-.proof-ledger { margin-top: var(--spacing-5); }
-.proof-link { margin-top: var(--spacing-3); }
-
-/* Above 1080px the figure keeps the whole top of the band to itself and the
-   turn and the arithmetic sit side by side under it.
-
-   Every row is placed explicitly. Leaving the caption to auto-placement put
-   it AFTER the two row-2 items — so the band read figure, argument, ledger,
-   and then the caption belonging to the figure, stranded at the bottom. */
-@media (min-width: 1081px) {
-  .proof {
-    grid-template-columns: repeat(10, minmax(0, 1fr));
-    grid-template-rows: auto auto auto;
-    column-gap: var(--gutter);
-  }
-  .proof-figure { grid-row: 1; grid-column: 1 / -1; }
-  .proof-caption { grid-row: 2; grid-column: 1 / 6; }
-  .proof-turn { grid-row: 3; grid-column: 1 / 6; }
-  .proof-ledger {
-    grid-row: 3;
-    grid-column: 6 / -1;
-    margin-top: clamp(56px, 8vw, 120px);
-    padding-top: var(--spacing-4);
-    border-top: 1px solid var(--color-ink-28);
-  }
-}
-
-/* Beat three — the strands. Signposts, not cards: a rule, a label, a line,
-   a link. Three of them read as one shape rather than three boxes. */
-.strands {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--gutter);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.strands > li {
-  display: grid;
-  align-content: start;
-  gap: var(--spacing-2);
-  padding-top: var(--spacing-3);
-  border-top: 1px solid var(--color-ink);
-  min-width: 0;
-}
-.strand-n {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-live);
-}
-.strand-title { max-width: 20ch; }
-.strand-body { color: var(--color-ink-70); }
-.strand-link { margin-top: var(--spacing-1); }
-
-@media (max-width: 860px) {
-  .strands { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .strands > li { padding-block: var(--spacing-4); }
-  .strands > li:first-child { padding-top: var(--spacing-3); }
-}
-
-/* Beat four — the door. */
-.close { display: grid; gap: var(--spacing-4); justify-items: start; }
-.close-head { max-width: 16ch; }
-.close-actions { display: flex; flex-wrap: wrap; gap: var(--spacing-2); }
-.close-note { color: var(--color-ink-50); }
-
-/* ─── The versus pairing (/how S7) ───────────────────────────────────────── */
-
-/* The page's last word. Two claims at display size against each other, which
-   is what the copy actually is — it was set as two four-row ledgers, the same
-   "two columns of prose" shape that made the home page's two front doors read
-   as filler. */
-.versus {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--gutter);
-  margin: 0 0 var(--spacing-3);
-}
-.versus > div {
-  display: grid;
-  gap: var(--spacing-2);
-  align-content: start;
-  padding-top: var(--spacing-3);
-  border-top: 1px solid var(--color-ink-28);
-  min-width: 0;
-}
-.versus > div.is-ours { border-top-color: var(--color-live); }
-.versus dt { color: var(--color-ink-50); }
-.versus dd { margin: 0; }
-.versus-line {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(28px, 3.6vw, 52px);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  max-width: 14ch;
-  text-wrap: balance;
-}
-.versus > div.is-ours .versus-line { color: var(--color-live); }
-
-@media (max-width: 700px) {
-  .versus { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); }
-}

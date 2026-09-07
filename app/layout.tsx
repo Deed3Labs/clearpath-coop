@@ -1,10 +1,5 @@
 import type { Metadata } from 'next';
-import {
-  Bricolage_Grotesque,
-  Instrument_Sans,
-  IBM_Plex_Mono,
-  DM_Serif_Display,
-} from 'next/font/google';
+import { Bricolage_Grotesque, Instrument_Sans, IBM_Plex_Mono } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { DebugGrid } from '@/components/dev/DebugGrid';
@@ -31,18 +26,6 @@ const mono = IBM_Plex_Mono({
   variable: '--font-plex-mono',
 });
 
-/* The counterpoint face. The headline is cut between the condensed display
-   grotesque and this italic serif — the caps state the fact and the italic
-   delivers the turn. One family doing everything was the wrong call: it threw
-   away the pairing that makes the sentence land. */
-const serif = DM_Serif_Display({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-  variable: '--font-serif',
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://useclear.org'),
   title: {
@@ -64,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable} ${serif.variable}`}>
+    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable}`}>
       <body>
         <Header />
         <main>{children}</main>

@@ -54,10 +54,10 @@ export default function Housing() {
               <Col span={10}>
                 <hr className="band-rule" />
               </Col>
-              <Col span={5}>
+              <Col span={6}>
                 <MonthlyRange />
               </Col>
-              <Col span={5}>
+              <Col span={4}>
                 <div className="prose t-body">
                   {NUMBERS.prose.map((p) => (
                     <p key={p.slice(0, 20)}>{p}</p>
@@ -87,14 +87,14 @@ export default function Housing() {
           <Col span={10}>
             <LotPlan />
           </Col>
-          <Col span={4}>
+          <Col span={5}>
             <div className="prose t-body">
               {HOMES.prose.map((p) => (
                 <p key={p.slice(0, 20)}>{p}</p>
               ))}
             </div>
           </Col>
-          <Col span={6}>
+          <Col span={5}>
             <Ledger items={[...HOMES.ledger]} />
           </Col>
         </Cols>

@@ -1,134 +1,178 @@
 import Link from 'next/link';
-import './v2.css';
-import { Texture } from '@/components/v2/Texture';
-import { Marquee } from '@/components/v2/Marquee';
-import { CountUp } from '@/components/v2/CountUp';
-import { HeroDivide } from '@/components/v2/HeroDivide';
-import { HERO, STRANDS, STATUS, CLOSE } from '@/content/home';
+import { Section, Band, Statement, Cols, Col, Ledger, Panel, Note, TextLink } from '@/components/primitives';
+import { GapChart } from '@/components/visuals/GapChart';
+import { MilestoneRail } from '@/components/visuals/MilestoneRail';
+import { HERO, STATEMENT, GAP, PHASES, WAYS_IN, STATUS, UNDERNEATH } from '@/content/home';
 
 export default function Home() {
   return (
-    <div className="v2">
-      {/* 1 — The claim. The headline is cut between the condensed display
-          face and the italic serif: the caps state the fact, the italic
-          delivers the turn. */}
-      <section className="lede-hero">
-        <Texture />
-        <div className="wrap">
-          <p className="eyebrow">{HERO.eyebrow}</p>
-
-          <h1 className="d-hard hero-title">
-            {HERO.headline.hard} <em className="d-turn">{HERO.headline.turn}</em>
-          </h1>
-
-          <div className="hero-bottom">
-            <div>
-              <p className="lede">{HERO.lede}</p>
-              <div className="hero-actions" style={{ marginTop: 'var(--spacing-4)' }}>
-                <Link className="btn" href={HERO.primary.href}>
-                  {HERO.primary.label} <span aria-hidden="true">→</span>
-                </Link>
-                <Link className="btn ghost" href={HERO.ghost.href}>
-                  {HERO.ghost.label}
-                </Link>
-              </div>
+    <>
+      {/* S1 — Hero. Type-led: the headline owns it and nothing sits beside
+          it. Agreed at review per §5. */}
+      <section className="wrap section hero">
+        <div className="grid12 hero-grid">
+          <div className="hero-copy">
+            <h1 className="d1 hero-headline">
+              {HERO.headline.map((line, i) => (
+                <span key={line} data-rise style={{ ['--i' as string]: i }}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p className="t-lede hero-lede" data-rise style={{ ['--i' as string]: 2 }}>
+              {HERO.lede}
+            </p>
+            <div className="hero-actions" data-rise style={{ ['--i' as string]: 3 }}>
+              <Link href={HERO.primary.href} className="btn" data-variant="primary">
+                {HERO.primary.label}
+              </Link>
+              <Link href={HERO.ghost.href} className="btn" data-variant="ghost">
+                {HERO.ghost.label}
+              </Link>
             </div>
+          </div>
 
-            <div className="hero-counter">
-              <p className="eyebrow">{HERO.counter.label}</p>
-              <p className="figure">
-                <CountUp to={HERO.counter.to} />
+          <div className="hero-meta" data-rise style={{ ['--i' as string]: 4 }}>
+            {HERO.meta.map((m) => (
+              <p className="t-note" key={m}>
+                {m}
               </p>
-              <p className="micro" style={{ marginTop: 6 }}>{HERO.counter.sub}</p>
-            </div>
-          </div>
-        </div>
-
-        <Marquee items={HERO.marquee} />
-      </section>
-
-      {/* 2 — The divide. Two grounds trading space with the scroll. */}
-      <HeroDivide />
-
-      <section className="wrap hero-foot">
-        <p className="micro">{HERO.note}</p>
-        <Link className="strand-link" href={HERO.link.href}>
-          {HERO.link.label} →
-        </Link>
-      </section>
-
-      {/* 3 — What it is. */}
-      <section className="field">
-        <div className="wrap">
-          <div className="split-head">
-            <div>
-              <p className="eyebrow">What it is</p>
-              <h2 className="d-hard band-h2">
-                One membership, <em className="d-turn">three things it does.</em>
-              </h2>
-            </div>
-            <p className="lede">{STRANDS.sub}</p>
-          </div>
-
-          <ul className="strands">
-            {STRANDS.items.map((s) => (
-              <li className="strand" key={s.n}>
-                <p className="strand-n">{s.n}</p>
-                <h3 className="strand-title">{s.title}</h3>
-                <p className="small">{s.body}</p>
-                <Link className="strand-link" href={s.link.href}>
-                  {s.link.label} →
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 4 — Where this actually is. On the dark ground, because saying what
-          does not exist yet should look deliberate rather than buried. */}
-      <section className="field inv">
-        <div className="wrap">
-          <div className="split-head">
-            <div>
-              <p className="eyebrow">{STATUS.standfirst}</p>
-              <h2 className="d-hard band-h2">
-                What exists today, <em className="d-turn">plainly.</em>
-              </h2>
-            </div>
-            <p className="lede">{STATUS.sub}</p>
-          </div>
-
-          <div className="status">
-            {STATUS.ledger.map((row) => (
-              <div className="status-row" key={row.label}>
-                <p className="small" style={{ color: 'var(--on-dark)' }}>{row.label}</p>
-                <span className="status-state" data-state={row.chip}>{row.chip}</span>
-                <p className="micro">{row.description}</p>
-              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5 — The door. */}
-      <section className="field half">
-        <div className="wrap">
-          <p className="eyebrow">Two front doors</p>
-          <h2 className="d-hard band-h2" style={{ maxWidth: '14ch' }}>
-            Join as a member, <em className="d-turn">or bring your shop.</em>
-          </h2>
-          <div className="close-actions">
-            <Link className="btn" href={CLOSE.member.href}>
-              {CLOSE.member.label} <span aria-hidden="true">→</span>
-            </Link>
-            <Link className="btn ghost" href={CLOSE.shop.href}>
-              {CLOSE.shop.label}
-            </Link>
+      {/* S2 — The gap. The page's one full-bleed ink band (§3), and the only
+          place the chart could sit: it is the strongest thing on the page and
+          the ground change says so. The visual leads, the prose fills in what
+          a chart cannot say. */}
+      <Band tone="ink" rhythm="open" id="the-gap">
+        <div className="grid12">
+          <p className="rail rail-note">{GAP.rail}</p>
+          <div className="content">
+            <Cols>
+              <Col span={6}>
+                <h2 className="d2 section-head">{GAP.heading}</h2>
+              </Col>
+              <Col span={4}>
+                <p className="d-sub">{GAP.sub}</p>
+              </Col>
+              <Col span={10}>
+                <GapChart />
+              </Col>
+              <Col span={6}>
+                <div className="prose t-body">
+                  {GAP.prose.map((p) => (
+                    <p key={p.slice(0, 20)}>{p}</p>
+                  ))}
+                </div>
+              </Col>
+              <Col span={4}>
+                <Ledger items={[...GAP.ledger]} />
+                <Note>{GAP.note}</Note>
+              </Col>
+            </Cols>
           </div>
-          <p className="micro" style={{ marginTop: 'var(--spacing-3)' }}>{CLOSE.note}</p>
         </div>
-      </section>
-    </div>
+      </Band>
+
+      {/* S3 — Three phases. A rail with stations, not three cards: the
+          distance between the gates is half the claim. */}
+      <Section rail={PHASES.rail}>
+        <Cols>
+          <Col span={6}>
+            <h2 className="d2 section-head">{PHASES.heading}</h2>
+          </Col>
+          <Col span={4}>
+            <p className="d-sub">{PHASES.sub}</p>
+            <Note>{PHASES.standfirst}</Note>
+          </Col>
+          <Col span={10}>
+            <MilestoneRail />
+          </Col>
+        </Cols>
+      </Section>
+
+      {/* S4 — Two ways in. Two columns, 3-7 and 8-12. */}
+      <Section rail={WAYS_IN.rail}>
+        <Cols>
+          <Col span={6}>
+            <h2 className="d2 section-head">{WAYS_IN.heading}</h2>
+          </Col>
+          <Col span={4}>
+            <p className="d-sub">{WAYS_IN.sub}</p>
+          </Col>
+          <Col span={5}>
+            <h3 className="d3">{WAYS_IN.shop.heading}</h3>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-2)' }}>
+              {WAYS_IN.shop.prose.map((p) => (
+                <p key={p.slice(0, 20)}>{p}</p>
+              ))}
+              <p>
+                <TextLink href={WAYS_IN.shop.link.href}>{WAYS_IN.shop.link.label}</TextLink>
+              </p>
+            </div>
+          </Col>
+          <Col span={5}>
+            <h3 className="d3">{WAYS_IN.member.heading}</h3>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-2)' }}>
+              {WAYS_IN.member.prose.map((p) => (
+                <p key={p.slice(0, 20)}>{p}</p>
+              ))}
+              <p>
+                <TextLink href={WAYS_IN.member.link.href}>{WAYS_IN.member.link.label}</TextLink>
+              </p>
+            </div>
+          </Col>
+        </Cols>
+      </Section>
+
+      {/* The statement. One sentence at display size and nothing else in the
+          band — it is the line the whole argument rests on. */}
+      <Statement>{STATEMENT}</Statement>
+
+      {/* S5 — Status. Tight rhythm: a list of facts wants density, not air,
+          and identical padding on every band reads as a wireframe. */}
+      <Section rail={STATUS.rail} rhythm="tight">
+        <Cols>
+          <Col span={6}>
+            <h2 className="d2 section-head">{STATUS.heading}</h2>
+          </Col>
+          <Col span={4}>
+            <p className="d-sub">{STATUS.sub}</p>
+            <Note>{STATUS.standfirst}</Note>
+          </Col>
+          <Col span={10}>
+            <Ledger items={[...STATUS.ledger]} />
+          </Col>
+        </Cols>
+      </Section>
+
+      {/* S6 — Underneath. */}
+      <Section rail={UNDERNEATH.rail}>
+        <Cols>
+          <Col span={6}>
+            <h2 className="d2 section-head">{UNDERNEATH.heading}</h2>
+            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>
+              {UNDERNEATH.sub}
+            </p>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+              <p>{UNDERNEATH.prose}</p>
+              <p>
+                <TextLink href={UNDERNEATH.link.href}>{UNDERNEATH.link.label}</TextLink>
+              </p>
+            </div>
+          </Col>
+          <Col span={4}>
+            <Panel variant="mark">
+              <p className="t-note">{UNDERNEATH.panel.source}</p>
+              {UNDERNEATH.panel.body.map((p) => (
+                <p key={p.slice(0, 20)}>{p}</p>
+              ))}
+            </Panel>
+          </Col>
+        </Cols>
+      </Section>
+    </>
   );
 }
