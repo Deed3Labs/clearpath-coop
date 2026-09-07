@@ -851,10 +851,18 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   padding-bottom: var(--spacing-2);
   border-bottom: 1px solid var(--color-ink-28);
 }
-.tally-row { display: grid; gap: 6px; }
+.tally-row { display: grid; gap: var(--spacing-2); }
+/* Line-height 1, not 0.86. At 136px a 0.86 box is 118px tall — shorter than
+   the glyphs it contains — so the caption below sat 6px under the BOX while
+   the digits ran past it and collided. Tight leading is for stacked display
+   lines, not for a single line with something under it.
+
+   The size is capped where the longest figure fits with margin: "$90,000" is
+   seven characters at ~0.69em advance in Plex Mono, which at 136px measured
+   662px in a 660px column — exactly flush, one pixel from overflow. */
 .tally-fig {
   font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: clamp(46px, 9.5vw, 168px); line-height: 0.86; letter-spacing: -0.05em;
+  font-size: clamp(42px, 7.6vw, 118px); line-height: 1; letter-spacing: -0.045em;
 }
 .tally-fig[data-weight='quiet'] { font-size: clamp(20px, 2.2vw, 32px); color: var(--color-ink-50); letter-spacing: -0.02em; }
 .tally[data-live] .tally-fig[data-weight='loud'] { color: var(--color-live); }
@@ -870,19 +878,29 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   background: var(--color-ink-13);
   border-block: 1px solid var(--color-ink-13);
 }
+/* Rows, not just a stack: the gate is pinned to the bottom of the cell, so
+   the three gates land on ONE line across the row. They were flowing directly
+   after each body and landing at three different heights — a 92px zigzag,
+   which is most of what read as wonky. */
 .cell {
   background: var(--color-paper);
   padding: clamp(24px, 2.6vw, 44px);
-  display: grid; align-content: start; gap: var(--spacing-2);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: var(--spacing-2);
   min-width: 0;
 }
-.cell[data-size='lg'] { grid-column: span 6; }
+/* 5/4/3, not 6/4/2. The old ratio left the narrowest cell a 172px measure,
+   where a 30px heading wrapped to four lines against two in its neighbours —
+   unequal is the point, illegible is not. */
+.cell[data-size='lg'] { grid-column: span 5; }
 .cell[data-size='md'] { grid-column: span 4; }
-.cell[data-size='sm'] { grid-column: span 2; }
+.cell[data-size='sm'] { grid-column: span 3; }
 .cell-n { font-family: var(--font-mono); font-size: 11.5px; color: var(--color-live); letter-spacing: 0.08em; }
-.cell-title { max-width: 20ch; }
-.cell-body { color: var(--color-ink-70); }
-.cell-gate { margin-top: var(--spacing-4); padding-top: var(--spacing-3); border-top: 1px solid var(--color-ink-13); display: grid; gap: 2px; }
+/* Sized so the narrowest cell holds the longest title in two lines. */
+.cell-title { font-size: clamp(19px, 1.7vw, 26px); line-height: 1.14; letter-spacing: -0.02em; max-width: 17ch; }
+.cell-body { color: var(--color-ink-70); align-self: start; }
+.cell-gate { padding-top: var(--spacing-3); border-top: 1px solid var(--color-ink-13); display: grid; gap: 2px; }
 .cell-gate-fig {
   font-family: var(--font-mono); font-variant-numeric: tabular-nums;
   font-size: clamp(24px, 2.6vw, 38px); letter-spacing: -0.025em; line-height: 1;
@@ -895,7 +913,15 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 
 /* ── SPLIT. Two doors — the one section where equal columns are honest. ─── */
 .hx-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--hx-gap); }
-.door { display: grid; gap: var(--spacing-2); align-content: start; padding-top: var(--spacing-3); border-top: 2px solid var(--color-ink); min-width: 0; }
+/* Flex, not grid: the link is pinned to the bottom so both doors' links land
+   on one line. As a grid with align-content:start the rows pack to the top
+   and no track has free space, so margin-top:auto had nothing to consume and
+   the links still staggered by 49px. In a flex column it works. */
+.door {
+  display: flex; flex-direction: column; gap: var(--spacing-2);
+  padding-top: var(--spacing-3); border-top: 2px solid var(--color-ink); min-width: 0;
+}
+.door-link { margin-top: auto; padding-top: var(--spacing-3); }
 .door-fig {
   font-family: var(--font-mono); font-variant-numeric: tabular-nums;
   font-size: clamp(40px, 6vw, 88px); line-height: 1; letter-spacing: -0.04em;
@@ -903,7 +929,6 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 .door-note { color: var(--color-ink-50); }
 .door-body { color: var(--color-ink-70); margin-top: var(--spacing-2); max-width: 34ch; }
-.door-link { margin-top: var(--spacing-3); }
 @media (max-width: 860px) { .hx-split { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); } }
 
 /* ── STAGE. One sentence at display size, and the page ends on it. ─────── */

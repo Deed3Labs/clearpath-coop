@@ -55,7 +55,7 @@ export default function Home() {
       </section>
 
       {/* ── S2 · The gap. Full-bleed ink, two figures in tension. ───────── */}
-      <section className="hx-band" data-tone="ink" data-pad="open" id="the-gap">
+      <section className="hx-band" data-tone="ink" id="the-gap">
         <div className="hx-wrap">
           <p className="hx-label">
             <b>01</b> {GAP.kicker}
@@ -79,8 +79,8 @@ export default function Home() {
               ))}
             </div>
 
+            <p className="t-body c-half">{GAP.close}</p>
             <div className="c-half">
-              <p className="t-body">{GAP.close}</p>
               <Note>{GAP.note}</Note>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function Home() {
           {PHASES.steps.map((s) => (
             <article className="cell" data-size={s.size} key={s.n}>
               <p className="cell-n">{s.n}</p>
-              <h3 className="d3 cell-title">{s.title}</h3>
+              <h3 className="cell-title">{s.title}</h3>
               <p className="t-sm cell-body">{s.body}</p>
               <div className="cell-gate">
                 <p className="cell-gate-fig">{s.gate}</p>
