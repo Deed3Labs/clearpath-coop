@@ -1,5 +1,4 @@
-import { Section, Band, Cols, Col, Ledger, Steps, Panel, Note, Button, TextLink } from '@/components/primitives';
-import { TwoSheets, PayoutStacks } from '@/components/visuals/CapitalDiagrams';
+import { Section, Cols, Col, Ledger, Steps, Panel, Button, TextLink } from '@/components/primitives';
 import {
   OPENING,
   SPLIT,
@@ -24,7 +23,6 @@ export default function Capital() {
         <Cols>
           <Col span={7}>
             <h1 className="page-title is-long">{OPENING.heading}</h1>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{OPENING.sub}</p>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
@@ -37,45 +35,29 @@ export default function Capital() {
         </Cols>
       </Section>
 
-      {/* S2 — Why the two sides do not collide, on this page's one ink band
-          (§3). Structural voice: here the co-op is the legal actor and the
-          reader is evaluating an entity. The gap between the two columns is
-          the claim, so it is drawn rather than asserted. */}
-      <Band tone="ink" rhythm="open" id="the-split">
-        <div className="grid12">
-          <p className="rail rail-note">{SPLIT.rail}</p>
-          <div className="content">
-            <Cols>
-              <Col span={6}>
-                <h2 className="d2 section-head">{SPLIT.heading}</h2>
-              </Col>
-              <Col span={4}>
-                <p className="d-sub">{SPLIT.sub}</p>
-              </Col>
-              <Col span={9}>
-                <TwoSheets />
-              </Col>
-              <Col span={5}>
-                <div className="prose t-body">
-                  {SPLIT.prose.map((p) => (
-                    <p key={p.slice(0, 20)}>{p}</p>
-                  ))}
-                </div>
-              </Col>
-              <Col span={5}>
-                <Ledger items={[...SPLIT.ledger]} />
-              </Col>
-            </Cols>
-          </div>
-        </div>
-      </Band>
+      {/* S2 — Why the two sides do not collide. Structural voice: here the
+          co-op is the legal actor and the reader is evaluating an entity. */}
+      <Section rail={SPLIT.rail}>
+        <Cols>
+          <Col span={5}>
+            <h2 className="d2 section-head">{SPLIT.heading}</h2>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+              {SPLIT.prose.map((p) => (
+                <p key={p.slice(0, 20)}>{p}</p>
+              ))}
+            </div>
+          </Col>
+          <Col span={5}>
+            <Ledger items={[...SPLIT.ledger]} />
+          </Col>
+        </Cols>
+      </Section>
 
       {/* S3 — Contributing at scale. */}
       <Section rail={SCALE.rail}>
         <Cols>
           <Col span={5}>
             <h2 className="d2 section-head">{SCALE.heading}</h2>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{SCALE.sub}</p>
             <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
               <p>{SCALE.prose}</p>
               <p>
@@ -96,16 +78,9 @@ export default function Capital() {
             <h2 className="d2 section-head">{PROTECTIONS.heading}</h2>
           </Col>
           <Col span={4}>
-            <p className="d-sub">{PROTECTIONS.sub}</p>
+            <p className="t-sm section-lede">{PROTECTIONS.standfirst}</p>
           </Col>
-          <Col span={5}>
-            <h3 className="d3">{PROTECTIONS.stacks.heading}</h3>
-            <div style={{ marginTop: 'var(--spacing-3)' }}>
-              <PayoutStacks />
-            </div>
-            <Note>{PROTECTIONS.stacks.note}</Note>
-          </Col>
-          <Col span={5}>
+          <Col span={10}>
             <Steps items={[...PROTECTIONS.steps]} />
           </Col>
         </Cols>
@@ -115,7 +90,7 @@ export default function Capital() {
           content/contribute so "verbatim" is enforced by the module system
           rather than by remembering, and it is not softened for an
           institutional reader. */}
-      <Section rail={DOWNSIDES_SECTION.rail} rhythm="tight">
+      <Section rail={DOWNSIDES_SECTION.rail}>
         <Cols>
           <Col span={4}>
             <Panel title={DOWNSIDES.title}>
@@ -133,11 +108,10 @@ export default function Capital() {
       </Section>
 
       {/* S6 — What happens next, and what does not. */}
-      <Section rail={NEXT.rail} rhythm="tight">
+      <Section rail={NEXT.rail}>
         <Cols>
           <Col span={7}>
             <h2 className="d2 section-head">{NEXT.heading}</h2>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{NEXT.sub}</p>
             <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
               {NEXT.prose.map((p) => (
                 <p key={p.slice(0, 20)}>{p}</p>

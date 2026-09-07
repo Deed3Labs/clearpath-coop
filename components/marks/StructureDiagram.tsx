@@ -185,10 +185,9 @@ export function StructureDiagram() {
 }
 
 /* The text alternative, and the mobile version — one thing, not two. It is
-   always in the DOM for assistive technology and never visible at any width —
-   the portrait drawing below is what replaces the landscape one on a phone,
-   not this. It is a 1px clipped box, so its children measure wider than the
-   viewport by design; anything auditing for overflow should skip it. */
+   always in the DOM for assistive technology and becomes the visible drawing
+   below 860px, because a diagram that scrolls sideways on a phone is worse
+   than a list. */
 export function StructureList() {
   const { root, children, holdingsChildren, foundation, contractLabel } = STRUCTURE;
 

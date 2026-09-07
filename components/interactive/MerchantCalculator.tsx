@@ -1,14 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { Stat } from '@/components/primitives';
 import { DIFFERENCE } from '@/content/shops';
 
-/* §6.3 S2 — a range against one large figure and three supporting ones.
+/* §6.3 S2 — a range against four Stats.
  *
- * The four Stats used to sit at equal weight, which made the reader do the
- * subtraction themselves. What is kept over a year is the only figure a shop
- * owner is actually deciding on, so it is set at figure size and the other
- * three become the ledger that explains where it came from.
+ * A Stat is a rule, a figure and a caption, never a boxed card, so the four
+ * read as a row of measurements rather than a dashboard.
  *
  * The arithmetic is the brief's: a six per cent provider takes v × 0.06, Clear
  * takes v × 0.025, and the difference over a year is v × 0.035 × 12. Klarna's
@@ -29,39 +28,24 @@ export function MerchantCalculator() {
 
   return (
     <div className="calc">
-      <div className="calc-figure">
-        <span className="figure-xl is-live">{money(kept)}</span>
-        <p className="t-sm figure-xl-cap">{DIFFERENCE.stats[3].caption}</p>
-      </div>
+      <label className="calc-field">
+        <span className="t-note">Financed through Clear each month</span>
+        <input
+          type="range"
+          min={range.min}
+          max={range.max}
+          step={range.step}
+          value={volume}
+          onChange={(e) => setVolume(Number(e.target.value))}
+          aria-valuetext={money(volume)}
+        />
+      </label>
 
-      <div className="calc-side">
-        <label className="calc-field">
-          <span className="t-note">{DIFFERENCE.stats[0].caption}</span>
-          <input
-            type="range"
-            min={range.min}
-            max={range.max}
-            step={range.step}
-            value={volume}
-            onChange={(e) => setVolume(Number(e.target.value))}
-            aria-valuetext={money(volume)}
-          />
-        </label>
-
-        <dl className="ledger calc-ledger" aria-live="polite">
-          <div className="ledger-row">
-            <dt className="t-sm">{DIFFERENCE.stats[0].caption}</dt>
-            <dd className="fig">{money(volume)}</dd>
-          </div>
-          <div className="ledger-row">
-            <dt className="t-sm">{DIFFERENCE.stats[1].caption}</dt>
-            <dd className="fig is-muted">{money(theirs)}</dd>
-          </div>
-          <div className="ledger-row">
-            <dt className="t-sm">{DIFFERENCE.stats[2].caption}</dt>
-            <dd className="fig">{money(ours)}</dd>
-          </div>
-        </dl>
+      <div className="calc-stats" aria-live="polite">
+        <Stat figure={money(volume)} caption={DIFFERENCE.stats[0].caption} />
+        <Stat figure={money(theirs)} caption={DIFFERENCE.stats[1].caption} muted />
+        <Stat figure={money(ours)} caption={DIFFERENCE.stats[2].caption} />
+        <Stat figure={money(kept)} caption={DIFFERENCE.stats[3].caption} live />
       </div>
     </div>
   );

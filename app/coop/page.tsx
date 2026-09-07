@@ -1,5 +1,4 @@
-import { Section, Band, Cols, Col, Ledger, Panel, Note, TextLink, FigureXL } from '@/components/primitives';
-import { VoteMarks } from '@/components/visuals/VoteMarks';
+import { Section, Cols, Col, Ledger, Panel, Note, TextLink } from '@/components/primitives';
 import {
   StructureDiagram,
   StructureDiagramStacked,
@@ -21,7 +20,6 @@ export default function Coop() {
         <Cols>
           <Col span={7}>
             <h1 className="page-title is-long">{OPENING.heading}</h1>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{OPENING.sub}</p>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
@@ -42,8 +40,7 @@ export default function Coop() {
             <h2 className="d2 section-head">{STRUCTURE.heading}</h2>
           </Col>
           <Col span={5}>
-            <p className="d-sub">{STRUCTURE.sub}</p>
-            <Note>{STRUCTURE.prose}</Note>
+            <p className="t-sm section-lede">{STRUCTURE.prose}</p>
           </Col>
           <Col span={10}>
             <figure className="dia-figure">
@@ -67,53 +64,33 @@ export default function Coop() {
         </Cols>
       </Section>
 
-      {/* S3 — Governance, on this page's one ink band (§3). The marks lead:
-          "one vote each regardless of balance" is a claim about size, and
-          size is what prose is worst at. */}
-      <Band tone="ink" rhythm="open" id="governance">
-        <div className="grid12">
-          <p className="rail rail-note">{GOVERNANCE.rail}</p>
-          <div className="content">
-            <Cols>
-              <Col span={6}>
-                <h2 className="d2 section-head">{GOVERNANCE.heading}</h2>
-              </Col>
-              <Col span={4}>
-                <p className="d-sub">{GOVERNANCE.sub}</p>
-              </Col>
-              <Col span={6}>
-                <VoteMarks />
-              </Col>
-              <Col span={4}>
-                <Ledger items={[...GOVERNANCE.ledger]} />
-              </Col>
-              <Col span={10}>
-                <hr className="band-rule" />
-              </Col>
-              <Col span={6}>
-                <h3 className="d3">{GOVERNANCE.protocol.heading}</h3>
-                <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
-                  {GOVERNANCE.protocol.prose.map((p) => (
-                    <p key={p.slice(0, 20)}>{p}</p>
-                  ))}
-                </div>
-                <Note>{GOVERNANCE.protocol.note}</Note>
-              </Col>
-            </Cols>
-          </div>
-        </div>
-      </Band>
+      {/* S3 — Governance. Two columns. */}
+      <Section rail={GOVERNANCE.rail}>
+        <Cols>
+          <Col span={5}>
+            <h2 className="d2 section-head">{GOVERNANCE.heading}</h2>
+            <div style={{ marginTop: 'var(--spacing-3)' }}>
+              <Ledger items={[...GOVERNANCE.ledger]} />
+            </div>
+          </Col>
+          <Col span={5}>
+            <h2 className="d2 section-head">{GOVERNANCE.protocol.heading}</h2>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+              {GOVERNANCE.protocol.prose.map((p) => (
+                <p key={p.slice(0, 20)}>{p}</p>
+              ))}
+            </div>
+            <Note>{GOVERNANCE.protocol.note}</Note>
+          </Col>
+        </Cols>
+      </Section>
 
       {/* S4 — Who. */}
-      <Section rail={WHO.rail} rhythm="tight">
+      <Section rail={WHO.rail}>
         <Cols>
           <Col span={7}>
             <h2 className="d2 section-head">{WHO.heading}</h2>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{WHO.sub}</p>
-            <div style={{ marginTop: 'var(--spacing-4)' }}>
-              <FigureXL figure={WHO.figure.value} caption={WHO.figure.caption} />
-            </div>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-4)' }}>
+            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
               {WHO.prose.map((p) => (
                 <p key={p.slice(0, 20)}>{p}</p>
               ))}

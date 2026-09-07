@@ -15,7 +15,6 @@ export default function Join() {
       <Cols>
         <Col span={7}>
           <h1 className="page-title">{OPENING.heading}</h1>
-          <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{OPENING.sub}</p>
           <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
             {OPENING.lede}
           </p>

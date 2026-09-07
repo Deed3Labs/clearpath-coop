@@ -1,28 +1,47 @@
 /* How it works. §6.2 — copy is final and lives here, never inline in JSX. */
 
-import type { LedgerItem } from '@/components/primitives';
+import type { LedgerItem, StepItem } from '@/components/primitives';
 
 export const OPENING = {
   rail: 'Members / 01',
   heading: 'Credit that gets cheaper the longer you hold it.',
   lede:
     'Every other lender writes you a loan and hopes you keep needing one. Clear is built so your third year costs less than your first, because by then you are borrowing against your own savings.',
-  pull: { figure: 'Year 3', caption: 'costs less than year one' },
   panel: {
     title: 'Your deposit is your share.',
     body: 'No membership fee and nothing to buy. Money in your equity savings account is what makes you a member-owner. One member, one vote, regardless of balance.',
   },
 } as const;
 
-/* The tier copy lives in WATERFALL.tiers, because the waterfall's key and the
-   explanation of what each tier is were the same four labels printed twice —
-   one list that legends the bar and explains it. */
 export const DRAW_ORDER = {
   rail: 'Members / 02 — draw order',
   heading: 'One balance, drawn cheapest first.',
-  sub: 'You do not choose a product. You spend, and the line takes the cheapest thing backing you first.',
   standfirst:
-    'Repayment runs the other way — the most expensive part unwinds first — so the arithmetic works in your favour without you managing it.',
+    'You do not choose a product. You spend, and the line takes from the cheapest thing backing you before it touches anything expensive. Repayment runs the other way — the most expensive part unwinds first — so the arithmetic works in your favour without you managing it.',
+  /* The chips are what each tier COSTS to borrow against, which the page is
+     required to show. §7 Legal: no tier's yield and no pool rate anywhere. */
+  steps: [
+    {
+      title: 'Your own savings',
+      meta: 'free',
+      body: 'Fully backed by money you already have. Borrowing against it costs nothing and can never produce a loss for the co-op.',
+    },
+    {
+      title: 'Bonds and pool shares you hold',
+      meta: 'lowest paid rate',
+      body: 'Held at a discount to what they are worth today. You keep the position and still receive it in full at maturity.',
+    },
+    {
+      title: 'Your income',
+      meta: 'mid',
+      body: 'Sized on the income landing in your accounts and what already goes out of them. It grows as your income holds steady and plans clear on time.',
+    },
+    {
+      title: 'Clear Boost™',
+      meta: 'highest',
+      body: 'Genuinely unsecured, opt-in, and small on purpose. This is the tier that replaces a payday loan or a cash advance.',
+    },
+  ] satisfies StepItem[],
   close:
     'Every rate is shown on the screen where you take it, before you take it. Cost accrues on what you still owe, so clearing early always costs less. Nothing compounds, and the balance never grows on its own.',
 } as const;
@@ -30,9 +49,8 @@ export const DRAW_ORDER = {
 export const TERM_PLANS = {
   rail: 'Members / 03 — term plans',
   heading: 'A tire repair and a house sit on the same shelf.',
-  sub: 'One limit across every shop you use, so five plans at five stores cannot happen.',
   prose: [
-    'Five plans at five stores is the harm that makes buy-now-pay-later dangerous — nobody, including you, can see the total. Here there is one account and one ceiling, so stacking is not discouraged, it is impossible.',
+    'Anything with a set amount and a schedule lands in one place, with one limit across every shop you use. Five plans at five stores is exactly the harm that makes buy-now-pay-later dangerous — nobody, including you, can see the total. Here there is one account and one ceiling, so stacking is not discouraged, it is impossible.',
     'Each rung asks for something real: a linked account, then demonstrated behaviour, then saved credits. You can see the locked ones and what they would cost from your first day.',
   ],
   ledger: [
@@ -62,14 +80,8 @@ export const TERM_PLANS = {
 export const SPLIT = {
   rail: 'Members / 04 — you pick the split',
   heading: 'You choose how to clear it, and you can change your mind.',
-  sub: 'Spreading it further costs more, and the screen says so in dollars rather than hiding it in a rate.',
   standfirst:
-    'At the counter you pick a split. Later that week, or three cycles in, you can pick a different one.',
-  /* The bars are the extra cost of spreading, not the total — a bar of the
-     total would be four near-identical bars, because $958 and $1,062 differ by
-     ten per cent and the chart would say nothing. The carry is what actually
-     changes, and it changes by a factor of six. */
-  barMax: 130,
+    'At the counter you pick a split. Later that week, or three cycles in, you can pick a different one. Spreading it further costs more, and the screen says so in dollars rather than hiding it in a rate.',
   /* Declining balance on $940.00 at 2% a cycle, payments levelled. §6.2 is
      explicit that these must not be recomputed from a flat rate: flat carry
      would cost the same whether cleared in month one or four, which
@@ -94,12 +106,10 @@ export const SPLIT = {
 export const SAVINGS = {
   rail: 'Members / 05 — savings',
   heading: 'Saving is the thing that changes your terms.',
-  sub: 'Every dollar saved is matched one-for-one in equity credits, and raises your credit limit by a dollar.',
-  figure: { value: '1:1', caption: 'matched for the first 36 months, on the first $1,500 a month' },
   prose: [
-    'Credits vest after your cash has sat for about thirty days, so the number tracks money that actually arrived and stayed.',
+    'Every dollar you save is matched one-for-one in equity credits and raises your credit limit by a dollar. The match runs for the first 36 months of saving and applies to the first $1,500 you put in each month. Credits vest after your cash has sat for about thirty days, so the number tracks money that actually arrived and stayed.',
     'Drawing against your savings pauses new credits from accruing. It never takes back the ones you already earned. That is a pause, not a penalty, and the app says so.',
-    'Contributions are not withdrawable while you live in a Clear home — you borrow against them instead, and they come out on conversion or exit.',
+    'Your contributions are not withdrawable while you live in a Clear home — you borrow against them instead. They come out on conversion or exit.',
   ],
   panels: [
     {
@@ -124,9 +134,8 @@ export const SAVINGS = {
 export const CYCLE = {
   rail: 'Members / 06 — the cycle',
   heading: 'Every thirty days, one number.',
-  sub: 'A cycle closes, the balance rebalances, and you are told where you stand in one line.',
   prose:
-    'Nothing is hidden behind a statement, and nothing accrues while you are not looking.',
+    'A cycle closes, the balance rebalances, and you are told where you stand in one line. Nothing is hidden behind a statement and nothing accrues while you are not looking.',
   ledger: [
     {
       label: 'You are short this cycle',
@@ -157,7 +166,6 @@ export const CYCLE = {
 export const COMPARISON = {
   rail: 'Members / 07',
   heading: 'The honest version of the comparison.',
-  sub: 'Including the part where they beat us.',
   ours: [
     {
       label: 'Klarna’s best outcome for you',
@@ -186,58 +194,4 @@ export const COMPARISON = {
         'You sign up once, not once per shop. Every later purchase anywhere in the network is just your existing line.',
     },
   ] satisfies LedgerItem[],
-} as const;
-
-/* Feeds components/visuals/Waterfall.tsx. An illustration, not a quote — the
- * capacities are a plausible member, and the note under the visual says so.
- *
- * The draw is $940 because that is the figure §6.2 already uses at Mike's
- * Tire, so the same purchase runs through the waterfall, the split chooser and
- * the shops page rather than three unrelated numbers. */
-export const WATERFALL = {
-  rail: 'Members / 02 — draw order',
-  heading: 'One balance, drawn cheapest first.',
-  sub: 'The same $940 repair, backed differently depending on what you have saved. Move the slider and watch the expensive part disappear.',
-  draw: 940,
-  savingsMax: 1200,
-  savingsStart: 400,
-  /* In draw order. Capacity for the savings tier is the slider. The costs are
-     what each tier COSTS to borrow against, which the page is required to
-     show. §7 Legal: no tier's yield and no pool rate anywhere. */
-  tiers: [
-    {
-      key: 'savings',
-      label: 'Your own savings',
-      cost: 'free',
-      capacity: null,
-      yours: true,
-      body: 'Fully backed by money you already have. Borrowing against it costs nothing and can never produce a loss for the co-op.',
-    },
-    {
-      key: 'bonds',
-      label: 'Bonds and pool shares you hold',
-      cost: 'lowest paid rate',
-      capacity: 250,
-      yours: true,
-      body: 'Held at a discount to what they are worth today. You keep the position and still receive it in full at maturity.',
-    },
-    {
-      key: 'income',
-      label: 'Your income',
-      cost: 'mid',
-      capacity: 500,
-      yours: false,
-      body: 'Sized on the income landing in your accounts and what already goes out of them. It grows as your income holds steady and plans clear on time.',
-    },
-    {
-      key: 'boost',
-      label: 'Clear Boost™',
-      cost: 'highest',
-      capacity: 300,
-      yours: false,
-      body: 'Genuinely unsecured, opt-in, and small on purpose. This is the tier that replaces a payday loan or a cash advance.',
-    },
-  ],
-  captionYours: 'of this repair is money you already have',
-  note: 'Illustration of the draw order. Capacities vary by member.',
 } as const;
