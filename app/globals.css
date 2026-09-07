@@ -694,3 +694,55 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
     scroll-behavior: auto !important;
   }
 }
+
+
+/* ─── The skim layer ───────────────────────────────────────────────────────
+   A reader on a phone skims headline → sub-headline → figure, and reads the
+   paragraph fourth. These are the pieces that make that layer exist. ────── */
+
+/* Sub-headline: the sentence that carries a section's claim on its own. */
+.d-sub {
+  font-size: clamp(20px, 1.7vw, 24px);
+  line-height: 1.35;
+  letter-spacing: -0.011em;
+  font-weight: 400;
+  color: var(--color-ink-70);
+  max-width: 34ch;
+}
+
+/* A row of figures. Was referenced on /housing and never defined. */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-3) var(--gutter);
+}
+
+/* One number at set-piece size. */
+.figure-xl-block { display: grid; gap: var(--spacing-2); }
+.figure-xl {
+  font-size: clamp(56px, 8vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+.figure-xl-cap { color: var(--color-ink-70); max-width: 38ch; }
+
+/* Terse facts in a grid. Ruled cells — the site draws rules, not boxes. */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--gutter);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-ink);
+}
+.tile { padding-block: var(--spacing-3); border-bottom: 1px solid var(--color-ink-13); min-width: 0; }
+.tile-note { margin-top: 4px; color: var(--color-ink-50); }
+@media (min-width: 861px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Two claims set against each other. */
+.versus { border-top: 1px solid var(--color-ink-28); padding-top: var(--spacing-2); }
+.versus.is-ours { border-top-color: var(--color-live); }
+.versus-line { margin-top: var(--spacing-1); max-width: 12ch; }
+.versus.is-ours .versus-line { color: var(--color-live); }
+.versus-note { margin-top: var(--spacing-2); color: var(--color-ink-70); }

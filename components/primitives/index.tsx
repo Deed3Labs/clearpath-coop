@@ -147,6 +147,31 @@ export function Stat({
   );
 }
 
+/* One number at set-piece size with a short caption. One per page. */
+export function FigureXL({ figure, caption, live }: { figure: string; caption: string; live?: boolean }) {
+  return (
+    <div className="figure-xl-block">
+      <p className={`figure-xl fig${live ? ' is-live' : ''}`}>{figure}</p>
+      <p className="t-sm figure-xl-cap">{caption}</p>
+    </div>
+  );
+}
+
+/* A grid of terse facts — a line and a qualifier each — for a list that was
+   a bulleted paragraph. Ruled cells, not filled cards. */
+export function Tiles({ items }: { items: readonly { line: string; note: string }[] }) {
+  return (
+    <ul className="tiles">
+      {items.map((t) => (
+        <li className="tile" key={t.line}>
+          <p className="d4 tile-line">{t.line}</p>
+          <p className="t-sm tile-note">{t.note}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export { Button } from './Button';
 
 export function Chip({ children }: { children: React.ReactNode }) {

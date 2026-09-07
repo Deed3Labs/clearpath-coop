@@ -16,8 +16,9 @@ export const OPENING = {
 export const DRAW_ORDER = {
   rail: 'Members / 02 — draw order',
   heading: 'One balance, drawn cheapest first.',
+  sub: 'You do not choose a product. You spend, and the line takes from the cheapest thing backing you before it touches anything expensive.',
   standfirst:
-    'You do not choose a product. You spend, and the line takes from the cheapest thing backing you before it touches anything expensive. Repayment runs the other way — the most expensive part unwinds first — so the arithmetic works in your favour without you managing it.',
+    'Repayment runs the other way — the most expensive part unwinds first — so the arithmetic works in your favour without you managing it.',
   /* The chips are what each tier COSTS to borrow against, which the page is
      required to show. §7 Legal: no tier's yield and no pool rate anywhere. */
   steps: [
@@ -49,8 +50,9 @@ export const DRAW_ORDER = {
 export const TERM_PLANS = {
   rail: 'Members / 03 — term plans',
   heading: 'A tire repair and a house sit on the same shelf.',
+  sub: 'One limit across every shop you use, so five plans at five stores cannot happen.',
   prose: [
-    'Anything with a set amount and a schedule lands in one place, with one limit across every shop you use. Five plans at five stores is exactly the harm that makes buy-now-pay-later dangerous — nobody, including you, can see the total. Here there is one account and one ceiling, so stacking is not discouraged, it is impossible.',
+    'Five plans at five stores is exactly the harm that makes buy-now-pay-later dangerous — nobody, including you, can see the total. Here there is one account and one ceiling, so stacking is not discouraged, it is impossible.',
     'Each rung asks for something real: a linked account, then demonstrated behaviour, then saved credits. You can see the locked ones and what they would cost from your first day.',
   ],
   ledger: [
@@ -80,8 +82,9 @@ export const TERM_PLANS = {
 export const SPLIT = {
   rail: 'Members / 04 — you pick the split',
   heading: 'You choose how to clear it, and you can change your mind.',
+  sub: 'Spreading it further costs more, and the screen says so in dollars rather than hiding it in a rate.',
   standfirst:
-    'At the counter you pick a split. Later that week, or three cycles in, you can pick a different one. Spreading it further costs more, and the screen says so in dollars rather than hiding it in a rate.',
+    'At the counter you pick a split. Later that week, or three cycles in, you can pick a different one.',
   /* Declining balance on $940.00 at 2% a cycle, payments levelled. §6.2 is
      explicit that these must not be recomputed from a flat rate: flat carry
      would cost the same whether cleared in month one or four, which
@@ -106,16 +109,33 @@ export const SPLIT = {
 export const SAVINGS = {
   rail: 'Members / 05 — savings',
   heading: 'Saving is the thing that changes your terms.',
+  sub: 'Every dollar you save is matched one-for-one in equity credits, and raises your credit limit by a dollar.',
+  /* The first paragraph was four facts in one sentence — a ledger someone had
+     written out. Set as figures, each fact is what it was in the prose, no
+     more; the sentence itself is gone because the figures ARE the sentence. */
+  stats: [
+    { figure: '1:1', caption: 'Matched in equity credits, dollar for dollar' },
+    { figure: '36 mo', caption: 'The match runs for the first thirty-six months of saving' },
+    { figure: '$1,500', caption: 'The most that is matched in any one month' },
+    { figure: '~30 days', caption: 'Before credits vest — the number tracks money that arrived and stayed' },
+  ],
+  /* The page's one set-piece figure. */
+  gate: {
+    figure: '15,000',
+    caption: 'credits unlocks the Equity-Lease Participation Agreement and your Clear Deed. Most first-cohort members are expected to reach it in twelve to eighteen months.',
+  },
   prose: [
-    'Every dollar you save is matched one-for-one in equity credits and raises your credit limit by a dollar. The match runs for the first 36 months of saving and applies to the first $1,500 you put in each month. Credits vest after your cash has sat for about thirty days, so the number tracks money that actually arrived and stayed.',
     'Drawing against your savings pauses new credits from accruing. It never takes back the ones you already earned. That is a pause, not a penalty, and the app says so.',
     'Your contributions are not withdrawable while you live in a Clear home — you borrow against them instead. They come out on conversion or exit.',
   ],
+  tilesHeading: 'What we do not do',
+  tiles: [
+    { line: 'No late fees', note: 'ever' },
+    { line: 'No compounding', note: 'the balance never grows on its own' },
+    { line: 'No credit-score pull', note: 'to approve a first plan' },
+    { line: 'No shopping app', note: 'competing with the shops you use' },
+  ],
   panels: [
-    {
-      title: '15,000 credits',
-      body: 'The threshold that unlocks the Equity-Lease Participation Agreement and your Clear Deed. Most first-cohort members are expected to reach it in twelve to eighteen months.',
-    },
     {
       title: 'What we do not do',
       /* Kept exactly as written. "No credit-score pull to approve a first
@@ -134,8 +154,9 @@ export const SAVINGS = {
 export const CYCLE = {
   rail: 'Members / 06 — the cycle',
   heading: 'Every thirty days, one number.',
+  sub: 'A cycle closes, the balance rebalances, and you are told where you stand in one line.',
   prose:
-    'A cycle closes, the balance rebalances, and you are told where you stand in one line. Nothing is hidden behind a statement and nothing accrues while you are not looking.',
+    'Nothing is hidden behind a statement, and nothing accrues while you are not looking.',
   ledger: [
     {
       label: 'You are short this cycle',
@@ -166,6 +187,12 @@ export const CYCLE = {
 export const COMPARISON = {
   rail: 'Members / 07',
   heading: 'The honest version of the comparison.',
+  sub: 'Including the part where they beat us.',
+  /* The pairing, set as two lines rather than two ledger rows. */
+  pair: {
+    theirs: { label: 'Klarna’s best outcome for you', line: 'You owe nothing.' },
+    ours: { label: 'Ours', line: 'You own something.' },
+  },
   ours: [
     {
       label: 'Klarna’s best outcome for you',
