@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque, Instrument_Sans, IBM_Plex_Mono } from 'next/font/google';
+import {
+  Bricolage_Grotesque,
+  Instrument_Sans,
+  IBM_Plex_Mono,
+  Plus_Jakarta_Sans,
+} from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { DebugGrid } from '@/components/dev/DebugGrid';
@@ -26,6 +31,17 @@ const mono = IBM_Plex_Mono({
   variable: '--font-plex-mono',
 });
 
+/* Visual language v2. One family doing everything, figures included — the
+   old display/text/mono trio is most of what made every page read as a
+   technical document. Loaded here rather than per-page so each page can pick
+   up the new language as it is rebuilt. */
+const v2 = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+  variable: '--font-v2',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://useclear.org'),
   title: {
@@ -47,7 +63,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable} ${v2.variable}`}>
       <body>
         <Header />
         <main>{children}</main>

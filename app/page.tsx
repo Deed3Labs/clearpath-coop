@@ -1,134 +1,96 @@
 import Link from 'next/link';
-import { Section, Band, Cols, Col, Ledger, Note, TextLink } from '@/components/primitives';
-import { HERO, PROOF, STRANDS, STATUS, CLOSE } from '@/content/home';
+import './v2.css';
+import { HeroDivide } from '@/components/v2/HeroDivide';
+import { HERO, STRANDS, STATUS, CLOSE } from '@/content/home';
 
-/* Four beats. See the header of content/home.ts for why it is four and not
- * seven, and why the flagship chart is on /how rather than here. */
+/* The home page on visual language v2. Four beats: the argument, what the
+ * thing is, where it actually is, and the door.
+ *
+ * The old "proof" beat is gone — the hero now carries those two figures
+ * live, so a section restating them was the same claim twice, once moving
+ * and once still. */
 
 export default function Home() {
   return (
-    <>
-      {/* 1 — The claim. Type-led: the headline owns it and nothing sits
-          beside it. Agreed at review per §5. */}
-      <section className="wrap section hero">
-        <div className="grid12 hero-grid">
-          <div className="hero-copy">
-            <h1 className="d1 hero-headline">
-              {HERO.headline.map((line, i) => (
-                <span key={line} data-rise style={{ ['--i' as string]: i }}>
-                  {line}
-                </span>
-              ))}
-            </h1>
-            <p className="hero-lede" data-rise style={{ ['--i' as string]: 2 }}>
-              {HERO.lede}
-            </p>
-            <div className="hero-actions" data-rise style={{ ['--i' as string]: 3 }}>
-              <Link href={HERO.primary.href} className="btn" data-variant="primary">
-                {HERO.primary.label}
-              </Link>
-              <Link href={HERO.ghost.href} className="btn" data-variant="ghost">
-                {HERO.ghost.label}
-              </Link>
-            </div>
+    <div className="v2">
+      <HeroDivide />
+
+      {/* The disclaimer and the way through to the arithmetic belong with the
+          figures they qualify, not in a footer. */}
+      <section className="wrap hero-foot">
+        <p className="micro">{HERO.note}</p>
+        <Link className="strand-link" href={HERO.link.href}>
+          {HERO.link.label} →
+        </Link>
+      </section>
+
+      {/* What it is — three strands as cards. */}
+      <section className="field band">
+        <div className="wrap">
+          <div className="band-head">
+            <span className="chip">{STRANDS.rail.split('/')[1]?.trim() ?? 'What it is'}</span>
+            <h2 className="display band-h2">{STRANDS.heading}</h2>
+            <p className="lede">{STRANDS.sub}</p>
           </div>
 
-          <div className="hero-meta" data-rise style={{ ['--i' as string]: 4 }}>
-            {HERO.meta.map((m) => (
-              <p className="t-note" key={m}>
-                {m}
-              </p>
+          <ul className="strands">
+            {STRANDS.items.map((s) => (
+              <li className="card strand" key={s.n}>
+                <span className="chip">{s.n}</span>
+                <h3 className="title">{s.title}</h3>
+                <p className="small">{s.body}</p>
+                <Link className="strand-link" href={s.link.href}>
+                  {s.link.label} →
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Where this actually is. On the deep ground, because saying what does
+          not exist yet should feel deliberate rather than buried. */}
+      <section className="field dark band">
+        <div className="wrap">
+          <div className="band-head">
+            <span className="chip on-dark">{STATUS.standfirst}</span>
+            <h2 className="display band-h2">{STATUS.heading}</h2>
+            <p className="lede">{STATUS.sub}</p>
+          </div>
+
+          <div className="status">
+            {STATUS.ledger.map((row) => (
+              <div className="card dark status-card" key={row.label}>
+                <div className="status-row">
+                  <p className="small">{row.label}</p>
+                  <span className="status-chip" data-state={row.chip}>
+                    {row.chip}
+                  </span>
+                  <p className="micro">{row.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 2 — The proof. This page's one ink band (§3), carrying one figure at
-          full size and the sentence it lands. Nothing else is in it. */}
-      <Band tone="ink" rhythm="open" id="the-gap">
-        <div className="grid12">
-          <p className="rail rail-note">{PROOF.rail}</p>
-          <div className="content proof">
-            <p className="proof-figure">{PROOF.figure}</p>
-            <p className="proof-caption t-sm">{PROOF.caption}</p>
-
-            <div className="proof-turn">
-              <h2 className="d2 proof-heading">{PROOF.heading}</h2>
-              <p className="d-sub">{PROOF.sub}</p>
-            </div>
-
-            <div className="proof-ledger">
-              <Ledger items={[...PROOF.ledger]} />
-              <Note>{PROOF.note}</Note>
-              <p className="t-body proof-link">
-                <TextLink href={PROOF.link.href}>{PROOF.link.label}</TextLink>
-              </p>
-            </div>
+      {/* The door. */}
+      <section className="field clay band">
+        <div className="wrap center">
+          <h2 className="display">{CLOSE.heading}</h2>
+          <div className="close-actions" style={{ justifyContent: 'center' }}>
+            <Link className="btn on-dark" href={CLOSE.member.href}>
+              {CLOSE.member.label}
+            </Link>
+            <Link className="btn ghost on-ghost" href={CLOSE.shop.href}>
+              {CLOSE.shop.label}
+            </Link>
           </div>
+          <p className="micro" style={{ marginTop: 'var(--spacing-3)', color: 'rgb(255 255 255 / .72)' }}>
+            {CLOSE.note}
+          </p>
         </div>
-      </Band>
-
-      {/* 3 — What it is. Three strands, one band. */}
-      <Section rail={STRANDS.rail}>
-        <Cols>
-          <Col span={6}>
-            <h2 className="d2 section-head">{STRANDS.heading}</h2>
-          </Col>
-          <Col span={4}>
-            <p className="d-sub">{STRANDS.sub}</p>
-          </Col>
-          <Col span={10}>
-            <ol className="strands">
-              {STRANDS.items.map((item) => (
-                <li key={item.n}>
-                  <p className="strand-n">{item.n}</p>
-                  <h3 className="d4 strand-title">{item.title}</h3>
-                  <p className="t-sm strand-body">{item.body}</p>
-                  <p className="strand-link">
-                    <TextLink href={item.link.href}>{item.link.label}</TextLink>
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </Col>
-        </Cols>
-      </Section>
-
-      {/* 4 — Where this is, and the door. Tight: a footnote to the
-          invitation, not a section competing with it. */}
-      <Section rail={STATUS.rail} rhythm="tight">
-        <Cols>
-          <Col span={6}>
-            <h2 className="d2 section-head">{STATUS.heading}</h2>
-          </Col>
-          <Col span={4}>
-            <p className="d-sub">{STATUS.sub}</p>
-            <Note>{STATUS.standfirst}</Note>
-          </Col>
-          <Col span={10}>
-            <Ledger items={[...STATUS.ledger]} />
-          </Col>
-        </Cols>
-      </Section>
-
-      <Section rhythm="tight" id="close">
-        <Cols>
-          <Col span={10}>
-            <div className="close">
-              <h2 className="d2 close-head">{CLOSE.heading}</h2>
-              <div className="close-actions">
-                <Link href={CLOSE.member.href} className="btn" data-variant="primary">
-                  {CLOSE.member.label}
-                </Link>
-                <Link href={CLOSE.shop.href} className="btn" data-variant="ghost">
-                  {CLOSE.shop.label}
-                </Link>
-              </div>
-              <p className="t-note close-note">{CLOSE.note}</p>
-            </div>
-          </Col>
-        </Cols>
-      </Section>
-    </>
+      </section>
+    </div>
   );
 }

@@ -14,20 +14,22 @@
 import type { LedgerItem } from '@/components/primitives';
 
 export const HERO = {
-  /* Two sentences, set as two lines. The break is the sentence break at every
-     width rather than wherever the measure happens to fall. */
+  /* The hero is the argument now, not an introduction to it. It carries the
+     two figures live as you scroll, which is why the separate "proof" beat
+     that stated the same two numbers is gone — it was the same claim twice,
+     once moving and once still. Its disclaimer and its link live here. */
+  chip: 'A cooperative in Redlands, California',
   headline: ['Rent builds equity.', 'Just not yours.'],
-  /* One sentence. This was a four-clause paragraph explaining title, the land
-     and equity — three arguments stacked behind a headline that had already
-     done its job. Each of them now has its own beat below or its own page. */
-  lede: 'A cooperative where what you pay for a place to live ends up being yours.',
+  lede: 'What you pay for a place to live ends up being yours.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
-  meta: [
-    'Building in Redlands, California',
-    'First cohort — 12 detached homes',
-    'Protocol source is public',
-  ],
+  rent: { label: 'Renting', caption: 'paid out, and nothing retained' },
+  clear: { label: 'Inside Clear', caption: 'equity you keep' },
+  months: 60,
+  rentMonthly: 2520,
+  equityMonthly: 1500,
+  note: 'Illustration on a $2,520 two-bedroom in Redlands. Not a quote.',
+  link: { href: '/how', label: 'The arithmetic, in full' },
 } as const;
 
 /* §6.1 lists three approved alternates, already weighed. Kept here so the
@@ -38,38 +40,6 @@ export const HERO = {
      · 'Your rent is making someone else rich.' — strongest hook, riskiest:
        it names a beneficiary, and /contribute and /capital on this same site
        ask landlords to bring their property in. */
-
-/* Beat two — the proof, as a figure rather than as a chart.
- *
- * Visual brief §5 lists "$151,200 at 180px on an otherwise empty band" as a
- * set-piece in its own right, and on a splash that is the right instrument: a
- * chart is a study and asks for a minute, a figure is a statement and asks for
- * a second.
- *
- * The interactive four-line chart that was here is deleted rather than moved.
- * It was well built and it was on this page because this page had nothing else
- * in it, which is not a reason to keep it and not a reason to rehome it in a
- * hurry either. It is recoverable from the commit "Home: the visual carries
- * the claim" if /housing or /how ever actually wants it. */
-export const PROOF = {
-  rail: '01 / The gap',
-  figure: '$151,200',
-  caption: 'Five years of rent on a two-bedroom in Redlands.',
-  heading: 'You will pay for a house either way.',
-  sub: 'That is the price of paying for someone else’s.',
-  ledger: [
-    { label: 'What five years of renting leaves you holding', value: 'nothing' },
-    {
-      label: 'What five years inside Clear leaves you holding',
-      value: '$90,000',
-      live: true,
-      description:
-        'Equity contributions at $1,500 a month, every dollar credited to your balance. With the community fee your monthly total is $2,350 — lower than the rent above, not higher.',
-    },
-  ] satisfies LedgerItem[],
-  note: 'Illustration of how the model works. Not a quote.',
-  link: { href: '/how', label: 'The arithmetic, in full' },
-} as const;
 
 /* Beat three — one band instead of three sections.
  *
