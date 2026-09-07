@@ -10,8 +10,11 @@ export const HERO = {
   /* Two sentences, set as two lines. The break is the sentence break at every
      width rather than wherever the measure happens to fall. */
   headline: ['Rent builds equity.', 'Just not yours.'],
+  /* Two sentences, not four. §4 caps a paragraph at three and this was over
+     it; folding the first two together also stops the site opening on what we
+     are rather than on what the reader gets. */
   lede:
-    'Clear is a cooperative. You take title to the house. The land is held in common by every member, which is what stops it being sold out from under you. What you pay in becomes equity you keep.',
+    'Clear is a cooperative: you take title to the house, and the land is held in common by every member, which is what stops it being sold out from under you. What you pay in becomes equity you keep.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
   meta: [

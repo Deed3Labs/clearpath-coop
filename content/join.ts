@@ -3,8 +3,9 @@
 export const OPENING = {
   rail: 'Join / 01',
   heading: 'Tell us which one you are.',
+  sub: 'We are onboarding a small number of members and shops in the Redlands corridor first.',
   lede:
-    'We are onboarding a small number of members and shops in the Redlands corridor first. If you are somewhere else, say so — the waitlist is how we decide where to go next.',
+    'If you are somewhere else, say so — the waitlist is how we decide where to go next.',
 } as const;
 
 export type ModeKey = 'member' | 'shop' | 'land' | 'work';

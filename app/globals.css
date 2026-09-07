@@ -1408,3 +1408,61 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   display: flex;
   align-items: center;
 }
+
+/* ─── One member, one vote (/coop S3) ────────────────────────────────────── */
+
+.votes { display: grid; gap: var(--spacing-4); }
+.votes-row { display: grid; gap: 10px; }
+.votes-marks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+}
+.votes-mark {
+  width: var(--d);
+  height: var(--d);
+  flex: none;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-ink-28);
+  background: transparent;
+}
+/* The row that is the point gets the accent, filled — identical circles read
+   as a pattern, and a pattern is what "regardless of balance" means. */
+.votes-row.is-ours .votes-mark { border-color: var(--color-live); background: var(--color-live); }
+.votes-note { color: var(--color-ink-70); max-width: 46ch; }
+
+.votes-board { display: grid; gap: 10px; padding-top: var(--spacing-3); border-top: 1px solid var(--color-ink-13); }
+.votes-board-label { color: var(--color-ink-50); }
+.votes-board-bar {
+  display: flex;
+  height: 26px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper-2);
+}
+.votes-board-delegates { background: var(--color-live); border-right: 1px solid var(--color-ink); }
+.votes-board-keys { display: grid; gap: 6px; }
+.votes-swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: 9px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper-2);
+  vertical-align: baseline;
+}
+.votes-swatch.is-delegates { background: var(--color-live); border-color: var(--color-live); }
+
+/* Six facts, set as six facts. */
+.terms-list {
+  list-style: none;
+  margin: var(--spacing-3) 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--spacing-3);
+}
+.terms-list > li { padding-block: 8px; border-top: 1px solid var(--color-ink-13); }
+@media (max-width: 480px) { .terms-list { grid-template-columns: minmax(0, 1fr); } }
+.terms-list.is-single { grid-template-columns: minmax(0, 1fr); }

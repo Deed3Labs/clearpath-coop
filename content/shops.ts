@@ -78,7 +78,7 @@ export const COUNTER = {
     },
     {
       title: 'Turn the screen',
-      body: 'The tablet shows a code. A new customer scans it and the app installs from the browser; an existing member just gets a notification. Same gesture either way, so nobody has to remember which kind of customer they are dealing with.',
+      body: 'The tablet shows a code. A new customer scans it and the app installs from the browser; an existing member just gets a notification. Same gesture either way.',
     },
     {
       title: 'The customer approves the amount on their own phone',
@@ -105,14 +105,22 @@ export const FIT = {
   rail: 'Shops / 04 — fit',
   heading: 'Whether this is for you.',
   sub: 'The second column is the one worth reading. We would rather lose you now than in month two.',
+  /* Both leads were middot runs inside a paragraph — a list wearing prose, the
+     same shape as the six-line terms above. Set as lists they read faster and
+     stop counting against the page's prose budget, which they were never
+     really part of. */
   works: {
     heading: 'This works for you if',
-    lead: 'Tickets are $300 and up · You lose jobs because people cannot pay that day · You can wait thirty days for the money.',
-    body: 'Auto repair, tires, dental, veterinary, HVAC, appliances, furniture, equipment. Trades where financing is already part of how the sale closes.',
+    tests: [
+      'Tickets are $300 and up',
+      'You lose jobs because people cannot pay that day',
+      'You can wait thirty days for the money',
+    ],
+    body: 'Auto repair, tires, dental, veterinary, HVAC, appliances, furniture, equipment — trades where financing is already part of how the sale closes.',
   },
   doesnt: {
     heading: 'It does not work for you if',
-    lead: 'Your average ticket is twelve dollars, or you need the cash the same week.',
+    tests: ['Your average ticket is twelve dollars', 'You need the cash the same week'],
     body: 'A shop that signs up and then waits on a payout it cannot afford to wait for is a reference lost permanently. If that is you, we will say so on the first call.',
   },
 } as const;
@@ -137,8 +145,22 @@ export const FOUNDING = {
     body: 'Six steps at your back-office computer, and nobody from Clear ever sees your banking credentials. The last step is a one-dollar test charge you refund straight away, so your writers have run the whole loop once before a customer is standing there.',
   },
   note: 'The merchant app runs at merchants.useclear.org. It installs from a browser on a tablet, a phone or the shop PC. There is no hardware to buy.',
-  terms:
-    'Your terms are six lines, not a document: rate · fee on the first twenty charges · payout timing · who bears a default · approval cap · leaving any time. An owner who reads six lines has actually read their agreement.',
+  /* Six facts set as six facts. They were a colon and a run of middots inside
+     a paragraph, which is a list wearing prose — and §3 is explicit that a
+     list of facts becomes a ledger. It also put twenty-eight words into this
+     page's prose budget that were never prose. */
+  terms: {
+    lead: 'Your terms are six lines, not a document.',
+    list: [
+      'Rate',
+      'Fee on the first twenty charges',
+      'Payout timing',
+      'Who bears a default',
+      'Approval cap',
+      'Leaving any time',
+    ],
+    close: 'An owner who reads six lines has actually read their agreement.',
+  },
 } as const;
 
 export const MONEY = {
@@ -187,6 +209,6 @@ export const MEMBERSHIP = {
   rail: 'Shops / 07',
   heading: 'Signing also makes you a partner member of the co-op.',
   sub: 'You are not a vendor account.',
-  body: 'The merchant agreement admits your business as a partner member, which is why you appear in the directory members browse, and why both sides of every transaction are members of the same cooperative. You can leave any time.',
+  body: 'The merchant agreement admits your business as a partner member, which is why you appear in the directory members browse, and why both sides of every transaction are members of the same cooperative.',
   cta: { href: '/join?as=shop', label: 'Start a conversation' },
 } as const;

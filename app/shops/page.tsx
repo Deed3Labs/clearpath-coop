@@ -99,17 +99,25 @@ export default function Shops() {
           </Col>
           <Col span={5}>
             <h3 className="d3">{FIT.works.heading}</h3>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-2)' }}>
-              <p>{FIT.works.lead}</p>
-              <p>{FIT.works.body}</p>
-            </div>
+            <ul className="terms-list is-single">
+              {FIT.works.tests.map((t) => (
+                <li className="t-sm" key={t}>
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <p className="t-sm prose">{FIT.works.body}</p>
           </Col>
           <Col span={5}>
             <h3 className="d3">{FIT.doesnt.heading}</h3>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-2)' }}>
-              <p>{FIT.doesnt.lead}</p>
-              <p>{FIT.doesnt.body}</p>
-            </div>
+            <ul className="terms-list is-single">
+              {FIT.doesnt.tests.map((t) => (
+                <li className="t-sm" key={t}>
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <p className="t-sm prose">{FIT.doesnt.body}</p>
           </Col>
         </Cols>
       </Section>
@@ -128,7 +136,15 @@ export default function Shops() {
             <Ledger items={[...FOUNDING.ledger]} />
           </Col>
           <Col span={6}>
-            <p className="t-body prose">{FOUNDING.terms}</p>
+            <p className="d4">{FOUNDING.terms.lead}</p>
+            <ul className="terms-list">
+              {FOUNDING.terms.list.map((t) => (
+                <li className="t-sm" key={t}>
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <p className="t-sm">{FOUNDING.terms.close}</p>
             <Note>{FOUNDING.note}</Note>
           </Col>
           <Col span={4}>
