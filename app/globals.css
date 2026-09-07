@@ -144,11 +144,23 @@ button, input, select, textarea { font: inherit; color: inherit; }
    no-JS and reduced-motion states are not something that has to be arranged —
    the content is simply there. */
 
-.hero { padding-block: var(--spacing-6) var(--section-pad); }
-.hero-grid { row-gap: var(--spacing-5); align-items: start; }
-.hero-copy { grid-column: 3 / 13; }
+.hero { padding-block: 0; }
+.hero-grid { row-gap: clamp(24px, 3vw, 44px); align-items: start; }
+
+/* Every hero child is placed explicitly at EVERY width. They were placed only
+   inside a min-width:1280 block once the wrapper was removed, which left them
+   auto-placing into single 1/12 tracks below it — headline, lede, actions and
+   meta each in a ~90px column, stacked on top of one another. A grid child
+   without a declared column is not neutral; it takes one track. */
+.hero-headline,
+.hero-lede,
+.hero-actions,
+.hero-meta { grid-column: 1 / 13; }
+
+.hero-headline { max-width: 20ch; }
+.hero-headline span { display: block; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--spacing-2); }
 .hero-meta {
-  grid-column: 3 / 13;
   border-top: 1px solid var(--color-ink-13);
   padding-top: var(--spacing-2);
   display: flex;
@@ -156,34 +168,25 @@ button, input, select, textarea { font: inherit; color: inherit; }
   gap: var(--spacing-4);
 }
 
-/* From 1280 up the headline was 96px with half the width empty beside it.
-   First attempt put the headline in seven columns and the facts beside it —
-   which forced "Rent builds equity." to break mid-sentence, the one thing the
-   note above says the hero must never do. So: the headline keeps the full
-   measure and a larger ceiling, and the three facts sit beside the LEDE and
-   the actions instead, where there was nothing. .hero-copy becomes a pass-
-   through so its children can be placed on the grid directly; no animation
-   lives on it, only on the children, so nothing is disturbed. */
-@media (min-width: 1280px) {
-  .hero-copy { display: contents; }
-  /* "Rent builds equity." measures 7.47em in Bricolage 800 — measured, not
-     estimated; an estimate of 0.56em a glyph had it at 10.6em and capped the
-     headline at 102px for nothing. The ten-column measure is 1020px at 1280
-     and 1093px at 1440, so the sentence stays on one line up to 136px and
-     146px respectively. 130px leaves margin at the narrow end. */
-  .hero-headline { grid-column: 3 / 13; grid-row: 1; font-size: clamp(96px, 9.2vw, 130px); max-width: none; }
-  .hero-lede    { grid-column: 3 / 10; grid-row: 2; margin-top: 0; }
-  .hero-actions { grid-column: 3 / 10; grid-row: 3; margin-top: 0; }
+/* From 1000 up the headline takes the full measure and the three facts sit
+   beside the lede and the actions, where there was nothing.
+
+   "Rent builds equity." measures 7.47em in Bricolage 800 — measured in the
+   browser, not estimated. An estimate of 0.56em a glyph put it at 10.6em and
+   capped the headline at 102px for no reason. At a full-width measure the
+   sentence holds one line well past 130px. */
+@media (min-width: 1000px) {
+  .hero-headline { grid-row: 1; font-size: clamp(96px, 10.5vw, 172px); max-width: none; }
+  .hero-lede    { grid-column: 1 / 8; grid-row: 2; }
+  .hero-actions { grid-column: 1 / 8; grid-row: 3; }
   .hero-meta {
-    grid-column: 10 / 13;
+    grid-column: 9 / 13;
     grid-row: 2 / 4;
     align-self: start;
     flex-direction: column;
     gap: var(--spacing-2);
     border-top: 1px solid var(--color-ink);
-    padding-top: var(--spacing-2);
   }
-  .hero-grid { row-gap: var(--spacing-4); }
 }
 
 /* One orchestrated arrival, ~1.5s, on first paint. (§4) */
@@ -746,3 +749,196 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .versus-line { margin-top: var(--spacing-1); max-width: 12ch; }
 .versus.is-ours .versus-line { color: var(--color-live); }
 .versus-note { margin-top: var(--spacing-2); color: var(--color-ink-70); }
+
+/* ═══ Home layout system ══════════════════════════════════════════════════
+   Built blank, not converted. The old sections put a numbered note in columns
+   1–2 of every band, which boxed all content into columns 3–12 permanently —
+   so no section could ever run edge to edge and a bento was structurally
+   impossible. The rail is gone. The section number is an inline label instead.
+
+   One grid: twelve columns across the FULL measure. Sections choose how much
+   of it they take, and full-bleed means the viewport, not a padded box. */
+
+.hx {
+  --hx-gap: clamp(16px, 1.6vw, 28px);
+  --hx-inset: clamp(20px, 3.2vw, 56px);
+}
+
+.hx-wrap { width: 100%; padding-inline: var(--hx-inset); }
+
+.hx-band { padding-block: clamp(72px, 8.5vw, 150px); position: relative; }
+.hx-band[data-pad='tight'] { padding-block: clamp(48px, 5vw, 88px); }
+.hx-band[data-pad='open']  { padding-block: clamp(96px, 12vw, 210px); }
+
+.hx-band[data-tone='ink'] {
+  /* --color-ink-ground, not --color-ink: this rule rebinds --color-ink below,
+     and a custom property resolves to the value in scope on the element using
+     it — so background: var(--color-ink) would paint the band light on light. */
+  background: var(--color-ink-ground);
+  color: var(--color-paper);
+  --color-ink: #DFE3DE;
+  --color-ink-70: rgb(223 227 222 / .74);
+  --color-ink-50: rgb(223 227 222 / .62);
+  --color-ink-28: rgb(223 227 222 / .34);
+  --color-ink-13: rgb(223 227 222 / .18);
+  /* Cobalt at its paper value measures 1.81:1 on ink. Same role, a value that
+     clears AA on this ground. */
+  --color-live: #7C8CC5;
+}
+
+/* The grid. Twelve tracks across the whole measure — no rail, no reserved
+   columns, so a child can span 1 to 13 and actually touch both edges. */
+.hx-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--hx-gap);
+  row-gap: clamp(28px, 3.5vw, 56px);
+}
+.hx-grid > * { min-width: 0; }
+
+/* Spans, used directly on children so a section's shape is legible in the
+   markup rather than hidden behind a wrapper component. */
+.c-full { grid-column: 1 / 13; }
+.c-half { grid-column: span 6; }
+.c-two-thirds { grid-column: span 8; }
+.c-third { grid-column: span 4; }
+@media (max-width: 900px) {
+  .c-half, .c-two-thirds, .c-third { grid-column: 1 / 13; }
+}
+
+/* ── The section label. Inline, one line, at the top of a band. Replaces the
+      two-column rail that was making every section the same shape. ──────── */
+.hx-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-50);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 0 0 clamp(24px, 3vw, 48px);
+  padding-bottom: var(--spacing-2);
+  border-bottom: 1px solid var(--color-ink-13);
+}
+.hx-label b { font-weight: 400; color: var(--color-live); }
+
+/* ── Type at section scale ──────────────────────────────────────────────── */
+.hx-h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(38px, 6.4vw, 104px);
+  line-height: 0.96;
+  letter-spacing: -0.038em;
+  margin: 0;
+  text-wrap: balance;
+}
+.hx-lede {
+  font-size: clamp(17px, 1.5vw, 22px);
+  line-height: 1.45;
+  color: var(--color-ink-70);
+  margin: 0;
+  max-width: 40ch;
+}
+
+/* ── TALLY. Two figure stacks, edge to edge. The page's one big moment. ─── */
+.hx-tally { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--hx-gap); }
+.tally { display: grid; gap: var(--spacing-3); align-content: start; min-width: 0; }
+.tally-label {
+  font-family: var(--font-mono);
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-ink-50);
+  padding-bottom: var(--spacing-2);
+  border-bottom: 1px solid var(--color-ink-28);
+}
+.tally-row { display: grid; gap: 6px; }
+.tally-fig {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: clamp(46px, 9.5vw, 168px); line-height: 0.86; letter-spacing: -0.05em;
+}
+.tally-fig[data-weight='quiet'] { font-size: clamp(20px, 2.2vw, 32px); color: var(--color-ink-50); letter-spacing: -0.02em; }
+.tally[data-live] .tally-fig[data-weight='loud'] { color: var(--color-live); }
+.tally-note { color: var(--color-ink-70); max-width: 30ch; }
+@media (max-width: 700px) { .hx-tally { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); } }
+
+/* ── BENTO. Edge to edge, cells of deliberately unequal size. Equal cards
+      would say the three phases are equivalent; they are not. ───────────── */
+.hx-bento {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--color-ink-13);
+  border-block: 1px solid var(--color-ink-13);
+}
+.cell {
+  background: var(--color-paper);
+  padding: clamp(24px, 2.6vw, 44px);
+  display: grid; align-content: start; gap: var(--spacing-2);
+  min-width: 0;
+}
+.cell[data-size='lg'] { grid-column: span 6; }
+.cell[data-size='md'] { grid-column: span 4; }
+.cell[data-size='sm'] { grid-column: span 2; }
+.cell-n { font-family: var(--font-mono); font-size: 11.5px; color: var(--color-live); letter-spacing: 0.08em; }
+.cell-title { max-width: 20ch; }
+.cell-body { color: var(--color-ink-70); }
+.cell-gate { margin-top: var(--spacing-4); padding-top: var(--spacing-3); border-top: 1px solid var(--color-ink-13); display: grid; gap: 2px; }
+.cell-gate-fig {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: clamp(24px, 2.6vw, 38px); letter-spacing: -0.025em; line-height: 1;
+}
+.cell-gate-note { color: var(--color-ink-50); }
+@media (max-width: 900px) {
+  .hx-bento { grid-template-columns: minmax(0, 1fr); }
+  .cell[data-size] { grid-column: 1 / -1; }
+}
+
+/* ── SPLIT. Two doors — the one section where equal columns are honest. ─── */
+.hx-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--hx-gap); }
+.door { display: grid; gap: var(--spacing-2); align-content: start; padding-top: var(--spacing-3); border-top: 2px solid var(--color-ink); min-width: 0; }
+.door-fig {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: clamp(40px, 6vw, 88px); line-height: 1; letter-spacing: -0.04em;
+  margin-top: var(--spacing-2);
+}
+.door-note { color: var(--color-ink-50); }
+.door-body { color: var(--color-ink-70); margin-top: var(--spacing-2); max-width: 34ch; }
+.door-link { margin-top: var(--spacing-3); }
+@media (max-width: 860px) { .hx-split { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); } }
+
+/* ── STAGE. One sentence at display size, and the page ends on it. ─────── */
+.hx-stage-line {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(32px, 4.8vw, 76px); line-height: 1.02; letter-spacing: -0.035em;
+  margin: 0; max-width: 20ch; text-wrap: balance;
+}
+
+/* ── The hero's kinetic moment ─────────────────────────────────────────────
+   A printing misregistration settling into register: the second line arrives
+   with a cobalt plate a few pixels out, which converges and disappears. It is
+   a press reference rather than a screen one, which is the language the rest
+   of the palette speaks — a sci-fi glitch on a survey-paper site would read
+   as borrowed.
+
+   Pure CSS, so the homepage keeps its zero-JS budget. The ghost is a pseudo-
+   element on a decorative layer: the real text is never hidden, so this
+   cannot fail to a blank headline. */
+.misreg { position: relative; display: block; }
+.misreg::after {
+  content: attr(data-ghost);
+  position: absolute;
+  inset: 0;
+  color: var(--color-live);
+  opacity: 0;
+  pointer-events: none;
+  animation: misreg 1400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 340ms;
+}
+@keyframes misreg {
+  0%   { transform: translate3d(0.09em, -0.035em, 0); opacity: 0.55; }
+  55%  { transform: translate3d(0.02em, -0.008em, 0); opacity: 0.28; }
+  100% { transform: translate3d(0, 0, 0); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .misreg::after { animation: none; opacity: 0; }
+}

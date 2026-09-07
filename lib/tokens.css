@@ -8,6 +8,11 @@
   --color-paper:    #DFE3DE;  /* page — cool mineral grey-green, NOT cream  */
   --color-paper-2:  #E9ECE7;  /* raised surfaces                            */
   --color-ink:      #16211D;  /* text and drawn lines — green-black         */
+  /* The same green-black, as a GROUND. Kept as its own token because a
+     full-bleed dark band rebinds --color-ink to the light value for its
+     contents; a band that also drew its background from --color-ink would
+     resolve it to the rebound value and render light on light. */
+  --color-ink-ground: #16211D;
   --color-land:     #6B7F5C;  /* land, parcels, anything the co-op holds    */
   --color-live:     #24409E;  /* cobalt — the figure that is moving         */
   --color-settled:  #0E6B4E;  /* cleared, owned, paid, all-clear            */

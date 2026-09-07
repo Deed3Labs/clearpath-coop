@@ -1,13 +1,23 @@
-/* Home. §7.1 — copy is final and lives here, never inline in JSX. */
+/* Home. §7.1 — copy is final and lives here, never inline in JSX.
+ *
+ * Rewritten for the layout system: every section now declares which archetype
+ * it is, and the copy is cut to what that archetype can hold. The old page was
+ * six sections of heading-plus-two-paragraphs, which is why nothing on it had
+ * hierarchy — a reader met the same shape six times and skimmed none of it.
+ *
+ * Prose survives only where a sentence does something a figure cannot: the
+ * caveat, the mechanism, the thing that would be a lie if it were shortened. */
 
-import type { LedgerItem, StepItem } from '@/components/primitives';
+import type { LedgerItem } from '@/components/primitives';
 
 export const HERO = {
   /* Two sentences, set as two lines. The break is the sentence break at every
      width rather than wherever the measure happens to fall. */
   headline: ['Rent builds equity.', 'Just not yours.'],
-  lede:
-    'Clear is a cooperative. You take title to the house. The land is held in common by every member, which is what stops it being sold out from under you. What you pay in becomes equity you keep.',
+  /* Was four sentences explaining title, land and equity — three arguments
+     stacked behind a headline that had already landed. Each now has its own
+     section further down. */
+  lede: 'A cooperative where the money you already pay for a place to live ends up being yours.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
   meta: [
@@ -26,97 +36,149 @@ export const HERO = {
        it names a beneficiary, and /contribute and /capital on this same site
        ask landlords to bring their property in. */
 
+/* ── 01 · The gap ─────────────────────────────────────────────────────────
+   The page's big moment, on ink. Two figures at set-piece size and one line
+   between them. It was two paragraphs and a ledger; the paragraphs said in
+   forty words what the two numbers say by sitting next to each other. */
+type TallyColumn = {
+  key: string;
+  label: string;
+  paid: string;
+  paidNote: string;
+  kept: string;
+  keptNote: string;
+  /* Optional, so `as const` does not narrow the union to two shapes where one
+     lacks the key — which makes c.live unreachable at the call site. */
+  live?: boolean;
+};
+
 export const GAP = {
   rail: '01 / The gap',
-  heading: 'Five years of rent buys you a stack of receipts.',
-  prose: [
-    'A two-bedroom in Redlands runs about $2,520 a month. Pay it for five years and you have handed someone $151,200 and kept nothing — no equity, no title, no claim on the thing you lived in.',
-    'Inside Clear the same money has somewhere to land. That is the whole idea. Not a discount on rent. A different destination for it.',
-  ],
-  ledger: [
+  kicker: 'Five years, either way',
+  heading: 'Same money. One of you ends up holding something.',
+  columns: [
     {
-      label: 'Renting, five years',
-      value: '$151,200',
-      description: 'Paid out. Nothing retained.',
+      key: 'rent',
+      label: 'Renting',
+      paid: '$151,200',
+      paidNote: 'paid out over five years',
+      kept: '$0',
+      keptNote: 'no equity, no title, no claim',
     },
     {
-      label: 'Inside Clear, five years',
-      value: '$90,000',
+      key: 'clear',
+      label: 'Inside Clear',
+      paid: '$141,000',
+      paidNote: 'paid out over the same five years',
+      kept: '$90,000',
+      keptNote: 'equity contributions credited to your balance',
       live: true,
-      description:
-        'Equity contributions at $1,500 a month, every dollar credited to your balance. With the community fee on top your monthly total is $2,350 — lower than the rent above, not higher.',
     },
-  ] satisfies LedgerItem[],
-  note: 'Illustration of how the model works. Not a quote.',
+  ] satisfies TallyColumn[],
+  /* The one thing the figures cannot say. */
+  close:
+    'The monthly total inside Clear is $2,350 against $2,520 in rent — lower, not higher. The difference is where it lands.',
+  note: 'Illustration of how the model works, on a two-bedroom in Redlands. Not a quote.',
 } as const;
+
+/* ── 02 · Three phases ────────────────────────────────────────────────────
+   A bento: three cells of unequal size, because the phases are of unequal
+   length and a three-up of identical cards said the opposite. Each carries a
+   gate rather than a paragraph — the gate is the thing a reader wants. */
+export type Phase = {
+  n: string;
+  title: string;
+  gate: string;
+  gateNote: string;
+  body: string;
+  size: 'lg' | 'md' | 'sm';
+};
 
 export const PHASES = {
   rail: '02 / Three phases',
+  kicker: 'One membership',
   heading: 'Renter, owner, earner.',
-  standfirst:
-    'Three phases of one membership, not three ways of describing the same payment. Each has a gate you can see from the first day.',
+  standfirst: 'Not three ways of describing the same payment. Three phases, each with a gate you can see from your first day.',
   steps: [
     {
-      title: 'You rent, and you save at the same time.',
-      body: 'Your deposit is your membership share — there is no buy-in and nothing to purchase. Money in your equity savings account earns matched credits and raises a credit line you can draw on at no cost, because you are spending your own money. At 15,000 credits the home path unlocks.',
+      n: '01',
+      title: 'You rent, and save at the same time.',
+      gate: '15,000',
+      gateNote: 'credits unlocks the home path',
+      body: 'Your deposit is your membership share. Saving earns matched credits and raises a credit line you draw on at no cost, because it is your own money.',
+      size: 'lg',
     },
     {
-      title: 'You take title to the house, and hold the land with everyone else.',
-      body: 'You sign an Equity-Lease Participation Agreement and a Clear Deed. Your monthly payment splits into an equity contribution and a community fee that covers property taxes and shared costs. The land underneath is held in common and cannot be sold, so nobody can sell the ground out from under a neighbourhood — and land appreciation stays where every member shares it, rather than becoming something members and investors reach for from opposite sides.',
+      n: '02',
+      title: 'You take title. The land stays common.',
+      gate: 'ELPA',
+      gateNote: 'and your Clear Deed, signed',
+      body: 'Your payment splits into equity and a community fee. The land underneath cannot be sold, so nobody sells the ground out from under a neighbourhood.',
+      size: 'md',
     },
     {
-      title: 'You redeem the title, and the equity stays portable.',
-      body: 'Once your contributions cover the structure you hold it outright. From there you can recontribute the home through Clear Capital and earn on it, or carry your equity into a different Clear home when your life changes size.',
+      n: '03',
+      title: 'You redeem it, and the equity travels.',
+      gate: 'Portable',
+      gateNote: 'into another Clear home',
+      body: 'Once your contributions cover the structure you hold it outright.',
+      size: 'sm',
     },
-  ] satisfies StepItem[],
+  ] satisfies Phase[],
 } as const;
 
+/* ── 03 · Two ways in ─────────────────────────────────────────────────────
+   A split, and the only place on the page where two columns are the right
+   answer: there are literally two doors. */
 export const WAYS_IN = {
   rail: '03 / Two ways in',
+  kicker: 'Two doors',
+  heading: 'Whichever side of the counter you are on.',
   shop: {
     heading: 'You run the shop',
-    prose: [
-      'You write up jobs every week that walk out the door because the customer cannot pay that day. Clear finances them at 2.5% of the ticket and pays you on net-30. Klarna and Affirm sit near six per cent for the same job.',
-      'Five founding partners get 2% for life and no fee on their first twenty charges. After that, standard terms.',
-    ],
+    figure: '2.5%',
+    figureNote: 'of the ticket, and you are paid on net-30',
+    body: 'Jobs walk out every week because the customer cannot pay that day. Klarna and Affirm sit near six per cent for the same job.',
     link: { href: '/shops', label: 'The merchant terms in full' },
   },
   member: {
     heading: 'You are standing at a counter',
-    prose: [
-      'Your car needs $940 of work you cannot cover today. The shop shows you a code, you scan it, and three minutes later you have a plan you chose yourself — in full, or split two, four or twelve ways — and a membership that keeps working at every other shop in the network.',
-      'No credit-score pull to approve your first plan. We read the income landing in your bank account and what already goes out of it, with your permission.',
-    ],
+    figure: '3 min',
+    figureNote: 'from scanning a code to a plan you chose',
+    body: 'Your car needs $940 of work today. You pick how to clear it — in full, or split two, four or twelve ways.',
+    /* §7 Legal: this is a credit-advertising claim. Do not paraphrase it into
+       anything stronger than it already is. */
+    note: 'No credit-score pull to approve your first plan.',
     link: { href: '/how', label: 'How the member side works' },
   },
 } as const;
 
+/* ── 04 · Status ──────────────────────────────────────────────────────────
+   An index: the one section that should be a plain list, because a list of
+   facts is what it is. */
 export const STATUS = {
   rail: '04 / Status',
+  kicker: 'Where this actually is',
   heading: 'What exists today, plainly.',
-  standfirst:
-    'A co-op that asks people to save with it should be straight about what it has actually built. This list is maintained, not marketing.',
+  standfirst: 'A co-op that asks people to save with it should be straight about what it has built. This list is maintained, not marketing.',
   ledger: [
     {
       label: 'Member app — savings, credit, term plans, card',
       value: 'in build',
       chip: 'in build',
-      description:
-        'Design complete across 53 screens. Accounts and cards run on Lithic, wallets on Privy.',
+      description: 'Design complete across 53 screens. Accounts and cards on Lithic, wallets on Privy.',
     },
     {
       label: 'Merchant counter app',
       value: 'in build',
       chip: 'in build',
-      description:
-        'Tablet-first, installs from a browser. Charge, show a code, refund with an owner code.',
+      description: 'Tablet-first, installs from a browser. Charge, show a code, refund with an owner code.',
     },
     {
       label: 'Protocol contracts',
       value: 'in build',
       chip: 'in build',
-      description:
-        'Public and open source. Savings-backed credit needs no outside capital, so it ships first.',
+      description: 'Public and open source. Savings-backed credit needs no outside capital, so it ships first.',
     },
     {
       label: 'First merchant partners',
@@ -128,23 +190,19 @@ export const STATUS = {
       label: 'First homes',
       value: 'not yet',
       chip: 'not yet',
-      description:
-        'Twelve detached homes, paced to member savings and financing capacity. Land first.',
+      description: 'Twelve detached homes, paced to member savings and financing capacity. Land first.',
     },
   ] satisfies LedgerItem[],
 } as const;
 
+/* ── 05 · Underneath ──────────────────────────────────────────────────────
+   A stage: one sentence at display size. The paragraph under it was 55 words
+   restating the sentence. */
 export const UNDERNEATH = {
   rail: '05 / Underneath',
-  heading: 'The ledger is public, and the co-op does not own it.',
-  prose:
-    'Balances, credit lines, deeds and titles run on an open-source protocol held by an ownerless Wyoming foundation. The co-op is a user of that protocol, not its owner, and anyone can read the code or fork it. That is deliberate: a member-owned institution should not be the only party able to check its own arithmetic.',
+  kicker: 'The ledger',
+  statement: 'A member-owned institution should not be the only party able to check its own arithmetic.',
+  body: 'Balances, credit lines, deeds and titles run on an open-source protocol held by an ownerless Wyoming foundation. The co-op is a user of it, not its owner.',
+  source: 'github.com/Deed3Labs/Protocol-Contracts · AGPL-3.0',
   link: { href: '/coop', label: 'How the co-op is put together' },
-  panel: {
-    source: 'github.com/Deed3Labs/Protocol-Contracts · AGPL-3.0',
-    body: [
-      'Real-world asset tokenization carrying deeds and titles, a mutual credit ledger, term and revolving credit issuers, an assurance pool and discount bonds.',
-      'A few of the credit primitives build on Stable Credit. The tokenization layer and most of what sits above it is ours.',
-    ],
-  },
 } as const;
