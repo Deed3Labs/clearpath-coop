@@ -13,7 +13,9 @@ export function Section({
   id,
   rhythm,
 }: {
-  rail: string;
+  /* Optional: the closing beat is an invitation, not a numbered part of the
+     argument, so it carries no reference note. */
+  rail?: string;
   children: React.ReactNode;
   id?: string;
   /* Identical padding on every band reads as a wireframe. A section can say
@@ -23,7 +25,7 @@ export function Section({
   return (
     <section className={`wrap ${rhythm ? `section-${rhythm}` : 'section'}`} id={id}>
       <div className="grid12">
-        <p className="rail rail-note">{rail}</p>
+        {rail ? <p className="rail rail-note">{rail}</p> : null}
         <div className="content">{children}</div>
       </div>
     </section>

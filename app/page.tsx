@@ -1,14 +1,15 @@
 import Link from 'next/link';
-import { Section, Band, Statement, Cols, Col, Ledger, Panel, Note, TextLink } from '@/components/primitives';
-import { GapChart } from '@/components/visuals/GapChart';
-import { MilestoneRail } from '@/components/visuals/MilestoneRail';
-import { HERO, STATEMENT, GAP, PHASES, WAYS_IN, STATUS, UNDERNEATH } from '@/content/home';
+import { Section, Band, Cols, Col, Ledger, Note, TextLink } from '@/components/primitives';
+import { HERO, PROOF, STRANDS, STATUS, CLOSE } from '@/content/home';
+
+/* Four beats. See the header of content/home.ts for why it is four and not
+ * seven, and why the flagship chart is on /how rather than here. */
 
 export default function Home() {
   return (
     <>
-      {/* S1 — Hero. Type-led: the headline owns it and nothing sits beside
-          it. Agreed at review per §5. */}
+      {/* 1 — The claim. Type-led: the headline owns it and nothing sits
+          beside it. Agreed at review per §5. */}
       <section className="wrap section hero">
         <div className="grid12 hero-grid">
           <div className="hero-copy">
@@ -19,7 +20,7 @@ export default function Home() {
                 </span>
               ))}
             </h1>
-            <p className="t-lede hero-lede" data-rise style={{ ['--i' as string]: 2 }}>
+            <p className="hero-lede" data-rise style={{ ['--i' as string]: 2 }}>
               {HERO.lede}
             </p>
             <div className="hero-actions" data-rise style={{ ['--i' as string]: 3 }}>
@@ -42,97 +43,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* S2 — The gap. The page's one full-bleed ink band (§3), and the only
-          place the chart could sit: it is the strongest thing on the page and
-          the ground change says so. The visual leads, the prose fills in what
-          a chart cannot say. */}
+      {/* 2 — The proof. This page's one ink band (§3), carrying one figure at
+          full size and the sentence it lands. Nothing else is in it. */}
       <Band tone="ink" rhythm="open" id="the-gap">
         <div className="grid12">
-          <p className="rail rail-note">{GAP.rail}</p>
-          <div className="content">
-            <Cols>
-              <Col span={6}>
-                <h2 className="d2 section-head">{GAP.heading}</h2>
-              </Col>
-              <Col span={4}>
-                <p className="d-sub">{GAP.sub}</p>
-              </Col>
-              <Col span={10}>
-                <GapChart />
-              </Col>
-              <Col span={6}>
-                <div className="prose t-body">
-                  {GAP.prose.map((p) => (
-                    <p key={p.slice(0, 20)}>{p}</p>
-                  ))}
-                </div>
-              </Col>
-              <Col span={4}>
-                <Ledger items={[...GAP.ledger]} />
-                <Note>{GAP.note}</Note>
-              </Col>
-            </Cols>
+          <p className="rail rail-note">{PROOF.rail}</p>
+          <div className="content proof">
+            <p className="proof-figure">{PROOF.figure}</p>
+            <p className="proof-caption t-sm">{PROOF.caption}</p>
+
+            <div className="proof-turn">
+              <h2 className="d2 proof-heading">{PROOF.heading}</h2>
+              <p className="d-sub">{PROOF.sub}</p>
+            </div>
+
+            <div className="proof-ledger">
+              <Ledger items={[...PROOF.ledger]} />
+              <Note>{PROOF.note}</Note>
+              <p className="t-body proof-link">
+                <TextLink href={PROOF.link.href}>{PROOF.link.label}</TextLink>
+              </p>
+            </div>
           </div>
         </div>
       </Band>
 
-      {/* S3 — Three phases. A rail with stations, not three cards: the
-          distance between the gates is half the claim. */}
-      <Section rail={PHASES.rail}>
+      {/* 3 — What it is. Three strands, one band. */}
+      <Section rail={STRANDS.rail}>
         <Cols>
           <Col span={6}>
-            <h2 className="d2 section-head">{PHASES.heading}</h2>
+            <h2 className="d2 section-head">{STRANDS.heading}</h2>
           </Col>
           <Col span={4}>
-            <p className="d-sub">{PHASES.sub}</p>
-            <Note>{PHASES.standfirst}</Note>
+            <p className="d-sub">{STRANDS.sub}</p>
           </Col>
           <Col span={10}>
-            <MilestoneRail />
+            <ol className="strands">
+              {STRANDS.items.map((item) => (
+                <li key={item.n}>
+                  <p className="strand-n">{item.n}</p>
+                  <h3 className="d4 strand-title">{item.title}</h3>
+                  <p className="t-sm strand-body">{item.body}</p>
+                  <p className="strand-link">
+                    <TextLink href={item.link.href}>{item.link.label}</TextLink>
+                  </p>
+                </li>
+              ))}
+            </ol>
           </Col>
         </Cols>
       </Section>
 
-      {/* S4 — Two ways in. Two columns, 3-7 and 8-12. */}
-      <Section rail={WAYS_IN.rail}>
-        <Cols>
-          <Col span={6}>
-            <h2 className="d2 section-head">{WAYS_IN.heading}</h2>
-          </Col>
-          <Col span={4}>
-            <p className="d-sub">{WAYS_IN.sub}</p>
-          </Col>
-          <Col span={5}>
-            <h3 className="d3">{WAYS_IN.shop.heading}</h3>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-2)' }}>
-              {WAYS_IN.shop.prose.map((p) => (
-                <p key={p.slice(0, 20)}>{p}</p>
-              ))}
-              <p>
-                <TextLink href={WAYS_IN.shop.link.href}>{WAYS_IN.shop.link.label}</TextLink>
-              </p>
-            </div>
-          </Col>
-          <Col span={5}>
-            <h3 className="d3">{WAYS_IN.member.heading}</h3>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-2)' }}>
-              {WAYS_IN.member.prose.map((p) => (
-                <p key={p.slice(0, 20)}>{p}</p>
-              ))}
-              <p>
-                <TextLink href={WAYS_IN.member.link.href}>{WAYS_IN.member.link.label}</TextLink>
-              </p>
-            </div>
-          </Col>
-        </Cols>
-      </Section>
-
-      {/* The statement. One sentence at display size and nothing else in the
-          band — it is the line the whole argument rests on. */}
-      <Statement>{STATEMENT}</Statement>
-
-      {/* S5 — Status. Tight rhythm: a list of facts wants density, not air,
-          and identical padding on every band reads as a wireframe. */}
+      {/* 4 — Where this is, and the door. Tight: a footnote to the
+          invitation, not a section competing with it. */}
       <Section rail={STATUS.rail} rhythm="tight">
         <Cols>
           <Col span={6}>
@@ -148,28 +111,21 @@ export default function Home() {
         </Cols>
       </Section>
 
-      {/* S6 — Underneath. */}
-      <Section rail={UNDERNEATH.rail}>
+      <Section rhythm="tight" id="close">
         <Cols>
-          <Col span={6}>
-            <h2 className="d2 section-head">{UNDERNEATH.heading}</h2>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>
-              {UNDERNEATH.sub}
-            </p>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
-              <p>{UNDERNEATH.prose}</p>
-              <p>
-                <TextLink href={UNDERNEATH.link.href}>{UNDERNEATH.link.label}</TextLink>
-              </p>
+          <Col span={10}>
+            <div className="close">
+              <h2 className="d2 close-head">{CLOSE.heading}</h2>
+              <div className="close-actions">
+                <Link href={CLOSE.member.href} className="btn" data-variant="primary">
+                  {CLOSE.member.label}
+                </Link>
+                <Link href={CLOSE.shop.href} className="btn" data-variant="ghost">
+                  {CLOSE.shop.label}
+                </Link>
+              </div>
+              <p className="t-note close-note">{CLOSE.note}</p>
             </div>
-          </Col>
-          <Col span={4}>
-            <Panel variant="mark">
-              <p className="t-note">{UNDERNEATH.panel.source}</p>
-              {UNDERNEATH.panel.body.map((p) => (
-                <p key={p.slice(0, 20)}>{p}</p>
-              ))}
-            </Panel>
           </Col>
         </Cols>
       </Section>
