@@ -1,325 +1,334 @@
 /* ═══ Clear — visual language v2 ═══════════════════════════════════════════
-   Scoped to .v2 because the seven pages that have not been rebuilt yet still
-   run on globals.css. Each page drops its old markup and picks up this class
-   as it is rebuilt; when the last one does, globals.css goes.
+   Scoped to .v2 because the other seven pages still run on globals.css and
+   pick this up one at a time as they are rebuilt.
 
-   Everything here is a deliberate inversion of the old system, which was
-   built to read as a survey document and succeeded — that is why three
-   "new" heroes came out looking like the old site.
+   Calibrated against the live site rather than invented. The things that make
+   that page work and that earlier attempts here threw away:
 
-     old                              new
-     mineral grey-green, neutral      warm clay and bone, saturated
-     one dark band per page           colour is a ground, used often
-     radius 0, "derived from a doc"   soft cards, real elevation
-     uppercase mono micro-labels      one family, sentence case
-     hairline rules everywhere        surfaces and shadow, few rules
-     accent rationed to one element   brand colour carries whole sections
+     · the headline is CUT between two faces — condensed display for the
+       fact, italic serif for the turn. That pairing is the signature.
+     · the ground is a drafting surface, not flat colour: a faint grid with
+       particles drifting over it.
+     · micro-labels in small uppercase, letterspaced. Density, not sparseness.
+     · alternating full-bleed grounds — bone, a half-tone, and near-black.
+     · a marquee of facts, and a figure that arrives rather than sits.
+     · sharp edges everywhere. Pills are for buttons and nothing else.
    ────────────────────────────────────────────────────────────────────── */
 
 .v2 {
-  /* Ground. Bone rather than grey-green: warm, and it lets a card float
-     lighter than the page instead of darker. */
-  --bone:      #F4EFE7;
-  --bone-2:    #FCFAF6;  /* raised card — lighter than the page */
-  --espresso:  #241C15;  /* text and the deep ground */
+  --bone:   #EFEEEA;  /* the page */
+  --bone-2: #E9E8E3;  /* the half-tone band */
+  --ink:    #15161A;  /* text, and the dark ground */
+  --clay:   #B24A28;  /* the one accent — 5.4:1 on white */
 
-  /* Brand. Redlands is citrus groves and brick; clay is the building
-     material and the colour of the place. Verified 5.38:1 against white,
-     so it can carry white type as a full-bleed ground. */
-  --clay:      #B24A28;
-  --clay-lift: #C4552E;  /* hover / lighter face, decorative only */
-  --pine:      #2C3F33;  /* the second ground, for anything about land */
-  --amber:     #E0A03C;  /* figures and one-per-view emphasis */
+  --ink-70: rgb(21 22 26 / .72);
+  --ink-45: rgb(21 22 26 / .52);
+  --rule:   rgb(21 22 26 / .16);
+  --rule-2: rgb(21 22 26 / .09);
 
-  --ink-70: rgb(36 28 21 / .72);
-  --ink-45: rgb(36 28 21 / .55);
-  --line:   rgb(36 28 21 / .12);
-
-  /* Form. The old system's radius was literally zero by decree. */
-  --r-card: 22px;
-  --r-tile: 16px;
-  --r-pill: 999px;
-
-  /* Elevation, warm-tinted rather than grey — a neutral shadow on a warm
-     ground is the thing that makes a page look unfinished. */
-  --lift-1: 0 1px 2px rgb(74 40 20 / .06), 0 4px 12px rgb(74 40 20 / .06);
-  --lift-2: 0 2px 4px rgb(74 40 20 / .07), 0 14px 34px rgb(74 40 20 / .12);
+  --on-dark:    #EFEEEA;
+  --on-dark-70: rgb(239 238 234 / .70);
+  --on-dark-45: rgb(239 238 234 / .48);
+  --rule-dark:  rgb(239 238 234 / .18);
 
   background: var(--bone);
-  color: var(--espresso);
+  color: var(--ink);
+  font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* One family, enforced. Several class names here collide with the old system
-   (.chip, .card, .wrap, .figure) and the old .chip sets a monospace face — so
-   anything that does not declare a family inherits mono from globals.css and
-   the "no mono anywhere" rule quietly breaks. Declaring it on the subtree is
-   both the collision guard and the rule itself. */
-.v2,
-.v2 * {
-  font-family: var(--font-v2), ui-sans-serif, system-ui, sans-serif;
-}
+.v2 .wrap { width: min(1400px, 100% - 56px); margin-inline: auto; }
 
-/* ── Type. One family, sized and weighted for hierarchy. No second face and
-      no monospace, including for figures — tabular numerals come from the
-      font feature, not from a different typeface. ───────────────────────── */
-.v2 .display {
-  font-size: clamp(46px, 7.2vw, 116px);
-  line-height: 0.96;
-  letter-spacing: -0.035em;
+/* ── Type ────────────────────────────────────────────────────────────────
+   Two display voices and one UI voice. The cut between them is the point. */
+.v2 .d-hard {
+  font-family: var(--font-bricolage), system-ui, sans-serif;
   font-weight: 800;
+  font-size: clamp(52px, 10.5vw, 168px);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
   margin: 0;
 }
-.v2 .title {
-  font-size: clamp(26px, 3vw, 44px);
-  line-height: 1.08;
-  letter-spacing: -0.022em;
-  font-weight: 700;
-  margin: 0;
-}
-.v2 .lede {
-  font-size: clamp(17px, 1.35vw, 21px);
-  line-height: 1.5;
+.v2 .d-turn {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
   font-weight: 400;
-  color: var(--ink-70);
-  margin: 0;
-  max-width: 34ch;
+  text-transform: none;
+  letter-spacing: -0.015em;
+  /* Optically matched to the caps beside it: an italic serif at the same
+     nominal size reads noticeably smaller than condensed caps. */
+  font-size: 0.78em;
+  color: var(--ink-45);
 }
-.v2 .small { font-size: 15px; line-height: 1.5; color: var(--ink-70); margin: 0; }
-.v2 .micro { font-size: 13px; line-height: 1.45; color: var(--ink-45); margin: 0; }
+.v2 .field.inv .d-turn { color: var(--on-dark-45); }
 
-/* Figures are the same family with tabular numerals switched on. */
-.v2 .figure {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum' 1;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  font-size: clamp(38px, 5.6vw, 84px);
-  line-height: 1;
-  margin: 0;
-}
-.v2 .figure.sm { font-size: clamp(24px, 2.4vw, 36px); }
-
-/* ── Chips replace the uppercase mono label. ────────────────────────────── */
-.v2 .chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 14px;
-  border-radius: var(--r-pill);
-  background: rgb(178 74 40 / .1);
-  color: var(--clay);
-  font-size: 13px;
+/* The small uppercase label. Density comes from these — the reference has
+   them everywhere and the page reads as a document because of it. */
+.v2 .eyebrow {
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: -0.005em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.v2 .chip.on-dark { background: rgb(255 255 255 / .16); color: #fff; }
+.v2 .eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  flex: none;
+  /* Aligned to the FIRST line, not to the middle of the block. When the label
+     wraps to two lines — which it does at 375px — centring puts the rule in
+     the gap between them. */
+  align-self: flex-start;
+  margin-top: 0.62em;
+}
+.v2 .field.inv .eyebrow { color: var(--on-dark-45); }
 
+.v2 .lede { font-size: clamp(15px, 1.15vw, 18px); line-height: 1.55; color: var(--ink-70); margin: 0; max-width: 42ch; }
+.v2 .small { font-size: 14px; line-height: 1.55; color: var(--ink-70); margin: 0; }
+.v2 .micro { font-size: 12px; line-height: 1.5; color: var(--ink-45); margin: 0; }
+.v2 .field.inv .lede { color: var(--on-dark-70); }
+.v2 .field.inv .small { color: var(--on-dark-70); }
+.v2 .field.inv .micro { color: var(--on-dark-45); }
+
+.v2 .figure {
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(34px, 4.4vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.v2 .figure .suffix {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.42em;
+  letter-spacing: -0.01em;
+  color: var(--ink-45);
+  margin-left: 6px;
+}
+
+/* ── Form. Sharp. Pills only for buttons. ───────────────────────────────── */
 .v2 .btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
   padding: 15px 26px;
-  border-radius: var(--r-pill);
-  background: var(--clay);
-  color: #fff;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bone);
+  font-size: 14px;
   font-weight: 600;
-  font-size: 16px;
   text-decoration: none;
-  box-shadow: var(--lift-1);
-  transition: transform .18s cubic-bezier(.16,1,.3,1), box-shadow .18s;
+  transition: transform .2s cubic-bezier(.16,1,.3,1), opacity .2s;
 }
-.v2 .btn:hover { transform: translateY(-2px); box-shadow: var(--lift-2); }
-.v2 .btn.ghost { background: transparent; color: var(--espresso); box-shadow: inset 0 0 0 1.5px var(--line); }
-.v2 .btn.on-dark { background: #fff; color: var(--espresso); }
+.v2 .btn:hover { transform: translateY(-2px); }
+.v2 .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--rule); }
+.v2 .field.inv .btn { background: var(--bone); color: var(--ink); }
+.v2 .field.inv .btn.ghost { background: transparent; color: var(--on-dark); box-shadow: inset 0 0 0 1px var(--rule-dark); }
 
-/* ── Surfaces. A card floats LIGHTER than the page, which only works on a
-      warm ground — on the old grey-green it went milky. ─────────────────── */
-/* A card carries its own colour. Inheriting it meant a cream card sitting on
-   the clay ground rendered its figure in white on cream. */
-.v2 .card {
-  background: var(--bone-2);
-  color: var(--espresso);
-  border-radius: var(--r-card);
-  box-shadow: var(--lift-1);
-  padding: var(--spacing-4);
+/* ── Grounds ────────────────────────────────────────────────────────────── */
+.v2 .field { padding-block: clamp(72px, 9vw, 132px); position: relative; }
+.v2 .field.half { background: var(--bone-2); }
+.v2 .field.inv { background: var(--ink); color: var(--on-dark); }
+
+/* ── The drafting ground ────────────────────────────────────────────────── */
+.v2 .texture { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.v2 .texture::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background-image:
+    linear-gradient(to right, var(--rule-2) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule-2) 1px, transparent 1px);
+  background-size: 84px 84px;
+  /* Fades out before it reaches the type, so the grid never fights it. */
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 100%);
 }
-.v2 .card .small { color: var(--ink-70); }
-.v2 .card .micro { color: var(--ink-45); }
-.v2 .card.raised { box-shadow: var(--lift-2); }
-.v2 .card.dark { background: var(--espresso); color: var(--bone); }
-.v2 .card.clay { background: var(--clay); color: #fff; }
-.v2 .card.dark .small, .v2 .card.clay .small { color: rgb(255 255 255 / .82); }
-.v2 .card.dark .micro, .v2 .card.clay .micro { color: rgb(255 255 255 / .68); }
+.v2 .texture-dots { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-/* ── Grounds. Colour is a ground here, not an accent. ───────────────────── */
-.v2 .field { padding-block: clamp(64px, 9vw, 132px); }
-.v2 .field.clay { background: var(--clay); color: #fff; }
-.v2 .field.pine { background: var(--pine); color: var(--bone); }
-.v2 .field.dark { background: var(--espresso); color: var(--bone); }
-.v2 .field.clay .lede,
-.v2 .field.pine .lede,
-.v2 .field.dark .lede { color: rgb(255 255 255 / .78); }
+/* ── The hero ───────────────────────────────────────────────────────────── */
+.v2 .lede-hero { position: relative; min-height: 92vh; min-height: 92dvh; display: flex; flex-direction: column; }
+.v2 .lede-hero > .wrap { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(40px, 7vh, 96px); }
 
-.v2 .wrap { width: min(1240px, 100% - 48px); margin-inline: auto; }
-.v2 .center { text-align: center; margin-inline: auto; }
-.v2 .center .lede { margin-inline: auto; }
+.v2 .hero-title { margin-top: var(--spacing-4); max-width: 15ch; }
+.v2 .hero-title .d-turn { display: block; }
 
+.v2 .hero-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  margin-top: clamp(40px, 6vh, 84px);
+}
+.v2 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* ── The hero ───────────────────────────────────────────────────────────────
-   A tall track with a pinned viewport inside it. The copy has its own band
-   and the split takes the rest, so nothing can overlap at any scroll
-   position or any width — which the previous version could, and did. */
+/* The counter, ranged right against the headline like the reference. */
+.v2 .hero-counter { text-align: right; }
+.v2 .hero-counter .eyebrow { justify-content: flex-end; }
+.v2 .hero-counter .eyebrow::before { display: none; }
+.v2 .hero-counter .figure { margin-top: 8px; font-variant-numeric: tabular-nums; }
 
+/* ── The marquee ────────────────────────────────────────────────────────── */
+.v2 .marquee {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--ink);
+  color: var(--on-dark);
+  padding-block: 13px;
+}
+.v2 .marquee-track { display: flex; width: max-content; animation: marquee 46s linear infinite; }
+.v2 .marquee-run { display: flex; margin: 0; padding: 0; list-style: none; }
+.v2 .marquee-run li {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-inline: 28px;
+  position: relative;
+}
+.v2 .marquee-run li::after {
+  content: '/';
+  position: absolute;
+  right: -4px;
+  color: var(--on-dark-45);
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .v2 .marquee-track { animation: none; }
+}
+
+/* ── The divide (beat two). Two grounds trading space with the scroll. ──── */
 .v2 .hero { position: relative; height: 260vh; }
 .v2 .hero-pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.v2 .hero-head {
-  flex: none;
-  padding-block: clamp(24px, 4vh, 56px) clamp(20px, 3vh, 40px);
+  position: sticky; top: 0;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column; overflow: hidden;
   background: var(--bone);
 }
-.v2 .hero-h1 { margin-top: var(--spacing-3); max-width: 17ch; }
-.v2 .hero-h1 em { font-style: normal; color: var(--ink-45); }
+.v2 .hero-head { flex: none; padding-block: clamp(28px, 5vh, 64px) clamp(20px, 3vh, 40px); }
+.v2 .divide-h2 { margin-top: var(--spacing-3); font-size: clamp(38px, 6.2vw, 96px); max-width: 16ch; }
 .v2 .hero-lede { margin-top: var(--spacing-3); }
-.v2 .hero-actions { margin-top: var(--spacing-4); display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* The two grounds. They trade space and nothing else moves. */
 .v2 .hero-split { position: relative; flex: 1; display: flex; min-height: 0; }
 .v2 .hero-side {
-  display: flex;
-  align-items: flex-end;
-  padding: clamp(20px, 3vw, 40px);
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
+  display: flex; align-items: flex-end;
+  padding: clamp(20px, 2.4vw, 40px);
+  min-width: 0; min-height: 0; overflow: hidden;
   transition: flex-basis .14s linear;
   flex: 0 0 var(--share);
 }
-.v2 .hero-side.is-rent { background: var(--bone-2); }
-.v2 .hero-side.is-clear { background: var(--clay); color: #fff; }
-.v2 .hero-side.is-clear .small { color: rgb(255 255 255 / .82); }
-.v2 .hero-side.is-clear .micro { color: rgb(255 255 255 / .7); }
+.v2 .hero-side.is-rent { background: var(--bone-2); box-shadow: inset 0 1px 0 var(--rule); }
+.v2 .hero-side.is-clear { background: var(--ink); color: var(--on-dark); }
+.v2 .hero-side.is-clear .small { color: var(--on-dark-70); }
+.v2 .hero-side.is-clear .micro { color: var(--on-dark-45); }
 .v2 .hero-side-in { min-width: 0; }
-.v2 .hero-side.is-clear .figure { color: #fff; }
+.v2 .hero-side .figure { font-size: clamp(30px, 4.6vw, 72px); }
 
-/* The counter sits on the boundary rather than over either ground, so it
-   never needs a blend mode to stay legible. */
 .v2 .hero-month {
-  position: absolute;
-  top: var(--spacing-3);
-  right: clamp(20px, 3vw, 40px);
-  margin: 0;
-  padding: 7px 14px;
-  border-radius: var(--r-pill);
-  background: var(--bone);
-  color: var(--ink-70);
-  font-size: 13px;
-  font-weight: 600;
+  position: absolute; top: var(--spacing-3); right: clamp(20px, 2.4vw, 40px);
+  margin: 0; padding: 8px 14px;
+  background: var(--bone); color: var(--ink-70);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
   font-variant-numeric: tabular-nums;
-  box-shadow: var(--lift-1);
+  border: 1px solid var(--rule);
 }
 
-/* Below 860px the split stacks and the two grounds trade HEIGHT instead of
-   width — two 30%-wide columns cannot hold a six-figure sum at 375px. */
 @media (max-width: 860px) {
   .v2 .hero { height: 240vh; }
   .v2 .hero-split { flex-direction: column; }
-
-  /* The upper band hangs its figure at the bottom and the lower band sits
-     its figure at the top, so the two numbers meet across the moving line
-     instead of being pushed to opposite ends of the screen with the
-     comparison lost in the gap between them. */
+  /* The two figures meet across the moving line instead of sitting at
+     opposite ends of the screen with the comparison lost between them. */
   .v2 .hero-side.is-rent { align-items: flex-end; }
   .v2 .hero-side.is-clear { align-items: flex-start; }
-
-  /* The head was taking 57% of the viewport, which left the two grounds too
-     little room to read as grounds. */
   .v2 .hero-head { padding-block: var(--spacing-3) var(--spacing-2); }
-  .v2 .hero-h1 { font-size: clamp(38px, 10.5vw, 52px); margin-top: var(--spacing-2); }
-  .v2 .hero-lede { margin-top: var(--spacing-2); font-size: 16px; }
-  .v2 .hero-actions { margin-top: var(--spacing-3); }
-  .v2 .hero-side .figure { font-size: clamp(30px, 8.5vw, 44px); }
+  .v2 .divide-h2 { font-size: clamp(32px, 9vw, 48px); margin-top: var(--spacing-2); }
+  .v2 .hero-lede { margin-top: var(--spacing-2); }
   .v2 .hero-month { top: auto; bottom: var(--spacing-3); right: var(--spacing-3); }
 }
 
-/* ── Sections on the new language ──────────────────────────────────────── */
-.v2 .band { padding-block: clamp(72px, 10vw, 140px); }
-.v2 .band-head { max-width: 62ch; }
-.v2 .band-head .lede { margin-top: var(--spacing-3); max-width: 46ch; }
+/* ── Sections ───────────────────────────────────────────────────────────── */
+.v2 .band-head { max-width: 30ch; }
+.v2 .band-h2 { margin-top: var(--spacing-3); font-size: clamp(38px, 6vw, 104px); }
+.v2 .band-head .lede { margin-top: var(--spacing-3); }
+.v2 .split-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 5vw, 96px); align-items: end; }
 
+/* Stat rows — hairline-ruled, figure ranged left, caption under. The
+   reference's right-hand column, and the densest thing on the page. */
+.v2 .stats { display: grid; gap: 0; }
+.v2 .stat { padding-block: var(--spacing-3); border-top: 1px solid var(--rule); }
+.v2 .stat:last-child { border-bottom: 1px solid var(--rule); }
+.v2 .field.inv .stat { border-color: var(--rule-dark); }
+.v2 .stat .micro { margin-top: 8px; }
+
+/* Strands — three columns, ruled, numbered. Sharp. */
 .v2 .strands {
-  margin-top: clamp(40px, 6vw, 72px);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--spacing-3);
-  list-style: none;
-  padding: 0;
+  margin-top: clamp(48px, 6vw, 88px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0; list-style: none; padding: 0;
+  border-top: 1px solid var(--rule);
 }
-.v2 .strand { display: grid; align-content: start; gap: var(--spacing-2); }
-.v2 .strand .title { font-size: clamp(21px, 1.9vw, 27px); }
-.v2 .strand-link {
-  margin-top: auto;
-  padding-top: var(--spacing-2);
-  color: var(--clay);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 15px;
+.v2 .strand {
+  display: grid; align-content: start; gap: var(--spacing-2);
+  padding: var(--spacing-4) var(--spacing-4) var(--spacing-4) 0;
+  border-right: 1px solid var(--rule);
 }
-.v2 .strand-link:hover { text-decoration: underline; }
+.v2 .strand:last-child { border-right: 0; }
+.v2 .strand + .strand { padding-left: var(--spacing-4); }
+.v2 .strand-n { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); }
+.v2 .strand-title {
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+  font-weight: 800; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.1;
+  letter-spacing: -0.02em; margin: 0;
+}
+.v2 .strand-link { margin-top: var(--spacing-2); color: var(--ink); font-weight: 600; font-size: 14px; text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; align-self: start; }
+.v2 .strand-link:hover { border-color: currentColor; }
+.v2 .field.inv .strand-link { color: var(--on-dark); border-color: var(--rule-dark); }
 
-/* Status. A list of facts, as rows on a card rather than a ruled ledger. */
-.v2 .status { margin-top: clamp(40px, 6vw, 72px); display: grid; gap: var(--spacing-2); }
+/* Status — a ruled list with a state marker, not cards. */
+.v2 .status { margin-top: clamp(48px, 6vw, 88px); border-top: 1px solid var(--rule-dark); }
 .v2 .status-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--spacing-2) var(--spacing-3);
-  align-items: start;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px var(--spacing-4); align-items: baseline;
+  padding-block: var(--spacing-3);
+  border-bottom: 1px solid var(--rule-dark);
 }
-.v2 .status-row .micro { grid-column: 1 / -1; }
-.v2 .status-chip {
-  display: inline-flex;
-  padding: 6px 13px;
-  border-radius: var(--r-pill);
-  font-size: 13px;
-  font-weight: 600;
-  background: rgb(36 28 21 / .07);
-  color: var(--ink-70);
-  white-space: nowrap;
+.v2 .status-row .micro { grid-column: 1 / -1; max-width: 62ch; }
+.v2 .status-state {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--on-dark-45); white-space: nowrap; display: flex; align-items: center; gap: 9px;
 }
-.v2 .status-chip[data-state='signing'] { background: rgb(224 160 60 / .22); color: #7A5313; }
-.v2 .status-chip[data-state='not yet'] { background: transparent; box-shadow: inset 0 0 0 1.5px var(--line); }
+.v2 .status-state::before { content: ''; width: 7px; height: 7px; background: currentColor; flex: none; }
+.v2 .status-state[data-state='signing'] { color: #D8A45E; }
+.v2 .status-state[data-state='in build'] { color: var(--on-dark-70); }
 
 .v2 .close-actions { margin-top: var(--spacing-4); display: flex; flex-wrap: wrap; gap: 12px; }
+.v2 .hero-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--spacing-3); padding-block: var(--spacing-4); border-bottom: 1px solid var(--rule); }
 
-/* ── The shared header and footer, while the other pages still run on the
-      old stylesheet. :has() lets a v2 page restyle chrome that is a sibling
-      of it in the layout, rather than forking the layout per route. ─────── */
-body:has(.v2) { background: var(--bone, #F4EFE7); }
-body:has(.v2) .site-header,
-body:has(.v2) .site-footer { font-family: var(--font-v2), ui-sans-serif, system-ui, sans-serif; }
-body:has(.v2) .site-header .navlink,
-body:has(.v2) .site-footer a { letter-spacing: -0.005em; }
-
-.v2 .hero-foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--spacing-3);
-  padding-block: var(--spacing-4);
+@media (max-width: 860px) {
+  .v2 .split-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .v2 .strands { grid-template-columns: minmax(0, 1fr); }
+  .v2 .strand { border-right: 0; border-bottom: 1px solid var(--rule); padding-inline: 0; }
+  .v2 .strand + .strand { padding-left: 0; }
+  .v2 .hero-counter { text-align: left; }
+  .v2 .hero-counter .eyebrow { justify-content: flex-start; }
 }
-.v2 .band-h2 { margin-top: var(--spacing-3); font-size: clamp(34px, 4.6vw, 68px); }
-.v2 .status-card { padding: var(--spacing-3); }
-.v2 .field.dark .status-chip { background: rgb(244 239 231 / .14); color: rgb(244 239 231 / .82); }
-.v2 .field.dark .status-chip[data-state='signing'] { background: rgb(224 160 60 / .26); color: #F0C782; }
-.v2 .field.dark .status-chip[data-state='not yet'] { background: transparent; box-shadow: inset 0 0 0 1.5px rgb(244 239 231 / .22); }
-.v2 .btn.on-ghost { color: #fff; box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / .4); }
+
+/* The shared chrome, while the other pages still run the old stylesheet. */
+body:has(.v2) { background: #EFEEEA; }
+body:has(.v2) .site-header,
+body:has(.v2) .site-footer { font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif; }

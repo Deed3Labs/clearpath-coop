@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { onScrollProgress, reducedMotion } from '@/lib/motion';
 import { HERO } from '@/content/home';
@@ -53,19 +52,13 @@ export function HeroDivide() {
       <div className="hero-pin">
         <div className="hero-head">
           <div className="wrap">
-            <span className="chip">{HERO.chip}</span>
-            <h1 className="display hero-h1">
-              {HERO.headline[0]} <em>{HERO.headline[1]}</em>
-            </h1>
-            <p className="lede hero-lede">{HERO.lede}</p>
-            <div className="hero-actions">
-              <Link className="btn" href={HERO.primary.href}>
-                {HERO.primary.label}
-              </Link>
-              <Link className="btn ghost" href={HERO.ghost.href}>
-                {HERO.ghost.label}
-              </Link>
-            </div>
+            <p className="eyebrow">The gap</p>
+            <h2 className="d-hard divide-h2">
+              You pay for a house <em className="d-turn">either way.</em>
+            </h2>
+            <p className="lede hero-lede">
+              Only one of them ends up being yours. Scroll, and watch five years pass.
+            </p>
           </div>
         </div>
 

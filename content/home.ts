@@ -14,15 +14,39 @@
 import type { LedgerItem } from '@/components/primitives';
 
 export const HERO = {
-  /* The hero is the argument now, not an introduction to it. It carries the
-     two figures live as you scroll, which is why the separate "proof" beat
-     that stated the same two numbers is gone — it was the same claim twice,
-     once moving and once still. Its disclaimer and its link live here. */
-  chip: 'A cooperative in Redlands, California',
-  headline: ['Rent builds equity.', 'Just not yours.'],
+  /* The headline is set in two voices: the hard half in the condensed display
+     face, the turn in an italic serif. That cut is the signature move on the
+     live site and it is what makes the sentence land — the caps state the
+     fact, the italic delivers the knife. */
+  eyebrow: 'Now enrolling — South Redlands, CA',
+  headline: { hard: 'Rent builds equity.', turn: 'Just not yours.' },
   lede: 'What you pay for a place to live ends up being yours.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
+
+  /* The counter, in the reference's position. It counts a figure we can
+     actually stand behind — five years on a $2,520 two-bedroom — rather than
+     a national rent total nobody here can source. */
+  counter: {
+    to: 151200,
+    label: 'Five years of rent',
+    sub: 'Building zero equity',
+  },
+
+  /* The ticker. Our own facts, not adjectives. */
+  marquee: [
+    'Member-owned',
+    'One member, one vote',
+    'No credit-score pull',
+    'Land held in common',
+    'Debt-free title',
+    '2.5% at the counter',
+    'Net-30 for shops',
+    'Redlands, California',
+    'No late fees, ever',
+    'Nothing compounds',
+  ],
+
   rent: { label: 'Renting', caption: 'paid out, and nothing retained' },
   clear: { label: 'Inside Clear', caption: 'equity you keep' },
   months: 60,

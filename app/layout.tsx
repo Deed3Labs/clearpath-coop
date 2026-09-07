@@ -3,7 +3,7 @@ import {
   Bricolage_Grotesque,
   Instrument_Sans,
   IBM_Plex_Mono,
-  Plus_Jakarta_Sans,
+  DM_Serif_Display,
 } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -31,15 +31,16 @@ const mono = IBM_Plex_Mono({
   variable: '--font-plex-mono',
 });
 
-/* Visual language v2. One family doing everything, figures included — the
-   old display/text/mono trio is most of what made every page read as a
-   technical document. Loaded here rather than per-page so each page can pick
-   up the new language as it is rebuilt. */
-const v2 = Plus_Jakarta_Sans({
+/* The counterpoint face. The headline is cut between the condensed display
+   grotesque and this italic serif — the caps state the fact and the italic
+   delivers the turn. One family doing everything was the wrong call: it threw
+   away the pairing that makes the sentence land. */
+const serif = DM_Serif_Display({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-v2',
+  variable: '--font-serif',
 });
 
 export const metadata: Metadata = {
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable} ${v2.variable}`}>
+    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable} ${serif.variable}`}>
       <body>
         <Header />
         <main>{children}</main>
