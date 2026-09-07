@@ -55,14 +55,14 @@ export default function Capital() {
               <Col span={9}>
                 <TwoSheets />
               </Col>
-              <Col span={5}>
+              <Col span={4}>
                 <div className="prose t-body">
                   {SPLIT.prose.map((p) => (
                     <p key={p.slice(0, 20)}>{p}</p>
                   ))}
                 </div>
               </Col>
-              <Col span={5}>
+              <Col span={6}>
                 <Ledger items={[...SPLIT.ledger]} />
               </Col>
             </Cols>
@@ -98,14 +98,14 @@ export default function Capital() {
           <Col span={4}>
             <p className="d-sub">{PROTECTIONS.sub}</p>
           </Col>
-          <Col span={5}>
+          <Col span={4}>
             <h3 className="d3">{PROTECTIONS.stacks.heading}</h3>
             <div style={{ marginTop: 'var(--spacing-3)' }}>
               <PayoutStacks />
             </div>
             <Note>{PROTECTIONS.stacks.note}</Note>
           </Col>
-          <Col span={5}>
+          <Col span={6}>
             <Steps items={[...PROTECTIONS.steps]} />
           </Col>
         </Cols>
@@ -117,7 +117,7 @@ export default function Capital() {
           institutional reader. */}
       <Section rail={DOWNSIDES_SECTION.rail} rhythm="tight">
         <Cols>
-          <Col span={4}>
+          <Col span={6}>
             <Panel title={DOWNSIDES.title}>
               <ul className="panel-list">
                 {DOWNSIDES.list.map((item) => (
@@ -126,7 +126,7 @@ export default function Capital() {
               </ul>
             </Panel>
           </Col>
-          <Col span={6}>
+          <Col span={4}>
             <p className="t-body prose">{DOWNSIDES_SECTION.extra}</p>
           </Col>
         </Cols>

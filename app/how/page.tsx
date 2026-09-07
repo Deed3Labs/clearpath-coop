@@ -30,13 +30,13 @@ export default function How() {
       {/* S1 — The claim. */}
       <Section rail={OPENING.rail}>
         <Cols>
-          <Col span={8}>
+          <Col span={7}>
             <h1 className="page-title">{OPENING.heading}</h1>
             <p className="t-lede" style={{ marginTop: 'var(--spacing-3)' }}>
               {OPENING.lede}
             </p>
           </Col>
-          <Col span={2}>
+          <Col span={3}>
             <Pull figure={OPENING.pull.figure} caption={OPENING.pull.caption} />
             <div style={{ marginTop: 'var(--spacing-3)' }}>
               <Panel title={OPENING.panel.title}>
@@ -132,16 +132,20 @@ export default function How() {
       {/* S4 — The guardrails: one shelf, one ceiling. */}
       <Section rail={TERM_PLANS.rail}>
         <Cols>
-          <Col span={5}>
+          <Col span={6}>
             <h2 className="d2 section-head">{TERM_PLANS.heading}</h2>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{TERM_PLANS.sub}</p>
-            <div className="prose t-body" style={{ marginTop: 'var(--spacing-3)' }}>
+          </Col>
+          <Col span={4}>
+            <p className="d-sub">{TERM_PLANS.sub}</p>
+          </Col>
+          <Col span={3}>
+            <div className="prose t-body">
               {TERM_PLANS.prose.map((p) => (
                 <p key={p.slice(0, 20)}>{p}</p>
               ))}
             </div>
           </Col>
-          <Col span={5}>
+          <Col span={7}>
             <Ledger items={[...TERM_PLANS.ledger]} />
             <Note>{TERM_PLANS.close}</Note>
           </Col>
@@ -151,14 +155,16 @@ export default function How() {
       {/* S5 — And you choose how to clear it. */}
       <Section rail={SPLIT.rail}>
         <Cols>
-          <Col span={5}>
+          <Col span={6}>
             <h2 className="d2 section-head">{SPLIT.heading}</h2>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{SPLIT.sub}</p>
-            <p className="t-body prose" style={{ marginTop: 'var(--spacing-3)' }}>
-              {SPLIT.standfirst}
-            </p>
           </Col>
-          <Col span={5}>
+          <Col span={4}>
+            <p className="d-sub">{SPLIT.sub}</p>
+          </Col>
+          <Col span={3}>
+            <p className="t-body prose">{SPLIT.standfirst}</p>
+          </Col>
+          <Col span={7}>
             <SplitChooser />
           </Col>
         </Cols>
@@ -167,14 +173,16 @@ export default function How() {
       {/* S6 — The cycle. */}
       <Section rail={CYCLE.rail} rhythm="tight">
         <Cols>
-          <Col span={5}>
+          <Col span={6}>
             <h2 className="d2 section-head">{CYCLE.heading}</h2>
-            <p className="d-sub" style={{ marginTop: 'var(--spacing-3)' }}>{CYCLE.sub}</p>
-            <p className="t-body prose" style={{ marginTop: 'var(--spacing-3)' }}>
-              {CYCLE.prose}
-            </p>
           </Col>
-          <Col span={5}>
+          <Col span={4}>
+            <p className="d-sub">{CYCLE.sub}</p>
+          </Col>
+          <Col span={3}>
+            <p className="t-body prose">{CYCLE.prose}</p>
+          </Col>
+          <Col span={7}>
             <Ledger items={[...CYCLE.ledger]} />
             <Note>{CYCLE.close}</Note>
           </Col>
