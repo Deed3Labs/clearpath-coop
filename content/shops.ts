@@ -21,7 +21,7 @@ export const DIFFERENCE = {
   rail: 'Shops / 02 — the difference',
   heading: 'Six to twelve per cent is not greed. It is the price of getting paid tomorrow.',
   standfirst:
-    'Klarna and Affirm settle with you immediately and have to fund every dollar of it; a store card\u2019s long 0% promotion costs more again. We wait thirty days, so much of what your customer owes is already collected before your payout goes out. That timing difference is the entire discount.',
+    'Klarna and Affirm settle the same day and have to fund every dollar of it. We wait thirty days, and collect most of it before your payout.',
   /* §6.3 S2 — the calculator's four stats and their arithmetic. */
   range: { min: 2000, max: 60000, step: 500, initial: 12000 },
   stats: [
@@ -40,7 +40,7 @@ export const DIFFERENCE = {
      against their cheapest product is the position that cannot be picked
      apart, and it is still 2.4x our rate. */
   note:
-    'Held at 6% \u2014 the low end. Longer 0% promotional plans and no-credit-needed programmes commonly run to 12% of the ticket. Rates vary by provider, plan length and customer; illustration, not a quote.',
+    'Held at 6% — the low end. Longer 0% promotional plans and no-credit-needed programmes commonly run to 12% of the ticket. Rates vary by provider, plan length and customer; illustration, not a quote.',
 } as const;
 
 export const COUNTER = {
@@ -64,29 +64,51 @@ export const COUNTER = {
       body: 'The charge sits waiting if their phone is dead. You can see whether the text was delivered before they drive off.',
     },
   ] satisfies StepItem[],
+  /* Three, not two. Two columns of ~660px left the pair reading as one block
+     of prose with a seam in it; three at ~410px each hold a heading and three
+     lines and let the row breathe. The third is the hardware question, which
+     is the first thing a shop owner asks after seeing the steps and which was
+     buried as a footnote four sections further down. */
   panels: [
     {
       title: 'Signup happens once per member, not once per shop.',
-      body: 'The first customer through your door signs up from scratch. By your twentieth, most people walking in already hold an active line — there is nothing for your writer to do but enter a number.',
+      body: 'The first customer through your door signs up from scratch. By your twentieth, most people walking in already hold a line — nothing for your writer to do but enter a number.',
     },
     {
-      title: 'Your existing financing signage is a reason to talk, not a reason not to.',
-      body: 'Synchrony takes your prime customers. Snap and Acima take the declines and can cost that customer close to double the ticket. We take them without doing that.',
+      title: 'Your existing signage is a reason to talk, not a reason not to.',
+      body: 'Synchrony takes your prime customers. Snap and Acima take the declines and can cost that customer close to double the ticket.',
+    },
+    {
+      title: 'There is no hardware to buy.',
+      body: 'The merchant app runs at merchants.useclear.org and installs from a browser — a tablet, a phone or the shop PC will do.',
     },
   ],
 } as const;
 
+/* Both sides were a paragraph of conditions strung together on middots. A shop
+   owner reading this is scanning for the one term that rules them in or out,
+   and a sentence makes them parse the whole thing to find it. Three conditions
+   a side, one per row; the prose that remains is the part that is genuinely an
+   argument rather than a criterion. */
 export const FIT = {
   rail: 'Shops / 04 — fit',
   works: {
     heading: 'This works for you if',
-    lead: 'Tickets are $300 and up · You lose jobs because people cannot pay that day · You can wait thirty days for the money.',
-    body: 'Auto repair, tires, dental, veterinary, HVAC, appliances, furniture, equipment. Trades where financing is already part of how the sale closes.',
+    criteria: [
+      'Your tickets are $300 and up',
+      'You lose jobs because people cannot pay that day',
+      'You can wait thirty days for the money',
+    ],
+    body: 'Auto repair, tires, dental, veterinary, HVAC, appliances, furniture, equipment — trades where financing is already part of how the sale closes.',
   },
   doesnt: {
     heading: 'It does not work for you if',
-    lead: 'Your average ticket is twelve dollars, or you need the cash the same week. We would rather say that now than sign you and lose you in month two. A shop that signs up and then waits on a payout it cannot afford to wait for is a reference lost permanently.',
-    body: 'If that is you, we will say so on the first call.',
+    criteria: [
+      'Your average ticket is twelve dollars',
+      'You need the cash the same week',
+      'Waiting thirty days would strain the shop',
+    ],
+    body: 'We would rather say that now than sign you and lose you in month two. If that is you, we will say so on the first call.',
   },
 } as const;
 
@@ -105,13 +127,21 @@ export const FOUNDING = {
     },
     { label: 'Support', value: 'the founder’s number', description: 'Not a queue.' },
   ] satisfies LedgerItem[],
+  /* A matched pair: title, body, note on both sides, so the two columns line
+     up row for row. The left was one 355-character paragraph carrying a
+     sentence about banking credentials that had nothing to do with the steps
+     — that sentence is the note now, which is where a reassurance belongs.
+     The hardware line moved up to the counter section, where it is asked. */
   panel: {
     title: 'Getting set up takes about twenty minutes.',
-    body: 'Six steps at your back-office computer: your shop details, your terms on one screen of six lines, verification, where payouts go, and training the counter. Nobody from Clear ever sees your banking credentials. The last step is a one-dollar test charge you refund straight away, so your writers have run the whole loop once before a customer is standing there.',
+    body: 'Six steps at your back-office computer: shop details, terms, verification, where payouts go, and training the counter. The last step is a one-dollar test charge you refund straight away, so your writers have run the loop once before a customer is standing there.',
+    note: 'Nobody from Clear ever sees your banking credentials.',
   },
-  note: 'The merchant app runs at merchants.useclear.org. It installs from a browser on a tablet, a phone or the shop PC. There is no hardware to buy.',
-  terms:
-    'Your terms are six lines, not a document: rate · fee on the first twenty charges · payout timing · who bears a default · approval cap · leaving any time. An owner who reads six lines has actually read their agreement.',
+  terms: {
+    title: 'Your terms are six lines, not a document.',
+    body: 'Rate · fee on the first twenty charges · payout timing · who bears a default · approval cap · leaving any time.',
+    note: 'An owner who reads six lines has actually read their agreement.',
+  },
 } as const;
 
 export const MONEY = {

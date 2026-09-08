@@ -35,9 +35,7 @@ export default function How() {
           <p className="hx-lede c-third">{OPENING.lede}</p>
           <div className="c-half">
             <p className="d4">{OPENING.panel.title}</p>
-            <p className="t-sm" style={{ marginTop: 'var(--spacing-2)', color: 'var(--color-ink-70)' }}>
-              {OPENING.panel.body}
-            </p>
+            <p className="t-sm hx-prose">{OPENING.panel.body}</p>
           </div>
         </div>
       </section>
@@ -177,18 +175,19 @@ export default function How() {
           <h2 className="hx-h2 c-two-thirds">{COMPARISON.heading}</h2>
           <p className="hx-lede c-third">{COMPARISON.sub}</p>
 
-          <div className="c-half">
+          {/* A pair whose rows line up: label, line, note. The two sat in
+              separate grid cells and flowed independently, so a two-line
+              claim on one side put its note out of step with the other. */}
+          <div className="c-full hx-cols" data-n="2" data-rows="3">
             <div className="versus">
               <p className="t-note">{COMPARISON.pair.theirs.label}</p>
               <p className="versus-line">{COMPARISON.pair.theirs.line}</p>
-              <p className="t-sm versus-note">{COMPARISON.ours[0].description}</p>
+              <p className="t-sm versus-note hx-prose">{COMPARISON.ours[0].description}</p>
             </div>
-          </div>
-          <div className="c-half">
             <div className="versus is-ours">
               <p className="t-note">{COMPARISON.pair.ours.label}</p>
               <p className="versus-line">{COMPARISON.pair.ours.line}</p>
-              <p className="t-sm versus-note">{COMPARISON.ours[1].description}</p>
+              <p className="t-sm versus-note hx-prose">{COMPARISON.ours[1].description}</p>
             </div>
           </div>
 

@@ -92,13 +92,11 @@ export default function Shops() {
         </div>
 
         <div className="hx-wrap" style={{ marginTop: 'clamp(32px, 4vw, 64px)' }}>
-          <div className="hx-grid">
+          <div className="hx-cols" data-n="3" data-rows="2">
             {COUNTER.panels.map((p) => (
-              <div className="c-half" key={p.title}>
+              <div key={p.title}>
                 <p className="d4">{p.title}</p>
-                <p className="t-sm" style={{ marginTop: 'var(--spacing-2)', color: 'var(--color-ink-70)' }}>
-                  {p.body}
-                </p>
+                <p className="t-sm hx-prose">{p.body}</p>
               </div>
             ))}
           </div>
@@ -110,21 +108,21 @@ export default function Shops() {
         <p className="hx-label">
           <b>04</b> Fit
         </p>
-        <div className="hx-grid">
-          <div className="c-half">
-            <div className="versus is-ours">
-              <p className="versus-line">{FIT.works.heading}</p>
-              <p className="t-sm versus-note">{FIT.works.lead}</p>
-              <p className="t-sm versus-note">{FIT.works.body}</p>
+        <div className="hx-cols" data-n="2" data-rows="3">
+          {[
+            { ...FIT.works, ours: true },
+            { ...FIT.doesnt, ours: false },
+          ].map((side) => (
+            <div className={side.ours ? 'versus is-ours' : 'versus'} key={side.heading}>
+              <p className="versus-line">{side.heading}</p>
+              <ul className="crit">
+                {side.criteria.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
+              <p className="t-sm hx-prose">{side.body}</p>
             </div>
-          </div>
-          <div className="c-half">
-            <div className="versus">
-              <p className="versus-line">{FIT.doesnt.heading}</p>
-              <p className="t-sm versus-note">{FIT.doesnt.lead}</p>
-              <p className="t-sm versus-note">{FIT.doesnt.body}</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -146,15 +144,14 @@ export default function Shops() {
             />
           </div>
 
-          <div className="c-half">
-            <p className="d4">{FOUNDING.panel.title}</p>
-            <p className="t-sm" style={{ marginTop: 'var(--spacing-2)', color: 'var(--color-ink-70)' }}>
-              {FOUNDING.panel.body}
-            </p>
-          </div>
-          <div className="c-half">
-            <p className="t-body prose">{FOUNDING.terms}</p>
-            <Note>{FOUNDING.note}</Note>
+          <div className="c-full hx-cols" data-n="2" data-rows="3">
+            {[FOUNDING.panel, FOUNDING.terms].map((col) => (
+              <div key={col.title}>
+                <p className="d4">{col.title}</p>
+                <p className="t-sm hx-prose">{col.body}</p>
+                <Note>{col.note}</Note>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -165,18 +162,16 @@ export default function Shops() {
           <b>06</b> The money
         </p>
         <div className="hx-grid">
-          <div className="c-half">
-            <h2 className="d3">{MONEY.payouts.heading}</h2>
-            <p className="t-sm" style={{ marginTop: 'var(--spacing-2)', color: 'var(--color-ink-70)' }}>
-              {MONEY.payouts.body}
-            </p>
-            <Note>{MONEY.payouts.note}</Note>
-          </div>
-          <div className="c-half">
-            <h2 className="d3">{MONEY.refunds.heading}</h2>
-            <p className="t-sm" style={{ marginTop: 'var(--spacing-2)', color: 'var(--color-ink-70)' }}>
-              {MONEY.refunds.body}
-            </p>
+          <div className="c-full hx-cols" data-n="2" data-rows="3">
+            <div>
+              <h2 className="d3">{MONEY.payouts.heading}</h2>
+              <p className="t-sm hx-prose">{MONEY.payouts.body}</p>
+              <Note>{MONEY.payouts.note}</Note>
+            </div>
+            <div>
+              <h2 className="d3">{MONEY.refunds.heading}</h2>
+              <p className="t-sm hx-prose">{MONEY.refunds.body}</p>
+            </div>
           </div>
           <div className="c-full">
             <Ledger items={[...MONEY.refunds.ledger]} />
@@ -192,7 +187,7 @@ export default function Shops() {
         <div className="hx-grid">
           <p className="hx-stage-line c-two-thirds">{MEMBERSHIP.heading}</p>
           <div className="c-third">
-            <p className="t-sm" style={{ color: 'var(--color-ink-70)' }}>{MEMBERSHIP.body}</p>
+            <p className="t-sm hx-prose">{MEMBERSHIP.body}</p>
             <div style={{ marginTop: 'var(--spacing-4)' }}>
               <Button href={MEMBERSHIP.cta.href}>{MEMBERSHIP.cta.label}</Button>
             </div>

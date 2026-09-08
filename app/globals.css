@@ -768,7 +768,11 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    of it they take, and full-bleed means the viewport, not a padded box. */
 
 .hx {
-  --hx-gap: clamp(16px, 1.6vw, 28px);
+  /* 28px at 1440 was a bento gutter, not a prose one: two half columns of
+     ~660px separated by 23px read as one continuous run of text with a seam
+     in it, and paragraphs in adjacent columns looked like they shared a row.
+     A gutter has to be legible at the scale of the thing it separates. */
+  --hx-gap: clamp(20px, 3.4vw, 64px);
   --hx-inset: clamp(20px, 3.2vw, 56px);
 }
 
@@ -847,6 +851,58 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   margin: 0;
   text-wrap: balance;
 }
+/* Body prose inside a column. Two jobs at once: a half column at 1440 sets a
+   95-character line, well past a readable measure, and capping it leaves a
+   column of air on the right that separates a pair of columns better than any
+   gutter can. Prose filling its column edge to edge is what made adjacent
+   paragraphs look like one block occupying one row. */
+/* Columns whose ROWS line up. The repeated fault across this site was a row
+   of columns each flowing its own parts at its own heights: a two-line
+   heading in one column pushed its body out of step with its neighbour, and
+   the pair stopped reading as a row. Same subgrid idea as the bento, made
+   general, because this shape recurs on every page. */
+.hx-cols { display: grid; gap: var(--hx-gap); }
+.hx-cols[data-n='2'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.hx-cols[data-n='3'] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hx-cols[data-rows='2'] { grid-template-rows: auto auto; }
+.hx-cols[data-rows='3'] { grid-template-rows: auto auto auto; }
+.hx-cols[data-rows] > * {
+  display: grid;
+  grid-template-rows: subgrid;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+.hx-cols[data-rows='2'] > * { grid-row: span 2; }
+.hx-cols[data-rows='3'] > * { grid-row: span 3; }
+@media (max-width: 900px) {
+  /* Stacked, there is nothing to align across, and each column needs its own
+     rows back. Same specificity as the rules above, and later, so it wins. */
+  .hx-cols[data-n] { grid-template-columns: minmax(0, 1fr); row-gap: var(--spacing-5); }
+  .hx-cols[data-rows] { grid-template-rows: none; }
+  .hx-cols[data-rows] > * { grid-row: auto; grid-template-rows: none; }
+}
+
+.hx-prose { max-width: 62ch; color: var(--color-ink-70); margin-top: var(--spacing-2); }
+.hx-prose + .hx-prose { margin-top: var(--spacing-3); }
+/* The older .prose block predates the grid and had no cap at all, so it ran
+   the full width of whatever column held it. Scoped to .hx so the pages still
+   on the old system are untouched. */
+.hx .prose { max-width: 62ch; }
+.hx .hx-grid > .t-body { max-width: 62ch; }
+
+/* Criteria, not a paragraph. Three conditions joined by middots is a sentence
+   pretending to be a list — a shop owner scanning for whether they qualify has
+   to read the whole line to find the one term that rules them out. One
+   condition per row, on rules, is read at a glance. */
+.crit { list-style: none; margin: var(--spacing-3) 0 0; padding: 0; }
+.crit li {
+  padding-block: var(--spacing-2);
+  border-top: 1px solid var(--color-ink-13);
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.35;
+}
+.crit li:last-child { border-bottom: 1px solid var(--color-ink-13); }
+
 .hx-lede {
   font-size: clamp(17px, 1.5vw, 22px);
   line-height: 1.45;
