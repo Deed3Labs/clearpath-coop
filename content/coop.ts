@@ -145,9 +145,22 @@ export const WHO = {
   kicker: 'Who',
   heading: 'Small, local, and honest about it.',
   sub: 'Clear is being built out of Redlands by a very small team, starting with a handful of shops in one corridor rather than a launch.',
-  figure: '2017',
-  figureCaption: 'since the design work started — the credit waterfall, the entity structure, the protocol',
-  body: 'Ten merchants a mile apart compound. Ten across the county do not. What is new is that the first product is small enough to actually ship.',
+  /* Two blocks of the same shape — a label, one big thing, a note — so they
+     can share rows without one dragging the other out of position. The
+     corridor argument was a closing paragraph sitting under everything else
+     with nothing to do; it is the second half of the pair. */
+  sides: [
+    {
+      label: 'In progress',
+      figure: '2017',
+      note: 'since the design work started — the credit waterfall, the entity structure, the protocol',
+    },
+    {
+      label: 'Why a corridor',
+      line: 'Ten merchants a mile apart compound.',
+      note: 'Ten across the county do not. What is new is that the first product is small enough to actually ship.',
+    },
+  ],
   hiring: {
     title: 'Working on this?',
     list: [

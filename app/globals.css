@@ -959,6 +959,11 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: var(--hx-gap);
 }
+.crit[data-cols='3'] {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--hx-gap);
+}
+@media (max-width: 900px) { .crit[data-cols='3'] { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 700px) { .crit[data-cols='2'] { grid-template-columns: minmax(0, 1fr); } }
 
 .hx-lede {
@@ -1213,6 +1218,13 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    paragraphs with margin: 0 inside a plain div, so the caption sat hard
    against the bottom of an 89px number and the label hard against its top.
    Nothing separated the three parts of the block from each other. */
+/* Inside a subgrid column the container gap already separates the parts, so
+   .side-label's own bottom margin doubles up: 32px above the big line and 16px
+   below it, in a block whose two halves have no reason to be spaced
+   differently. .sides on /shops is plain block flow and still needs the
+   margin, so this is scoped rather than removed. */
+.hx-cols[data-rows] .side-label { margin-bottom: 0; }
+
 .fig-stack { display: grid; gap: var(--spacing-2); align-content: start; }
 /* The grid gap is the only spacing in here. .side-label carries a 16px bottom
    margin for its use inside .side, which stacked with the gap and the figure's

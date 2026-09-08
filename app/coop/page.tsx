@@ -153,28 +153,37 @@ export default function Coop() {
           <h2 className="hx-h2 c-two-thirds">{WHO.heading}</h2>
           <p className="hx-lede c-third">{WHO.sub}</p>
 
+          {/* Two blocks of the same shape, so sharing rows helps them. The
+              figure used to be paired with the hiring list, whose third row
+              is a note and a link — which dragged "2017"'s caption 250px
+              below the number it belongs to. */}
           <div className="c-full hx-cols" data-n="2" data-rows="3">
-            <div className="fig-stack">
-              <p className="side-label">In progress</p>
-              <p className="side-fig">{WHO.figure}</p>
-              <p className="t-sm side-note">{WHO.figureCaption}</p>
-            </div>
-            <div>
-              <p className="d4">{WHO.hiring.title}</p>
-              <ul className="crit">
-                {WHO.hiring.list.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <p className="t-sm hx-prose">
-                {WHO.hiring.note}{' '}
-                <TextLink href={WHO.hiring.link.href}>{WHO.hiring.link.label}</TextLink>
-              </p>
-            </div>
+            {WHO.sides.map((side) => (
+              <div className="side" key={side.label}>
+                <p className="side-label">{side.label}</p>
+                {'figure' in side ? (
+                  <p className="side-fig">{side.figure}</p>
+                ) : (
+                  <p className="side-line">{side.line}</p>
+                )}
+                <p className="t-sm side-note">{side.note}</p>
+              </div>
+            ))}
           </div>
 
+          {/* The ask runs the full width rather than sharing a row with a
+              figure it has no structural relationship to. */}
           <div className="c-full">
-            <p className="t-body hx-prose">{WHO.body}</p>
+            <p className="d3">{WHO.hiring.title}</p>
+            <ul className="crit" data-cols="3">
+              {WHO.hiring.list.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <p className="t-sm hx-prose" style={{ marginTop: 'var(--spacing-3)' }}>
+              {WHO.hiring.note}{' '}
+              <TextLink href={WHO.hiring.link.href}>{WHO.hiring.link.label}</TextLink>
+            </p>
           </div>
         </div>
       </section>
