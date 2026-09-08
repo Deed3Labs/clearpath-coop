@@ -4,7 +4,7 @@ import { JoinForm } from '@/components/interactive/JoinForm';
 export const metadata = {
   title: 'Join',
   description:
-    'We are onboarding a small number of members and shops in the Redlands corridor first. Tell us which one you are.',
+    'We are onboarding a small number of members and shops in the Inland Empire first. Tell us which one you are.',
 };
 
 /* The last page onto .hx, and the one that gets to break the pattern.

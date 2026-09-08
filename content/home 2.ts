@@ -16,21 +16,16 @@ export const HERO = {
      The misregistration sits on the whole headline now rather than on a
      second line, which is what it was there to do anyway. */
   headline: 'Your rent is making someone else rich.',
-  /* Two beats. The first answers the headline directly — the headline states
-     the problem, so the lede has to be the reply to it, not a restatement in
-     calmer words. The second is the whole co-op in one clause: what it is,
-     and what the money does. Everything else it used to carry — title, land,
-     the protocol — has its own section further down. */
-  lede: 'So we built the alternative. A cooperative where the rent you already pay buys equity in the home you live in.',
+  /* Was four sentences explaining title, land and equity — three arguments
+     stacked behind a headline that had already landed. Each now has its own
+     section further down. */
+  lede: 'A cooperative where the money you already pay for a place to live ends up being yours.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
-  /* The place comes last. The two facts above it are the ones that say what
-     is being built and that it can be checked; the location answers "where"
-     once a reader already cares. */
   meta: [
+    'Building in Redlands, California',
     'First cohort — 12 detached homes',
     'Protocol source is public',
-    'Building in Inland Empire, California',
   ],
 } as const;
 
@@ -63,7 +58,7 @@ type TallyColumn = {
 export const GAP = {
   rail: '01 / The gap',
   kicker: 'Five years, either way',
-  heading: 'Same money. But you end up owning something.',
+  heading: 'Same money. One of you ends up holding something.',
   columns: [
     {
       key: 'rent',
@@ -86,7 +81,7 @@ export const GAP = {
   /* The one thing the figures cannot say. */
   close:
     'The monthly total inside Clear is $2,350 against $2,520 in rent — lower, not higher. The difference is where it lands.',
-  note: 'Illustration of how the model works, on a two-bedroom in the Inland Empire. Not a quote.',
+  note: 'Illustration of how the model works, on a two-bedroom in Redlands. Not a quote.',
 } as const;
 
 /* ── 02 · Three phases ────────────────────────────────────────────────────
@@ -99,7 +94,7 @@ export type Phase = {
   gate: string;
   gateNote: string;
   body: string;
-  size: 'lg' | 'md' | 'sm' | 'eq3';
+  size: 'lg' | 'md' | 'sm';
 };
 
 export const PHASES = {
@@ -113,19 +108,16 @@ export const PHASES = {
       title: 'You rent, and save at the same time.',
       gate: '15,000',
       gateNote: 'credits unlocks the home path',
-      body: 'Your deposit is your membership share. Saving earns matched credits and a credit line, at no cost.',
-      size: 'eq3',
+      body: 'Your deposit is your membership share. Saving earns matched credits and raises a credit line you draw on at no cost, because it is your own money.',
+      size: 'lg',
     },
     {
       n: '02',
       title: 'You take title. The land stays common.',
-      /* Not "ELPA". It is our own acronym, and this is the first page a
-         stranger reads — a gate nobody can parse is not a gate. The two
-         documents, named plainly. /how carries the full definition. */
-      gate: 'Two signatures',
-      gateNote: 'a purchase agreement and your deed',
-      body: 'Your payment splits into equity and a community fee. The land underneath is never sold.',
-      size: 'eq3',
+      gate: 'ELPA',
+      gateNote: 'and your Clear Deed, signed',
+      body: 'Your payment splits into equity and a community fee. The land underneath cannot be sold, so nobody sells the ground out from under a neighbourhood.',
+      size: 'md',
     },
     {
       n: '03',
@@ -133,7 +125,7 @@ export const PHASES = {
       gate: 'Portable',
       gateNote: 'into another Clear home',
       body: 'Once your contributions cover the structure you hold it outright.',
-      size: 'eq3',
+      size: 'sm',
     },
   ] satisfies Phase[],
 } as const;
@@ -194,37 +186,32 @@ export const STATUS = {
   ledger: [
     {
       label: 'Member app — savings, credit, term plans, card',
-      value: 'live',
-      chip: 'live',
-      chipTone: 'live',
-      description: 'Savings, credit, term plans and the card are running. Accounts and cards on Lithic, wallets on Privy.',
+      value: 'in build',
+      chip: 'in build',
+      description: 'Design complete across 53 screens. Accounts and cards on Lithic, wallets on Privy.',
     },
     {
       label: 'Merchant counter app',
-      value: 'in beta',
-      chip: 'in beta',
-      chipTone: 'underway',
-      description: 'Built and ready for the first counters. Tablet-first, installs from a browser. Charge, show a code, refund with an owner code.',
+      value: 'in build',
+      chip: 'in build',
+      description: 'Tablet-first, installs from a browser. Charge, show a code, refund with an owner code.',
     },
     {
       label: 'Protocol contracts',
       value: 'in build',
       chip: 'in build',
-      chipTone: 'underway',
       description: 'Public and open source. Savings-backed credit needs no outside capital, so it ships first.',
     },
     {
       label: 'First merchant partners',
       value: 'signing',
       chip: 'signing',
-      chipTone: 'underway',
-      description: 'Auto repair, tires and similar trades in the Inland Empire.',
+      description: 'Auto repair, tires and similar trades in the Redlands corridor.',
     },
     {
       label: 'First homes',
       value: 'not yet',
       chip: 'not yet',
-      chipTone: 'absent',
       description: 'Twelve detached homes, paced to member savings and financing capacity. Land first.',
     },
   ] satisfies LedgerItem[],
@@ -236,7 +223,7 @@ export const STATUS = {
 export const UNDERNEATH = {
   rail: '05 / Underneath',
   kicker: 'The ledger',
-  statement: 'You should not have to take our word for the numbers.',
+  statement: 'A member-owned institution should not be the only party able to check its own arithmetic.',
   body: 'Balances, credit lines, deeds and titles run on an open-source protocol held by an ownerless Wyoming foundation. The co-op is a user of it, not its owner.',
   source: 'github.com/Deed3Labs/Protocol-Contracts · AGPL-3.0',
   link: { href: '/coop', label: 'How the co-op is put together' },

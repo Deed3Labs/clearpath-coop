@@ -144,7 +144,7 @@ export const PROTOCOL = {
 export const WHO = {
   kicker: 'Who',
   heading: 'Small, local, and honest about it.',
-  sub: 'Clear is being built out of the Inland Empire by a very small team, starting with a handful of shops in one corridor rather than a launch.',
+  sub: 'Clear is being built out of Redlands by a very small team, starting with a handful of shops in one corridor rather than a launch.',
   /* Two blocks of the same shape — a label, one big thing, a note — so they
      can share rows without one dragging the other out of position. The
      corridor argument was a closing paragraph sitting under everything else
