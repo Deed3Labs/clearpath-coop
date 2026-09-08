@@ -82,7 +82,7 @@ export const DRAW_ORDER = {
 export const TERM_PLANS = {
   kicker: 'Term plans',
   heading: 'A tire repair and a house sit on the same shelf.',
-  sub: 'One limit across every shop you use, so five plans at five stores cannot happen.',
+  sub: 'One limit across every shop you use, so what you owe in total is a number you can always see.',
   ledger: [
     {
       label: 'Partner credit',
@@ -108,9 +108,12 @@ export const TERM_PLANS = {
     criteria: ['A linked bank account', 'Six clean cycles', '15,000 saved equity credits'],
     note: 'You can see the locked ones and what they would cost from your first day.',
   },
+  /* This said stacking was impossible, which is not true: plans can run at
+     several shops at once. What cannot happen is their total going past the
+     limit, or going unseen. The claim is about the ceiling, not the count. */
   stacking: {
-    title: 'Stacking is not discouraged. It is impossible.',
-    body: 'Nobody, including you, can see the total when plans are spread across five stores. Here there is one account and one ceiling.',
+    title: 'You can hold several plans. You cannot hold several limits.',
+    body: 'Elsewhere, five plans at five stores means five ceilings and a total nobody can see. Here they all draw on the same one: on a $2,000 limit, four $500 plans are fine — $2,500 across them is not.',
   },
   /* This was an internal note about how a locked row renders. What a reader
      needs here is what the instrument actually is, said once, in the place
