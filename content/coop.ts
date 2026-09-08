@@ -162,7 +162,10 @@ export const WHO = {
     },
   ],
   hiring: {
-    title: 'Working on this?',
+    /* "Working on this?" reads as an invitation to something already
+       happening; it never says these are open roles. The count is exact —
+       one lead, one engineer, two advisers. */
+    title: 'We are looking for four people.',
     list: [
       'A partnerships lead',
       'A protocol engineer',
