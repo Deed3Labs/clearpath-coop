@@ -60,10 +60,14 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .d3 { font-size: clamp(23px, 2.1vw, 30px); font-weight: 600; letter-spacing: -0.024em; line-height: 1.12; }
 .d4 { font-size: 19px;                     font-weight: 600; letter-spacing: -0.016em; line-height: 1.25; }
 
-/* Page titles sit between the homepage hero and a section heading. d1's
-   clamp is scaled for the hero, which owns the full container and breaks
-   across two written sentences; a single-sentence page title in seven columns
-   runs to four lines at 390px, which §4 forbids. Own step, own clamp, checked
+/* The text scale. Three steps and no fourth.
+
+   This comment is the one that matters: the block that used to sit here
+   described .page-title, and when .page-title was deleted the line carrying
+   its closing delimiter went with it. The comment stayed open and swallowed
+   all three rules below — every .t-body, .t-sm and .t-note on the site fell
+   back to inherited 17px/400 ink until it was closed again. If a rule here
+   ever appears to do nothing, check that the comment above it is closed. */
 .t-body { font-size: 17px; line-height: 1.6; max-width: 64ch; }
 .t-sm   { font-size: 15px; line-height: 1.6; }
 .t-note {
