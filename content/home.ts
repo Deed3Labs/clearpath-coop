@@ -58,7 +58,7 @@ type TallyColumn = {
 export const GAP = {
   rail: '01 / The gap',
   kicker: 'Five years, either way',
-  heading: 'Same money. One of you ends up holding something.',
+  heading: 'Same money. But you end up owning something.',
   columns: [
     {
       key: 'rent',
@@ -94,7 +94,7 @@ export type Phase = {
   gate: string;
   gateNote: string;
   body: string;
-  size: 'lg' | 'md' | 'sm';
+  size: 'lg' | 'md' | 'sm' | 'eq3';
 };
 
 export const PHASES = {
@@ -108,16 +108,16 @@ export const PHASES = {
       title: 'You rent, and save at the same time.',
       gate: '15,000',
       gateNote: 'credits unlocks the home path',
-      body: 'Your deposit is your membership share. Saving earns matched credits and raises a credit line you draw on at no cost, because it is your own money.',
-      size: 'lg',
+      body: 'Your deposit is your membership share. Saving earns matched credits and a credit line, at no cost.',
+      size: 'eq3',
     },
     {
       n: '02',
       title: 'You take title. The land stays common.',
       gate: 'ELPA',
       gateNote: 'and your Clear Deed, signed',
-      body: 'Your payment splits into equity and a community fee. The land underneath cannot be sold, so nobody sells the ground out from under a neighbourhood.',
-      size: 'md',
+      body: 'Your payment splits into equity and a community fee. The land underneath is never sold.',
+      size: 'eq3',
     },
     {
       n: '03',
@@ -125,7 +125,7 @@ export const PHASES = {
       gate: 'Portable',
       gateNote: 'into another Clear home',
       body: 'Once your contributions cover the structure you hold it outright.',
-      size: 'sm',
+      size: 'eq3',
     },
   ] satisfies Phase[],
 } as const;
@@ -223,7 +223,7 @@ export const STATUS = {
 export const UNDERNEATH = {
   rail: '05 / Underneath',
   kicker: 'The ledger',
-  statement: 'A member-owned institution should not be the only party able to check its own arithmetic.',
+  statement: 'You should not have to take our word for the numbers.',
   body: 'Balances, credit lines, deeds and titles run on an open-source protocol held by an ownerless Wyoming foundation. The co-op is a user of it, not its owner.',
   source: 'github.com/Deed3Labs/Protocol-Contracts · AGPL-3.0',
   link: { href: '/coop', label: 'How the co-op is put together' },

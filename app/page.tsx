@@ -7,8 +7,8 @@ import { HERO, GAP, PHASES, WAYS_IN, STATUS, UNDERNEATH } from '@/content/home';
  * columns 3–12, which made an edge-to-edge bento structurally impossible.
  * The rail is gone; the section number is an inline label.
  *
- * Rhythm, deliberately: type → two figures on full-bleed ink → unequal cells
- * edge to edge → two columns → a list → one sentence. No two consecutive
+ * Rhythm, deliberately: type → two figures on full-bleed ink → three equal
+ * cells edge to edge → two columns → a list → one sentence. No two consecutive
  * sections share a shape. */
 
 export default function Home() {
@@ -87,7 +87,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── S3 · Three phases. Bento, edge to edge, unequal cells. ──────── */}
+      {/* ── S3 · Three phases. Bento, edge to edge, three equal cells. ───── */}
       <section className="hx-band" data-pad="tight">
         <div className="hx-wrap">
           <p className="hx-label">
