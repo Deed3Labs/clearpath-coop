@@ -119,9 +119,17 @@ export const MONTHLY = {
    consequence as its gate.
 
    Equal, because unequal widths encode a hierarchy and there is not one here:
-   the front, the back and how the thing is built are three facts about one
-   house, and making the first widest would claim the porch matters most.
-   Two lines of body a side, so the row reads across rather than down. */
+   the front, the back and the workshop are three parts of one house, and
+   making the first widest would claim the porch matters most.
+
+   All three gates are figures. A row where two cells end on a number and the
+   third ends on a phrase reads as a mistake, and "Co-op owned" set in mono at
+   figure size looked like one. The kits and the power moved to the standfirst,
+   which is where a fact with no number belongs.
+
+   NOT "all detached": duplexes and fourplexes are planned for later
+   communities, so that claim is false beyond the first cohort. The unit mix
+   figure is what is actually true at every stage. */
 export type HomeCell = {
   n: string;
   title: string;
@@ -132,29 +140,29 @@ export type HomeCell = {
 
 export const HOMES = {
   kicker: 'The homes',
-  heading: 'Detached, with a porch at both ends.',
-  lede: 'Unit mix runs one-bed to three-bed inside every community, and the yard is proportional — the smallest home has the same outdoor-to-indoor ratio as the largest.',
+  heading: 'A porch at both ends.',
+  lede: 'Permitted, code-compliant California dwellings built from panelised kits and finished by local trades. The community owns the solar and storage, and residents buy their power from it.',
   cells: [
     {
       n: '01',
       title: 'The front is arrival and neighbours.',
       body: 'A covered porch on every home, set at the street. It is the half of the house your neighbours meet.',
-      gate: 'All detached',
-      gateNote: 'no duplexes, no shared walls',
+      gate: '1–3 bed',
+      gateNote: 'the unit mix inside every community',
     },
     {
       n: '02',
       title: 'The back is where you actually live.',
-      body: 'A rear porch onto a patio and yard, with a garage-workshop off a perimeter drive that wraps it into an L.',
+      body: 'A rear porch onto a patio and yard, proportioned so the smallest home has the ratio of the largest.',
       gate: '900–950',
       gateNote: 'square feet at the smallest, two bed and two bath',
     },
     {
       n: '03',
-      title: 'Built in a factory, finished on the street.',
-      body: 'Permitted, code-compliant California dwellings from panelised kits, finished by local trades.',
-      gate: 'Co-op owned',
-      gateNote: 'the community owns the solar and storage',
+      title: 'The garage is a workshop, set back.',
+      body: 'Behind and to the side, off a perimeter drive that wraps the yard into an L.',
+      gate: '1.5 car',
+      gateNote: 'on every home, off the perimeter drive',
     },
   ] satisfies HomeCell[],
 } as const;
