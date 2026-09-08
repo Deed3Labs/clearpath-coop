@@ -145,10 +145,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
    the content is simply there. */
 
 .hero { padding-block: 0; }
-/* The headline is three display lines now rather than two, so the gaps around
-   it carry less of the work. 44px between them put the buttons at the fold on
-   an 800px viewport. */
-.hero-grid { row-gap: clamp(22px, 2.2vw, 32px); align-items: start; }
+.hero-grid { row-gap: clamp(24px, 3vw, 44px); align-items: start; }
 
 /* Every hero child is placed explicitly at EVERY width. They were placed only
    inside a min-width:1280 block once the wrapper was removed, which left them
@@ -179,11 +176,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
    capped the headline at 102px for no reason. At a full-width measure the
    sentence holds one line well past 130px. */
 @media (min-width: 1000px) {
-  /* 10.5vw set 151px at 1440, where the opening line wraps to two — 426px of
-     headline, and the buttons landed 8px inside the fold. 9.2vw keeps the
-     block large and puts them comfortably above it. The 172px ceiling still
-     applies above ~1870, where the line has room to be that big. */
-  .hero-headline { grid-row: 1; font-size: clamp(96px, 9.2vw, 172px); max-width: none; }
+  .hero-headline { grid-row: 1; font-size: clamp(96px, 10.5vw, 172px); max-width: none; }
   .hero-lede    { grid-column: 1 / 8; grid-row: 2; }
   .hero-actions { grid-column: 1 / 8; grid-row: 3; }
   .hero-meta {

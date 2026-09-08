@@ -18,24 +18,24 @@ export default function Home() {
       <section className="hx-band hx-wrap hero" data-pad="open">
         <div className="hx-grid hero-grid">
           <h1 className="d1 hero-headline">
-            <span data-rise style={{ ['--i' as string]: 0 }}>
-              {HERO.headline[0]}
-            </span>
+            {/* The misregistration runs over the whole headline now that it is
+                one sentence — a cobalt ghost slipping into register, which is
+                what it was doing on the old second line anyway. */}
             <span
               className="misreg"
-              data-ghost={HERO.headline[1]}
+              data-ghost={HERO.headline}
               data-rise
-              style={{ ['--i' as string]: 1 }}
+              style={{ ['--i' as string]: 0 }}
             >
-              {HERO.headline[1]}
+              {HERO.headline}
             </span>
           </h1>
 
-          <p className="hx-lede hero-lede" data-rise style={{ ['--i' as string]: 2 }}>
+          <p className="hx-lede hero-lede" data-rise style={{ ['--i' as string]: 1 }}>
             {HERO.lede}
           </p>
 
-          <div className="hero-actions" data-rise style={{ ['--i' as string]: 3 }}>
+          <div className="hero-actions" data-rise style={{ ['--i' as string]: 2 }}>
             <Link href={HERO.primary.href} className="btn" data-variant="primary">
               {HERO.primary.label}
             </Link>
@@ -44,7 +44,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="hero-meta" data-rise style={{ ['--i' as string]: 4 }}>
+          <div className="hero-meta" data-rise style={{ ['--i' as string]: 3 }}>
             {HERO.meta.map((m) => (
               <p className="t-note" key={m}>
                 {m}

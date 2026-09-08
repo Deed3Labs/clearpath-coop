@@ -12,7 +12,7 @@ import { HERO } from '@/content/home';
  * default instance, which is weight 400; it is pinned to 800 in the committed
  * file rather than requested here and silently ignored. */
 
-export const alt = `${HERO.headline.join(' ')} — Clear, a member-owned cooperative`;
+export const alt = `${HERO.headline} — Clear, a member-owned cooperative`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -68,9 +68,8 @@ export default async function OpengraphImage() {
             letterSpacing: '-0.04em',
           }}
         >
-          {HERO.headline.map((line) => (
-            <div key={line}>{line}</div>
-          ))}
+          {/* One sentence; Satori wraps it inside the card's measure. */}
+          <div>{HERO.headline}</div>
         </div>
 
         <div
