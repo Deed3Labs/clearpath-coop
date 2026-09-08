@@ -130,21 +130,26 @@ export default function Contribute() {
           <b>05</b> {CLOSE.kicker}
         </p>
         <div className="hx-grid">
-          <div className="c-two-thirds">
-            <p className="hx-stage-line">{CLOSE.statement}</p>
-            <div style={{ marginTop: 'clamp(28px, 3.4vw, 56px)' }}>
-              <Button href={CLOSE.cta.href}>{CLOSE.cta.label}</Button>
-            </div>
-          </div>
-          <div className="c-third side" data-live="">
+          {/* Two rows, each a statement beside the thing that qualifies it.
+              The figure block carries no rule of its own: a 2px rule over one
+              column, with an 80px headline and no rule beside it, reads as a
+              line someone forgot to finish rather than as structure. */}
+          <p className="hx-stage-line c-two-thirds">{CLOSE.statement}</p>
+          <div className="c-third">
             <p className="side-label">The window</p>
             <p className="side-fig">{CLOSE.figure}</p>
             <p className="t-sm side-note">{CLOSE.figureCaption}</p>
           </div>
 
-          {/* No data-rows: two single paragraphs have nothing to align. */}
-          <div className="c-full hx-cols" data-n="2">
-            <p className="t-sm hx-prose">{CLOSE.body}</p>
+          {/* The button sits under the paragraph it acts on, not stranded
+              beside the headline with 95px of nothing under it. */}
+          <div className="c-two-thirds">
+            <p className="t-body hx-prose">{CLOSE.body}</p>
+            <div style={{ marginTop: 'clamp(28px, 3.4vw, 48px)' }}>
+              <Button href={CLOSE.cta.href}>{CLOSE.cta.label}</Button>
+            </div>
+          </div>
+          <div className="c-third">
             <p className="t-sm hx-prose">
               {CLOSE.onward.before}
               <TextLink href={CLOSE.onward.link.href}>{CLOSE.onward.link.label}</TextLink>
