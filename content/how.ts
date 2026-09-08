@@ -113,7 +113,7 @@ export const TERM_PLANS = {
      limit, or going unseen. The claim is about the ceiling, not the count. */
   stacking: {
     title: 'You can hold several plans. You cannot hold several limits.',
-    body: 'Elsewhere, five plans at five stores means five ceilings and a total nobody can see. Here they all draw on the same one: on a $2,000 limit, four $500 plans are fine — $2,500 across them is not.',
+    body: 'Five stores usually means five ceilings and a hidden total. Here there is one ceiling: with $2,000, four $500 plans fit. $2,500 does not.',
   },
   /* This was an internal note about how a locked row renders. What a reader
      needs here is what the instrument actually is, said once, in the place
