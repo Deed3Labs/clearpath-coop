@@ -831,6 +831,11 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   /* Cobalt at its paper value measures 1.81:1 on ink. Same role, a value that
      clears AA on this ground. */
   --color-live: #7C8CC5;
+  /* Raised surfaces need the same inversion. The structure diagram fills its
+     boxes with --color-paper-2; unrebound, a dark band would draw light boxes
+     with the light text this rule already gave them. A hair above the ground
+     so a box still reads as a box. */
+  --color-paper-2: #1E2C27;
 }
 
 /* The grid. Twelve tracks across the whole measure — no rail, no reserved
