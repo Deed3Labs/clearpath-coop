@@ -19,14 +19,14 @@ export const OPENING = {
 
 export const DIFFERENCE = {
   rail: 'Shops / 02 — the difference',
-  heading: 'Six per cent is not greed. It is the price of getting paid tomorrow.',
+  heading: 'Six to twelve per cent is not greed. It is the price of getting paid tomorrow.',
   standfirst:
-    'Klarna sits near 5.99% plus 30 cents and Affirm near 6%, because they settle with you immediately and have to fund every dollar of it. We wait thirty days, so much of what your customer owes is already collected before your payout goes out. That timing difference is the entire discount.',
+    'Klarna and Affirm settle with you immediately and have to fund every dollar of it; a store card\u2019s long 0% promotion costs more again. We wait thirty days, so much of what your customer owes is already collected before your payout goes out. That timing difference is the entire discount.',
   /* §6.3 S2 — the calculator's four stats and their arithmetic. */
   range: { min: 2000, max: 60000, step: 500, initial: 12000 },
   stats: [
     { key: 'volume', caption: 'Financed through Clear each month' },
-    { key: 'theirs', caption: 'What a six per cent provider takes' },
+    { key: 'theirs', caption: 'What a 6% provider takes' },
     { key: 'ours', caption: 'What Clear takes' },
     {
       key: 'kept',
@@ -34,6 +34,13 @@ export const DIFFERENCE = {
         'Kept over a year, for waiting three extra weeks on money you were not going to see at all if the customer walked.',
     },
   ],
+  /* The comparison is held at 6% on purpose. Pay-in-four sits there; the
+     longer 0% promotions and the no-credit-needed tiers run higher, and the
+     high end of that spread is not the number to argue from. Comparing
+     against their cheapest product is the position that cannot be picked
+     apart, and it is still 2.4x our rate. */
+  note:
+    'Held at 6% \u2014 the low end. Longer 0% promotional plans and no-credit-needed programmes commonly run to 12% of the ticket. Rates vary by provider, plan length and customer; illustration, not a quote.',
 } as const;
 
 export const COUNTER = {
@@ -46,15 +53,15 @@ export const COUNTER = {
     },
     {
       title: 'Turn the screen',
-      body: 'The tablet shows a code. A new customer scans it and the app installs from the browser; an existing member just gets a notification. Same gesture either way, so nobody has to remember which kind of customer they are dealing with.',
+      body: 'The tablet shows a code. A new customer scans it and the app installs; a member just gets a notification.',
     },
     {
-      title: 'The customer approves the amount on their own phone',
-      body: 'They pick how to clear it and approve. The split is never chosen on your device, which is what matters if there is ever a dispute.',
+      title: 'The customer approves on their phone',
+      body: 'They pick how to clear it and approve. The split is never chosen on your device, which matters if there is ever a dispute.',
     },
     {
       title: 'You see it confirmed',
-      body: 'If their phone is dead or they are under the car, the charge sits waiting and you can see whether the text was delivered before they drive off. No card terminal can do that.',
+      body: 'The charge sits waiting if their phone is dead. You can see whether the text was delivered before they drive off.',
     },
   ] satisfies StepItem[],
   panels: [
@@ -64,7 +71,7 @@ export const COUNTER = {
     },
     {
       title: 'Your existing financing signage is a reason to talk, not a reason not to.',
-      body: 'Synchrony takes your prime customers. Snap and Acima take the declines and can cost that customer close to double the ticket by the end. We take the same declined customer without doing that to them. No exclusivity, so you never have to choose.',
+      body: 'Synchrony takes your prime customers. Snap and Acima take the declines and can cost that customer close to double the ticket. We take them without doing that.',
     },
   ],
 } as const;

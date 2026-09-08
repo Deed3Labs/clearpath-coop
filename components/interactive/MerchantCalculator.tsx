@@ -9,11 +9,14 @@ import { DIFFERENCE } from '@/content/shops';
  * A Stat is a rule, a figure and a caption, never a boxed card, so the four
  * read as a row of measurements rather than a dashboard.
  *
- * The arithmetic is the brief's: a six per cent provider takes v × 0.06, Clear
- * takes v × 0.025, and the difference over a year is v × 0.035 × 12. Klarna's
- * 30 cents a transaction is deliberately not modelled — it needs a transaction
- * count nobody has entered, and guessing one would make the comparison look
- * precise when it is an illustration. */
+ * The arithmetic: a 6% provider takes v × 0.06, Clear takes v × 0.025, and the
+ * difference over a year is v × 0.035 × 12. Six is the LOW end of the 6–12%
+ * spread the copy names — pay-in-four sits there, the long 0% promotions and
+ * the no-credit-needed tiers run higher. Comparing against a competitor's
+ * cheapest product is the only version of this figure nobody can pick apart.
+ * Klarna's 30 cents a transaction is deliberately not modelled — it needs a
+ * transaction count nobody has entered, and guessing one would make the
+ * comparison look precise when it is an illustration. */
 
 const money = (n: number) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });

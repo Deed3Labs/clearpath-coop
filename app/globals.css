@@ -778,6 +778,12 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .hx-band[data-pad='tight'] { padding-block: clamp(48px, 5vw, 88px); }
 .hx-band[data-pad='open']  { padding-block: clamp(96px, 12vw, 210px); }
 
+/* The first band sits directly under the header, which already separates it
+   from the top of the window. A full open pad on top of that put 172px of
+   dead air above the opening section at 1440 and pushed its call to action
+   below the fold. The top pad is the header's job here, not the band's. */
+.hx > .hx-band:first-child { padding-top: clamp(32px, 4.5vw, 88px); }
+
 .hx-band[data-tone='ink'] {
   /* --color-ink-ground, not --color-ink: this rule rebinds --color-ink below,
      and a custom property resolves to the value in scope on the element using
@@ -888,6 +894,12 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .hx-bento {
   display: grid;
   grid-template-columns: repeat(24, minmax(0, 1fr));
+  /* Four named rows the CELLS opt into with subgrid, so number, title, body
+     and gate land on the same four lines across every cell in the row. Row
+     heights come from the tallest cell in each, which is what makes a
+     two-line title in one cell stop pushing that cell's body out of step
+     with its neighbours. */
+  grid-template-rows: auto auto 1fr auto;
   gap: 1px;
   background: var(--color-ink-13);
   border-block: 1px solid var(--color-ink-13);
@@ -900,7 +912,12 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   background: var(--color-paper);
   padding: clamp(24px, 2.6vw, 44px);
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  /* The cell borrows the bento's rows rather than declaring its own. Padding
+     is identical on every cell, so the uniform inset preserves the alignment
+     rather than breaking it. A cell with only three parts simply leaves the
+     fourth row empty, and an empty row costs nothing. */
+  grid-row: span 4;
+  grid-template-rows: subgrid;
   gap: var(--spacing-2);
   min-width: 0;
 }
@@ -943,8 +960,11 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 .cell-gate-note { color: var(--color-ink-50); }
 @media (max-width: 900px) {
-  .hx-bento { grid-template-columns: minmax(0, 1fr); }
+  /* Stacked, the cells are no longer side by side, so there is nothing to
+     align across — and each needs its own rows again. */
+  .hx-bento { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
   .cell[data-size] { grid-column: 1 / -1; }
+  .cell { grid-row: auto; grid-template-rows: auto auto 1fr auto; }
 }
 
 /* ── SPLIT. Three columns: the shop's price, the mechanism between them, the

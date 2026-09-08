@@ -16,8 +16,8 @@ export const metadata = {
  * founding terms → payouts and refunds → the door. No two consecutive
  * sections share a shape.
  *
- * The ink band goes to the calculator, because "why are you cheaper than six
- * per cent" is the thing a shop owner is actually deciding on. */
+ * The ink band goes to the calculator, because "why are you cheaper than the
+ * card on the wall" is the thing a shop owner is actually deciding on. */
 
 export default function Shops() {
   return (
@@ -63,6 +63,7 @@ export default function Shops() {
             <p className="hx-lede c-third">{DIFFERENCE.standfirst}</p>
             <div className="c-full">
               <MerchantCalculator />
+              <Note>{DIFFERENCE.note}</Note>
             </div>
           </div>
         </div>

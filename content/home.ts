@@ -147,7 +147,7 @@ export const WAYS_IN = {
       heading: 'You run the shop',
       figure: '2.5%',
       figureNote: 'of the ticket, and you are paid on net-30',
-      body: 'Jobs walk out every week because the customer cannot pay that day. Klarna and Affirm sit near six per cent for the same job.',
+      body: 'Jobs walk out every week because the customer cannot pay that day. The same job runs 6% to 12% on Klarna, Affirm or a store card.',
       link: { href: '/shops', label: 'The merchant terms in full' },
     },
     {
