@@ -910,14 +910,25 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    pretending to be a list — a shop owner scanning for whether they qualify has
    to read the whole line to find the one term that rules them out. One
    condition per row, on rules, is read at a glance. */
-.crit { list-style: none; margin: var(--spacing-3) 0 0; padding: 0; }
+.crit {
+  list-style: none; margin: var(--spacing-3) 0 0; padding: 0;
+  /* The closing rule belongs to the list, not to its last item: in two
+     columns the last item is not the bottom of the list. */
+  border-bottom: 1px solid var(--color-ink-13);
+}
 .crit li {
   padding-block: var(--spacing-2);
   border-top: 1px solid var(--color-ink-13);
   font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.35;
 }
-.crit li:last-child { border-bottom: 1px solid var(--color-ink-13); }
+/* Four short criteria across a full-width column read better as a 2x2 than as
+   one tall stack with a lot of air to its right. */
+.crit[data-cols='2'] {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--hx-gap);
+}
+@media (max-width: 700px) { .crit[data-cols='2'] { grid-template-columns: minmax(0, 1fr); } }
 
 .hx-lede {
   font-size: clamp(17px, 1.5vw, 22px);

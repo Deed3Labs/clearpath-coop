@@ -8,44 +8,51 @@ export const metadata = {
     'One balance, drawn cheapest first. Savings-backed credit that gets cheaper the longer you hold it, and a term-plan shelf with a single ceiling across every shop.',
 };
 
-/* Migrated to the .hx layout system the home page established. The old
- * two-column numbered rail is gone — it boxed every section into columns 3–12
- * and made the same shape seven times.
+/* Second pass on the .hx system.
  *
- * Rhythm: title → the mechanism on full-bleed ink → a ledger → the chooser →
- * the figures → a ledger → the closing pair. No two consecutive sections
- * share a shape, and the one dark band is spent on the draw order, which is
- * what the whole page is about. */
-
-/* Cell widths for the draw order, decreasing along the sequence: the line
-   exhausts the cheapest tier before it touches the next, so the first is the
-   widest. A layout decision, not content, so it lives here. */
-const TIER_SIZES = ['xl4', 'lg4', 'md4', 'sm4'] as const;
+ * The migration changed the containers and left the composition alone, so the
+ * page kept its real fault: four sections put a sentence in a one-third column
+ * beside a tall table, and that column ran out 162px, 389px and 404px above
+ * the bottom of its row. A column that short is not a column, it is a caption.
+ * Tables run full width now, and what sat beside them is either a list, a pair
+ * of statements, or gone.
+ *
+ * Rhythm: a claim and its terms -> the mechanism on full-bleed ink -> a rate
+ * table -> the chooser -> the figures -> four states -> the closing pair. No
+ * two consecutive sections share a shape, and the one dark band is spent on
+ * the draw order, which is what the whole page is about. */
 
 export default function How() {
   return (
     <div className="hx">
-      {/* ── S1 · The claim. ────────────────────────────────────────────── */}
-      <section className="hx-band hx-wrap" data-pad="open">
+      {/* S1 - The claim, and what membership actually costs. */}
+      <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
-          <b>01</b> Members
+          <b>01</b> {OPENING.kicker}
         </p>
         <div className="hx-grid">
           <h1 className="hx-h2 c-two-thirds">{OPENING.heading}</h1>
           <p className="hx-lede c-third">{OPENING.lede}</p>
-          <div className="c-half">
-            <p className="d4">{OPENING.panel.title}</p>
-            <p className="t-sm hx-prose">{OPENING.panel.body}</p>
+
+          {/* Four facts, read as four. It was one 155-character paragraph in
+              a half-width block with nothing beside it. */}
+          <div className="c-full">
+            <p className="d3">{OPENING.membership.title}</p>
+            <ul className="crit" data-cols="2">
+              {OPENING.membership.criteria.map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* ── S2 · The mechanism, on this page's one ink band. The four tiers
-             as a bento, widest first. ──────────────────────────────────── */}
+      {/* S2 - The mechanism, on this page's one ink band. Four equal cells;
+          the number carries the order, not the width. */}
       <section className="hx-band" data-tone="ink" id="draw-order">
         <div className="hx-wrap">
           <p className="hx-label">
-            <b>02</b> Draw order
+            <b>02</b> {DRAW_ORDER.kicker}
           </p>
           <div className="hx-grid" style={{ marginBottom: 'clamp(32px, 4vw, 64px)' }}>
             <h2 className="hx-h2 c-two-thirds">{DRAW_ORDER.heading}</h2>
@@ -55,8 +62,10 @@ export default function How() {
 
         <div className="hx-bento">
           {DRAW_ORDER.steps.map((t, i) => (
-            <article className="cell" data-size={TIER_SIZES[i]} key={t.title}>
-              <p className="cell-n">{t.meta}</p>
+            <article className="cell" data-size="eq4" key={t.title}>
+              <p className="cell-n">
+                {String(i + 1).padStart(2, '0')} · {t.meta}
+              </p>
               <h3 className="cell-title">{t.title}</h3>
               <p className="t-sm cell-body">{t.body}</p>
             </article>
@@ -64,58 +73,83 @@ export default function How() {
         </div>
 
         <div className="hx-wrap" style={{ marginTop: 'clamp(32px, 4vw, 64px)' }}>
-          <div className="hx-grid">
-            <p className="t-body c-half">{DRAW_ORDER.standfirst}</p>
-            <div className="c-half">
-              <Note>{DRAW_ORDER.close}</Note>
+          <div className="hx-cols" data-n="2" data-rows="2">
+            <div>
+              <p className="d4">Repayment runs the other way.</p>
+              <p className="t-sm hx-prose">{DRAW_ORDER.standfirst}</p>
+            </div>
+            <div>
+              <p className="d4">Every rate is on the screen where you take it.</p>
+              <p className="t-sm hx-prose">{DRAW_ORDER.close}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── S3 · One shelf, one ceiling. ───────────────────────────────── */}
+      {/* S3 - One shelf, one ceiling. The shelf runs full width. */}
       <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
-          <b>03</b> Term plans
+          <b>03</b> {TERM_PLANS.kicker}
         </p>
         <div className="hx-grid">
           <h2 className="hx-h2 c-two-thirds">{TERM_PLANS.heading}</h2>
           <p className="hx-lede c-third">{TERM_PLANS.sub}</p>
-          <div className="c-third">
-            <div className="prose t-body">
-              {TERM_PLANS.prose.map((p) => (
-                <p key={p.slice(0, 20)}>{p}</p>
-              ))}
-            </div>
-          </div>
-          <div className="c-two-thirds">
+
+          <div className="c-full">
             <Ledger items={[...TERM_PLANS.ledger]} />
             <Note>{TERM_PLANS.close}</Note>
+          </div>
+
+          <div className="c-full hx-cols" data-n="2" data-rows="3">
+            <div>
+              <p className="d4">{TERM_PLANS.asks.title}</p>
+              <ul className="crit">
+                {TERM_PLANS.asks.criteria.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
+              <p className="t-sm hx-prose">{TERM_PLANS.asks.note}</p>
+            </div>
+            <div>
+              <p className="d4">{TERM_PLANS.stacking.title}</p>
+              <p className="t-sm hx-prose">{TERM_PLANS.stacking.body}</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── S4 · You choose how to clear it. ───────────────────────────── */}
+      {/* S4 - You choose how to clear it. The chooser runs full width; it was
+          two-thirds of a row with a two-sentence column beside it, and that
+          column ran out 404px above the bottom. */}
       <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
-          <b>04</b> You pick the split
+          <b>04</b> {SPLIT.kicker}
         </p>
         <div className="hx-grid">
           <h2 className="hx-h2 c-two-thirds">{SPLIT.heading}</h2>
           <p className="hx-lede c-third">{SPLIT.sub}</p>
-          <div className="c-third">
-            <p className="t-body prose">{SPLIT.standfirst}</p>
+
+          <div className="c-full hx-cols" data-n="2" data-rows="2">
+            <div>
+              <p className="d4">You can change your mind.</p>
+              <p className="t-sm hx-prose">{SPLIT.standfirst}</p>
+            </div>
+            <div>
+              <p className="d4">{SPLIT.caption}</p>
+              <p className="t-sm hx-prose">{SPLIT.close}</p>
+            </div>
           </div>
-          <div className="c-two-thirds">
+
+          <div className="c-full">
             <SplitChooser />
           </div>
         </div>
       </section>
 
-      {/* ── S5 · What moves you along that order. The page's figures. ─── */}
-      <section className="hx-band hx-wrap" data-pad="open">
+      {/* S5 - What moves you along that order. The page's figures. */}
+      <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
-          <b>05</b> Savings
+          <b>05</b> {SAVINGS.kicker}
         </p>
         <div className="hx-grid">
           <h2 className="hx-h2 c-two-thirds">{SAVINGS.heading}</h2>
@@ -130,54 +164,63 @@ export default function How() {
             </div>
           </div>
 
-          <div className="c-half">
+          <div className="c-third">
             <FigureXL figure={SAVINGS.gate.figure} caption={SAVINGS.gate.caption} live />
           </div>
-          <div className="c-half">
-            <div className="prose t-body">
-              {SAVINGS.prose.map((p) => (
-                <p key={p.slice(0, 20)}>{p}</p>
-              ))}
-            </div>
+          {/* Two claims, each with its note. They were two paragraphs. */}
+          <div className="c-two-thirds hx-cols" data-n="2" data-rows="3">
+            {SAVINGS.sides.map((side) => (
+              <div className="side" key={side.label}>
+                <p className="side-label">{side.label}</p>
+                <p className="side-line">{side.line}</p>
+                <p className="t-sm side-note">{side.note}</p>
+              </div>
+            ))}
           </div>
 
           <div className="c-full">
-            <p className="d4" style={{ marginBottom: 'var(--spacing-2)' }}>{SAVINGS.tilesHeading}</p>
+            <p className="d4" style={{ marginBottom: 'var(--spacing-2)' }}>
+              {SAVINGS.tilesHeading}
+            </p>
             <Tiles items={SAVINGS.tiles} />
           </div>
         </div>
       </section>
 
-      {/* ── S6 · The cycle. ────────────────────────────────────────────── */}
+      {/* S6 - The cycle. Four states, full width. */}
       <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
-          <b>06</b> The cycle
+          <b>06</b> {CYCLE.kicker}
         </p>
         <div className="hx-grid">
           <h2 className="hx-h2 c-two-thirds">{CYCLE.heading}</h2>
           <p className="hx-lede c-third">{CYCLE.sub}</p>
-          <div className="c-third">
-            <p className="t-body prose">{CYCLE.prose}</p>
-          </div>
-          <div className="c-two-thirds">
+
+          <div className="c-full">
             <Ledger items={[...CYCLE.ledger]} />
-            <Note>{CYCLE.close}</Note>
+          </div>
+
+          <div className="c-full hx-cols" data-n="2" data-rows="2">
+            {CYCLE.pair.map((c) => (
+              <div key={c.title}>
+                <p className="d4">{c.title}</p>
+                <p className="t-sm hx-prose">{c.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── S7 · The page ends on its strongest line, not on a table. ─── */}
+      {/* S7 - The page ends on its strongest line, not on a table. */}
       <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
-          <b>07</b> The comparison
+          <b>07</b> {COMPARISON.kicker}
         </p>
         <div className="hx-grid">
           <h2 className="hx-h2 c-two-thirds">{COMPARISON.heading}</h2>
           <p className="hx-lede c-third">{COMPARISON.sub}</p>
 
-          {/* A pair whose rows line up: label, line, note. The two sat in
-              separate grid cells and flowed independently, so a two-line
-              claim on one side put its note out of step with the other. */}
+          {/* A pair whose rows line up: label, line, note. */}
           <div className="c-full hx-cols" data-n="2" data-rows="3">
             <div className="versus">
               <p className="t-note">{COMPARISON.pair.theirs.label}</p>
