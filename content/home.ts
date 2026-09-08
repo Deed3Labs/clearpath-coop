@@ -186,15 +186,15 @@ export const STATUS = {
   ledger: [
     {
       label: 'Member app — savings, credit, term plans, card',
-      value: 'in build',
-      chip: 'in build',
-      description: 'Design complete across 53 screens. Accounts and cards on Lithic, wallets on Privy.',
+      value: 'in beta',
+      chip: 'in beta',
+      description: 'Built and running in a closed beta, not yet open to sign-ups. Accounts and cards on Lithic, wallets on Privy.',
     },
     {
       label: 'Merchant counter app',
-      value: 'in build',
-      chip: 'in build',
-      description: 'Tablet-first, installs from a browser. Charge, show a code, refund with an owner code.',
+      value: 'in beta',
+      chip: 'in beta',
+      description: 'Built and ready for the first counters. Tablet-first, installs from a browser. Charge, show a code, refund with an owner code.',
     },
     {
       label: 'Protocol contracts',

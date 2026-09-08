@@ -24,12 +24,22 @@ a { color: inherit; text-decoration: none; }
 img, svg { display: block; max-width: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; }
 
-/* Every number on the site is set in mono.  This is the one typographic
-   idea the whole site runs on. (§4) */
-.mono, .fig {
+/* Figures are set in the text face at 600 — not in mono. Plex Mono's advance
+   width made a five-digit number physically as wide as a headline, so a figure
+   meant to support a heading outranked it. Mono keeps the role it started in:
+   the 11.5px uppercase labels, rails, notes and step numbers. Metadata is
+   monospaced; magnitude is not. */
+.mono {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
+}
+.fig {
+  font-family: var(--font-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  letter-spacing: -0.02em;
 }
 
 :focus-visible {
@@ -164,14 +174,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* Stat — a rule, a figure, a caption. Never a boxed card. */
 .stat { border-top: 1px solid var(--color-ink); padding-top: var(--spacing-2); }
-.stat-fig { font-size: clamp(28px, 3vw, 40px); letter-spacing: -0.02em; line-height: 1.05; }
+.stat-fig { font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.05; }
 .stat-cap { margin-top: var(--spacing-1); color: var(--color-ink-70); max-width: 34ch; }
 
-.fig {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum' 1;
-}
 .fig.is-live { color: var(--color-live); }
 .fig.is-muted { color: var(--color-ink-50); }
 
@@ -658,14 +663,14 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 /* One number at set-piece size. */
 .figure-xl-block { display: grid; gap: var(--spacing-2); }
 .figure-xl {
-  font-size: clamp(56px, 8vw, 120px);
+  font-size: clamp(44px, 6vw, 88px);
   line-height: 0.9;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.035em;
 }
 .figure-xl-cap { color: var(--color-ink-70); max-width: 38ch; }
-/* 8vw put "15,000" at 414px inside a 417px column — flush to the edge, which
-   reads as jammed rather than large. 6.2vw gives it 320px and room to sit. */
-.hx .figure-xl { font-size: clamp(48px, 6.2vw, 96px); }
+/* The set-piece figure still steps down inside .hx, where it shares a band
+   with display type rather than carrying a section on its own. */
+.hx .figure-xl { font-size: clamp(40px, 5vw, 76px); }
 
 /* Terse facts in a grid. Ruled cells — the site draws rules, not boxes. */
 .tiles {
@@ -928,8 +933,9 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    seven characters at ~0.69em advance in Plex Mono, which at 136px measured
    662px in a 660px column — exactly flush, one pixel from overflow. */
 .tally-fig {
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: clamp(42px, 7.6vw, 118px); line-height: 1; letter-spacing: -0.045em;
+  font-family: var(--font-text); font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(38px, 6vw, 92px); line-height: 1; letter-spacing: -0.035em;
 }
 .tally-fig[data-weight='quiet'] { font-size: clamp(20px, 2.2vw, 32px); color: var(--color-ink-50); letter-spacing: -0.02em; }
 .tally[data-live] .tally-fig[data-weight='loud'] { color: var(--color-live); }
@@ -944,7 +950,7 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    417px column at 1440 and 246px inside 296px at 1024 — clear at every width
    down to where the row stacks. */
 .hx-tally[data-n='3'] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.hx-tally[data-n='3'] .tally-fig { font-size: clamp(30px, 4.8vw, 72px); }
+.hx-tally[data-n='3'] .tally-fig { font-size: clamp(28px, 3.8vw, 58px); }
 .tally[data-muted] .tally-fig { color: var(--color-ink-50); }
 @media (max-width: 900px) {
   .hx-tally[data-n='3'] { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: var(--spacing-5); }
@@ -1033,8 +1039,9 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .cell-body { color: var(--color-ink-70); align-self: start; }
 .cell-gate { padding-top: var(--spacing-3); border-top: 1px solid var(--color-ink-13); display: grid; gap: 2px; }
 .cell-gate-fig {
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: clamp(24px, 2.6vw, 38px); letter-spacing: -0.025em; line-height: 1;
+  font-family: var(--font-text); font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(21px, 2.1vw, 30px); letter-spacing: -0.02em; line-height: 1.05;
 }
 .cell-gate-note { color: var(--color-ink-50); }
 @media (max-width: 900px) {
@@ -1155,8 +1162,9 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .fig-stack .side-note { max-width: 34ch; }
 
 .side-fig {
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: clamp(34px, 4.2vw, 62px); line-height: 1; letter-spacing: -0.04em;
+  font-family: var(--font-text); font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(28px, 3.2vw, 46px); line-height: 1.05; letter-spacing: -0.03em;
   color: var(--color-live); margin: 0;
 }
 @media (max-width: 900px) { .sides { grid-template-columns: minmax(0, 1fr); } }
@@ -1176,10 +1184,10 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 .door-link { margin-top: auto; padding-top: var(--spacing-3); }
 .door-fig {
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  /* Three columns, so the ceiling comes down: at 6vw a figure would be 86px
-     in a ~430px column. */
-  font-size: clamp(36px, 4.4vw, 64px); line-height: 1; letter-spacing: -0.04em;
+  font-family: var(--font-text); font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  /* Three columns, so the ceiling comes down. */
+  font-size: clamp(28px, 3.2vw, 46px); line-height: 1.05; letter-spacing: -0.03em;
   margin-top: var(--spacing-1);
 }
 /* The statement counterpart of .door-fig, for a row where the big line is a
