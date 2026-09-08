@@ -216,12 +216,39 @@ export const BACKYARDS = {
 } as const;
 
 /* ── 06 · The gate ────────────────────────────────────────────────────────
-   One sentence at display size and the number it ends on. */
+   The section said "five milestones, each unlocking something real" and then
+   showed none of them — one 154-character paragraph next to a large number,
+   which is the blandest thing on the page and the last thing a reader sees.
+
+   A path is a sequence, so it gets the track: three marks on one rule, the
+   moment in mono, the sentence short, the detail as a note. The paragraph is
+   gone; every line of it now sits under the mark it belongs to.
+
+   The three marks are the arc, not the five gates. Naming five specific gates
+   would mean inventing four of them — only the last one is documented — and a
+   made-up milestone on a page about deeds is not a thing to guess at. */
 export const GATE = {
   kicker: 'The gate',
   statement: 'The path to a deed is visible from your first deposit.',
   figure: '15,000',
   figureCaption: 'equity credits, and you sign your ELPA and your Clear Deed',
-  body: 'Five milestones, each unlocking something real. You can see where you are and the date you are on track for, every day, from the same screen where you save.',
+  track: [
+    {
+      when: 'First deposit',
+      what: 'Your deposit is your membership share.',
+      note: 'Saving from there earns matched credits and raises a credit line you draw on at no cost.',
+    },
+    {
+      when: 'Along the way',
+      what: 'Five gates, each unlocking something real.',
+      note: 'You can see where you are and the date you are on track for, from the same screen where you save.',
+      live: true,
+    },
+    {
+      when: 'At the gate',
+      what: 'You sign your ELPA and your Clear Deed.',
+      note: 'The land stays in the commons, and the house is yours to hold title to outright.',
+    },
+  ],
   cta: { href: '/join', label: 'Start saving' },
 } as const;

@@ -182,7 +182,22 @@ export default function Housing() {
           </div>
           <div className="c-third">
             <FigureXL figure={GATE.figure} caption={GATE.figureCaption} live />
-            <p className="t-sm hx-prose">{GATE.body}</p>
+          </div>
+
+          {/* A path is a sequence, so it gets the track. This was one
+              paragraph claiming five milestones and showing none. */}
+          <div className="c-full track">
+            {GATE.track.map((t) => (
+              <div
+                className="track-step"
+                key={t.when}
+                data-live={'live' in t && t.live ? '' : undefined}
+              >
+                <p className="track-when">{t.when}</p>
+                <p className="track-what">{t.what}</p>
+                <p className="t-sm track-note">{t.note}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
