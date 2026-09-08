@@ -91,7 +91,10 @@ export const DOWNSIDES = {
 
 export const DOWNSIDES_INTRO = {
   kicker: 'The downsides',
-  sub: 'Five of them, in the same type as everything else on this page.',
+  /* Was "in the same type as everything else on this page", which is a note
+     about the typography, not something a reader wants. Same fault as the
+     one on /capital. */
+  sub: 'Five of them, and every one is a real cost of doing it this way.',
 } as const;
 
 /* ── 04 · Who this is for ────────────────────────────────────────────────

@@ -146,7 +146,11 @@ export const PROTECTIONS = {
    enforces that rather than anyone remembering. */
 export const DOWNSIDES_SECTION = {
   kicker: 'The downsides',
-  sub: 'Five of them, in the same words the single-property page uses.',
+  /* Not "in the same words the single-property page uses" — that is a note
+     about how the site is built, addressed to whoever maintains it, and it
+     had no business being read by anyone evaluating this. The promise it was
+     reaching for is the one worth making. */
+  sub: 'Five of them, and none is softened because the contribution is larger.',
   extra: {
     title: 'And one that runs the other way.',
     body: 'Early cohorts are geographically concentrated in one corridor by design, because that is what makes the merchant and housing sides compound. Geographic diversity comes later, and anyone underwriting this should price that.',

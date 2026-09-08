@@ -62,7 +62,7 @@ export const STRUCTURE = {
   /* Sit under Clear Capital Holdings. */
   holdingsChildren: [
     { name: 'Clear Lending', note: 'funds the credit book' },
-    { name: 'Properties', note: 'contributed' },
+    { name: 'Clear Properties', note: 'contributed' },
   ],
   /* Outside the ownership tree. A dashed outline means ownerless and nothing
      else — this is the only dashed box in the drawing. */
