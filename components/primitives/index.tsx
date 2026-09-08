@@ -1,82 +1,16 @@
 import Link from 'next/link';
 
-/* §4 — three blocks, and no more: Panel, Ledger, Steps. Plus Stat and Chip.
-   Anything that wants to be a fourth kind of container is a Ledger. */
-
-/* ── Section ──────────────────────────────────────────────────────────────
-   Every section is one grid: the rail note in columns 1-2, content in 3-12.
-   Below 1080px the rail collapses and its note becomes a single line above
-   the content — which the CSS already does, so a page never restates it. */
-export function Section({
-  rail,
-  children,
-  id,
-  rhythm,
-}: {
-  rail: string;
-  children: React.ReactNode;
-  id?: string;
-  /* Identical padding on every band reads as a wireframe. A section can say
-     how much air it wants. */
-  rhythm?: 'tight' | 'open';
-}) {
-  return (
-    <section className={`wrap ${rhythm ? `section-${rhythm}` : 'section'}`} id={id}>
-      <div className="grid12">
-        <p className="rail rail-note">{rail}</p>
-        <div className="content">{children}</div>
-      </div>
-    </section>
-  );
-}
-
-/* A content row that subdivides the parent grid rather than nesting a second
-   one with a different gutter. §4: misalignment between sections is always a
-   nested grid. */
-export function Cols({ children }: { children: React.ReactNode }) {
-  return <div className="cols10">{children}</div>;
-}
-
-export function Col({
-  span,
-  children,
-  className,
-}: {
-  span: number;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={className} style={{ gridColumn: `span ${span}`, minWidth: 0 }}>
-      {children}
-    </div>
-  );
-}
-
-/* ── Panel — the quiet container. `mark` carries the one real caveat per
-      page and takes a full-strength ink border. ────────────────────────── */
-export function Panel({
-  title,
-  children,
-  variant,
-}: {
-  title?: string;
-  children: React.ReactNode;
-  /* `plain` drops the box: a top rule and the text, for a caveat that sits
-     under a page title. The boxed form in a narrow hero column wrapped at two
-     words a line and read as a widget bolted onto the page. */
-  variant?: 'mark' | 'plain';
-}) {
-  return (
-    <div className={`panel${variant ? ` panel-${variant}` : ''}`}>
-      {title && <p className="d4 panel-title">{title}</p>}
-      <div className="t-sm">{children}</div>
-    </div>
-  );
-}
-
-/* ── Ledger — label / value, with an optional description spanning both.
-      The workhorse: most non-prose content on this site is a ledger. ───── */
+/* §4 — the shared blocks. A Ledger is the general case: anything that wants
+   to be a fourth kind of container is one.
+ *
+ * Section, Cols, Col, Panel and Steps used to live here. They belonged to the
+ * old two-column rail layout, which boxed every band into columns 3-12 and
+ * made an edge-to-edge bento impossible; .hx-band, .hx-grid and the bento
+ * replaced them page by page and nothing imports them any more. Panel went
+ * with them because the site draws rules, not boxes.
+ *
+ * StepItem stays: three content files still describe their steps with it,
+ * and the bento and the track both render that shape. */
 export type LedgerItem = {
   label: string;
   value: string;
@@ -106,28 +40,6 @@ export function Ledger({ items }: { items: LedgerItem[] }) {
 /* ── Steps — numbered rows, only where content is genuinely sequential. ── */
 export type StepItem = { title: string; meta?: string; body: React.ReactNode };
 
-export function Steps({ items }: { items: StepItem[] }) {
-  return (
-    <ol className="steps">
-      {items.map((s, i) => (
-        <li className="step" key={s.title}>
-          <span className="step-n fig" aria-hidden="true">
-            {String(i + 1).padStart(2, '0')}
-          </span>
-          <div>
-            <p className="d4 step-title">
-              {s.title}
-              {s.meta && <Chip>{s.meta}</Chip>}
-            </p>
-            <div className="t-body step-body">{s.body}</div>
-          </div>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-/* ── Stat — a rule, a mono figure, a caption. Not a boxed card. ────────── */
 export function Stat({
   figure,
   caption,

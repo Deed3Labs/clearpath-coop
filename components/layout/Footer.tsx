@@ -7,8 +7,8 @@ import { BRAND_LINE, FOOTER_COLUMNS, LEGAL } from '@/content/footer';
 
 export function Footer() {
   return (
-    <footer className="wrap site-footer">
-      <div className="grid12">
+    <footer className="site-footer">
+      <div className="hx-grid">
         <div className="footer-brand">
           <Link href="/" aria-label="Clear — home">
             <Logo size={21} />

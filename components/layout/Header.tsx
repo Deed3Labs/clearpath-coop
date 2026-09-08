@@ -10,7 +10,7 @@ import { NavLink } from './NavLink';
 
 export function Header() {
   return (
-    <header className="wrap site-header">
+    <header className="site-header">
       <Link href="/" aria-label="Clear — home">
         <Logo size={21} />
       </Link>

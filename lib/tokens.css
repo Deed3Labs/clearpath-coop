@@ -55,20 +55,17 @@
 }
 
 :root {
-  /* ── Grid — one grid, defined once, used everywhere. ────────────────── */
-  --container:  min(1320px, 100% - 48px);
-
-  /* The page inset and gutter. These started life inside .hx, but the header
+  /* ── Measure ─────────────────────────────────────────────────────────
+     The page inset and gutter. These started life inside .hx, but the header
      and footer sit outside it and have to answer to the same edges, so they
      belong to the document rather than to one layout. */
   --hx-inset:   clamp(20px, 3.2vw, 56px);
   --hx-gap:     clamp(20px, 3.4vw, 64px);
-  --columns:    12;
-  --gutter:     40px;
-  --row-gap:    64px;
 
-  /* Section padding. */
-  --section-pad: clamp(80px, 10vw, 150px);
+  /* The old centred container, still used by the mobile nav sheet. */
+  --container:  min(1320px, 100% - 48px);
+  /* Older, narrower gutter, still used by the stat row and the tiles. */
+  --gutter:     40px;
 
   /* Motion. */
   --ease:     cubic-bezier(0.16, 1, 0.3, 1); /* power3.out */

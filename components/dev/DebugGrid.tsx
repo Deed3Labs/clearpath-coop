@@ -2,9 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-/* ?debug=grid — draws the 12 columns and the margin rail. (§4)
+/* ?debug=grid — draws the twelve columns every page is built on.
    Reads the query string after mount so it never forces a Suspense
-   boundary or a client-render bailout on a real page. */
+   boundary or a client-render bailout on a real page.
+
+   It used to draw the old centred container and its two-column margin rail,
+   which no longer exist: it was showing a grid nothing on the site aligned
+   to, which is worse than no overlay at all. */
 export function DebugGrid() {
   const [on, setOn] = useState(false);
 
@@ -20,10 +24,10 @@ export function DebugGrid() {
 
   return (
     <div className="debug-grid" aria-hidden="true">
-      <div className="wrap">
-        <div className="grid12">
+      <div className="hx-wrap">
+        <div className="hx-grid">
           {Array.from({ length: 12 }, (_, i) => (
-            <i key={i} {...(i < 2 ? { 'data-rail': '' } : {})} />
+            <i key={i} />
           ))}
         </div>
       </div>
