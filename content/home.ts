@@ -11,9 +11,16 @@
 import type { LedgerItem } from '@/components/primitives';
 
 export const HERO = {
-  /* Two sentences, set as two lines. The break is the sentence break at every
-     width rather than wherever the measure happens to fall. */
-  headline: ['Rent builds equity.', 'Just not yours.'],
+  /* The split. 'Your rent is making someone else rich' is the line that lands
+     with everyone it has been read to, and it is the one to open on. What the
+     previous headline had was the turn — a short second line that pays off the
+     first — and dropping that would have cost the thing that made it snappy.
+     So: their opener, this structure.
+     'Someone', not 'someone else', because 'Just not you.' already does that
+     work and the shorter line hits harder. It also leaves the beneficiary
+     unnamed, which matters on a site where /contribute and /capital ask
+     landlords to bring property in. */
+  headline: ['Your rent is making someone rich.', 'Just not you.'],
   /* Was four sentences explaining title, land and equity — three arguments
      stacked behind a headline that had already landed. Each now has its own
      section further down. */
@@ -27,14 +34,15 @@ export const HERO = {
   ],
 } as const;
 
-/* §6.1 lists three approved alternates, already weighed. Kept here so the
-   decision is visible in the code rather than lost in a document, and so
-   nobody writes a fourth.
+/* §6.1 alternates, already weighed. Kept here so the decision is visible in
+   the code rather than lost in a document, and so nobody writes a fourth.
+     · 'Rent builds equity. Just not yours.' — the previous headline; shorter,
+       and it withholds the hook until the second line.
      · 'You are already buying a house. Someone else is keeping it.'
      · 'You already pay for a house every month. It just isn\'t yours.'
-     · 'Your rent is making someone else rich.' — strongest hook, riskiest:
-       it names a beneficiary, and /contribute and /capital on this same site
-       ask landlords to bring their property in. */
+   If the unabridged line is ever wanted, it is 'Your rent is making someone
+   else rich.' as a single line with no second — but then the page opens on a
+   statement rather than a turn. */
 
 /* ── 01 · The gap ─────────────────────────────────────────────────────────
    The page's big moment, on ink. Two figures at set-piece size and one line

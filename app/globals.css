@@ -145,7 +145,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
    the content is simply there. */
 
 .hero { padding-block: 0; }
-.hero-grid { row-gap: clamp(24px, 3vw, 44px); align-items: start; }
+/* The headline is three display lines now rather than two, so the gaps around
+   it carry less of the work. 44px between them put the buttons at the fold on
+   an 800px viewport. */
+.hero-grid { row-gap: clamp(22px, 2.2vw, 32px); align-items: start; }
 
 /* Every hero child is placed explicitly at EVERY width. They were placed only
    inside a min-width:1280 block once the wrapper was removed, which left them
@@ -176,7 +179,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
    capped the headline at 102px for no reason. At a full-width measure the
    sentence holds one line well past 130px. */
 @media (min-width: 1000px) {
-  .hero-headline { grid-row: 1; font-size: clamp(96px, 10.5vw, 172px); max-width: none; }
+  /* 10.5vw set 151px at 1440, where the opening line wraps to two — 426px of
+     headline, and the buttons landed 8px inside the fold. 9.2vw keeps the
+     block large and puts them comfortably above it. The 172px ceiling still
+     applies above ~1870, where the line has room to be that big. */
+  .hero-headline { grid-row: 1; font-size: clamp(96px, 9.2vw, 172px); max-width: none; }
   .hero-lede    { grid-column: 1 / 8; grid-row: 2; }
   .hero-actions { grid-column: 1 / 8; grid-row: 3; }
   .hero-meta {
@@ -1022,6 +1029,89 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   .cell[data-size] { grid-column: 1 / -1; }
   .cell { grid-row: auto; grid-template-rows: auto auto 1fr auto; }
 }
+
+/* ── TRACK. A sequence that happens over time, not a list of features.
+      Three marks sitting ON a rule, the moment in mono above a short line and
+      a note under it. Distinct from Tiles (a figure over a caption, each on
+      its own rule) because the shared rule is the point: it is one span of
+      time with things happening along it.
+
+      Square marks, not dots — sharp edges throughout. ─────────────────── */
+.track {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--hx-gap);
+  border-top: 1px solid var(--color-ink-28);
+  /* Rows the steps opt into, so `what` and `note` line up across all three
+     however the mono marker wraps. Same subgrid rule as .hx-cols. */
+  grid-template-rows: auto auto auto;
+}
+.track-step {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  gap: var(--spacing-2);
+  min-width: 0;
+  padding-top: var(--spacing-4);
+  position: relative;
+}
+.track-step::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  background: var(--color-ink);
+}
+.track-step[data-live]::before { background: var(--color-live); }
+.track-when {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-50);
+  margin: 0;
+}
+.track-step[data-live] .track-when { color: var(--color-live); }
+.track-what {
+  font-size: clamp(19px, 1.7vw, 26px);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 18ch;
+}
+.track-note { color: var(--color-ink-70); margin: 0; max-width: 42ch; }
+@media (max-width: 900px) {
+  .track { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: 0; }
+  .track-step { grid-row: auto; grid-template-rows: none; padding-bottom: var(--spacing-4); }
+  .track-step + .track-step { border-top: 1px solid var(--color-ink-13); }
+}
+
+/* ── SIDES. Two people looking at the same refund and seeing different
+      numbers. A pair of statements at heading size, one of them in cobalt,
+      because "by design" is the claim and the pair IS the evidence. ───── */
+.sides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--hx-gap); }
+.side { border-top: 2px solid var(--color-ink); padding-top: var(--spacing-3); }
+.side[data-live] { border-top-color: var(--color-live); }
+.side-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-50);
+  margin: 0 0 var(--spacing-2);
+}
+.side-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(24px, 2.8vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.side[data-live] .side-line { color: var(--color-live); }
+@media (max-width: 900px) { .sides { grid-template-columns: minmax(0, 1fr); } }
 
 /* ── SPLIT. Three columns: the shop's price, the mechanism between them, the
       member's price. Two columns of ~660px left the row horizontally empty

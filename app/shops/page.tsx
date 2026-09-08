@@ -1,4 +1,4 @@
-import { Ledger, Note, Stat, Tiles, Button } from '@/components/primitives';
+import { Note, Stat, Tiles, Button } from '@/components/primitives';
 import { MerchantCalculator } from '@/components/interactive/MerchantCalculator';
 import { OPENING, DIFFERENCE, COUNTER, FIT, FOUNDING, MONEY, MEMBERSHIP } from '@/content/shops';
 
@@ -156,25 +156,51 @@ export default function Shops() {
         </div>
       </section>
 
-      {/* ── S6 · Getting paid, and refunds. ────────────────────────────── */}
+      {/* ── S6 · The money. A clock, then two people reading the same
+             refund differently. The one section here that had no shape. ─── */}
       <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
           <b>06</b> The money
         </p>
         <div className="hx-grid">
-          <div className="c-full hx-cols" data-n="2" data-rows="3">
-            <div>
-              <h2 className="d3">{MONEY.payouts.heading}</h2>
-              <p className="t-sm hx-prose">{MONEY.payouts.body}</p>
-              <Note>{MONEY.payouts.note}</Note>
-            </div>
-            <div>
-              <h2 className="d3">{MONEY.refunds.heading}</h2>
-              <p className="t-sm hx-prose">{MONEY.refunds.body}</p>
-            </div>
+          <h2 className="hx-h2 c-two-thirds">{MONEY.heading}</h2>
+          <p className="hx-lede c-third">{MONEY.lede}</p>
+
+          <div className="c-full track">
+            {MONEY.track.map((t) => (
+              <div className="track-step" key={t.when} data-live={'live' in t && t.live ? '' : undefined}>
+                <p className="track-when">{t.when}</p>
+                <p className="track-what">{t.what}</p>
+                <p className="t-sm track-note">{t.note}</p>
+              </div>
+            ))}
           </div>
-          <div className="c-full">
-            <Ledger items={[...MONEY.refunds.ledger]} />
+
+          <h3 className="d3 c-two-thirds" style={{ marginTop: 'clamp(24px, 3vw, 48px)' }}>
+            {MONEY.refunds.heading}
+          </h3>
+          <p className="t-sm hx-prose c-third" style={{ marginTop: 'clamp(24px, 3vw, 48px)' }}>
+            {MONEY.refunds.body}
+          </p>
+
+          <div className="c-full sides">
+            {MONEY.refunds.sides.map((side) => (
+              <div className="side" key={side.label} data-live={'live' in side && side.live ? '' : undefined}>
+                <p className="side-label">{side.label}</p>
+                <p className="side-line">{side.line}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="c-half">
+            <Note>{MONEY.refunds.note}</Note>
+          </div>
+          <div className="c-half">
+            <p className="track-when">{MONEY.refunds.carry.when}</p>
+            <p className="track-what" style={{ marginTop: 'var(--spacing-2)' }}>
+              {MONEY.refunds.carry.what}
+            </p>
+            <p className="t-sm hx-prose">{MONEY.refunds.carry.note}</p>
           </div>
         </div>
       </section>

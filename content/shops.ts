@@ -144,30 +144,58 @@ export const FOUNDING = {
   },
 } as const;
 
+/* ── 06 · The money ───────────────────────────────────────────────────────
+   This was the one section on the page with no shape: two headings, two
+   paragraphs and a ledger, sitting between a tile row and a stage line. Every
+   other section here is carried by a figure or a structure.
+
+   It is two things, so it gets two shapes. Getting paid is a clock, and a
+   clock is a track — three marks on a rule, the time in mono, the sentence
+   short. Refunds are two people looking at different numbers, which was the
+   most interesting fact in the section and was buried as a ledger row; it is
+   the visual moment now.
+
+   §7 Legal: net-30 only. net-14 is not published anywhere. */
 export const MONEY = {
   rail: 'Shops / 06 — the money',
-  payouts: {
-    heading: 'You should be able to get from a bank deposit back to the tickets.',
-    body: 'Every payout traces to the charges inside it. If a merchant cannot reconcile against their own books they will not trust the number, and they will ask for a spreadsheet every month for the rest of the relationship.',
-    /* Net-30 only. §7 Legal: net-14 is not published anywhere. */
-    note: 'Withdrawals are capped by what the pool holds, and the app says so rather than failing silently. Net-30 only.',
-  },
+  heading: 'From a bank deposit back to the tickets.',
+  lede: 'A shop that cannot reconcile a payout against its own books will ask for a spreadsheet every month for the rest of the relationship.',
+  track: [
+    {
+      when: 'Day 0',
+      what: 'The ticket closes.',
+      note: 'Your writer enters the amount, the customer approves on their own phone, and the job leaves.',
+    },
+    {
+      when: 'Day 30',
+      what: 'Your payout lands.',
+      note: 'Net-30, every time. Withdrawals are capped by what the pool holds, and the app says so rather than failing silently.',
+      live: true,
+    },
+    {
+      when: 'Any day',
+      what: 'The deposit opens up.',
+      note: 'Every payout traces to the charges inside it, so your books close without a call to us.',
+    },
+  ],
   refunds: {
     heading: 'Your writer can start a refund. Only you can move your money.',
-    body: 'The manager-override pattern every till already uses, so it needs no training. Counter staff begin a refund with the customer standing there; an owner code submits it. Nothing is said to the customer until an owner has authorised it — a refund a writer promised and an owner declined is the worst possible counter conversation.',
-    ledger: [
+    body: 'The manager-override pattern every till already uses, so it needs no training. Your writer begins the refund with the customer standing there; your owner code submits it.',
+    sides: [
+      { label: 'Your writer sees', line: 'What the customer gets back.' },
       {
-        label: 'The two people see different numbers',
-        value: 'by design',
-        description:
-          'The writer sees what the customer gets back. The owner sees what it does to his payout — which is the figure the person authorising actually cares about.',
+        label: 'You see',
+        line: 'What it does to your payout.',
+        /* The figure the person actually authorising cares about. */
+        live: true,
       },
-      {
-        label: 'Carry is not refunded',
-        value: 'the time stands',
-        description: 'A refund unwinds the purchase, not the time the customer held the plan.',
-      },
-    ] satisfies LedgerItem[],
+    ],
+    note: 'Nothing is said to the customer until an owner has authorised it. A refund a writer promised and an owner declined is the worst possible counter conversation.',
+    carry: {
+      when: 'Carry is not refunded',
+      what: 'The time stands.',
+      note: 'A refund unwinds the purchase, not the time the customer held the plan.',
+    },
   },
 } as const;
 
