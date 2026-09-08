@@ -544,7 +544,19 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .site-footer .hx-grid { row-gap: var(--spacing-4); }
 .footer-brand { grid-column: 1 / 4; }
 .footer-col   { grid-column: span 3; }
+/* The column headings and the links under them were the same 17px regular
+   ink, and the links are underlined — so the heading was the quietest thing
+   in its own column. Heading takes the weight and keeps full ink; the links
+   step back to ink-70 and come forward on hover. Its own class rather than
+   .t-note, so the heading's weight is not tied to a shared note style. */
+.footer-heading {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
 .footer-col ul { display: grid; margin-top: var(--spacing-1); }
+.footer-col ul a { color: var(--color-ink-70); }
+.footer-col ul a:hover { color: var(--color-ink); }
 /* §8.4 — 44px tap targets. Footer links and the two logo links are standalone
    destinations, so they get real hit areas rather than a text-height line.
    Links inside a sentence keep their inline height: WCAG exempts a target in

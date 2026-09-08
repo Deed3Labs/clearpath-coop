@@ -20,7 +20,7 @@ export function Footer() {
 
         {FOOTER_COLUMNS.map((col) => (
           <nav key={col.heading} className="footer-col" aria-label={col.heading}>
-            <p className="t-note">{col.heading}</p>
+            <p className="footer-heading">{col.heading}</p>
             <ul className="t-sm">
               {col.links.map((l) => (
                 <li key={l.href}>

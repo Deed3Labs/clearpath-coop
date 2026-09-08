@@ -112,8 +112,11 @@ export const TERM_PLANS = {
     title: 'Stacking is not discouraged. It is impossible.',
     body: 'Nobody, including you, can see the total when plans are spread across five stores. Here there is one account and one ceiling.',
   },
+  /* This was an internal note about how a locked row renders. What a reader
+     needs here is what the instrument actually is, said once, in the place
+     the acronym first appears on the page. */
   close:
-    'The ELPA row shows real progress even while locked — 1,500 of 15,000 credits · on track for Feb 2028 — never a bare zero, because progress toward the thing is the whole point of a locked row.',
+    'The ELPA — your Equity-Lease Participation Agreement — puts the house in your name while the land underneath stays common.',
 } as const;
 
 /* ── 04 · You pick the split ─────────────────────────────────────────────
@@ -168,7 +171,7 @@ export const SAVINGS = {
   gate: {
     label: 'The gate',
     figure: '15,000',
-    caption: 'credits unlocks your ELPA and your Clear Deed. Most first-cohort members are expected to reach it in twelve to eighteen months.',
+    caption: 'credits unlocks your Equity-Lease Participation Agreement and your Clear Deed. Most first-cohort members are expected to reach it in twelve to eighteen months.',
   },
   sides: [
     {

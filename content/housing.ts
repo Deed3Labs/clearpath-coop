@@ -231,7 +231,7 @@ export const GATE = {
   kicker: 'The gate',
   statement: 'The path to a deed is visible from your first deposit.',
   figure: '15,000',
-  figureCaption: 'equity credits, and you sign your ELPA and your Clear Deed',
+  figureCaption: 'equity credits, and you sign for the deed to your home',
   track: [
     {
       when: 'First deposit',
@@ -246,8 +246,8 @@ export const GATE = {
     },
     {
       when: 'At the gate',
-      what: 'You sign your ELPA and your Clear Deed.',
-      note: 'The land stays in the commons, and the house is yours to hold title to outright.',
+      what: 'You sign, and the deed is yours.',
+      note: 'Your Equity-Lease Participation Agreement and your Clear Deed. The land stays in the commons, and the house is yours to hold title to outright.',
     },
   ],
   cta: { href: '/join', label: 'Start saving' },

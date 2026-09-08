@@ -114,9 +114,9 @@ export const PHASES = {
     {
       n: '02',
       title: 'You take title. The land stays common.',
-      /* Not "ELPA". The acronym is ours, it is expanded nowhere on the site,
-         and this is the first page a stranger reads — a gate nobody can parse
-         is not a gate. The two documents, named plainly. */
+      /* Not "ELPA". It is our own acronym, and this is the first page a
+         stranger reads — a gate nobody can parse is not a gate. The two
+         documents, named plainly. /how carries the full definition. */
       gate: 'Two signatures',
       gateNote: 'a purchase agreement and your deed',
       body: 'Your payment splits into equity and a community fee. The land underneath is never sold.',
