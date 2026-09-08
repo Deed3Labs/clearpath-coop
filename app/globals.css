@@ -260,6 +260,29 @@ button, input, select, textarea { font: inherit; color: inherit; }
   border-color: var(--color-ink);
   color: var(--color-paper);
 }
+/* Each .ledger-row is its own grid, so every row sized its value column to
+   its own content — five different boundaries, all of them moving when the
+   plan changed. Worse, on a narrow screen the auto track could land under
+   the widest date and break it across two lines ("September" / "2027"),
+   which made the whole ledger jump on a control that is meant to be a
+   comparison.
+
+   One grid for the ledger, rows borrowing it through subgrid, and a floor on
+   the value column at 8.5em — "September 2027" measures 133px at 17px/600,
+   the widest figure any option produces, so the column is already wide
+   enough for all four before the reader touches anything. The label column
+   is the flexible one and gives up the room; there is plenty of it on the
+   left. nowrap makes the break impossible rather than merely unlikely. */
+.chooser-ledger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(8.5em, max-content);
+}
+.chooser-ledger .ledger-row {
+  grid-column: span 2;
+  grid-template-columns: subgrid;
+}
+.chooser-ledger .ledger-row dd { white-space: nowrap; }
+
 .chooser-caption { margin-top: var(--spacing-1); }
 .chooser-close { color: var(--color-ink-70); margin-top: var(--spacing-1); }
 
