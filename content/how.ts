@@ -243,10 +243,14 @@ export const COMPARISON = {
   kicker: 'The comparison',
   heading: 'The honest version of the comparison.',
   sub: 'Including the part where they beat us.',
-  /* The pairing, set as two lines rather than two ledger rows. */
+  /* The page's closing moment, so it is set large and the break is decided
+     here rather than left to the measure: two lines against two lines, both
+     turning after the verb. Left to wrap, "You owe nothing." fitted on one
+     line and "You own something." took two, which put a hole under the first
+     and made a deliberately symmetrical pair look like an accident. */
   pair: {
-    theirs: { label: 'Klarna’s best outcome for you', line: 'You owe nothing.' },
-    ours: { label: 'Ours', line: 'You own something.' },
+    theirs: { label: 'Klarna’s best outcome for you', lines: ['You owe', 'nothing.'] },
+    ours: { label: 'Ours', lines: ['You own', 'something.'] },
   },
   ours: [
     {

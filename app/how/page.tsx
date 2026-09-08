@@ -223,18 +223,25 @@ export default function How() {
           <h2 className="hx-h2 c-two-thirds">{COMPARISON.heading}</h2>
           <p className="hx-lede c-third">{COMPARISON.sub}</p>
 
-          {/* A pair whose rows line up: label, line, note. */}
+          {/* The page closes on this. Two statements at set-piece size,
+              each breaking after the verb, one sentence under each — the
+              other six sections are dense, and this one is meant to be the
+              place the reader stops. */}
           <div className="c-full hx-cols" data-n="2" data-rows="3">
-            <div className="versus">
-              <p className="t-note">{COMPARISON.pair.theirs.label}</p>
-              <p className="versus-line">{COMPARISON.pair.theirs.line}</p>
-              <p className="t-sm versus-note hx-prose">{COMPARISON.ours[0].description}</p>
-            </div>
-            <div className="versus is-ours">
-              <p className="t-note">{COMPARISON.pair.ours.label}</p>
-              <p className="versus-line">{COMPARISON.pair.ours.line}</p>
-              <p className="t-sm versus-note hx-prose">{COMPARISON.ours[1].description}</p>
-            </div>
+            {[
+              { ...COMPARISON.pair.theirs, note: COMPARISON.ours[0].description, ours: false },
+              { ...COMPARISON.pair.ours, note: COMPARISON.ours[1].description, ours: true },
+            ].map((side) => (
+              <div className={side.ours ? 'versus is-ours' : 'versus'} key={side.label}>
+                <p className="t-note">{side.label}</p>
+                <p className="versus-line" data-grand="">
+                  {side.lines.map((l) => (
+                    <span key={l}>{l}</span>
+                  ))}
+                </p>
+                <p className="t-sm versus-note hx-prose">{side.note}</p>
+              </div>
+            ))}
           </div>
 
           <div className="c-full">

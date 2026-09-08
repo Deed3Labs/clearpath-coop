@@ -762,6 +762,18 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   max-width: 12ch;
 }
 .versus.is-ours .versus-line { color: var(--color-live); }
+/* The closing pair, set as the page's one grand moment. At 3.4vw one side fit
+   on a line and the other wrapped, which put a 92px hole under the shorter of
+   the two and made a symmetrical claim look accidental. Both break after the
+   verb now, so the pair is two lines against two lines, and the size can go up
+   because the break is decided rather than discovered. */
+.versus-line[data-grand] {
+  font-size: clamp(40px, 6vw, 96px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  max-width: none;
+}
+.versus-line[data-grand] span { display: block; }
 .versus-note { margin-top: var(--spacing-2); color: var(--color-ink-70); }
 
 /* ═══ Home layout system ══════════════════════════════════════════════════
