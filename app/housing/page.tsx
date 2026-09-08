@@ -139,37 +139,50 @@ export default function Housing() {
           <h2 className="hx-h2 c-two-thirds">{BACKYARDS.heading}</h2>
           <p className="hx-lede c-third">{BACKYARDS.lede}</p>
 
-          <div className="c-full hx-split">
+          {/* Rows that line up rather than three columns each flowing to
+              their own height. .door-line, not .door-fig: only one of the
+              three is a number, and mono at figure size makes the other two
+              look like broken figures. */}
+          <div className="c-full hx-cols" data-n="3" data-rows="4">
             {BACKYARDS.columns.map((col) => (
               <div className="door" key={col.key}>
                 <h3 className="door-head">{col.heading}</h3>
-                <p className="door-fig fig">{col.figure}</p>
-                <p className="t-sm door-note">{col.figureNote}</p>
+                <p className="door-line">{col.line}</p>
+                <p className="t-sm door-note">{col.note}</p>
                 <p className="t-sm door-body">{col.body}</p>
-                {col.link ? (
-                  <p className="door-link">
-                    <TextLink href={col.link.href}>{col.link.label}</TextLink>
-                  </p>
-                ) : null}
               </div>
             ))}
+          </div>
+
+          {/* The ask belongs to the section, not to one third of the row. */}
+          <div className="c-two-thirds">
+            <p className="t-body hx-prose">{BACKYARDS.ask.line}</p>
+            <p className="t-body" style={{ marginTop: 'var(--spacing-2)' }}>
+              <TextLink href={BACKYARDS.ask.link.href}>{BACKYARDS.ask.link.label}</TextLink>
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ── S6 · The gate. One sentence, and the number it ends on. ─────── */}
-      <section className="hx-band hx-wrap" data-pad="open">
+      {/* ── S6 · The gate. One sentence, and the number it ends on.
+             Tight, not open: an open pad left 173px of dead air above a
+             footer that brings its own. The button sits under the statement
+             so the left column carries weight instead of stopping after two
+             lines while the right ran on. ─────────────────────────────── */}
+      <section className="hx-band hx-wrap" data-pad="tight">
         <p className="hx-label">
           <b>06</b> {GATE.kicker}
         </p>
         <div className="hx-grid">
-          <p className="hx-stage-line c-two-thirds">{GATE.statement}</p>
+          <div className="c-two-thirds">
+            <p className="hx-stage-line">{GATE.statement}</p>
+            <div style={{ marginTop: 'clamp(28px, 3.4vw, 56px)' }}>
+              <Button href={GATE.cta.href}>{GATE.cta.label}</Button>
+            </div>
+          </div>
           <div className="c-third">
             <FigureXL figure={GATE.figure} caption={GATE.figureCaption} live />
             <p className="t-sm hx-prose">{GATE.body}</p>
-            <div style={{ marginTop: 'var(--spacing-4)' }}>
-              <Button href={GATE.cta.href}>{GATE.cta.label}</Button>
-            </div>
           </div>
         </div>
       </section>

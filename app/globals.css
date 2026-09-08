@@ -728,6 +728,9 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   letter-spacing: -0.045em;
 }
 .figure-xl-cap { color: var(--color-ink-70); max-width: 38ch; }
+/* 8vw put "15,000" at 414px inside a 417px column — flush to the edge, which
+   reads as jammed rather than large. 6.2vw gives it 320px and room to sit. */
+.hx .figure-xl { font-size: clamp(48px, 6.2vw, 96px); }
 
 /* Terse facts in a grid. Ruled cells — the site draws rules, not boxes. */
 .tiles {
@@ -1144,6 +1147,16 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   /* Three columns, so the ceiling comes down: at 6vw a figure would be 86px
      in a ~430px column. */
   font-size: clamp(36px, 4.4vw, 64px); line-height: 1; letter-spacing: -0.04em;
+  margin-top: var(--spacing-1);
+}
+/* The statement counterpart of .door-fig, for a row where the big line is a
+   short sentence rather than a number. Mono at 64px is emphasis for digits and
+   reads as a mistake on words — "Passive" and "One person" set that way looked
+   broken. Sized to match .side-line, which is the same idea elsewhere: a claim
+   at display size under a mono label. */
+.door-line {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(26px, 2.8vw, 42px); line-height: 1.05; letter-spacing: -0.03em;
   margin-top: var(--spacing-1);
 }
 .door-note { color: var(--color-ink-50); }

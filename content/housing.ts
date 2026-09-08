@@ -170,7 +170,18 @@ export const HOMES = {
 /* ── 05 · Backyards ───────────────────────────────────────────────────────
    Three parties to one arrangement, so three columns. It was three paragraphs
    that each happened to be about a different person, which is a structure the
-   reader had to find for themselves. */
+   reader had to find for themselves.
+
+   The big line is NOT set in mono here. Only one of the three is a number,
+   and "Passive" and "One person" set as figures in Plex Mono read as a
+   mistake rather than as emphasis — the same fault as "Co-op owned" in the
+   bento. There is no honest figure for a homeowner's role or for a household
+   of one, so they are statements, set in the display face like statements.
+
+   The ask moved out of the first column. A link anchored to the bottom of one
+   column left the other two 89px and 113px short of the row's baseline, which
+   is most of what read as wonky; and "own a backyard?" is a section-level
+   invitation anyway, not a footnote to one third of a row. */
 export const BACKYARDS = {
   kicker: 'Before the communities',
   heading: 'Backyards first, because they are available now.',
@@ -179,28 +190,29 @@ export const BACKYARDS = {
     {
       key: 'owner',
       heading: 'You own the backyard',
-      figure: 'Passive',
-      figureNote: 'you receive income and approve or decline decisions',
-      body: 'Clear handles permitting. If you have a lot with real separation between the house and the back fence, we would like to talk.',
-      link: { href: '/contribute', label: 'How contributions work' },
+      line: 'Income, and a veto.',
+      note: 'a ground lease on the back of your lot',
+      body: 'You stay passive. Clear handles permitting and the leasing, and every decision on the unit comes to you to approve or decline.',
     },
     {
       key: 'unit',
       heading: 'The unit itself',
-      figure: '450–650',
-      figureNote: 'square feet, one open volume with high ceilings',
+      line: '450–650',
+      note: 'square feet, one open volume with high ceilings',
       body: 'Built to come apart and move, so when a lease ends the structure goes somewhere else and the next placement costs less.',
-      link: null,
     },
     {
       key: 'renter',
       heading: 'Whoever lives in it',
-      figure: 'One person',
-      figureNote: 'the household almost nothing gets built for',
-      body: 'Renting alone is close to impossible without roommates. These are configurable by whoever lives there.',
-      link: null,
+      line: 'One person.',
+      note: 'the household almost nothing gets built for',
+      body: 'Renting alone is close to impossible without roommates, and almost nothing gets built for the person trying to do it anyway.',
     },
   ],
+  ask: {
+    line: 'Own a lot with real separation between the house and the back fence? We would like to talk about a ground lease.',
+    link: { href: '/contribute', label: 'How contributions work' },
+  },
 } as const;
 
 /* ── 06 · The gate ────────────────────────────────────────────────────────
@@ -209,7 +221,7 @@ export const GATE = {
   kicker: 'The gate',
   statement: 'The path to a deed is visible from your first deposit.',
   figure: '15,000',
-  figureCaption: 'equity credits signs your ELPA and your Clear Deed',
+  figureCaption: 'equity credits, and you sign your ELPA and your Clear Deed',
   body: 'Five milestones, each unlocking something real. You can see where you are and the date you are on track for, every day, from the same screen where you save.',
   cta: { href: '/join', label: 'Start saving' },
 } as const;
