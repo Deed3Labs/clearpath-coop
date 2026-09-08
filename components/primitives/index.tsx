@@ -18,6 +18,7 @@ export type LedgerItem = {
   live?: boolean;
   muted?: boolean;
   chip?: string;
+  chipTone?: ChipTone;
   description?: React.ReactNode;
 };
 
@@ -28,7 +29,7 @@ export function Ledger({ items }: { items: LedgerItem[] }) {
         <div className="ledger-row" key={it.label}>
           <dt className="t-sm">{it.label}</dt>
           <dd className={`fig${it.live ? ' is-live' : ''}${it.muted ? ' is-muted' : ''}`}>
-            {it.chip ? <Chip>{it.chip}</Chip> : it.value}
+            {it.chip ? <Chip tone={it.chipTone}>{it.chip}</Chip> : it.value}
           </dd>
           {it.description && <p className="ledger-desc t-sm">{it.description}</p>}
         </div>
@@ -86,8 +87,12 @@ export function Tiles({ items }: { items: readonly { line: string; note: string 
 
 export { Button } from './Button';
 
-export function Chip({ children }: { children: React.ReactNode }) {
-  return <span className="chip">{children}</span>;
+/* Tone is the status itself, not a colour name — "underway" survives a
+   palette change, "amber" does not. */
+export type ChipTone = 'live' | 'underway' | 'absent';
+
+export function Chip({ children, tone }: { children: React.ReactNode; tone?: ChipTone }) {
+  return <span className="chip" data-tone={tone}>{children}</span>;
 }
 
 export function Note({ children }: { children: React.ReactNode }) {

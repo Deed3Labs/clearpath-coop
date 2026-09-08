@@ -180,19 +180,31 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .fig.is-live { color: var(--color-live); }
 .fig.is-muted { color: var(--color-ink-50); }
 
+/* Status chips. A pill is the one rounded shape in a site that otherwise
+   draws rules and documents — which is exactly why it reads as a badge and
+   not as content. Tone travels through a single --chip custom property, so
+   border and fill derive from the text colour instead of being maintained as
+   three more values each. */
 .chip {
   display: inline-block;
   font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 11.5px;
-  letter-spacing: 0.02em;
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
   line-height: 1;
-  padding: 5px 9px 4px;
-  border: 1px solid var(--color-ink-28);
-  border-radius: var(--radius-none);
-  color: var(--color-ink-70);
+  padding: 6px 11px 5px;
+  border: 1px solid;
+  border-radius: var(--radius-pill);
   white-space: nowrap;
+  /* An untoned chip keeps the neutral it always had. */
+  --chip: var(--color-ink-70);
+  color: var(--chip);
+  border-color: color-mix(in srgb, var(--chip) 34%, transparent);
+  background: color-mix(in srgb, var(--chip) 10%, transparent);
 }
+.chip[data-tone='live']     { --chip: var(--color-settled); }
+.chip[data-tone='underway'] { --chip: var(--color-underway); }
+.chip[data-tone='absent']   { --chip: var(--color-absent); }
 .note-block { margin-top: var(--spacing-2); }
 /* A note that opens its container has nothing above it to be spaced from, and
    the 16px pushed it out of line with whatever sits beside it. */
@@ -756,6 +768,10 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   /* Cobalt at its paper value measures 1.81:1 on ink. Same role, a value that
      clears AA on this ground. */
   --color-live: #7C8CC5;
+  /* The status trio, lightened for a dark ground. Same roles, same order. */
+  --color-settled:  #6FCB9F;
+  --color-underway: #E3B667;
+  --color-absent:   #E58C7F;
   /* Raised surfaces need the same inversion. The structure diagram fills its
      boxes with --color-paper-2; unrebound, a dark band would draw light boxes
      with the light text this rule already gave them. A hair above the ground

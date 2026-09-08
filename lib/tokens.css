@@ -17,6 +17,13 @@
   --color-live:     #24409E;  /* cobalt — the figure that is moving         */
   --color-settled:  #0E6B4E;  /* cleared, owned, paid, all-clear            */
 
+  /* Status, as three tokens rather than three hexes at the call site. Measured
+     on paper: settled 5.02:1, underway 4.77:1, absent 5.82:1 — all clear the
+     4.5:1 text bar at chip size (§8.7). Light counterparts are rebound on the
+     ink band, the same way --color-live is. */
+  --color-underway: #8A5512;  /* in flight, not finished                    */
+  --color-absent:   #9B2C22;  /* does not exist yet                         */
+
   /* Land as TEXT.  --land is a fill colour: 3.36:1 on paper, which clears
      the 3:1 bar for a graphic but fails the 4.5:1 text bar (§8.7).  The
      deed's "Land" label is 11px type, so it takes this darker value at
