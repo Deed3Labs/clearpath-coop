@@ -461,7 +461,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .join-body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
-  gap: var(--spacing-5);
+  /* The page's own gutter, so the form and its aside are separated by the
+     same measure as every other pair of columns on the site. */
+  gap: var(--hx-gap);
   align-items: start;
 }
 @media (max-width: 860px) { .join-body { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); } }
@@ -490,7 +492,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .join-form fieldset:disabled .join-field textarea { background: transparent; color: var(--color-ink-50); }
 .join-form fieldset:disabled .btn { opacity: 0.4; pointer-events: none; }
 
-.join-aside { display: grid; gap: var(--spacing-3); }
+/* The two blocks stand apart from each other, so the gap is a section gap
+   rather than a paragraph one. */
+.join-aside { display: grid; gap: var(--spacing-5); align-content: start; }
+.join-aside .side-note { max-width: none; }
 .join-fallback { min-height: 420px; }
 
 .sr-only {

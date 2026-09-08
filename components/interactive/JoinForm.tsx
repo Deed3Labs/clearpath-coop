@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Panel } from '@/components/primitives';
 import { MODES, NOT_WIRED, type ModeKey } from '@/content/join';
 
 /* §6.8 — four modes, deep-linkable.
@@ -75,17 +74,20 @@ export function JoinForm() {
         </form>
 
         <div className="join-aside">
-          {/* The honest state, above the fold of the form rather than buried
-              under it. */}
-          <div id="join-not-wired">
-            <Panel variant="mark" title={NOT_WIRED.title}>
-              <p>{NOT_WIRED.body}</p>
-            </Panel>
+          {/* The honest state, beside the form rather than buried under it,
+              and set as a claim rather than a boxed aside — a notice that
+              says "this does not work" should not look like a footnote.
+              Still referenced by the form's aria-describedby. */}
+          <div className="side" id="join-not-wired" data-live="">
+            <p className="side-label">Status</p>
+            <p className="d3">{NOT_WIRED.title}</p>
+            <p className="t-sm side-note">{NOT_WIRED.body}</p>
           </div>
 
-          <Panel title="What happens next">
-            <p>{active.next}</p>
-          </Panel>
+          <div className="side">
+            <p className="side-label">What happens next</p>
+            <p className="t-sm side-note">{active.next}</p>
+          </div>
         </div>
       </div>
     </div>
