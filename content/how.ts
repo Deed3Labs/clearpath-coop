@@ -45,8 +45,11 @@ export const DRAW_ORDER = {
   kicker: 'Draw order',
   heading: 'One balance, drawn cheapest first.',
   sub: 'You do not choose a product. You spend, and the line takes from the cheapest thing backing you before it touches anything expensive.',
+  /* The heading above this says "Repayment runs the other way", so the
+     paragraph no longer opens by repeating it. No em-dash parenthetical, and
+     "arithmetic" is not a word anyone says out loud. */
   standfirst:
-    'Repayment runs the other way — the most expensive part unwinds first — so the arithmetic works in your favour without you managing it.',
+    'The most expensive part unwinds first, so the numbers work in your favour without you managing it.',
   /* The meta is what each tier COSTS to borrow against, which the page is
      required to show. §7 Legal: no tier's yield and no pool rate anywhere. */
   steps: [
@@ -71,8 +74,10 @@ export const DRAW_ORDER = {
       body: 'Genuinely unsecured, opt-in, and small on purpose. The tier that replaces a payday loan.',
     },
   ] satisfies StepItem[],
+  /* Same again: the heading is "Every rate is on the screen where you take
+     it", so the first clause was saying it twice. */
   close:
-    'Every rate is shown on the screen where you take it, before you take it. Cost accrues on what you still owe, so clearing early always costs less. Nothing compounds, and the balance never grows on its own.',
+    'You see it before you take it. Cost accrues on what you still owe, so clearing early always costs less, and nothing compounds.',
 } as const;
 
 /* ── 03 · Term plans ─────────────────────────────────────────────────────
@@ -82,7 +87,7 @@ export const DRAW_ORDER = {
 export const TERM_PLANS = {
   kicker: 'Term plans',
   heading: 'A tire repair and a house sit on the same shelf.',
-  sub: 'One limit across every shop you use, so five plans at five stores cannot happen.',
+  sub: 'One limit across every shop you use, so what you owe in total is a number you can always see.',
   ledger: [
     {
       label: 'Partner credit',
@@ -100,7 +105,7 @@ export const TERM_PLANS = {
       label: 'Your home — outside this limit',
       value: 'set at signing',
       description:
-        'The Equity-Lease Participation Agreement. Unlocks at 15,000 equity credits and is underwritten on the structure itself, so it never eats into the room you need for a repair.',
+        'The Equity-Lease Participation Agreement. Unlocks at 15,000 equity credits, and it is backed by the house itself, not by your limit.',
     },
   ] satisfies LedgerItem[],
   asks: {
@@ -108,12 +113,18 @@ export const TERM_PLANS = {
     criteria: ['A linked bank account', 'Six clean cycles', '15,000 saved equity credits'],
     note: 'You can see the locked ones and what they would cost from your first day.',
   },
+  /* This said stacking was impossible, which is not true: plans can run at
+     several shops at once. What cannot happen is their total going past the
+     limit, or going unseen. The claim is about the ceiling, not the count. */
   stacking: {
-    title: 'Stacking is not discouraged. It is impossible.',
-    body: 'Nobody, including you, can see the total when plans are spread across five stores. Here there is one account and one ceiling.',
+    title: 'You can hold several plans. You cannot hold several limits.',
+    body: 'Five stores usually means five ceilings and a hidden total. Here there is one ceiling: with $2,000, four $500 plans fit. $2,500 does not.',
   },
+  /* This was an internal note about how a locked row renders. What a reader
+     needs here is what the instrument actually is, said once, in the place
+     the acronym first appears on the page. */
   close:
-    'The ELPA row shows real progress even while locked — 1,500 of 15,000 credits · on track for Feb 2028 — never a bare zero, because progress toward the thing is the whole point of a locked row.',
+    'The ELPA is the Equity-Lease Participation Agreement. It puts the house in your name while the land underneath stays common.',
 } as const;
 
 /* ── 04 · You pick the split ─────────────────────────────────────────────
@@ -168,7 +179,7 @@ export const SAVINGS = {
   gate: {
     label: 'The gate',
     figure: '15,000',
-    caption: 'credits unlocks your ELPA and your Clear Deed. Most first-cohort members are expected to reach it in twelve to eighteen months.',
+    caption: 'credits unlocks your Equity-Lease Participation Agreement and your Clear Deed. Most first-cohort members are expected to reach it in twelve to eighteen months.',
   },
   sides: [
     {
