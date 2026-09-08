@@ -135,7 +135,7 @@ export default function Contribute() {
               column, with an 80px headline and no rule beside it, reads as a
               line someone forgot to finish rather than as structure. */}
           <p className="hx-stage-line c-two-thirds">{CLOSE.statement}</p>
-          <div className="c-third">
+          <div className="c-third fig-stack">
             <p className="side-label">The window</p>
             <p className="side-fig">{CLOSE.figure}</p>
             <p className="t-sm side-note">{CLOSE.figureCaption}</p>

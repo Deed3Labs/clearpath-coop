@@ -165,7 +165,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
   padding-top: var(--spacing-2);
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-4);
+  /* Row then column. 40px is the right separation between three facts sitting
+     side by side, and far too much between three 17px lines once they stack —
+     it put 40px of air between each on a phone. The column gap is unchanged. */
+  gap: var(--spacing-2) var(--spacing-4);
 }
 
 /* From 1000 up the headline takes the full measure and the three facts sit
@@ -295,6 +298,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   white-space: nowrap;
 }
 .note-block { margin-top: var(--spacing-2); }
+/* A note that opens its container has nothing above it to be spaced from, and
+   the 16px pushed it out of line with whatever sits beside it. */
+.note-block:first-child { margin-top: 0; }
 /* A note under a full-width table ran as one 1,870px mono line. Small type at
    full viewport width is not a note, it is a rule made of words. */
 .hx .note-block { max-width: 78ch; }
@@ -959,8 +965,22 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 
 /* ── TALLY. Two figure stacks, edge to edge. The page's one big moment. ─── */
-.hx-tally { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--hx-gap); }
-.tally { display: grid; gap: var(--spacing-3); align-content: start; min-width: 0; }
+/* Rows the two columns share. Each .tally used to flow on its own, so a
+   two-line caption in one column pushed its big figure 22px below the figure
+   it is meant to be compared with — in a section whose entire point is that
+   the two numbers sit side by side. */
+.hx-tally {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--hx-gap);
+  grid-template-rows: auto auto auto;
+}
+.tally {
+  display: grid; gap: var(--spacing-3); align-content: start; min-width: 0;
+  grid-row: span 3; grid-template-rows: subgrid;
+}
+/* The three-column variant carries a label and one figure, not two. */
+.hx-tally[data-n='3'] { grid-template-rows: auto auto; }
+.hx-tally[data-n='3'] > .tally { grid-row: span 2; }
 .tally-label {
   font-family: var(--font-mono);
   font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
@@ -983,7 +1003,10 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 }
 .tally-fig[data-weight='quiet'] { font-size: clamp(20px, 2.2vw, 32px); color: var(--color-ink-50); letter-spacing: -0.02em; }
 .tally[data-live] .tally-fig[data-weight='loud'] { color: var(--color-live); }
-.tally-note { color: var(--color-ink-70); max-width: 30ch; }
+/* 30ch wrapped "paid out over the same five years" to two lines while its
+   opposite number stayed on one, which is what put the figures out of step in
+   the first place. Every caption in the row fits one line at 42ch. */
+.tally-note { color: var(--color-ink-70); max-width: 42ch; }
 /* Three columns is a different job from two: two figures are in tension and
    want to be enormous, three are a breakdown and still want some size.
    Measured rather than estimated: the longest of them, "~$450,000", sets 5.0em
@@ -994,9 +1017,15 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .hx-tally[data-n='3'] .tally-fig { font-size: clamp(30px, 4.8vw, 72px); }
 .tally[data-muted] .tally-fig { color: var(--color-ink-50); }
 @media (max-width: 900px) {
-  .hx-tally[data-n='3'] { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); }
+  .hx-tally[data-n='3'] { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: var(--spacing-5); }
+  .hx-tally[data-n='3'] > .tally { grid-row: auto; grid-template-rows: none; }
 }
-@media (max-width: 700px) { .hx-tally { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); } }
+@media (max-width: 700px) {
+  /* Stacked, there is nothing to align across and each column needs its own
+     rows back. */
+  .hx-tally { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: var(--spacing-5); }
+  .hx-tally > .tally { grid-row: auto; grid-template-rows: none; }
+}
 
 /* ── BENTO. Edge to edge, cells of deliberately unequal size. Equal cards
       would say the three phases are equivalent; they are not. ───────────── */
@@ -1175,6 +1204,19 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 /* A figure in the statement slot, for a row where one of the columns is a
    number and the others are claims. Sized against .side-line so the three
    sit on one line together. */
+/* A label, a figure and its caption as a stack. The three were plain
+   paragraphs with margin: 0 inside a plain div, so the caption sat hard
+   against the bottom of an 89px number and the label hard against its top.
+   Nothing separated the three parts of the block from each other. */
+.fig-stack { display: grid; gap: var(--spacing-2); align-content: start; }
+/* The grid gap is the only spacing in here. .side-label carries a 16px bottom
+   margin for its use inside .side, which stacked with the gap and the figure's
+   own margin to put 40px above the number and 16px below it — a block whose
+   two halves were spaced differently for no reason. */
+.fig-stack .side-label { margin-bottom: 0; }
+.fig-stack .side-fig { margin-block: 0; }
+.fig-stack .side-note { max-width: 34ch; }
+
 .side-fig {
   font-family: var(--font-mono); font-variant-numeric: tabular-nums;
   font-size: clamp(34px, 4.2vw, 62px); line-height: 1; letter-spacing: -0.04em;

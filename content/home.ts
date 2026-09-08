@@ -74,7 +74,7 @@ export const GAP = {
       paid: '$141,000',
       paidNote: 'paid out over the same five years',
       kept: '$90,000',
-      keptNote: 'equity contributions credited to your balance',
+      keptNote: 'credited to your equity balance',
       live: true,
     },
   ] satisfies TallyColumn[],
