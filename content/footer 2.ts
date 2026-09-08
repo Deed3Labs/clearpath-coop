@@ -1,6 +1,6 @@
 /* Footer copy. §7 — "Footer, every page". */
 
-export const BRAND_LINE = 'A member-owned cooperative, building in Inland Empire, California.';
+export const BRAND_LINE = 'A member-owned cooperative, building in Redlands, California.';
 
 export type FooterLink = { href: string; label: string; external?: boolean };
 

@@ -82,7 +82,7 @@ export default async function OpengraphImage() {
             color: INK_50,
           }}
         >
-          A member-owned cooperative · Inland Empire, California
+          A member-owned cooperative · Redlands, California
         </div>
       </div>
     ),
