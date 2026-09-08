@@ -232,6 +232,40 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* ─── Interactive: the split chooser (§6.2 S4) ────────────────────────── */
 
+/* The balance sits above the control, on a full ink rule — it is the thing
+   being divided, so it reads as the head of the block rather than another
+   row of it. */
+.chooser-balance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: var(--spacing-3);
+  border-top: 1px solid var(--color-ink);
+  padding-top: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
+}
+.chooser-balance-label { color: var(--color-ink-70); }
+.chooser-balance-fig {
+  font-size: clamp(26px, 2.6vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* N equal segments, one per cycle. Equal because the payments are levelled;
+   the widths carry the COUNT, which is what a split is, and never a ratio. */
+.chooser-split { display: grid; gap: var(--spacing-1); margin-bottom: var(--spacing-1); }
+.chooser-split-bar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 3px;
+  height: 10px;
+}
+.chooser-split-bar span { background: var(--color-ink); }
+.chooser-split-cap { color: var(--color-ink-70); }
+
 .chooser { display: grid; gap: var(--spacing-2); }
 .chooser-control {
   display: flex;

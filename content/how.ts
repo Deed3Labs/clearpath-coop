@@ -142,10 +142,10 @@ export const SPLIT = {
      would cost the same whether cleared in month one or four, which
      contradicts the one line separating this from BNPL. */
   options: [
-    { key: 'full', label: 'In full', each: '$958.80', carryCycle: '$18.80', carryPlan: '$18.80', total: '$958.80', doneBy: 'October 2026' },
-    { key: '2', label: 'In 2', each: '$484.10', carryCycle: '$18.80', carryPlan: '$28.20', total: '$968.20', doneBy: 'November 2026' },
-    { key: '4', label: 'In 4', each: '$246.75', carryCycle: '$18.80', carryPlan: '$47.00', total: '$987.00', doneBy: 'January 2027' },
-    { key: '12', label: 'In 12', each: '$88.52', carryCycle: '$18.80', carryPlan: '$122.20', total: '$1,062.20', doneBy: 'September 2027' },
+    { key: 'full', label: 'In full', cycles: 1, each: '$958.80', carryCycle: '$18.80', carryPlan: '$18.80', total: '$958.80', doneBy: 'October 2026' },
+    { key: '2', label: 'In 2', cycles: 2, each: '$484.10', carryCycle: '$18.80', carryPlan: '$28.20', total: '$968.20', doneBy: 'November 2026' },
+    { key: '4', label: 'In 4', cycles: 4, each: '$246.75', carryCycle: '$18.80', carryPlan: '$47.00', total: '$987.00', doneBy: 'January 2027' },
+    { key: '12', label: 'In 12', cycles: 12, each: '$88.52', carryCycle: '$18.80', carryPlan: '$122.20', total: '$1,062.20', doneBy: 'September 2027' },
   ],
   rows: [
     { label: 'Each cycle', field: 'each' },
@@ -154,8 +154,15 @@ export const SPLIT = {
     { label: 'Total', field: 'total' },
     { label: 'Done by', field: 'doneBy' },
   ],
+  /* The balance the whole table is computed from. It was stated once, in the
+     last line under the ledger, which is the last place a reader looks for
+     the thing being divided. */
+  balance: {
+    label: 'Balance at Mike’s Tire',
+    figure: '$940.00',
+  },
   caption: '2% a cycle on what you still owe',
-  close: 'Clearing early always costs less. Based on a $940.00 charge at Mike’s Tire.',
+  close: 'Clearing early always costs less.',
 } as const;
 
 /* ── 05 · Savings ────────────────────────────────────────────────────────
