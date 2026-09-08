@@ -2,94 +2,114 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { MODES, NOT_WIRED, type ModeKey } from '@/content/join';
+import { MODES, SUBMIT, type ModeKey } from '@/content/join';
 
-/* §6.8 — four modes, deep-linkable.
+/* §6.8 — four modes, deep-linkable, and built to submit for real.
  *
- * TODO(endpoint): this form has nowhere to submit to. When there is a real
- * endpoint, delete the not-wired notice, drop `disabled` from the fieldset and
- * the button, and post the payload. Everything else here is finished.
+ * TODO(endpoint): set NEXT_PUBLIC_JOIN_ENDPOINT to the form endpoint. That is
+ * the only thing left; nothing else here is a placeholder.
  *
- * It is deliberately switched off rather than left to look functional. The
- * live site's two forms currently accept an email, write it to localStorage
- * and show a success message, which is precisely the "form that silently does
- * nothing" the brief forbids. */
+ * What this will never do is the thing §6.8 forbids. The live site's old form
+ * accepted an email, wrote it to localStorage and showed a success message —
+ * a form that silently does nothing. There is no path through this one that
+ * reports success without a 2xx from a real endpoint: no endpoint, or a
+ * failed request, and it says so and says nothing was stored.
+ */
 
-const isMode = (v: string | null): v is ModeKey =>
-  !!v && MODES.some((m) => m.key === v);
+const ENDPOINT = process.env.NEXT_PUBLIC_JOIN_ENDPOINT;
+
+const isMode = (v: string | null): v is ModeKey => !!v && MODES.some((m) => m.key === v);
+
+type Status = 'idle' | 'sending' | 'ok' | 'error';
 
 export function JoinForm() {
   const params = useSearchParams();
   const fromUrl = params.get('as');
   const [mode, setMode] = useState<ModeKey>(isMode(fromUrl) ? fromUrl : 'member');
+  const [status, setStatus] = useState<Status>('idle');
 
   const active = MODES.find((m) => m.key === mode) ?? MODES[0];
 
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+
+    if (!ENDPOINT) {
+      /* Loud rather than silent: without this the only symptom of a missing
+         variable is a form that fails for every visitor and nobody knowing. */
+      console.error(
+        'JoinForm: NEXT_PUBLIC_JOIN_ENDPOINT is not set, so the submission was not sent.',
+      );
+      setStatus('error');
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...data, as: mode }),
+      });
+      setStatus(res.ok ? 'ok' : 'error');
+    } catch {
+      setStatus('error');
+    }
+  }
+
   return (
     <div className="join">
-      <div className="join-tabs" role="group" aria-label="What are you getting in touch about?">
-        {MODES.map((m) => (
+      {/* The selector is a ruled list, not a row of pills: four real
+          sentences do not fit a pill row, and the page has one job. */}
+      <div className="join-modes c-third" role="group" aria-label="What are you getting in touch about?">
+        {MODES.map((m, i) => (
           <button
             key={m.key}
             type="button"
-            className="chooser-option"
+            className="join-mode"
             aria-pressed={m.key === mode}
-            onClick={() => setMode(m.key)}
+            onClick={() => {
+              setMode(m.key);
+              setStatus('idle');
+            }}
           >
-            {m.tab}
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <span>{m.tab}</span>
           </button>
         ))}
       </div>
 
-      <div className="join-body">
-        <form
-          className="join-form"
-          onSubmit={(e) => e.preventDefault()}
-          aria-describedby="join-not-wired"
-        >
-          <fieldset disabled>
-            <legend className="sr-only">{active.tab}</legend>
+      <form className="join-form c-two-thirds" onSubmit={onSubmit}>
+        <fieldset>
+          <legend className="sr-only">{active.tab}</legend>
 
-            <div className="join-field">
-              <label htmlFor="join-email">Email</label>
-              <input id="join-email" name="email" type="email" autoComplete="email" />
+          <div className="join-field is-wide">
+            <label htmlFor="join-email">Email</label>
+            <input id="join-email" name="email" type="email" autoComplete="email" required />
+          </div>
+
+          {active.fields.map((f) => (
+            <div className="join-field" key={f.name}>
+              <label htmlFor={`join-${f.name}`}>{f.label}</label>
+              <input id={`join-${f.name}`} name={f.name} type={f.type ?? 'text'} />
             </div>
+          ))}
 
-            {active.fields.map((f) => (
-              <div className="join-field" key={f.name}>
-                <label htmlFor={`join-${f.name}`}>{f.label}</label>
-                <input id={`join-${f.name}`} name={f.name} type={f.type ?? 'text'} />
-              </div>
-            ))}
+          <div className="join-field is-wide">
+            <label htmlFor="join-note">{active.noteLabel}</label>
+            <textarea id="join-note" name="note" rows={4} />
+          </div>
 
-            <div className="join-field">
-              <label htmlFor="join-note">{active.noteLabel}</label>
-              <textarea id="join-note" name="note" rows={4} />
-            </div>
-
-            <button type="submit" className="btn" data-variant="primary">
-              {active.button}
+          <div className="join-submit is-wide">
+            <button type="submit" className="btn" data-variant="primary" disabled={status === 'sending'}>
+              {status === 'sending' ? SUBMIT.sending : active.button}
             </button>
-          </fieldset>
-        </form>
-
-        <div className="join-aside">
-          {/* The honest state, beside the form rather than buried under it,
-              and set as a claim rather than a boxed aside — a notice that
-              says "this does not work" should not look like a footnote.
-              Still referenced by the form's aria-describedby. */}
-          <div className="side" id="join-not-wired" data-live="">
-            <p className="side-label">Status</p>
-            <p className="d3">{NOT_WIRED.title}</p>
-            <p className="t-sm side-note">{NOT_WIRED.body}</p>
+            <p className="t-sm join-status" role="status" aria-live="polite">
+              {status === 'ok' ? SUBMIT.ok : status === 'error' ? SUBMIT.error : ''}
+            </p>
           </div>
-
-          <div className="side">
-            <p className="side-label">What happens next</p>
-            <p className="t-sm side-note">{active.next}</p>
-          </div>
-        </div>
-      </div>
+        </fieldset>
+      </form>
     </div>
   );
 }

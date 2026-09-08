@@ -450,53 +450,77 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .dia-stack { display: block; }
 }
 
-/* The join form (§6.8). */
-.join { display: grid; gap: var(--spacing-4); }
-.join-tabs { display: flex; flex-wrap: wrap; gap: var(--spacing-1); }
-/* Four tabs with real labels do not fit one row at 360px. The split chooser's
-   options divide their row evenly because there are always four short ones;
-   these size to content and wrap instead. */
-.join-tabs .chooser-option { flex: 0 1 auto; }
+/* The join form (§6.8). The one page that breaks the pattern: it is a
+   conversion page, so the ink band that carries the argument everywhere else
+   is spent on the form itself. */
+.join { display: contents; }
 
-.join-body {
+/* A ruled list, not a row of pills. "I want to work on it" is a sentence, and
+   four of them do not fit a pill row at any width worth designing for. */
+.join-modes { display: grid; align-content: start; border-top: 1px solid var(--color-ink-28); }
+.join-mode {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
-  /* The page's own gutter, so the form and its aside are separated by the
-     same measure as every other pair of columns on the site. */
-  gap: var(--hx-gap);
-  align-items: start;
+  grid-template-columns: 2.5em 1fr;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-3) 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-ink-13);
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(18px, 1.5vw, 23px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
-@media (max-width: 860px) { .join-body { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-4); } }
+.join-mode > span:first-child {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-50);
+}
+.join-mode:hover { color: var(--color-live); }
+.join-mode[aria-pressed='true'],
+.join-mode[aria-pressed='true'] > span:first-child { color: var(--color-live); }
+.join-mode:focus-visible { outline: 2px solid var(--color-live); outline-offset: 3px; }
 
-.join-form fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: var(--spacing-3); }
-.join-field { display: grid; gap: 6px; }
+/* Two columns of fields. One column at 882px would set a 60-character input,
+   which looks like a mistake next to a five-character ZIP. */
+.join-form fieldset {
+  border: 0; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-3) var(--hx-gap);
+}
+.join-field { display: grid; gap: 6px; align-content: start; }
+.join-field.is-wide, .join-submit.is-wide { grid-column: 1 / -1; }
 .join-field label { font-size: 15px; color: var(--color-ink-70); }
 .join-field input,
 .join-field textarea {
   width: 100%;
-  min-height: 44px;
   padding: 10px 12px;
   background: var(--color-paper-2);
   border: 1px solid var(--color-ink-28);
   border-radius: var(--radius-none);
-  font-size: 17px;
-  font-family: inherit;
-  color: var(--color-ink);
-  transition: border-color var(--hover) var(--ease);
+  font: inherit;
+  color: inherit;
 }
 .join-field textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
-.join-field input:focus, .join-field textarea:focus { border-color: var(--color-ink); }
+.join-field input:focus, .join-field textarea:focus { border-color: var(--color-ink); outline: 0; }
 
-/* A disabled form should read as switched off, not as broken or as loading. */
-.join-form fieldset:disabled .join-field input,
-.join-form fieldset:disabled .join-field textarea { background: transparent; color: var(--color-ink-50); }
-.join-form fieldset:disabled .btn { opacity: 0.4; pointer-events: none; }
+.join-submit { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-3); }
+.join-status { color: var(--color-ink-70); margin: 0; }
+.join-form .btn:disabled { opacity: 0.5; pointer-events: none; }
 
-/* The two blocks stand apart from each other, so the gap is a section gap
-   rather than a paragraph one. */
-.join-aside { display: grid; gap: var(--spacing-5); align-content: start; }
-.join-aside .side-note { max-width: none; }
 .join-fallback { min-height: 420px; }
+
+@media (max-width: 860px) {
+  .join-form fieldset { grid-template-columns: minmax(0, 1fr); }
+}
 
 .sr-only {
   position: absolute;

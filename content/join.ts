@@ -11,6 +11,10 @@ export type ModeKey = 'member' | 'shop' | 'land' | 'work';
 
 export type Field = { name: string; label: string; type?: 'text' | 'number' };
 
+/* Each mode carries two asides. They were one paragraph, and every one of the
+   four had the same shape inside it: what we will do, and then the thing that
+   might make you walk away. Split, because the second half is the half that
+   earns trust and it was riding at the end of a sentence about scheduling. */
 export const MODES: {
   key: ModeKey;
   tab: string;
@@ -18,6 +22,8 @@ export const MODES: {
   button: string;
   noteLabel: string;
   next: string;
+  caveatLabel: string;
+  caveat: string;
 }[] = [
   {
     key: 'member',
@@ -25,7 +31,11 @@ export const MODES: {
     fields: [{ name: 'zip', label: 'ZIP' }],
     button: 'Join the waitlist',
     noteLabel: 'Anything we should know',
-    next: 'You will hear from us before we open in your area, and we will not email you about anything else. Joining the waitlist is not an application and does not affect your credit.',
+    next: 'You will hear from us before we open in your area, and we will not email you about anything else.',
+    caveatLabel: 'What this is not',
+    /* §7 Legal: a credit-advertising claim. Do not paraphrase it into
+       anything stronger than it already is. */
+    caveat: 'Joining the waitlist is not an application and does not affect your credit.',
   },
   {
     key: 'shop',
@@ -37,7 +47,9 @@ export const MODES: {
     ],
     button: 'Request a call',
     noteLabel: 'What do you sell, and roughly how many jobs a week walk out over cost?',
-    next: 'A founder calls you, not a sales team. The first question is whether you can wait thirty days for the money — if the answer is no, we will say this is not a fit rather than sign you.',
+    next: 'A founder calls you, not a sales team.',
+    caveatLabel: 'The first question',
+    caveat: 'Whether you can wait thirty days for the money. If the answer is no, we will say this is not a fit rather than sign you.',
   },
   {
     key: 'land',
@@ -48,7 +60,9 @@ export const MODES: {
     ],
     button: 'Send the details',
     noteLabel: 'Where is it, roughly what is it worth, and is there a mortgage on it?',
-    next: 'We will walk through what a contribution would look like and what it would not. Bring your CPA to the second conversation — we will send them the documents.',
+    next: 'We will walk through what a contribution would look like and what it would not.',
+    caveatLabel: 'Bring your CPA',
+    caveat: 'To the second conversation, not the first. We will send them the documents.',
   },
   {
     key: 'work',
@@ -56,19 +70,27 @@ export const MODES: {
     fields: [],
     button: 'Get in touch',
     noteLabel: 'What would you want to work on?',
-    next: 'Everything at this stage is equity-only with no salary, and we say that in the first conversation. If you need income in the next three months, this is the wrong thing for you.',
+    next: 'Everything at this stage is equity-only with no salary, and we say that in the first conversation.',
+    caveatLabel: 'Before you write',
+    caveat: 'If you need income in the next three months, this is the wrong thing for you.',
   },
 ];
 
 /* §6.8: "Wire the form to a real endpoint or leave a clearly labelled TODO.
    Never a form that silently does nothing."
 
-   There is no endpoint. Phase 0 found a Formspree integration on the live site
-   with an empty form ID, which is why both live forms currently accept an
-   email and quietly drop it into localStorage. That is the exact failure this
-   line exists to prevent, so this form does not pretend: submission is
-   disabled and says why, in the open, above the button. */
-export const NOT_WIRED = {
-  title: 'This form is not connected yet.',
-  body: 'There is no endpoint behind it, so nothing is sent and nothing is stored. Rather than accept your details and drop them, it is switched off until it has somewhere to go.',
+   The form is now built to submit for real: it posts to
+   NEXT_PUBLIC_JOIN_ENDPOINT, and shipping is a matter of setting that
+   variable. What it will never do is the thing §6.8 forbids — the live site's
+   old form accepted an email, wrote it to localStorage and showed a success
+   message. If the endpoint is missing or the request fails, this one says so
+   and says nothing was stored. There is no path through it that reports
+   success without a 2xx from a real endpoint. */
+export const SUBMIT = {
+  sending: 'Sending…',
+  ok: 'We have it. You will hear from us.',
+  /* No address in it, because the site does not publish one yet. When it
+     does, add it here — a failure the reader can do something about is worth
+     more than an apology. */
+  error: 'That did not send, and nothing was stored. Please try again.',
 } as const;
