@@ -45,8 +45,11 @@ export const DRAW_ORDER = {
   kicker: 'Draw order',
   heading: 'One balance, drawn cheapest first.',
   sub: 'You do not choose a product. You spend, and the line takes from the cheapest thing backing you before it touches anything expensive.',
+  /* The heading above this says "Repayment runs the other way", so the
+     paragraph no longer opens by repeating it. No em-dash parenthetical, and
+     "arithmetic" is not a word anyone says out loud. */
   standfirst:
-    'Repayment runs the other way — the most expensive part unwinds first — so the arithmetic works in your favour without you managing it.',
+    'The most expensive part unwinds first, so the numbers work in your favour without you managing it.',
   /* The meta is what each tier COSTS to borrow against, which the page is
      required to show. §7 Legal: no tier's yield and no pool rate anywhere. */
   steps: [
@@ -71,8 +74,10 @@ export const DRAW_ORDER = {
       body: 'Genuinely unsecured, opt-in, and small on purpose. The tier that replaces a payday loan.',
     },
   ] satisfies StepItem[],
+  /* Same again: the heading is "Every rate is on the screen where you take
+     it", so the first clause was saying it twice. */
   close:
-    'Every rate is shown on the screen where you take it, before you take it. Cost accrues on what you still owe, so clearing early always costs less. Nothing compounds, and the balance never grows on its own.',
+    'You see it before you take it. Cost accrues on what you still owe, so clearing early always costs less, and nothing compounds.',
 } as const;
 
 /* ── 03 · Term plans ─────────────────────────────────────────────────────
@@ -100,7 +105,7 @@ export const TERM_PLANS = {
       label: 'Your home — outside this limit',
       value: 'set at signing',
       description:
-        'The Equity-Lease Participation Agreement. Unlocks at 15,000 equity credits and is underwritten on the structure itself, so it never eats into the room you need for a repair.',
+        'The Equity-Lease Participation Agreement. Unlocks at 15,000 equity credits, and it is backed by the house itself, not by your limit.',
     },
   ] satisfies LedgerItem[],
   asks: {
@@ -119,7 +124,7 @@ export const TERM_PLANS = {
      needs here is what the instrument actually is, said once, in the place
      the acronym first appears on the page. */
   close:
-    'The ELPA — your Equity-Lease Participation Agreement — puts the house in your name while the land underneath stays common.',
+    'The ELPA is the Equity-Lease Participation Agreement. It puts the house in your name while the land underneath stays common.',
 } as const;
 
 /* ── 04 · You pick the split ─────────────────────────────────────────────
