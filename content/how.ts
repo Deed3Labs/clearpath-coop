@@ -166,6 +166,7 @@ export const SAVINGS = {
   ],
   /* The page's one set-piece figure. */
   gate: {
+    label: 'The gate',
     figure: '15,000',
     caption: 'credits unlocks your ELPA and your Clear Deed. Most first-cohort members are expected to reach it in twelve to eighteen months.',
   },

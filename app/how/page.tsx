@@ -1,4 +1,4 @@
-import { Ledger, Note, Stat, FigureXL, Tiles } from '@/components/primitives';
+import { Ledger, Note, Stat, Tiles } from '@/components/primitives';
 import { SplitChooser } from '@/components/interactive/SplitChooser';
 import { OPENING, DRAW_ORDER, TERM_PLANS, SPLIT, SAVINGS, CYCLE, COMPARISON } from '@/content/how';
 
@@ -97,7 +97,6 @@ export default function How() {
 
           <div className="c-full">
             <Ledger items={[...TERM_PLANS.ledger]} />
-            <Note>{TERM_PLANS.close}</Note>
           </div>
 
           <div className="c-full hx-cols" data-n="2" data-rows="3">
@@ -113,6 +112,10 @@ export default function How() {
             <div>
               <p className="d4">{TERM_PLANS.stacking.title}</p>
               <p className="t-sm hx-prose">{TERM_PLANS.stacking.body}</p>
+              {/* The ELPA line lives here rather than as a full-width note
+                  under the table: it gives this column the weight to match
+                  the list beside it, instead of ending 350px short. */}
+              <Note>{TERM_PLANS.close}</Note>
             </div>
           </div>
         </div>
@@ -129,15 +132,11 @@ export default function How() {
           <h2 className="hx-h2 c-two-thirds">{SPLIT.heading}</h2>
           <p className="hx-lede c-third">{SPLIT.sub}</p>
 
-          <div className="c-full hx-cols" data-n="2" data-rows="2">
-            <div>
-              <p className="d4">You can change your mind.</p>
-              <p className="t-sm hx-prose">{SPLIT.standfirst}</p>
-            </div>
-            <div>
-              <p className="d4">{SPLIT.caption}</p>
-              <p className="t-sm hx-prose">{SPLIT.close}</p>
-            </div>
+          {/* No pair here: SplitChooser prints SPLIT.caption and SPLIT.close
+              itself, and putting them above it too showed the same two lines
+              twice on one screen. */}
+          <div className="c-full">
+            <p className="t-body hx-prose">{SPLIT.standfirst}</p>
           </div>
 
           <div className="c-full">
@@ -164,11 +163,15 @@ export default function How() {
             </div>
           </div>
 
-          <div className="c-third">
-            <FigureXL figure={SAVINGS.gate.figure} caption={SAVINGS.gate.caption} live />
-          </div>
-          {/* Two claims, each with its note. They were two paragraphs. */}
-          <div className="c-two-thirds hx-cols" data-n="2" data-rows="3">
+          {/* One row of three, all on the same rule. The figure used to sit
+              in its own column with no rule and no label beside two blocks
+              that had both, so the row read as two things and a stray. */}
+          <div className="c-full hx-cols" data-n="3" data-rows="3">
+            <div className="side" data-live="">
+              <p className="side-label">{SAVINGS.gate.label}</p>
+              <p className="side-fig">{SAVINGS.gate.figure}</p>
+              <p className="t-sm side-note">{SAVINGS.gate.caption}</p>
+            </div>
             {SAVINGS.sides.map((side) => (
               <div className="side" key={side.label}>
                 <p className="side-label">{side.label}</p>

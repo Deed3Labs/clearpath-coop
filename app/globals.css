@@ -295,6 +295,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   white-space: nowrap;
 }
 .note-block { margin-top: var(--spacing-2); }
+/* A note under a full-width table ran as one 1,870px mono line. Small type at
+   full viewport width is not a note, it is a rule made of words. */
+.hx .note-block { max-width: 78ch; }
 
 /* Section heading rhythm. */
 .section-head { max-width: 22ch; }
@@ -1152,6 +1155,14 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 /* A third row under the statement, for the pair that has to carry an argument
    as well as a claim. Margin zero because the grid gap does that spacing. */
 .side-note { color: var(--color-ink-70); max-width: 46ch; margin: 0; }
+/* A figure in the statement slot, for a row where one of the columns is a
+   number and the others are claims. Sized against .side-line so the three
+   sit on one line together. */
+.side-fig {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: clamp(34px, 4.2vw, 62px); line-height: 1; letter-spacing: -0.04em;
+  color: var(--color-live); margin: 0;
+}
 @media (max-width: 900px) { .sides { grid-template-columns: minmax(0, 1fr); } }
 
 /* ── SPLIT. Three columns: the shop's price, the mechanism between them, the
