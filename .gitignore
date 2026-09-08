@@ -19,3 +19,5 @@ Thumbs.db
 
 # Build artifacts
 tsconfig.tsbuildinfo
+.vercel
+.env*
