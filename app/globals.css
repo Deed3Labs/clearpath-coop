@@ -60,20 +60,24 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .d3 { font-size: clamp(23px, 2.1vw, 30px); font-weight: 600; letter-spacing: -0.024em; line-height: 1.12; }
 .d4 { font-size: 19px;                     font-weight: 600; letter-spacing: -0.016em; line-height: 1.25; }
 
-/* Page titles sit between the homepage hero and a section heading. d1's
-   clamp is scaled for the hero, which owns the full container and breaks
-   across two written sentences; a single-sentence page title in seven columns
-   runs to four lines at 390px, which §4 forbids. Own step, own clamp, checked
-.t-body { font-size: 17px; line-height: 1.6; max-width: 64ch; }
-.t-sm   { font-size: 15px; line-height: 1.6; }
-.t-note {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 11.5px;
-  line-height: 1.45;
-  letter-spacing: 0.01em;
-  color: var(--color-ink-50);
-}
+/* .t-body, .t-sm and .t-note are text hooks used in 82 places across the
+   site, and they are deliberately unstyled. Read that twice, because the file
+   used to say otherwise.
+
+   They once declared 17px, 15px, and 11.5px mono at ink-50. None of it ever
+   reached a browser: the comment above them described .page-title, and when
+   .page-title was deleted in 16d371e the line carrying that comment's closing
+   delimiter went with it. The comment stayed open and swallowed all three
+   rules. Every element wearing these classes has been rendering at inherited
+   body type ever since — and that flat rendering is the one we kept, so the
+   rules are gone rather than restored.
+
+   The class names stay in the markup so a distinction can be reintroduced
+   here, in one place, without touching 82 call sites. Anything added below
+   this line is a visual change to every one of them.
+
+   The lesson, since it cost a day: never delete a rule that sits directly
+   under a comment without checking that the comment still closes. */
 
 /* ─── Hero (§6.1) — type-led ──────────────────────────────────────────────
    Agreed direction: the headline owns the hero and nothing sits beside it.
