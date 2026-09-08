@@ -937,6 +937,18 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .tally-fig[data-weight='quiet'] { font-size: clamp(20px, 2.2vw, 32px); color: var(--color-ink-50); letter-spacing: -0.02em; }
 .tally[data-live] .tally-fig[data-weight='loud'] { color: var(--color-live); }
 .tally-note { color: var(--color-ink-70); max-width: 30ch; }
+/* Three columns is a different job from two: two figures are in tension and
+   want to be enormous, three are a breakdown and still want some size.
+   Measured rather than estimated: the longest of them, "~$450,000", sets 5.0em
+   wide in Plex Mono with this tracking, so 4.8vw puts it at 345px inside a
+   417px column at 1440 and 246px inside 296px at 1024 — clear at every width
+   down to where the row stacks. */
+.hx-tally[data-n='3'] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hx-tally[data-n='3'] .tally-fig { font-size: clamp(30px, 4.8vw, 72px); }
+.tally[data-muted] .tally-fig { color: var(--color-ink-50); }
+@media (max-width: 900px) {
+  .hx-tally[data-n='3'] { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); }
+}
 @media (max-width: 700px) { .hx-tally { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-5); } }
 
 /* ── BENTO. Edge to edge, cells of deliberately unequal size. Equal cards
@@ -1104,6 +1116,9 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   margin: 0;
 }
 .side[data-live] .side-line { color: var(--color-live); }
+/* A third row under the statement, for the pair that has to carry an argument
+   as well as a claim. Margin zero because the grid gap does that spacing. */
+.side-note { color: var(--color-ink-70); max-width: 46ch; margin: 0; }
 @media (max-width: 900px) { .sides { grid-template-columns: minmax(0, 1fr); } }
 
 /* ── SPLIT. Three columns: the shop's price, the mechanism between them, the
