@@ -1,11 +1,23 @@
 # Internal — do not publish
-assets/strategy.md
+reference/strategy.md
+
+# Next
+/.next/
+/out/
+next-env.d.ts
 
 # Local tooling / preview config
 .claude/
+
+# Dependencies
+node_modules/
 
 # OS / editor cruft
 .DS_Store
 Thumbs.db
 *.log
-node_modules/
+
+# Build artifacts
+tsconfig.tsbuildinfo
+.vercel
+.env*

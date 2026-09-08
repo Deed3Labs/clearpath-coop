@@ -1,0 +1,77 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Clear — design tokens.  §4 of the brief.  Defined once, used everywhere.
+   Nothing in this project may hard-code a hex value or an off-scale gap.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* ── Colour ─────────────────────────────────────────────────────────── */
+  --color-paper:    #DFE3DE;  /* page — cool mineral grey-green, NOT cream  */
+  --color-paper-2:  #E9ECE7;  /* raised surfaces                            */
+  --color-ink:      #16211D;  /* text and drawn lines — green-black         */
+  /* The same green-black, as a GROUND. Kept as its own token because a
+     full-bleed dark band rebinds --color-ink to the light value for its
+     contents; a band that also drew its background from --color-ink would
+     resolve it to the rebound value and render light on light. */
+  --color-ink-ground: #16211D;
+  --color-land:     #6B7F5C;  /* land, parcels, anything the co-op holds    */
+  --color-live:     #24409E;  /* cobalt — the figure that is moving         */
+  --color-settled:  #0E6B4E;  /* cleared, owned, paid, all-clear            */
+
+  /* Land as TEXT.  --land is a fill colour: 3.36:1 on paper, which clears
+     the 3:1 bar for a graphic but fails the 4.5:1 text bar (§8.7).  The
+     deed's "Land" label is 11px type, so it takes this darker value at
+     4.84:1.  Same role, two jobs — not a second olive. */
+  --color-land-ink: #55654A;
+
+  /* Ink at reduced strength.  Nominal 50% measures 3.04:1 on paper and
+     fails; §8.7 says darken the token rather than special-case it, so
+     --ink-50 carries 66% alpha and measures 4.72:1.  The name is the role,
+     not the arithmetic.  28 and 13 are rules and borders, never text. */
+  --color-ink-70:   rgb(22 33 29 / .70);
+  --color-ink-50:   rgb(22 33 29 / .66);
+  --color-ink-28:   rgb(22 33 29 / .28);
+  --color-ink-13:   rgb(22 33 29 / .13);
+
+  /* ── Type ───────────────────────────────────────────────────────────── */
+  --font-display: var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-text:    var(--font-instrument), 'Instrument Sans', system-ui, sans-serif;
+  --font-mono:    var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* ── Spacing — one scale, six values, and no seventh. ───────────────── */
+  /* The dynamic scale is switched off so p-7 simply does not exist. */
+  --spacing-*: initial;
+  --spacing-1:  8px;
+  --spacing-2:  16px;
+  --spacing-3:  24px;
+  --spacing-4:  40px;
+  --spacing-5:  64px;
+  --spacing-6:  96px;
+
+  /* ── Radius — two, and the distinction means something. ─────────────── */
+  --radius-*:      initial;
+  --radius-none:   0;      /* anything derived from a drawing or a document */
+  --radius-pill:   999px;  /* interactive controls                          */
+  --radius-device: 14px;   /* the one exception: a device outline           */
+}
+
+:root {
+  /* ── Measure ─────────────────────────────────────────────────────────
+     The page inset and gutter. These started life inside .hx, but the header
+     and footer sit outside it and have to answer to the same edges, so they
+     belong to the document rather than to one layout. */
+  --hx-inset:   clamp(20px, 3.2vw, 56px);
+  --hx-gap:     clamp(20px, 3.4vw, 64px);
+
+  /* The old centred container, still used by the mobile nav sheet. */
+  --container:  min(1320px, 100% - 48px);
+  /* Older, narrower gutter, still used by the stat row and the tiles. */
+  --gutter:     40px;
+
+  /* Motion. */
+  --ease:     cubic-bezier(0.16, 1, 0.3, 1); /* power3.out */
+  --hover:    200ms;
+}
+
+@media (max-width: 860px) {
+  :root { --gutter: 24px; }
+}
