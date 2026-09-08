@@ -920,6 +920,11 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 .cell[data-size='lg4'] { grid-column: span 6; }
 .cell[data-size='md4'] { grid-column: span 5; }
 .cell[data-size='sm4'] { grid-column: span 5; }
+/* Four EQUAL cells. A sequence of steps that carry the same weight gets the
+   same width — the decreasing row above encodes an order of magnitude, and
+   using it for a plain sequence would claim step one matters more than step
+   four. */
+.cell[data-size='eq4'] { grid-column: span 6; }
 
 /* On an ink band the cells take the dark ground. --color-paper is not rebound
    by the band (only --color-ink is), so a cell would otherwise sit light on
