@@ -113,17 +113,21 @@ export const MONTHLY = {
 } as const;
 
 /* ── 04 · The homes ───────────────────────────────────────────────────────
-   A bento of three unequal cells. The spec ledger it replaces was accurate
-   and unreadable — eleven rows of label and value where three of them were
-   the design and the rest were consequences of it. Each cell now carries the
-   consequence as its gate. */
+   A bento of three EQUAL cells. The spec ledger it replaces was accurate and
+   unreadable — eleven rows of label and value where three of them were the
+   design and the rest were consequences of it. Each cell carries the
+   consequence as its gate.
+
+   Equal, because unequal widths encode a hierarchy and there is not one here:
+   the front, the back and how the thing is built are three facts about one
+   house, and making the first widest would claim the porch matters most.
+   Two lines of body a side, so the row reads across rather than down. */
 export type HomeCell = {
   n: string;
   title: string;
   body: string;
   gate: string;
   gateNote: string;
-  size: 'lg' | 'md' | 'sm';
 };
 
 export const HOMES = {
@@ -134,18 +138,16 @@ export const HOMES = {
     {
       n: '01',
       title: 'The front is arrival and neighbours.',
-      body: 'A covered porch on every home, set at the street. It is the half of the house your neighbours meet, which is why every plan has one rather than it being something you add.',
+      body: 'A covered porch on every home, set at the street. It is the half of the house your neighbours meet.',
       gate: 'All detached',
       gateNote: 'no duplexes, no shared walls',
-      size: 'lg',
     },
     {
       n: '02',
       title: 'The back is where you actually live.',
-      body: 'A rear porch onto a patio and yard, with a garage-workshop set behind and to the side off a perimeter drive, which wraps the yard into an L.',
+      body: 'A rear porch onto a patio and yard, with a garage-workshop off a perimeter drive that wraps it into an L.',
       gate: '900–950',
       gateNote: 'square feet at the smallest, two bed and two bath',
-      size: 'md',
     },
     {
       n: '03',
@@ -153,7 +155,6 @@ export const HOMES = {
       body: 'Permitted, code-compliant California dwellings from panelised kits, finished by local trades.',
       gate: 'Co-op owned',
       gateNote: 'the community owns the solar and storage',
-      size: 'sm',
     },
   ] satisfies HomeCell[],
 } as const;

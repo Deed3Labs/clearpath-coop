@@ -11,7 +11,7 @@ export const metadata = {
  * number is an inline label.
  *
  * Rhythm: a pair of statements → three figures on full-bleed ink → a rate card
- * → unequal cells edge to edge → three columns → one sentence. No two
+ * → three equal cells edge to edge → three columns → one sentence. No two
  * consecutive sections share a shape.
  *
  * The ink band goes to the numbers, because "cost plus fifteen per cent, and
@@ -102,7 +102,7 @@ export default function Housing() {
         </div>
       </section>
 
-      {/* ── S4 · The homes. Bento, edge to edge, unequal cells. ─────────── */}
+      {/* ── S4 · The homes. Bento, edge to edge, three equal cells. ────── */}
       <section className="hx-band" data-pad="tight">
         <div className="hx-wrap">
           <p className="hx-label">
@@ -117,7 +117,7 @@ export default function Housing() {
         {/* Outside the wrap: the bento runs the full viewport, edge to edge. */}
         <div className="hx-bento">
           {HOMES.cells.map((c) => (
-            <article className="cell" data-size={c.size} key={c.n}>
+            <article className="cell" data-size="eq3" key={c.n}>
               <p className="cell-n">{c.n}</p>
               <h3 className="cell-title">{c.title}</h3>
               <p className="t-sm cell-body">{c.body}</p>

@@ -1010,6 +1010,10 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    using it for a plain sequence would claim step one matters more than step
    four. */
 .cell[data-size='eq4'] { grid-column: span 6; }
+/* Three EQUAL cells, same reasoning: the front, the back and how it is built
+   are three facts about one house, not a sequence with a leader. Eight of
+   twenty-four each. */
+.cell[data-size='eq3'] { grid-column: span 8; }
 
 /* On an ink band the cells take the dark ground. --color-paper is not rebound
    by the band (only --color-ink is), so a cell would otherwise sit light on
