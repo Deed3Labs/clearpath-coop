@@ -524,6 +524,17 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
 
 /* ─── Shell — header, mobile sheet, footer. ────────────────────────────── */
 
+/* The header and footer answer to the page's edges, not to the old centred
+   container. --container is min(1320px, 100% - 48px), which put them 60px in
+   from the viewport at 1440 while .hx-wrap starts at 46px — a 14px
+   misalignment between the logo and the headline directly beneath it. */
+.site-header,
+.site-footer {
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: var(--hx-inset);
+}
+
 .site-header {
   display: flex;
   align-items: center;
@@ -796,14 +807,13 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
    One grid: twelve columns across the FULL measure. Sections choose how much
    of it they take, and full-bleed means the viewport, not a padded box. */
 
-.hx {
-  /* 28px at 1440 was a bento gutter, not a prose one: two half columns of
-     ~660px separated by 23px read as one continuous run of text with a seam
-     in it, and paragraphs in adjacent columns looked like they shared a row.
-     A gutter has to be legible at the scale of the thing it separates. */
-  --hx-gap: clamp(20px, 3.4vw, 64px);
-  --hx-inset: clamp(20px, 3.2vw, 56px);
-}
+/* --hx-gap and --hx-inset now live on :root in tokens.css. The header and
+   footer sit outside .hx and have to line up with it, and a measure two
+   elements share is not the property of one of them.
+   On the gutter: 28px at 1440 was a bento gutter, not a prose one — two half
+   columns of ~660px separated by 23px read as one continuous run of text with
+   a seam in it, and paragraphs in adjacent columns looked like they shared a
+   row. A gutter has to be legible at the scale of the thing it separates. */
 
 .hx-wrap { width: 100%; padding-inline: var(--hx-inset); }
 

@@ -13,6 +13,16 @@
 
 import type { StepItem } from '@/components/primitives';
 
+/* Naming: the instrument is "yield-bearing shares", not "units". On a site
+   where /housing calls a dwelling a unit and the unit mix runs one-bed to
+   three-bed, "units" read as housing rather than as the thing you receive for
+   contributing property. The full term appears on first use on each page and
+   "shares" carries it thereafter.
+   "Share" also means a membership share elsewhere on the site — a portion of
+   the co-op, which every member holds by depositing. That is a different
+   sense, in a different register, for a different reader, and the pages that
+   use it are unchanged. */
+
 /* ── 01 · The offer ──────────────────────────────────────────────────────
    Two ways to stop being a landlord, set side by side. Both halves are drawn
    from copy that was already on the page — the recapture list came out of the
@@ -20,7 +30,7 @@ import type { StepItem } from '@/components/primitives';
 export const OPENING = {
   kicker: 'Contribute',
   heading: 'Put the property in. Keep the income. Stop managing it.',
-  lede: 'If you own rental property or land you have been sitting on, you can contribute it to Clear Properties in exchange for units.',
+  lede: 'If you own rental property or land you have been sitting on, you can contribute it to Clear Properties in exchange for yield-bearing shares.',
   sides: [
     {
       label: 'Selling it',
@@ -29,7 +39,9 @@ export const OPENING = {
     },
     {
       label: 'Contributing it',
-      line: 'Units, and the income keeps arriving.',
+      /* Full stop rather than "and": "Shares" is wider than "Units" was, and
+         the comma version measured 2 lines against 1 on the other side. */
+      line: 'Shares. The income keeps arriving.',
       note: 'Under section 721, contributing property to a partnership in exchange for an interest in it is not a taxable event.',
       live: true,
     },
@@ -53,19 +65,19 @@ export const HOW = {
       body: 'Title moves to a nominee trust, with Clear Properties as the beneficiary. Not a taxable event.',
     },
     {
-      title: 'You receive units',
+      title: 'You receive shares',
       meta: '1:1 by value',
-      body: 'Contribute a $437,000 property, receive 437,000 units. No boot and no balancing mechanism.',
+      body: 'Contribute a $437,000 property, receive 437,000 shares. No boot and no balancing mechanism.',
     },
     {
       title: 'The cash keeps arriving',
       meta: 'pro rata',
-      body: 'Rent is earned at the project level, which pays taxes and management. The rest goes out to every unit holder.',
+      body: 'Rent is earned at the project level, which pays taxes and management. The rest goes out to every holder.',
     },
     {
       title: 'Nobody goes first',
       meta: 'same terms',
-      body: 'Clear Capital holds units on the terms you do — same pool, no priority, no preferred return.',
+      body: 'Clear Capital holds shares on the terms you do — same pool, no priority, no preferred return.',
     },
   ] satisfies (StepItem & { meta: string })[],
   note: 'The agreement requires mandatory tax distributions, so you are never handed a K-1 for income you did not receive in cash.',
@@ -81,10 +93,10 @@ export const HOW = {
 export const DOWNSIDES = {
   title: 'The honest downsides.',
   list: [
-    'Units are illiquid compared with cash',
+    'Shares are illiquid compared with cash',
     'You do not control the properties',
     'You get a K-1, which arrives later than a 1099 and your accountant will charge you for it',
-    'The deferred gain still exists and comes due if you ever sell the units',
+    'The deferred gain still exists and comes due if you ever sell the shares',
     'Concentration risk moves from your one building to a fund, which is usually better but is a change, not a removal',
   ],
 } as const;

@@ -57,6 +57,12 @@
 :root {
   /* ── Grid — one grid, defined once, used everywhere. ────────────────── */
   --container:  min(1320px, 100% - 48px);
+
+  /* The page inset and gutter. These started life inside .hx, but the header
+     and footer sit outside it and have to answer to the same edges, so they
+     belong to the document rather than to one layout. */
+  --hx-inset:   clamp(20px, 3.2vw, 56px);
+  --hx-gap:     clamp(20px, 3.4vw, 64px);
   --columns:    12;
   --gutter:     40px;
   --row-gap:    64px;

@@ -17,6 +17,10 @@
 
 import type { LedgerItem } from '@/components/primitives';
 
+/* Naming: "yield-bearing shares", not "units" — see the note in ./contribute.
+   Descriptive of the instrument, not a projection: distributions are pro rata
+   out of what the project earns, and no rate, term or projected return
+   appears anywhere on this page. The offer disclaimer above is unchanged. */
 export { DOWNSIDES } from './contribute';
 
 /* ── 01 · The claim ──────────────────────────────────────────────────────
@@ -64,8 +68,8 @@ export const SPLIT = {
     },
     {
       label: 'Contributors hold',
-      line: 'Units.',
-      note: 'In Clear Properties, pro rata, on the same terms as everyone else in the pool.',
+      line: 'Shares.',
+      note: 'Yield-bearing shares in Clear Properties, pro rata, on the same terms as everyone else in the pool.',
     },
   ],
   close:
@@ -77,18 +81,18 @@ export const SPLIT = {
 export const SCALE = {
   kicker: 'Contributions',
   heading: 'A contribution is not a sale, and it is not a fund raise.',
-  sub: 'Property comes in under section 721 in exchange for units issued by value. Nothing is trued up with cash, so there is no boot and no balancing mechanism.',
+  sub: 'Property comes in under section 721 in exchange for yield-bearing shares issued by value. Nothing is trued up with cash, so there is no boot and no balancing mechanism.',
   ledger: [
     {
       label: 'Issued by',
       value: 'value',
-      description: 'Contribute at appraised value, receive units one-for-one against it.',
+      description: 'Contribute at appraised value, receive shares one-for-one against it.',
     },
     {
       label: 'Clear Capital’s own position',
       value: 'same pool, no priority',
       description:
-        'It holds units on exactly the same terms as every contributor. No preferred return, no priority, and its share shrinks as more contributors join.',
+        'It holds shares on exactly the same terms as every contributor. No preferred return, no priority, and its position shrinks as more contributors join.',
     },
     {
       label: 'Distributions',
