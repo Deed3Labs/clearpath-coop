@@ -16,10 +16,12 @@ export const HERO = {
      The misregistration sits on the whole headline now rather than on a
      second line, which is what it was there to do anyway. */
   headline: 'Your rent is making someone else rich.',
-  /* Was four sentences explaining title, land and equity — three arguments
-     stacked behind a headline that had already landed. Each now has its own
-     section further down. */
-  lede: 'A cooperative where the money you already pay for a place to live ends up being yours.',
+  /* Two beats. The first answers the headline directly — the headline states
+     the problem, so the lede has to be the reply to it, not a restatement in
+     calmer words. The second is the whole co-op in one clause: what it is,
+     and what the money does. Everything else it used to carry — title, land,
+     the protocol — has its own section further down. */
+  lede: 'So we built the alternative. A cooperative where the rent you already pay buys equity in the home you live in.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
   meta: [
