@@ -298,6 +298,11 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* A note under a full-width table ran as one 1,870px mono line. Small type at
    full viewport width is not a note, it is a rule made of words. */
 .hx .note-block { max-width: 78ch; }
+/* The exception: a disclaimer that qualifies the whole section rather than the
+   block above it. At 78ch it sits in the left half and looks like a caption on
+   the left column; run the width of the band it belongs to and it reads as
+   what it is. */
+.hx .note-wide .note-block { max-width: none; }
 
 /* Section heading rhythm. */
 .section-head { max-width: 22ch; }

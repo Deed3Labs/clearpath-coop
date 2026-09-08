@@ -46,7 +46,9 @@ export default function Contribute() {
             ))}
           </div>
 
-          <div className="c-full">
+          {/* Full width: this disclaimer qualifies the section, not the
+              column it happened to start under. */}
+          <div className="c-full note-wide">
             <Note>{OPENING.note}</Note>
           </div>
         </div>
