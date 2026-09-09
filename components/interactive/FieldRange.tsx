@@ -53,44 +53,42 @@ export function FieldRange({
 
   return (
     <div className={`join-field fr${wide ? ' is-wide' : ''}`}>
-      {/* The label sits above the box, exactly where it sits on every text
-          field in this form. The control below it is boxed for the same
-          reason — floating a bare track between bordered inputs was the thing
-          that read as unfinished. */}
-      <label className="fr-label" htmlFor={`${id}-input`}>
-        {label}
-      </label>
-
-      <div className="fr-box">
+      {/* Label and answer on one line: the question and what you have said in
+          reply belong together, and it keeps the control three rows tall
+          instead of four. */}
+      <div className="fr-head">
+        <label className="fr-label" htmlFor={`${id}-input`}>
+          {label}
+        </label>
         {/* The figure face, because it is a figure. aria-hidden because the
             input already announces its own value to a screen reader, and a
             second reading of the same number is noise. */}
         <output className="fr-value fig" htmlFor={`${id}-input`} aria-hidden="true">
           {read}
         </output>
+      </div>
 
-        <input
-          id={`${id}-input`}
-          name={name}
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          aria-label={label}
-          /* The number alone is not the answer at the ceiling, so the spoken
-             value carries the same "or more" the readout shows. */
-          aria-valuetext={read}
-          onChange={(e) => setValue(Number(e.currentTarget.value))}
-          /* Fills the track behind the thumb without a second element to
-             keep in sync. */
-          style={{ ['--fr-pct' as string]: `${pct}%` }}
-        />
+      <input
+        id={`${id}-input`}
+        name={name}
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        aria-label={label}
+        /* The number alone is not the answer at the ceiling, so the spoken
+           value carries the same "or more" the readout shows. */
+        aria-valuetext={read}
+        onChange={(e) => setValue(Number(e.currentTarget.value))}
+        /* Fills the track behind the thumb without a second element to keep
+           in sync. */
+        style={{ ['--fr-pct' as string]: `${pct}%` }}
+      />
 
-        <div className="fr-scale" aria-hidden="true">
-          <span>{format === 'usd' ? usd.format(min) : min}</span>
-          <span>{topLabel}</span>
-        </div>
+      <div className="fr-scale" aria-hidden="true">
+        <span>{format === 'usd' ? usd.format(min) : min}</span>
+        <span>{topLabel}</span>
       </div>
     </div>
   );
