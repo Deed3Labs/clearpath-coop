@@ -572,43 +572,67 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .fs-option[aria-selected='true'] { font-weight: 600; }
 
 /* ── The range (FieldRange) ────────────────────────────────────────────────
-   Not boxed. It sits between two bordered inputs and a box around it made a
-   box inside a box; the line, the figure and the two ends are the control.
+   A label row, then one control box — which is exactly what a text field is,
+   so the two sit as peers in the column. The box is the same ground, border
+   and height a text input gets; only its content differs.
 
-   What was actually wrong was spacing and one borrowed font. A range input is
-   44px tall for the tap target but draws a 3px line through its middle, so it
-   carries ~20px of dead space at each end that the field's own 6px gap then
-   added to. The negative margins take that back — the gaps you see are the
-   gaps that are there.
-
-   The scale ends are the same face as everything else at a smaller size and
-   a lighter ink. They were mono, which is this site's voice for labels and
-   rails, and next to a sans figure and a sans label it read as a third
-   typeface arriving for two words. Tabular figures so the two ends sit on
-   the same rhythm. */
-.fr-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--spacing-2); }
+   Three earlier passes got this wrong in three ways worth recording. Boxing
+   the whole thing, value and scale included, made a box inside a box. Leaving
+   the track bare gave the control no body next to 49px inputs. Pulling the
+   rows together with negative margins made the label, the line and the scale
+   crowd each other while the field still read as lighter than its neighbours.
+   The fix was none of those: put the ends of the scale INSIDE the control,
+   where they label the thing they belong to, and let the box carry the weight.
+*/
+.fr-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  margin-bottom: 6px;
+}
 .fr-label { font-size: 15px; color: var(--color-ink-70); }
 .fr-value { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.15; letter-spacing: -0.02em; }
-.fr-scale {
+
+.fr-track {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-2);
+  /* The measured height of a text input in this form, so the two line up
+     down the column rather than nearly lining up. */
+  height: 49px;
+  padding-inline: 12px;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-ink-28);
+  border-radius: var(--radius-none);
+}
+.fr:focus-within .fr-track { border-color: var(--color-ink); }
+/* Same face as the label and the figure, a step down and a shade back. These
+   were mono, which is the site's voice for rails and labels — beside a sans
+   label and a sans figure it read as a third typeface arriving for two
+   words. Tabular so both ends keep one rhythm. */
+.fr-end {
+  flex: none;
   font-size: 12.5px;
-  font-variant-numeric: tabular-nums;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
   color: var(--color-ink-50);
-  margin-top: 2px;
 }
 
 .fr input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
-  display: block;
-  width: 100%;
-  height: 44px;              /* §8.4 tap target */
-  /* The 44px target draws a 3px line through its middle, so ~20px of it is
-     dead at each end. Take most of that back — not all of it, or the label
-     and the scale close in on the track and the control reads cramped. */
-  margin: -9px 0 -11px;
+  flex: 1;
+  min-width: 0;
+  height: 44px;              /* §8.4 tap target, inside the 49px box */
+  /* .join-field input gives every input in this form a border, a ground and
+     10px of padding. A range is an input, so it was getting all three — a
+     real bordered box inside the control, which is the box-inside-a-box that
+     survived three redesigns because I kept re-styling around it instead of
+     turning it off. */
+  margin: 0;
+  padding: 0;
+  border: 0;
   background: transparent;
   cursor: pointer;
 }

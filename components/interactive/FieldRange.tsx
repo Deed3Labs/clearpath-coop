@@ -68,27 +68,38 @@ export function FieldRange({
         </output>
       </div>
 
-      <input
-        id={`${id}-input`}
-        name={name}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        aria-label={label}
-        /* The number alone is not the answer at the ceiling, so the spoken
-           value carries the same "or more" the readout shows. */
-        aria-valuetext={read}
-        onChange={(e) => setValue(Number(e.currentTarget.value))}
-        /* Fills the track behind the thumb without a second element to keep
-           in sync. */
-        style={{ ['--fr-pct' as string]: `${pct}%` }}
-      />
+      {/* One box, the same box a text input gets, with the track running
+          through it and the two ends of the scale inside it. A text field is
+          a label and then a 49px control; so is this. The ends live in here
+          rather than on a row of their own because a third row is what made
+          the field taller than its neighbours while giving the control itself
+          no body. */}
+      <div className="fr-track">
+        <span className="fr-end" aria-hidden="true">
+          {format === 'usd' ? usd.format(min) : min}
+        </span>
 
-      <div className="fr-scale" aria-hidden="true">
-        <span>{format === 'usd' ? usd.format(min) : min}</span>
-        <span>{topLabel}</span>
+        <input
+          id={`${id}-input`}
+          name={name}
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          aria-label={label}
+          /* The number alone is not the answer at the ceiling, so the spoken
+             value carries the same "or more" the readout shows. */
+          aria-valuetext={read}
+          onChange={(e) => setValue(Number(e.currentTarget.value))}
+          /* Fills the track behind the thumb without a second element to keep
+             in sync. */
+          style={{ ['--fr-pct' as string]: `${pct}%` }}
+        />
+
+        <span className="fr-end" aria-hidden="true">
+          {topLabel}
+        </span>
       </div>
     </div>
   );
