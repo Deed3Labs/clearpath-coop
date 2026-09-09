@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { MODES, OPENING, SUBMIT, type ModeKey } from '@/content/join';
 import { FieldSelect } from './FieldSelect';
 import { FieldRange } from './FieldRange';
+import { FieldRangeDual } from './FieldRangeDual';
 
 /* §6.8 — four modes, deep-linkable, and built to submit for real.
  *
@@ -113,7 +114,7 @@ export function JoinForm() {
               /* Keyed by mode as well as name so switching modes remounts the
                  controls. Without it a select or a range that appears in two
                  modes would keep the previous mode's answer. */
-              const key = `${mode}-${f.name}`;
+              const key = `${mode}-${f.kind === 'range2' ? f.nameMin : f.name}`;
 
               if (f.kind === 'select') {
                 return (
@@ -123,6 +124,24 @@ export function JoinForm() {
                     label={f.label}
                     placeholder={f.placeholder}
                     options={[...f.options]}
+                    wide={f.wide}
+                  />
+                );
+              }
+
+              if (f.kind === 'range2') {
+                return (
+                  <FieldRangeDual
+                    key={key}
+                    nameMin={f.nameMin}
+                    nameMax={f.nameMax}
+                    label={f.label}
+                    min={f.min}
+                    max={f.max}
+                    step={f.step}
+                    startLow={f.startLow}
+                    startHigh={f.startHigh}
+                    topLabel={f.topLabel}
                     wide={f.wide}
                   />
                 );

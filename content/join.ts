@@ -35,6 +35,22 @@ export type Field =
       options: string[];
       wide?: boolean;
     }
+  /* Two handles. A typical ticket is a spread, not a number — a shop doing
+     $350 brake jobs and $1,500 transmissions has no single answer, and asked
+     for one it picks a middle that describes nothing. */
+  | {
+      kind: 'range2';
+      nameMin: string;
+      nameMax: string;
+      label: string;
+      min: number;
+      max: number;
+      step: number;
+      startLow: number;
+      startHigh: number;
+      topLabel: string;
+      wide?: boolean;
+    }
   | {
       kind: 'range';
       name: string;
@@ -108,14 +124,15 @@ export const MODES: {
         ],
       },
       {
-        kind: 'range',
-        name: 'ticket',
+        kind: 'range2',
+        nameMin: 'ticketLow',
+        nameMax: 'ticketHigh',
         label: 'Typical ticket',
         min: 100,
         max: 5000,
         step: 50,
-        start: 940,
-        format: 'usd',
+        startLow: 350,
+        startHigh: 1500,
         topLabel: '$5,000+',
         wide: true,
       },
