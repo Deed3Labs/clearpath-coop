@@ -830,7 +830,27 @@ p > .tlink:only-child { display: inline-block; padding-block: 11px; }
   justify-content: space-between;
   padding-bottom: var(--spacing-4);
 }
-.sheet nav ul { display: grid; gap: var(--spacing-3); }
+/* §8.4 — 44px tap targets. These are standalone destinations in a sheet built
+   for thumbs, and they were 28px: the d3 line box and nothing else. The
+   footer's links were given real hit areas for this reason and the sheet's
+   were missed. The row gap comes down as the targets grow, so the list keeps
+   its rhythm rather than gaining 8 × 16px of height. */
+.sheet nav ul { display: grid; gap: var(--spacing-2); }
+/* 9, not 8: the d3 line box measures 26px here, so 8 lands at 42. */
+.sheet nav a { display: block; padding-block: 9px; }
+/* The page you are on, keyed off the same aria-current the header uses — the
+   two share NavLink, so the semantics and the styling cannot drift apart.
+   Cobalt rather than the header's ink underline: at display size an ink
+   underline reads as emphasis, and --color-live is already the token for the
+   thing that is current. The underline comes with it so the state does not
+   rest on colour alone. */
+.sheet-link[aria-current='page'] {
+  color: var(--color-live);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 7px;
+  text-decoration-color: var(--color-live);
+}
 
 .site-footer { padding-block: var(--spacing-5) var(--spacing-4); }
 .site-footer .hx-grid { row-gap: var(--spacing-4); }

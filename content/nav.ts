@@ -21,6 +21,12 @@ export const CONTEXTUAL: readonly Route[] = [
   { href: '/capital', label: 'Clear Capital' },
 ] as const;
 
+/* Mobile only. On a wide screen the wordmark in the header goes home and is
+   always visible; when the sheet is open it is behind a modal, so the sheet
+   has to carry its own way back. Deliberately NOT in ROUTES — the sitemap
+   already lists "/" on its own line, and adding it here would list it twice. */
+export const HOME: Route = { href: '/', label: 'Home' };
+
 export const JOIN: Route = { href: '/join', label: 'Join' };
 
 /* Everything with a URL — sitemap, QA sweeps, the ?debug=grid pass. */
