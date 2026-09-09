@@ -9,7 +9,47 @@ export const OPENING = {
 
 export type ModeKey = 'member' | 'shop' | 'land' | 'work';
 
-export type Field = { name: string; label: string; type?: 'text' | 'number' };
+/* Three kinds of question, because three kinds of answer.
+   A text box is right for a name and wrong for a quantity: it invites a
+   sentence where the reader has to guess the format we want, and it gives us
+   "about 40-50 a week" to parse. A select carries a list we already know, and
+   a range carries a number the reader can feel rather than type. */
+export type Field =
+  | {
+      kind: 'text';
+      name: string;
+      label: string;
+      wide?: boolean;
+      autoComplete?: string;
+      /* Sets the phone keyboard, not a validation rule. A ZIP typed on the
+         letter keyboard is four taps of hunting for the number row. */
+      numeric?: boolean;
+    }
+  | {
+      kind: 'select';
+      name: string;
+      label: string;
+      /* Never a pre-selected first option. An untouched control that already
+         reads like an answer is how a form collects a value nobody chose. */
+      placeholder: string;
+      options: string[];
+      wide?: boolean;
+    }
+  | {
+      kind: 'range';
+      name: string;
+      label: string;
+      min: number;
+      max: number;
+      step: number;
+      start: number;
+      /* How the live readout is written, not how the value is submitted. */
+      format: 'usd' | 'count';
+      /* The top of the scale is open-ended: a shop at the ceiling is telling
+         us "at least this", not "exactly this". */
+      topLabel: string;
+      wide?: boolean;
+    };
 
 /* Each mode carries two asides. They were one paragraph, and every one of the
    four had the same shape inside it: what we will do, and then the thing that
@@ -18,6 +58,9 @@ export type Field = { name: string; label: string; type?: 'text' | 'number' };
 export const MODES: {
   key: ModeKey;
   tab: string;
+  /* Every mode asks for a name; only the wording changes. A shop is giving us
+     a person to call, which is not the same request as "your name". */
+  nameLabel: string;
   fields: Field[];
   button: string;
   noteLabel: string;
@@ -28,7 +71,8 @@ export const MODES: {
   {
     key: 'member',
     tab: 'I want to join',
-    fields: [{ name: 'zip', label: 'ZIP' }],
+    nameLabel: 'Your name',
+    fields: [{ kind: 'text', name: 'zip', label: 'ZIP', autoComplete: 'postal-code', numeric: true }],
     button: 'Join the waitlist',
     noteLabel: 'Anything we should know',
     next: 'You will hear from us before we open in your area, and we will not email you about anything else.',
@@ -40,13 +84,56 @@ export const MODES: {
   {
     key: 'shop',
     tab: 'I run a shop',
+    nameLabel: 'Contact person',
+    /* The two questions that used to live inside the note are their own rows
+       now. Buried in a textarea they were answered in prose or not at all,
+       and both are the numbers that decide whether a shop is a fit. */
     fields: [
-      { name: 'zip', label: 'ZIP' },
-      { name: 'business', label: 'Business name' },
-      { name: 'ticket', label: 'Typical ticket' },
+      { kind: 'text', name: 'business', label: 'Business name', wide: true, autoComplete: 'organization' },
+      { kind: 'text', name: 'zip', label: 'ZIP', autoComplete: 'postal-code', numeric: true },
+      {
+        kind: 'select',
+        name: 'industry',
+        label: 'What do you do',
+        placeholder: 'Choose a trade',
+        options: [
+          'Auto repair',
+          'Tires and wheels',
+          'Plumbing, electrical or HVAC',
+          'Appliance and home repair',
+          'Dental or medical',
+          'Veterinary',
+          'Furniture and mattress',
+          'Something else',
+        ],
+      },
+      {
+        kind: 'range',
+        name: 'ticket',
+        label: 'Typical ticket',
+        min: 100,
+        max: 5000,
+        step: 50,
+        start: 940,
+        format: 'usd',
+        topLabel: '$5,000+',
+        wide: true,
+      },
+      {
+        kind: 'range',
+        name: 'jobsPerWeek',
+        label: 'Jobs a week, roughly',
+        min: 5,
+        max: 200,
+        step: 5,
+        start: 40,
+        format: 'count',
+        topLabel: '200+',
+        wide: true,
+      },
     ],
     button: 'Request a call',
-    noteLabel: 'What do you sell, and roughly how many jobs a week walk out over cost?',
+    noteLabel: 'Anything else we should know?',
     next: 'A founder calls you, not a sales team.',
     caveatLabel: 'The first question',
     caveat: 'Whether you can wait thirty days for the money. If the answer is no, we will say this is not a fit rather than sign you.',
@@ -54,9 +141,24 @@ export const MODES: {
   {
     key: 'land',
     tab: 'I own property',
+    nameLabel: 'Your name',
     fields: [
-      { name: 'zip', label: 'ZIP' },
-      { name: 'own', label: 'What do you own' },
+      {
+        kind: 'select',
+        name: 'propertyType',
+        label: 'What do you own',
+        placeholder: 'Choose a property type',
+        options: [
+          'Single-family home',
+          'Duplex or fourplex',
+          'Vacant land',
+          'Commercial building',
+          'Mixed-use building',
+          'Something else',
+        ],
+        wide: true,
+      },
+      { kind: 'text', name: 'zip', label: 'ZIP', autoComplete: 'postal-code', numeric: true },
     ],
     button: 'Send the details',
     noteLabel: 'Where is it, roughly what is it worth, and is there a mortgage on it?',
@@ -67,6 +169,7 @@ export const MODES: {
   {
     key: 'work',
     tab: 'I want to work on it',
+    nameLabel: 'Your name',
     fields: [],
     button: 'Get in touch',
     noteLabel: 'What would you want to work on?',
