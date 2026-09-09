@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NAV, CONTEXTUAL, JOIN } from '@/content/nav';
+import { NAV, CONTEXTUAL, HOME, JOIN } from '@/content/nav';
+import { NavLink } from './NavLink';
 
 /* Built on <dialog>.showModal() rather than a div and a focus-trap library.
    The element traps focus and closes on Escape natively, which is two of the
@@ -89,19 +89,16 @@ export function MobileNav() {
 
           <nav>
             <ul>
-              {NAV.map((r) => (
+              {/* First, because the wordmark that goes home sits behind this
+                  dialog while it is open — without this the sheet is a room
+                  with no door back to the front page. */}
+              {[HOME, ...NAV, ...CONTEXTUAL, JOIN].map((r) => (
                 <li key={r.href}>
-                  <Link href={r.href} className="d3">{r.label}</Link>
+                  <NavLink href={r.href} className="d3 sheet-link">
+                    {r.label}
+                  </NavLink>
                 </li>
               ))}
-              {CONTEXTUAL.map((r) => (
-                <li key={r.href}>
-                  <Link href={r.href} className="d3">{r.label}</Link>
-                </li>
-              ))}
-              <li>
-                <Link href={JOIN.href} className="d3">{JOIN.label}</Link>
-              </li>
             </ul>
           </nav>
         </div>
