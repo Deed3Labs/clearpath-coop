@@ -482,6 +482,260 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .join-field textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
 .join-field input:focus, .join-field textarea:focus { border-color: var(--color-ink); outline: 0; }
 
+/* ── The listbox (FieldSelect) ─────────────────────────────────────────────
+   Same box as a text input, because it answers the same kind of question and
+   a control that looks different implies it behaves differently. What marks
+   it is the caret and the fact that the value sits in ink while an unchosen
+   placeholder sits at ink-50 — the difference between an answer and a prompt
+   has to be visible at a glance down the column. */
+.fs { position: relative; }
+.fs-label { font-size: 15px; color: var(--color-ink-70); }
+.fs-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  width: 100%;
+  min-height: 44px;              /* §8.4 tap target */
+  padding: 10px 12px;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-ink-28);
+  border-radius: var(--radius-none);
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.fs-button:hover { border-color: var(--color-ink); }
+.fs-button[aria-expanded='true'] { border-color: var(--color-ink); }
+.fs-value[data-empty] { color: var(--color-ink-50); }
+/* Drawn, not a glyph: a character would carry the font's own metrics and sit
+   off-centre at this size. */
+.fs-caret {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--color-ink-70);
+  border-bottom: 1.5px solid var(--color-ink-70);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--hover) var(--ease);
+}
+.fs-button[aria-expanded='true'] .fs-caret { transform: translateY(1px) rotate(-135deg); }
+
+.fs-list {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* paper-2 and ink, never paper. The join band is data-tone="ink", which
+     rebinds --color-ink to the light value but leaves --color-paper light —
+     so a panel drawn on --color-paper with inherited colour would have been
+     light text on a light ground. paper-2 IS rebound, so this pair inverts
+     with the band and reads on either. */
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-none);
+  /* The one shadow on the site. A menu floats over content and nothing else
+     here does, so the exception is the point. */
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.22);
+}
+.fs-option {
+  padding: 10px 12px;
+  font-size: 15px;
+  line-height: 1.35;
+  cursor: pointer;
+}
+.fs-option + .fs-option { border-top: 1px solid var(--color-ink-13); }
+/* Hover and keyboard share one highlight, because they are one cursor.
+   A wash plus a marker rather than an ink fill: an inverted row would need
+   --color-ink for the ground and --color-paper for the text, and on an ink
+   band both resolve light. ink-13 is rebound with the band, so this holds on
+   either ground. */
+.fs-option { position: relative; }
+.fs-option[data-cursor='true'] { background: var(--color-ink-13); }
+.fs-option[data-cursor='true']::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-live);
+}
+.fs-option[aria-selected='true'] { font-weight: 600; }
+
+/* ── The range (FieldRange) ────────────────────────────────────────────────
+   A label row, then one control box — which is exactly what a text field is,
+   so the two sit as peers in the column. The box is the same ground, border
+   and height a text input gets; only its content differs.
+
+   Three earlier passes got this wrong in three ways worth recording. Boxing
+   the whole thing, value and scale included, made a box inside a box. Leaving
+   the track bare gave the control no body next to 49px inputs. Pulling the
+   rows together with negative margins made the label, the line and the scale
+   crowd each other while the field still read as lighter than its neighbours.
+   The fix was none of those: put the ends of the scale INSIDE the control,
+   where they label the thing they belong to, and let the box carry the weight.
+*/
+.fr-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  margin-bottom: 6px;
+}
+.fr-label { font-size: 15px; color: var(--color-ink-70); }
+.fr-value { font-size: clamp(20px, 1.8vw, 26px); line-height: 1.15; letter-spacing: -0.02em; }
+
+.fr-track {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  /* The measured height of a text input in this form, so the two line up
+     down the column rather than nearly lining up. */
+  height: 49px;
+  padding-inline: 12px;
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-ink-28);
+  border-radius: var(--radius-none);
+}
+.fr:focus-within .fr-track { border-color: var(--color-ink); }
+/* Same face as the label and the figure, a step down and a shade back. These
+   were mono, which is the site's voice for rails and labels — beside a sans
+   label and a sans figure it read as a third typeface arriving for two
+   words. Tabular so both ends keep one rhythm. */
+.fr-end {
+  flex: none;
+  font-size: 12.5px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-50);
+}
+
+.fr input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  min-width: 0;
+  height: 44px;              /* §8.4 tap target, inside the 49px box */
+  /* .join-field input gives every input in this form a border, a ground and
+     10px of padding. A range is an input, so it was getting all three — a
+     real bordered box inside the control, which is the box-inside-a-box that
+     survived three redesigns because I kept re-styling around it instead of
+     turning it off. */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.fr input[type='range']::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--color-ink) 0 var(--fr-pct, 0%),
+    var(--color-ink-28) var(--fr-pct, 0%) 100%
+  );
+}
+.fr input[type='range']::-moz-range-track {
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink-28);
+}
+.fr input[type='range']::-moz-range-progress {
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+}
+.fr input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6.5px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  border: 0;
+}
+.fr input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  border: 0;
+}
+.fr input[type='range']:focus-visible { outline: 0; }
+.fr input[type='range']:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--color-live);
+}
+.fr input[type='range']:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--color-live);
+}
+
+/* ── The two-handle range (FieldRangeDual) ─────────────────────────────────
+   Same box, same ends, same thumb — only the middle changes. HTML has no
+   dual-handle input, so this is two ranges lying on top of each other with
+   the line and the filled span painted behind them by the rail.
+
+   The inputs take no pointer events and their own tracks are transparent;
+   only the thumbs are grabbable. That way a click never lands ambiguously
+   between two handles, and the one line you see is the rail's, not two tracks
+   fighting over the same three pixels.
+
+   These rules come after the single-handle ones deliberately: same
+   specificity, so order is what turns off the gradient track above. */
+.fr2-rail {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  height: 44px;
+}
+.fr2-line,
+.fr2-fill {
+  position: absolute;
+  height: 3px;
+  border-radius: var(--radius-pill);
+}
+.fr2-line { left: 0; right: 0; background: var(--color-ink-28); }
+.fr2-fill { left: var(--lo); right: calc(100% - var(--hi)); background: var(--color-ink); }
+
+.fr2-rail input[type='range'] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+.fr2-rail input[type='range']::-webkit-slider-runnable-track {
+  height: 3px;
+  background: transparent;
+}
+.fr2-rail input[type='range']::-moz-range-track {
+  height: 3px;
+  background: transparent;
+}
+.fr2-rail input[type='range']::-moz-range-progress { background: transparent; }
+.fr2-rail input[type='range']::-webkit-slider-thumb { pointer-events: auto; }
+.fr2-rail input[type='range']::-moz-range-thumb { pointer-events: auto; }
+
+/* Two figures and a dash where there was one figure. */
+.fr2 .fr-value { font-size: clamp(17px, 1.5vw, 22px); }
+
 .join-submit { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-3); }
 .join-status { color: var(--color-ink-70); margin: 0; }
 .join-form .btn:disabled { opacity: 0.5; pointer-events: none; }

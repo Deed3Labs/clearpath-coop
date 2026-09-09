@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { MODES, OPENING, SUBMIT, type ModeKey } from '@/content/join';
+import { FieldSelect } from './FieldSelect';
+import { FieldRange } from './FieldRange';
+import { FieldRangeDual } from './FieldRangeDual';
 
 /* §6.8 — four modes, deep-linkable, and built to submit for real.
  *
@@ -94,17 +97,86 @@ export function JoinForm() {
           <fieldset>
             <legend className="sr-only">{active.tab}</legend>
 
-            <div className="join-field is-wide">
+            {/* Name and email are on every mode, so they are rendered here
+                rather than repeated four times in the content. Only the name's
+                wording changes — a shop is giving us a person to call. */}
+            <div className="join-field">
+              <label htmlFor="join-name">{active.nameLabel}</label>
+              <input id="join-name" name="name" type="text" autoComplete="name" required />
+            </div>
+
+            <div className="join-field">
               <label htmlFor="join-email">Email</label>
               <input id="join-email" name="email" type="email" autoComplete="email" required />
             </div>
 
-            {active.fields.map((f) => (
-              <div className="join-field" key={f.name}>
-                <label htmlFor={`join-${f.name}`}>{f.label}</label>
-                <input id={`join-${f.name}`} name={f.name} type={f.type ?? 'text'} />
-              </div>
-            ))}
+            {active.fields.map((f) => {
+              /* Keyed by mode as well as name so switching modes remounts the
+                 controls. Without it a select or a range that appears in two
+                 modes would keep the previous mode's answer. */
+              const key = `${mode}-${f.kind === 'range2' ? f.nameMin : f.name}`;
+
+              if (f.kind === 'select') {
+                return (
+                  <FieldSelect
+                    key={key}
+                    name={f.name}
+                    label={f.label}
+                    placeholder={f.placeholder}
+                    options={[...f.options]}
+                    wide={f.wide}
+                  />
+                );
+              }
+
+              if (f.kind === 'range2') {
+                return (
+                  <FieldRangeDual
+                    key={key}
+                    nameMin={f.nameMin}
+                    nameMax={f.nameMax}
+                    label={f.label}
+                    min={f.min}
+                    max={f.max}
+                    step={f.step}
+                    startLow={f.startLow}
+                    startHigh={f.startHigh}
+                    topLabel={f.topLabel}
+                    wide={f.wide}
+                  />
+                );
+              }
+
+              if (f.kind === 'range') {
+                return (
+                  <FieldRange
+                    key={key}
+                    name={f.name}
+                    label={f.label}
+                    min={f.min}
+                    max={f.max}
+                    step={f.step}
+                    start={f.start}
+                    format={f.format}
+                    topLabel={f.topLabel}
+                    wide={f.wide}
+                  />
+                );
+              }
+
+              return (
+                <div className={`join-field${f.wide ? ' is-wide' : ''}`} key={key}>
+                  <label htmlFor={`join-${f.name}`}>{f.label}</label>
+                  <input
+                    id={`join-${f.name}`}
+                    name={f.name}
+                    type="text"
+                    autoComplete={f.autoComplete}
+                    inputMode={f.numeric ? 'numeric' : undefined}
+                  />
+                </div>
+              );
+            })}
 
             <div className="join-field is-wide">
               <label htmlFor="join-note">{active.noteLabel}</label>
