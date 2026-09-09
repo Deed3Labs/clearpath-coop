@@ -19,9 +19,16 @@ export const HERO = {
   /* Two beats. The first answers the headline directly — the headline states
      the problem, so the lede has to be the reply to it, not a restatement in
      calmer words. The second is the whole co-op in one clause: what it is,
-     and what the money does. Everything else it used to carry — title, land,
-     the protocol — has its own section further down. */
-  lede: 'So we built the alternative. A cooperative where the rent you already pay buys equity in the home you live in.',
+     and what the money does.
+
+     Not "the home you live in": while you are renting you do not own that one
+     yet, and the equity is portable into another Clear home anyway, so tying
+     it to the current address is wrong twice over. "Toward a home of your
+     own" is the accurate direction — equity accrues to a gate, and title
+     comes after it. "Builds equity" is deliberate too: it is the phrase the
+     headline is arguing with. Everything else this line used to carry —
+     title, land, the protocol — has its own section below. */
+  lede: 'So we built the alternative. A cooperative where the rent you already pay builds equity toward a home of your own.',
   primary: { href: '/join', label: 'Join as a member' },
   ghost: { href: '/shops', label: 'Bring Clear to your shop' },
   /* The place comes last. The two facts above it are the ones that say what
